@@ -2,7 +2,7 @@
 *.apk
 *.ap_
 
-# DS_Store in OS X 10.8.5
+# DS_Store in OS X 10.8.5, test
 .DS_Store
 
 # Files for the Dalvik VM

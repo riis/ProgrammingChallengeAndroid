@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class ProgrammingChallengeActivity extends Activity
 {
-    /** Called when the activity is first created. */
+    /** Called when the activity is first created. silly change*/
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

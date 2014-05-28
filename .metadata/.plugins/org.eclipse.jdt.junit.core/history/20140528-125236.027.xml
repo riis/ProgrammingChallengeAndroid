@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="DisasterAppTest" project="DisasterAppTest" tests="0" started="0" failures="0" errors="0" ignored="0">
+  <testsuite name="Phone_Large [emulator-5554]" incomplete="true"/>
+</testrun>

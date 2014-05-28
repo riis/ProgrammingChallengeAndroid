@@ -1,0 +1,43 @@
+package com.riis.test;
+
+import android.app.Instrumentation.ActivityMonitor;
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.widget.Button;
+
+import com.riis.DisasterAppActivity;
+import com.riis.NewContactActivity;
+import com.riis.R;
+
+public class DisasterAppActivityTest 
+	extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
+	
+	private Button createContactScreenButton;
+
+	public DisasterAppActivityTest() {
+		super(DisasterAppActivity.class);
+	}
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		DisasterAppActivity disasterAppActivity = getActivity();
+		
+		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
+	}
+	
+	public void testCreateContactScreenButtonExists() {
+		assertNotNull(createContactScreenButton);
+	}
+	
+	public void testCreateContactButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this,  createContactScreenButton);
+		
+		monitor.waitForActivityWithTimeout(2000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
+}

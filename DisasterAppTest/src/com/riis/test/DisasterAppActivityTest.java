@@ -41,9 +41,9 @@ public class DisasterAppActivityTest
 	public void testCreateContactButtonIntent() {
 		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
 		
-		TouchUtils.clickView(this, ((View) createContactScreenButton));
+		TouchUtils.clickView(this, createContactScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(10000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);

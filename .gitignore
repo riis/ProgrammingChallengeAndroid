@@ -11,6 +11,9 @@
 # Java class files
 *.class
 
+# .metadata files
+.metadata
+
 # Generated files
 bin/
 gen/

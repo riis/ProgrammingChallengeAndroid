@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.riis.controllers.ContactDataSource;
@@ -17,6 +18,7 @@ public class NewContactActivity extends Activity
 	private EditText lastNameEditField;
 	private EditText emailEditField;
 	private EditText phoneEditField;
+	private String empty_field;
 	
     /** Called when the new contact button is pressed. */
 	@Override
@@ -24,6 +26,11 @@ public class NewContactActivity extends Activity
     {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
+
+        empty_field = "Field cannot be blank";
+
+
+
         
         dataSource = new ContactDataSource(this);
         dataSource.open();
@@ -40,6 +47,37 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
+
+		
+		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
+		{
+			firstNameEditField.setError(empty_field);
+		}
+		if (lastNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			lastNameEditField.setError(empty_field);
+		}
+		if (emailEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			emailEditField.setError(empty_field);
+		}
+		if (phoneEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			phoneEditField.setError(empty_field);
+		}
+		
+		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
+				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			
+		}
+		else 
+		{
+		Intent intent = new Intent(this, DisasterAppActivity.class);
+		startActivity(intent);
+		}
+		
+
 		Contact newContact =  new Contact();
 		newContact.setFirstName(firstNameEditField.getText().toString());
 		newContact.setLastName(lastNameEditField.getText().toString());
@@ -52,6 +90,8 @@ public class NewContactActivity extends Activity
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
+	
+	
 	
 	
 }

@@ -11,6 +11,7 @@
     <string name="phone_number_label">Phone Number</string>
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
+    <string name="empty_field">Field cannot be blank</string>
     
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>

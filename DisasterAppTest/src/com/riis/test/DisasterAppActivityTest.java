@@ -9,12 +9,14 @@ import android.widget.TextView;
 import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
+import com.riis.SendEmergencyMessageActivity;
 import com.riis.controllers.ContactDataSource;
 import com.riis.models.Contact;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
 	private Button createContactScreenButton;
+	private Button createEmergencyMessageScreenButton;
 	private TextView sampleLabel;
 	
 	private Contact contact;
@@ -30,6 +32,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		DisasterAppActivity disasterAppActivity = getActivity();
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
+		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
 		sampleLabel = (TextView) disasterAppActivity.findViewById(R.id.sampleLabel);
 		
 		contact = new Contact();
@@ -55,6 +58,17 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 //		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
 //		
 //		TouchUtils.clickView(this, createContactScreenButton);
+//		
+//		monitor.waitForActivityWithTimeout(5000);
+//		assertEquals(1, monitor.getHits());
+//		
+//		getInstrumentation().removeMonitor(monitor);
+//	}
+//	
+//	public void testCreateEmergencyMessageButtonIntent() {
+//		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
+//		
+//		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 //		
 //		monitor.waitForActivityWithTimeout(5000);
 //		assertEquals(1, monitor.getHits());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DisasterAppActivity</string>
-    <string name="createContactScreenButton">Create Contact</string>
+    <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="contact_info">contact info</string>
     
     <!--NewContactActivity strings -->
@@ -11,4 +11,8 @@
     <string name="phone_number_label">Phone Number</string>
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
+    
+    <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
+    <string name="sendEmergencyMessageButtonLabel">Send Message</string>
+    <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
 </resources>

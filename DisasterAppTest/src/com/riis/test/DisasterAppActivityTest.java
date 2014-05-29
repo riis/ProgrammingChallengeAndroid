@@ -10,9 +10,6 @@ import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 
-
-
-
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
 	private Button createContactScreenButton;
@@ -39,11 +36,13 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		assertNotNull(createContactScreenButton);
 	}
 	
+
 	public void testCreateContactButtonIntent() {
-		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
+		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, false);
+		
 		TouchUtils.clickView(this, createContactScreenButton);
 		
-		monitor.waitForActivityWithTimeout(10000);
+		monitor.waitForActivityWithTimeout(5000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);

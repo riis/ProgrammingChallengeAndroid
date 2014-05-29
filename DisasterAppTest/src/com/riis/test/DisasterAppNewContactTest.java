@@ -121,7 +121,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			@Override
 			public void run() 
 			{
-			lastNameEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
+			emailEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
 			}
 			
 		});
@@ -130,7 +130,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		assertEquals("bobby@yahoo.com", lastNameEditField.getText().toString());
+		assertEquals("bobby@yahoo.com", emailEditField.getText().toString());
 	}
 	
 	public void testphoneChangeTextField()
@@ -140,7 +140,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			@Override
 			public void run() 
 			{
-			lastNameEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
+			phoneEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
 			}
 			
 		});
@@ -149,7 +149,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		assertEquals("(586)000-1234", lastNameEditField.getText().toString());
+		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
 	

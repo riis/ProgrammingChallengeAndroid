@@ -17,7 +17,7 @@ public class DisasterAppActivity extends Activity{
         setContentView(R.layout.main);
     }
     
-    public void createContactScreen() {
+    public void createContactScreen(View view) {
     	Intent intent = new Intent(this, NewContactActivity.class);
     	startActivity(intent);
     }

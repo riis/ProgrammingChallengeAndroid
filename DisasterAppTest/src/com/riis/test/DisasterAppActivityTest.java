@@ -63,7 +63,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 //	}
 	
 	public void testCreateContact() {
-		Contact output = dataSource.createContact(contact);
+		dataSource.createContact(contact);
+		Contact output = dataSource.getContact();
 		dataSource.close();
 		assertEquals(output.getFirstName(), contact.getFirstName());
 		assertEquals(output.getLastName(), contact.getLastName());

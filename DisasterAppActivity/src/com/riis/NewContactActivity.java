@@ -5,14 +5,12 @@ import android.os.Bundle;
 
 public class NewContactActivity extends Activity
 {
+	
     /** Called when the new contact button is pressed. */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+	@Override
+	public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
     }
-    
-    
-    
 }

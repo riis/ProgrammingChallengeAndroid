@@ -21,6 +21,7 @@ public class NewContactActivity extends Activity
 	private EditText lastNameEditField;
 	private EditText emailEditField;
 	private EditText phoneEditField;
+	private String empty_field;
 	
     /** Called when the new contact button is pressed. */
 	@Override
@@ -28,6 +29,7 @@ public class NewContactActivity extends Activity
     {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
+        empty_field = "Field cannot be blank";
         cancelButton = (Button) findViewById(R.id.Cancel_button);
 		saveButton = (Button) findViewById(R.id.Save_button);
 		firstNameText = (TextView)findViewById(R.id.First_Name);
@@ -47,10 +49,38 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
+		
+		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
+		{
+			firstNameEditField.setError(empty_field);
+		}
+		if (lastNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			lastNameEditField.setError(empty_field);
+		}
+		if (emailEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			emailEditField.setError(empty_field);
+		}
+		if (phoneEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			phoneEditField.setError(empty_field);
+		}
+		
+		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
+				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+		{
+			
+		}
+		else 
+		{
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
+		}
 		
 	}
+	
+	
 	
 	
 }

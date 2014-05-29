@@ -152,6 +152,98 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
+/*	public void testEmptyFNField()			///Error are not testing properly///
+	{
+		// test the error message is not initially there
+		assertNull(firstNameEditField.getError());
+	
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				firstNameEditField.setText("");
+			}
+			
+		});
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		// find button and click it
+		TouchUtils.clickView(this, saveButton);
+		
+		assertNotNull(firstNameEditField.getError());
+
+	}
+	
+	public void testEmptyLNField()
+	{
+		// test the error message is not initially there
+		assertNull(lastNameEditField.getError());
+	
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				lastNameEditField.setText("");
+			}
+			
+		});
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		// find button and click it
+		TouchUtils.clickView(this, saveButton);
+		
+		assertNotNull(lastNameEditField.getError());
+
+	}
+	public void testEmptyEmailField()
+	{
+		// test the error message is not initially there
+		assertNull(emailEditField.getError());
+	
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				emailEditField.setText("");
+			}
+			
+		});
+		try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		// find button and click it
+		TouchUtils.clickView(this, saveButton);
+		
+		assertNotNull(emailEditField.getError());
+
+	}
+	
+	public void testEmptyPhoneField()
+	{
+		// test the error message is not initially there
+		assertNull(phoneEditField.getError());
+		
+		// find button and click it
+		TouchUtils.clickView(this, saveButton);
+		
+		assertEquals(getInstrumentation().getTargetContext().getResources().getString(
+				R.string.empty_field), phoneEditField.getError().toString());
+		
+	}
+	*/
+	
+	
 //	public void testCreateContactButtonIntent() {
 //		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
 //		

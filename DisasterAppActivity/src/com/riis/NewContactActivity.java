@@ -90,7 +90,33 @@ public class NewContactActivity extends Activity
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
-	
+	 public void NameErrorchecking()
+	 {
+		 if (firstNameEditField.getText().toString()) //not done
+			{
+				firstNameEditField.setError("Please enter a valid name");
+			}
+		if (lastNameEditField.getText().toString())  //not done
+			{
+				lastNameEditField.setError("Please enter a valid name");
+			}
+	 }
+	 
+	 public void EmailErrorChecking()
+	 {
+		 if (emailEditField.getText())
+			{
+				emailEditField.setError(empty_field);
+			}
+	 }
+	 
+	 public void PhoneErrorChecking()
+	 {
+			if (phoneEditField.getText())
+			{
+				phoneEditField.setError(empty_field);
+			} 
+	 }
 	
 	
 	

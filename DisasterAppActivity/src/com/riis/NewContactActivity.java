@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.riis.controllers.ContactDataSource;
+import com.riis.models.Contact;
 
 public class NewContactActivity extends Activity
 {
+	private ContactDataSource dataSource;
 	
-	private Button cancelButton;
-	private Button saveButton;
-	private TextView firstNameText;
-	private TextView lastNameText;
-	private TextView emailText;
-	private TextView phoneText;
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
 	private EditText emailEditField;
@@ -29,6 +25,7 @@ public class NewContactActivity extends Activity
     {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
+<<<<<<< HEAD
         empty_field = "Field cannot be blank";
         cancelButton = (Button) findViewById(R.id.Cancel_button);
 		saveButton = (Button) findViewById(R.id.Save_button);
@@ -36,11 +33,16 @@ public class NewContactActivity extends Activity
 		lastNameText = (TextView) findViewById(R.id.Last_Name);
 		emailText = (TextView) findViewById(R.id.Email_Address);
 		phoneText = (TextView) findViewById(R.id.Phone_Number);
+=======
+        
+        dataSource = new ContactDataSource(this);
+        dataSource.open();
+        
+>>>>>>> 5bb90b9e86fed25eb572f8185a717c9a91621371
 		firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);
 		emailEditField = (EditText) findViewById(R.id.email_address_editText);
 		phoneEditField = (EditText) findViewById(R.id.phone_number_editText);
-        
     }
 	
 	public void cancelCreateContact(View view) {
@@ -49,6 +51,7 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
+
 		
 		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
 		{
@@ -78,6 +81,18 @@ public class NewContactActivity extends Activity
 		startActivity(intent);
 		}
 		
+
+		Contact newContact =  new Contact();
+		newContact.setFirstName(firstNameEditField.getText().toString());
+		newContact.setLastName(lastNameEditField.getText().toString());
+		newContact.setEmailAddress(emailEditField.getText().toString());
+		newContact.setPhoneNumber(phoneEditField.getText().toString());
+		
+		dataSource.createContact(newContact);
+		dataSource.close();
+		
+		Intent intent = new Intent(this, DisasterAppActivity.class);
+		startActivity(intent);
 	}
 	
 	

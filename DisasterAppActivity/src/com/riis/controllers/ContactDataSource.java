@@ -46,6 +46,17 @@ public class ContactDataSource {
 		database.delete("contact", "id = "+ id, null);
 	}
 	
+	public Contact getContact() {
+		Contact contact = new Contact();
+		
+		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
+		
+		cursor.moveToLast();
+		contact = cursorToContact(cursor);
+		
+		return contact;
+	}
+	
 	private Contact cursorToContact(Cursor cursor) {
 		Contact contact = new Contact();
 		contact.setId(cursor.getLong(0));

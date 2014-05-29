@@ -3,16 +3,17 @@ package com.riis.test;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-//import com.riis.DisasterAppActivity;
+import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 
-public class DisasterAppActivityTest 
-	extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
+
+
+
+public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
 	private Button createContactScreenButton;
 	private TextView sampleLabel;

@@ -1,15 +1,13 @@
 package com.riis.test;
 
-//import android.app.Instrumentation.ActivityMonitor;
+import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
-//import android.test.TouchUtils;
+import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-
-//import com.riis.DisasterAppActivity;
+import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 
@@ -27,8 +25,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	private EditText phoneEditField;
 	private NewContactActivity newContactActivity;
 	
-	
-	
+
 	public DisasterAppNewContactTest() {
 		super(NewContactActivity.class);
 	}
@@ -155,5 +152,14 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
-	
+//	public void testCreateContactButtonIntent() {
+//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+//		
+//		TouchUtils.clickView(this, cancelButton);
+//		
+//		monitor.waitForActivityWithTimeout(5000);
+//		assertEquals(1, monitor.getHits());
+//		
+//		getInstrumentation().removeMonitor(monitor);
+//	}
 }

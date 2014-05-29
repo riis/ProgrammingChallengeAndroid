@@ -9,11 +9,16 @@ import android.widget.TextView;
 import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
+import com.riis.controllers.ContactDataSource;
+import com.riis.models.Contact;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
 	private Button createContactScreenButton;
 	private TextView sampleLabel;
+	
+	private Contact contact;
+	private ContactDataSource dataSource;
 
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
@@ -26,6 +31,16 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		sampleLabel = (TextView) disasterAppActivity.findViewById(R.id.sampleLabel);
+		
+		contact = new Contact();
+		contact = new Contact();
+		contact.setFirstName("Bob");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("5555555555");
+		
+		dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
 	}
 	
 	public void testSampleLabelExists() {
@@ -37,7 +52,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	}
 	
 //	public void testCreateContactButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, false);
+//		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
 //		
 //		TouchUtils.clickView(this, createContactScreenButton);
 //		
@@ -46,4 +61,13 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 //		
 //		getInstrumentation().removeMonitor(monitor);
 //	}
+	
+	public void testCreateContact() {
+		Contact output = dataSource.createContact(contact);
+		dataSource.close();
+		assertEquals(output.getFirstName(), contact.getFirstName());
+		assertEquals(output.getLastName(), contact.getLastName());
+		assertEquals(output.getEmailAddress(), contact.getEmailAddress());
+		assertEquals(output.getPhoneNumber(), contact.getPhoneNumber());
+	}
 }

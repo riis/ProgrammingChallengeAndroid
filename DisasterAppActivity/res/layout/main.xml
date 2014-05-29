@@ -2,16 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-    <TextView 
+    android:orientation="vertical" >
+
+    <TextView
         android:id="@+id/sampleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
-    <Button 
+        android:text="Hello World!" />
+
+    <Button
         android:id="@+id/createContactScreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createContactScreenButton"
-        android:onClick="createContactScreen"/>
+        android:onClick="createContactScreen"
+        android:text="@string/createContactScreenButton" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_info" />
+
 </LinearLayout>

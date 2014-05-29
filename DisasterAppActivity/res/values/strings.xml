@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">DisasterAppActivity</string>
     <string name="createContactScreenButton">Create Contact</string>
+    <string name="contact_info">contact info</string>
     
     <!--NewContactActivity strings -->
     <string name="first_name_label">First Name</string>

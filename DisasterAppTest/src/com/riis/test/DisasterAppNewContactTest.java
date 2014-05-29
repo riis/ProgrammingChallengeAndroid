@@ -26,6 +26,9 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	private EditText emailEditField;
 	private EditText phoneEditField;
 	private NewContactActivity newContactActivity;
+	
+	
+	
 	public DisasterAppNewContactTest() {
 		super(NewContactActivity.class);
 	}

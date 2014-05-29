@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        
          />
     
     <!--  - - - - - - - - - - - - - - - - - - last name   - - - - - - - - - - - - - - - - - - -->
@@ -72,12 +73,13 @@
         android:text="@string/cancel_button"
         android:onClick="cancelCreateContact" />
 
-     <Button
+    <Button
         android:id="@+id/Save_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-         android:layout_marginLeft="15dp"
-        android:text="@string/save_button" />
+        android:layout_marginLeft="15dp"
+        android:text="@string/save_button" 
+		android:onClick="saveCreateContact" />
 
 </TableRow>
 </LinearLayout>

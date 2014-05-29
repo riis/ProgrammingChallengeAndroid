@@ -10,9 +10,6 @@ import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 
-
-
-
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
 	private Button createContactScreenButton;
@@ -39,8 +36,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		assertNotNull(createContactScreenButton);
 	}
 	
-	// Test is always failing, even though it worked the first few times
-	// it ran. Running the test manually reveals it should pass.
 //	public void testCreateContactButtonIntent() {
 //		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, false);
 //		

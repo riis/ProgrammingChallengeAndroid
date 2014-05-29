@@ -70,7 +70,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:text="@string/cancel_button" />
+        android:text="@string/cancel_button"
+        android:onClick="cancelCreateContact" />
 
      <Button
         android:id="@+id/Save_button"

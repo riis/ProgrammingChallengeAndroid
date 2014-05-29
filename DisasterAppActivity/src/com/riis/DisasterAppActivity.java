@@ -20,6 +20,5 @@ public class DisasterAppActivity extends Activity{
     public void createContactScreen(View view) {
     	Intent intent = new Intent(this, NewContactActivity.class);
     	startActivity(intent);
-    	finish();
     }
 }

@@ -9,7 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.riis.controllers.ContactDataSource;
+import com.riis.models.ContactList;
+
 public class SendEmergencyMessageActivity extends Activity {
+	
+	private ContactDataSource dataSource;
 	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
@@ -42,11 +47,28 @@ public class SendEmergencyMessageActivity extends Activity {
 		};
 		
 		emergencyMessageField.addTextChangedListener(characterCount);
+		
+		dataSource = new ContactDataSource(this);
+		dataSource.open();
 	}
 	
 	public void cancelSendEmergencyMessage(View view) {
+		dataSource.close();
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
+	}
+	
+	public void sendEmergencyTextMessage(View view) {
+		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
+			ContactList contactList = new ContactList();
+			contactList.setContactList(dataSource.getContactList());
+			
+			String messageContent = prepareMessageToSend(emergencyMessageField.getText().toString());
+			
+			dataSource.close();
+			Intent intent = new Intent(this, DisasterAppActivity.class);
+			startActivity(intent);
+		}
 	}
 	
 	private String prepareMessageToSend(String message) {
@@ -54,7 +76,7 @@ public class SendEmergencyMessageActivity extends Activity {
 		return message;
 	}
 	
-	private boolean isValiedEmergencyMessage(String message) {
+	private boolean isValidEmergencyMessage(String message) {
 		if(message.length() > 120) {
 			emergencyMessageField.setError("Your message must be less then 120 characters!");
 			return false;

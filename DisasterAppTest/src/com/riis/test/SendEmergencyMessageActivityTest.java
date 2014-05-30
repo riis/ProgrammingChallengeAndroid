@@ -85,4 +85,27 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		getInstrumentation().removeMonitor(monitor);
 	}
 
+	public void testTextMessage() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				emergencyMessageField.setText("This is a test message.");
+			}
+		});
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TouchUtils.clickView(this, sendEmergencyMessageButton);
+		
+		
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 }

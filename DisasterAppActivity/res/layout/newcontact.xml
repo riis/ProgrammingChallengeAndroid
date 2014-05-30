@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/firstNameHint"
         android:inputType="textCapWords"
          />
     
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/lastNameHint"
         android:inputType="textCapWords"
 		 />
     <!--  - - - - - - - - - - - - - - - - - - email   - - - - - - - - - - - - - - - - - - -->
@@ -44,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/emailAddressHint"
         android:inputType="textEmailAddress"
          />
      <!--  - - - - - - - - - - - - - - - - - - phone number   - - - - - - - - - - - - - - - - - - -->
@@ -58,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/phoneNumberHint"
         android:inputType="phone"
         />
   <!-- - - - - - - - - - - - - - - - - - save and cancel buttons   - - - - - - - - - - - - - - - - - - -->

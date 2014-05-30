@@ -48,4 +48,18 @@ public class SendEmergencyMessageActivity extends Activity {
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
+	
+	private String prepareMessageToSend(String message) {
+		message += "Are you OK?";
+		return message;
+	}
+	
+	private boolean isValiedEmergencyMessage(String message) {
+		if(message.length() > 120) {
+			emergencyMessageField.setError("Your message must be less then 120 characters!");
+			return false;
+		}
+		
+		return true;
+	}
 }

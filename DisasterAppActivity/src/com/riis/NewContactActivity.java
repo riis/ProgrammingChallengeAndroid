@@ -74,6 +74,11 @@ public class NewContactActivity extends Activity
 			startActivity(intent);
 		}
 		
+		if(!isEmailValid(emailEditField.getText().toString()))
+		{
+			
+		}
+		
 		Contact newContact =  new Contact();
 		newContact.setFirstName(firstNameEditField.getText().toString());
 		newContact.setLastName(lastNameEditField.getText().toString());
@@ -86,7 +91,7 @@ public class NewContactActivity extends Activity
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
-	 public void NameErrorchecking()
+/*	 public void NameErrorchecking()
 	 {
 		 if (firstNameEditField.getText().toString()) //not done
 			{
@@ -96,17 +101,20 @@ public class NewContactActivity extends Activity
 			{
 				lastNameEditField.setError("Please enter a valid name");
 			}
-	 }
+	 }*/
 	 
-	 public void EmailErrorChecking()
+	 public boolean isEmailValid(CharSequence email)
 	 {
-		 if (emailEditField.getText())
-			{
-				emailEditField.setError(empty_field);
-			}
+		 return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 	 }
 	 
-	 public void PhoneErrorChecking()
+	 public boolean isPhoneValid(CharSequence phone)
+	 {
+		 return android.util.Patterns.PHONE.matcher(phone).matches();
+	 }
+	 
+	 
+/*	 public void PhoneErrorChecking()
 	 {
 			if (phoneEditField.getText())
 			{
@@ -114,6 +122,6 @@ public class NewContactActivity extends Activity
 			} 
 	 }
 	
-	
+	*/
 	
 }

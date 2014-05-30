@@ -23,7 +23,8 @@ public class DisasterAppActivity extends Activity{
         dataSource.open();
         Contact contact = new Contact();
         try {
-        	contact = dataSource.getContact();
+   
+          	contact = dataSource.getContact();
         } catch (Exception e) {
         	
         }
@@ -41,7 +42,7 @@ public class DisasterAppActivity extends Activity{
     	startActivity(intent);
     }
     
-    public void createEmergencyMessageScreen(View view) {
+   public void createEmergencyMessageScreen(View view) {
     	Intent intent = new Intent(this, SendEmergencyMessageActivity.class);
     	startActivity(intent);
     }

@@ -152,6 +152,33 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
+	
+	public void testValidEmail()
+	{
+		
+		assertTrue(newContactActivity.isEmailValid("alice@yahoo.com"));
+		assertTrue(newContactActivity.isEmailValid("Robert24@gmail.edu"));
+		assertFalse(newContactActivity.isEmailValid("Robert24@jupiterjupiter"));
+		assertFalse(newContactActivity.isEmailValid("SussieQ!@yahoo.com"));
+		assertFalse(newContactActivity.isEmailValid("alice"));
+		assertFalse(newContactActivity.isEmailValid("@yahoo.com"));
+		
+		
+	}
+	public void testValidPhone()
+	{
+		assertTrue(newContactActivity.isPhoneValid("5550001234"));
+		assertTrue(newContactActivity.isPhoneValid("101-202-6789"));
+		assertTrue(newContactActivity.isPhoneValid("(586)202-6789"));
+		assertTrue(newContactActivity.isPhoneValid("101-202"));
+		assertFalse(newContactActivity.isPhoneValid("alice"));
+		assertFalse(newContactActivity.isPhoneValid("123"));
+		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
+
+		
+		
+	}
+	
 /*	public void testEmptyFNField()			///Error are not testing properly///
 	{
 		// test the error message is not initially there

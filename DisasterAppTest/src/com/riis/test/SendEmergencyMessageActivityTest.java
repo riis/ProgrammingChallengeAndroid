@@ -84,5 +84,16 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		
 		getInstrumentation().removeMonitor(monitor);
 	}
+	
+	public void testSendEmergencyMessageButtonIntent() {
+		
+		TouchUtils.clickView(this, sendEmergencyMessageButton);
+		sendEmergencyMessageActivity.sendEmergencyMessage("5869336419");
+		
+		
+		//ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		//monitor.waitForActivityWithTimeout(5000);
+		//getInstrumentation().removeMonitor(monitor);
+	}
 
 }

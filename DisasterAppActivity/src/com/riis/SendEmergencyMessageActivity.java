@@ -2,12 +2,18 @@ package com.riis;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.riis.models.*;
+import com.riis.controllers.*;
+
 
 public class SendEmergencyMessageActivity extends Activity {
 	
@@ -47,5 +53,18 @@ public class SendEmergencyMessageActivity extends Activity {
 	public void cancelSendEmergencyMessage(View view) {
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
+	}
+	
+	public void sendEmergencyMessage( String message, String phoneNumber) {
+		
+		SmsManager sms = SmsManager.getDefault();
+		sms.sendTextMessage(phoneNumber, null, message, null, null);
+		//sms.sendTextMessage(destinationAddress, scAddress, text, sentIntent, deliveryIntent);
+		
+		
+		
+		
+	//	Intent intent = new Intent(this, DisasterAppActivity.class);
+	//	startActivity(intent);
 	}
 }

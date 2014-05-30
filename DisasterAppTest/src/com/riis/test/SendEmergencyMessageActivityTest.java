@@ -22,6 +22,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
+	private String[] randomPhoneNumbersForTesting = new String[5];
 	
 	private ContactDataSource dataSource;
 	
@@ -114,8 +115,24 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 			}
 		});
 		
+<<<<<<< HEAD
 		monitor.waitForActivityWithTimeout(5000);
 		//TouchUtils.clickView(this, sendEmergencyMessageButton);
+=======
+		randomPhoneNumbersForTesting[0]="5869332211";
+		randomPhoneNumbersForTesting[1]="0001234567";
+
+		randomPhoneNumbersForTesting[2]="0001234567";
+
+		randomPhoneNumbersForTesting[3]="0001234567";
+
+		randomPhoneNumbersForTesting[4]="0001234567";
+
+		sendEmergencyMessageActivity.sendEmergencyMessage(randomPhoneNumbersForTesting);
+		assertEquals("This is a test message", sendEmergencyMessageActivity.getMessageBack());
+		assertEquals("5869332211", sendEmergencyMessageActivity.getFirstPhoneNumberBack());
+		assertEquals("0001234567", sendEmergencyMessageActivity.getLastPhoneNumberBack());
+>>>>>>> e9beff67f594e562795e3376d4649fbd937f9902
 		
 		sendEmergencyMessageActivity.sendEmergencyMessage("5556");
 		assertEquals("This is a test message.Are you OK?", emergencyMessageField.getText().toString());

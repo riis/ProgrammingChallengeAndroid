@@ -3,6 +3,7 @@ package com.riis;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -64,6 +65,13 @@ public class SendEmergencyMessageActivity extends Activity {
 			contactList.setContactList(dataSource.getContactList());
 			
 			String messageContent = prepareMessageToSend(emergencyMessageField.getText().toString());
+			
+			SmsManager sms = SmsManager.getDefault();
+			
+			for(int i = 0; i < contactList.size(); i++) {
+				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
+			}
+			
 			
 			dataSource.close();
 			Intent intent = new Intent(this, DisasterAppActivity.class);

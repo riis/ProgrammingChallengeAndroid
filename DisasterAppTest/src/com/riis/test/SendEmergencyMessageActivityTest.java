@@ -20,6 +20,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
+	private String[] randomPhoneNumbersForTesting = new String[5];
 	
 	private MockTextMessage fakeText;
 	
@@ -105,9 +106,19 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		});
 		monitor.waitForActivityWithTimeout(5000);
 		
-		sendEmergencyMessageActivity.sendEmergencyMessage("5869336419");
+		randomPhoneNumbersForTesting[0]="5869332211";
+		randomPhoneNumbersForTesting[1]="0001234567";
+
+		randomPhoneNumbersForTesting[2]="0001234567";
+
+		randomPhoneNumbersForTesting[3]="0001234567";
+
+		randomPhoneNumbersForTesting[4]="0001234567";
+
+		sendEmergencyMessageActivity.sendEmergencyMessage(randomPhoneNumbersForTesting);
 		assertEquals("This is a test message", sendEmergencyMessageActivity.getMessageBack());
-		assertEquals("5869336419", sendEmergencyMessageActivity.getPhoneNumberBack());
+		assertEquals("5869332211", sendEmergencyMessageActivity.getFirstPhoneNumberBack());
+		assertEquals("0001234567", sendEmergencyMessageActivity.getLastPhoneNumberBack());
 		
 		
 		getInstrumentation().removeMonitor(monitor);

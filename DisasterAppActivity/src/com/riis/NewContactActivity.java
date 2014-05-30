@@ -20,7 +20,6 @@ public class NewContactActivity extends Activity
 	private EditText phoneEditField;
 	private String empty_field;
 	
-    /** Called when the new contact button is pressed. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
@@ -29,9 +28,6 @@ public class NewContactActivity extends Activity
 
         empty_field = "Field cannot be blank";
 
-
-
-        
         dataSource = new ContactDataSource(this);
         dataSource.open();
         
@@ -42,12 +38,12 @@ public class NewContactActivity extends Activity
     }
 	
 	public void cancelCreateContact(View view) {
+		dataSource.close();
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
 	
 	public void saveCreateContact(View view) {
-
 		
 		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
 		{
@@ -73,11 +69,11 @@ public class NewContactActivity extends Activity
 		}
 		else 
 		{
-		Intent intent = new Intent(this, DisasterAppActivity.class);
-		startActivity(intent);
+			dataSource.close();
+			Intent intent = new Intent(this, DisasterAppActivity.class);
+			startActivity(intent);
 		}
 		
-
 		Contact newContact =  new Contact();
 		newContact.setFirstName(firstNameEditField.getText().toString());
 		newContact.setLastName(lastNameEditField.getText().toString());

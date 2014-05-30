@@ -21,7 +21,12 @@ public class DisasterAppActivity extends Activity{
         
         dataSource = new ContactDataSource(this);
         dataSource.open();
-        Contact contact = dataSource.getContact();
+        Contact contact = new Contact();
+        try {
+        	contact = dataSource.getContact();
+        } catch (Exception e) {
+        	
+        }
         dataSource.close();
         
         TextView contactView = (TextView) findViewById(R.id.sampleLabel);

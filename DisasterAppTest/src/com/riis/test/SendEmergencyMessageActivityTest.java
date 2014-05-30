@@ -14,9 +14,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	
 	private Button cancelEmergencyMessageButton;
 	private Button sendEmergencyMessageButton;
-	
 	private EditText emergencyMessageField;
-	
 	private TextView characterCountLabel;
 	
 	public SendEmergencyMessageActivityTest() {
@@ -38,19 +36,19 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.characterCountLabel);
 	}
 	
-	public void testCancelEmergencyMessageButton() {
+	public void testCancelEmergencyMessageButtonExists() {
 		assertNotNull(cancelEmergencyMessageButton);
 	}
 	
-	public void testSendEmergencyMessageButton() {
+	public void testSendEmergencyMessageButtonExists() {
 		assertNotNull(sendEmergencyMessageButton);
 	}
 	
-	public void testEmergencyMessageField() {
+	public void testEmergencyMessageFieldExists() {
 		assertNotNull(emergencyMessageField);
 	}
 	
-	public void testCharacterCountLabel() {
+	public void testCharacterCountLabelExists() {
 		assertNotNull(characterCountLabel);
 	}
 	

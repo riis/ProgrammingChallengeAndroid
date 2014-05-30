@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.riis.DisasterAppActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
+import com.riis.controllers.ContactDataSource;
 import com.riis.mocks.MockTextMessage;
+import com.riis.models.ContactList;
 
 public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTestCase2<SendEmergencyMessageActivity> {
 	
@@ -21,6 +23,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
 	private String[] randomPhoneNumbersForTesting = new String[5];
+	
+	private ContactDataSource dataSource;
 	
 	private MockTextMessage fakeText;
 	
@@ -43,6 +47,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.characterCountLabel);
 		
 		fakeText = new MockTextMessage();
+		
+		dataSource = new ContactDataSource(sendEmergencyMessageActivity.getApplicationContext());
 	}
 	
 	public void testCancelEmergencyMessageButtonExists() {
@@ -92,27 +98,30 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	}
 	
 	public void testSendEmergencyMessageButtonIntent() {
-		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
+		dataSource.open();
+		ContactList contactList = new ContactList();
+		contactList.setContactList(dataSource.getContactList());
+		dataSource.close();
 		
-		TouchUtils.clickView(this, sendEmergencyMessageButton);
+		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
 		
 		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
 		{
 			@Override
 			public void run() 
 			{
-				emergencyMessageField.setText("This is a test message");
+				emergencyMessageField.setText("This is a test message.");
+				sendEmergencyMessageButton.performClick();
 			}
 		});
-		monitor.waitForActivityWithTimeout(5000);
 		
+		monitor.waitForActivityWithTimeout(5000);
+		//TouchUtils.clickView(this, sendEmergencyMessageButton);
+
 		randomPhoneNumbersForTesting[0]="5869332211";
-		randomPhoneNumbersForTesting[1]="0001234567";
-
+		randomPhoneNumbersForTesting[1]="1001234567";
 		randomPhoneNumbersForTesting[2]="0001234567";
-
 		randomPhoneNumbersForTesting[3]="0001234567";
-
 		randomPhoneNumbersForTesting[4]="0001234567";
 
 		sendEmergencyMessageActivity.sendEmergencyMessage(randomPhoneNumbersForTesting);
@@ -120,8 +129,28 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		assertEquals("5869332211", sendEmergencyMessageActivity.getFirstPhoneNumberBack());
 		assertEquals("0001234567", sendEmergencyMessageActivity.getLastPhoneNumberBack());
 		
+		sendEmergencyMessageActivity.sendEmergencyMessage();
+		assertEquals("This is a test message.Are you OK?", emergencyMessageField.getText().toString());
+		assertEquals("5556", sendEmergencyMessageActivity.getPhoneNumberBack());
 		
 		getInstrumentation().removeMonitor(monitor);
 	}
 
+	public void testTextMessage() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				emergencyMessageField.setText("This is a test message.");
+			}
+		});
+		
+		TouchUtils.clickView(this, sendEmergencyMessageButton);
+		
+		
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 }

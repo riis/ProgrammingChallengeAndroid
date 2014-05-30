@@ -2,7 +2,6 @@ package com.riis;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Editable;
@@ -11,11 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.riis.models.*;
-import com.riis.controllers.*;
-
+import com.riis.controllers.ContactDataSource;
+import com.riis.models.ContactList;
 
 public class SendEmergencyMessageActivity extends Activity {
+	
+	private ContactDataSource dataSource;
 	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
@@ -50,28 +50,50 @@ public class SendEmergencyMessageActivity extends Activity {
 		};
 		
 		emergencyMessageField.addTextChangedListener(characterCount);
+		
+		dataSource = new ContactDataSource(this);
+		dataSource.open();
 	}
 	
 	public void cancelSendEmergencyMessage(View view) {
+		dataSource.close();
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
 	
-
-	public void sendEmergencyMessage( String[] phoneNumbers) {
-		theMessage=emergencyMessageField.getText().toString();
-		theListOfPhoneNumbers = new String[phoneNumbers.length];
-		SmsManager sms = SmsManager.getDefault();
- //----send the message to everyone in the list-----//
-		for(int i = 0; i<phoneNumbers.length;i++)
-		{
-		sms.sendTextMessage(phoneNumbers[i], null, theMessage, null, null);
-		theListOfPhoneNumbers[i]=phoneNumbers[i];
+	public void sendEmergencyMessage(View view) {
+		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
+			ContactList contactList = new ContactList();
+			contactList.setContactList(dataSource.getContactList());
+			
+			String messageContent = prepareMessageToSend(emergencyMessageField.getText().toString());
+			
+			SmsManager sms = SmsManager.getDefault();
+			
+			for(int i = 0; i < contactList.size(); i++) {
+				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
+			}
+			dataSource.close();
+			Intent intent = new Intent(this, DisasterAppActivity.class);
+			startActivity(intent);
 		}
-		
-	//	Intent intent = new Intent(this, DisasterAppActivity.class);
-	//	startActivity(intent);
-}
+	}
+	
+
+//	public void sendEmergencyMessage( String[] phoneNumbers) {
+//		theMessage=emergencyMessageField.getText().toString();
+//		theListOfPhoneNumbers = new String[phoneNumbers.length];
+//		SmsManager sms = SmsManager.getDefault();
+// //----send the message to everyone in the list-----//
+//		for(int i = 0; i<phoneNumbers.length;i++)
+//		{
+//			sms.sendTextMessage(phoneNumbers[i], null, theMessage, null, null);
+//			theListOfPhoneNumbers[i]=phoneNumbers[i];
+//		}
+//		
+//	//	Intent intent = new Intent(this, DisasterAppActivity.class);
+//	//	startActivity(intent);
+//}
 	private String prepareMessageToSend(String message) {
 		message += "Are you OK?";
 		return message;

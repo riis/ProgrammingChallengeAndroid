@@ -37,6 +37,7 @@ public class ContactDataSource {
 		values.put("phoneNumber", contact.getPhoneNumber());
 		
 		long insertId = database.insert("contact", null, values);
+		
 		Cursor cursor = database.query("contact", allColumns, "_id = "+ insertId, null, null, null, null);
 		cursor.moveToFirst();
 		contact = convertCursorToContact(cursor);

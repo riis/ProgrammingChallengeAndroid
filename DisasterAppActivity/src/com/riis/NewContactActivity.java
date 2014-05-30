@@ -20,6 +20,11 @@ public class NewContactActivity extends Activity
 	private static final String HYPHEN_PHONE_NUMBER_PATTERN = "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
 	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
 	
+	private static final String FIRST_NAME_ERROR = "Please enter your contact's first name!";
+	private static final String LAST_NAME_ERROR = "Please enter your contact's last name!";
+	private static final String EMAIL_ADDRESS_ERROR = "Please enter a valid email address!";
+	private static final String PHONE_NUMBER_ERROR = "Please enter a valid phone number!";
+	
 	private ContactDataSource dataSource;
 	
 	private EditText firstNameEditField;
@@ -59,66 +64,38 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
-
-////// check if any fields are blank/////////////////		
-		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
-		{
-			firstNameEditField.setError(empty_field);
-		}
-		if (lastNameEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			lastNameEditField.setError(empty_field);
-		}
-		if (emailEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			emailEditField.setError(empty_field);
-		}
-		if (phoneEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			phoneEditField.setError(empty_field);
-		}
-		
-////// check if any fields are invalid by any means/////////////////		
-		if (isNameValid(firstNameEditField.getText().toString())) 
-		{
+//
+//		if (isBlank(firstNameEditField.getText().toString()))
+//			firstNameEditField.setError(empty_field);
+//		else if (isBlank(lastNameEditField.getText().toString()))
+//			lastNameEditField.setError(empty_field);
+//		else if (isBlank(emailEditField.getText().toString()))
+//			emailEditField.setError(empty_field);
+//		else if (isBlank(phoneEditField.getText().toString()))
+//			phoneEditField.setError(empty_field);
+//		
+		if (!isNameValid(firstNameEditField.getText().toString())) 
 			firstNameEditField.setError(name_error_field);
-		}
-		if (isNameValid(lastNameEditField.getText().toString())) 
-		{
+		else if (!isNameValid(lastNameEditField.getText().toString())) 
 			lastNameEditField.setError(name_error_field);
-		}
-		if (isEmailValid(emailEditField.getText().toString())) 
-		{
+		else if (!isEmailValid(emailEditField.getText().toString())) 
 			emailEditField.setError(email_error_field);
-		}
-		if (isPhoneValid(phoneEditField.getText().toString())) 
-		{
+		else if (!isPhoneValid(phoneEditField.getText().toString())) 
 			phoneEditField.setError(phone_error_field);
-		}
-		
-		
-		if (!phoneEditField.getText().toString().trim().equalsIgnoreCase("") | !emailEditField.getText().toString().trim().equalsIgnoreCase("") |
-				!lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | !firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
+		 else {
+			Contact newContact =  new Contact();
+			newContact.setFirstName(firstNameEditField.getText().toString());
+			newContact.setLastName(lastNameEditField.getText().toString());
+			newContact.setEmailAddress(emailEditField.getText().toString());
+			newContact.setPhoneNumber(phoneEditField.getText().toString());
+			
+			dataSource.createContact(newContact);
+
 			dataSource.close();
+			
 			Intent intent = new Intent(this, DisasterAppActivity.class);
 			startActivity(intent);
 		}
-		else 
-		{
-			
-		}
-		
-		
-		
-		Contact newContact =  new Contact();
-		newContact.setFirstName(firstNameEditField.getText().toString());
-		newContact.setLastName(lastNameEditField.getText().toString());
-		newContact.setEmailAddress(emailEditField.getText().toString());
-		newContact.setPhoneNumber(phoneEditField.getText().toString());
-		
-		dataSource.createContact(newContact);
-		dataSource.close();
 		
 	}
 
@@ -146,7 +123,10 @@ public class NewContactActivity extends Activity
 		 return false;
      }
 	 
-	
-	
-	
+//	 private boolean isBlank(String input) {
+//		 if(input.equals("") || input.equals(" "))
+//			 return true;
+//		 
+//		 return false;
+//	 }
 }

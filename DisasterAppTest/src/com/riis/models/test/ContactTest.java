@@ -19,8 +19,8 @@ public class ContactTest extends TestCase {
 	}
 	
 	public void testNewId() {
-		newContact.setId(1);
-		assertEquals(1, newContact.getId());
+		newContact.setId(1L);
+		assertEquals(1L, (long) newContact.getId());
 	}
 	
 	public void testNewFirstName() {
@@ -44,7 +44,7 @@ public class ContactTest extends TestCase {
 	}
 	
 	public void testInitialId() {
-		assertEquals(0, newContact.getId());
+		assertEquals(0L, (long) newContact.getId());
 	}
 	
 	public void testInitialFirstName() {

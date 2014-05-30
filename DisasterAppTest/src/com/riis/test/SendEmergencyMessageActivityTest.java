@@ -1,10 +1,13 @@
 package com.riis.test;
 
+import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.riis.DisasterAppActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 
@@ -69,6 +72,17 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		}
 		
 		assertEquals(98, Integer.parseInt(characterCountLabel.getText().toString()));
+	}
+	
+	public void testCancelEmergencyMessageButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, cancelEmergencyMessageButton);
+		
+		monitor.waitForActivityWithTimeout(5000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
 	}
 
 }

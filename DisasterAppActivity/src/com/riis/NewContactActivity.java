@@ -54,34 +54,34 @@ public class NewContactActivity extends Activity
 	
 	public void saveCreateContact(View view) {
 		
-		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
-		{
-			firstNameEditField.setError(empty_field);
-		}
-		if (lastNameEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			lastNameEditField.setError(empty_field);
-		}
-		if (emailEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			emailEditField.setError(empty_field);
-		}
-		if (phoneEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			phoneEditField.setError(empty_field);
-		}
-		
-		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
-				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			
-		}
-		else 
-		{
-			dataSource.close();
-			Intent intent = new Intent(this, DisasterAppActivity.class);
-			startActivity(intent);
-		}
+//		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
+//		{
+//			firstNameEditField.setError(empty_field);
+//		}
+//		if (lastNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+//		{
+//			lastNameEditField.setError(empty_field);
+//		}
+//		if (emailEditField.getText().toString().trim().equalsIgnoreCase(""))
+//		{
+//			emailEditField.setError(empty_field);
+//		}
+//		if (phoneEditField.getText().toString().trim().equalsIgnoreCase(""))
+//		{
+//			phoneEditField.setError(empty_field);
+//		}
+//		
+//		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
+//				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
+//		{
+//			
+//		}
+//		else 
+//		{
+//			dataSource.close();
+//			Intent intent = new Intent(this, DisasterAppActivity.class);
+//			startActivity(intent);
+//		}
 		
 		Contact newContact =  new Contact();
 		newContact.setFirstName(firstNameEditField.getText().toString());
@@ -95,33 +95,33 @@ public class NewContactActivity extends Activity
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
-	 public void NameErrorchecking()
-	 {
-		 if (firstNameEditField.getText().toString()) //not done
-			{
-				firstNameEditField.setError("Please enter a valid name");
-			}
-		if (lastNameEditField.getText().toString())  //not done
-			{
-				lastNameEditField.setError("Please enter a valid name");
-			}
-	 }
-	 
-	 public void EmailErrorChecking()
-	 {
-		 if (emailEditField.getText())
-			{
-				emailEditField.setError(empty_field);
-			}
-	 }
-	 
-	 public void PhoneErrorChecking()
-	 {
-			if (phoneEditField.getText())
-			{
-				phoneEditField.setError(empty_field);
-			} 
-	 }
+//	 public void NameErrorchecking()
+//	 {
+//		 if (firstNameEditField.getText().toString()) //not done
+//			{
+//				firstNameEditField.setError("Please enter a valid name");
+//			}
+//		if (lastNameEditField.getText().toString())  //not done
+//			{
+//				lastNameEditField.setError("Please enter a valid name");
+//			}
+//	 }
+//	 
+//	 public void EmailErrorChecking()
+//	 {
+//		 if (emailEditField.getText())
+//			{
+//				emailEditField.setError(empty_field);
+//			}
+//	 }
+//	 
+//	 public void PhoneErrorChecking()
+//	 {
+//			if (phoneEditField.getText())
+//			{
+//				phoneEditField.setError(empty_field);
+//			} 
+//	 }
 	
 	
 	

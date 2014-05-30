@@ -1,9 +1,11 @@
 package com.riis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,5 +43,9 @@ public class SendEmergencyMessageActivity extends Activity {
 		
 		emergencyMessageField.addTextChangedListener(characterCount);
 	}
-
+	
+	public void cancelSendEmergencyMessage(View view) {
+		Intent intent = new Intent(this, DisasterAppActivity.class);
+		startActivity(intent);
+	}
 }

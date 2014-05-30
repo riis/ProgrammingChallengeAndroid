@@ -1,5 +1,8 @@
 package com.riis.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,14 +39,14 @@ public class ContactDataSource {
 		long insertId = database.insert("contact", null, values);
 		Cursor cursor = database.query("contact", allColumns, "_id = "+ insertId, null, null, null, null);
 		cursor.moveToFirst();
-		Contact newContact = cursorToContact(cursor);
+		contact = convertCursorToContact(cursor);
 		cursor.close();
-		return newContact;
+		return contact;
 	}
 	
 	public void deleteContact(Contact contact) {
 		long id = contact.getId();
-		database.delete("contact", "id = "+ id, null);
+		database.delete("contact", "_id = "+ id, null);
 	}
 	
 	public Contact getContact() {
@@ -52,12 +55,28 @@ public class ContactDataSource {
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
 		
 		cursor.moveToLast();
-		contact = cursorToContact(cursor);
+		contact = convertCursorToContact(cursor);
+		cursor.close();
 		
 		return contact;
 	}
 	
-	private Contact cursorToContact(Cursor cursor) {
+	public List<Contact> getContactList() {
+		List<Contact> contacts = new ArrayList<Contact>();
+		
+		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
+		
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			contacts.add(convertCursorToContact(cursor));
+			cursor.moveToNext();
+		}
+		
+		cursor.close();
+		return contacts;
+	}
+	
+	private Contact convertCursorToContact(Cursor cursor) {
 		Contact contact = new Contact();
 		contact.setId(cursor.getLong(0));
 		contact.setFirstName(cursor.getString(1));

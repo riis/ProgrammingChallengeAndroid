@@ -97,22 +97,19 @@ public class NewContactActivity extends Activity
 		}
 		
 		
-		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
-				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
-		{
-			
-		}
-		else 
+		if (!phoneEditField.getText().toString().trim().equalsIgnoreCase("") | !emailEditField.getText().toString().trim().equalsIgnoreCase("") |
+				!lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | !firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
 		{
 			dataSource.close();
 			Intent intent = new Intent(this, DisasterAppActivity.class);
 			startActivity(intent);
 		}
-		
-		if(!isEmailValid(emailEditField.getText().toString()))
+		else 
 		{
 			
 		}
+		
+		
 		
 		Contact newContact =  new Contact();
 		newContact.setFirstName(firstNameEditField.getText().toString());
@@ -123,8 +120,6 @@ public class NewContactActivity extends Activity
 		dataSource.createContact(newContact);
 		dataSource.close();
 		
-		Intent intent = new Intent(this, DisasterAppActivity.class);
-		startActivity(intent);
 	}
 
 

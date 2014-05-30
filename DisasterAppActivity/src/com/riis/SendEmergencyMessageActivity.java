@@ -77,7 +77,7 @@ public class SendEmergencyMessageActivity extends Activity {
 		return message;
 	}
 	
-	private boolean isValiedEmergencyMessage(String message) {
+	private boolean isValidEmergencyMessage(String message) {
 		if(message.length() > 120) {
 			emergencyMessageField.setError("Your message must be less then 120 characters!");
 			return false;

@@ -128,7 +128,7 @@ public class NewContactActivity extends Activity
 	}
 
 
-	private boolean isNameValid(String name)
+	public boolean isNameValid(String name)
 	 {
 		 if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
 				 | name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN)  )
@@ -137,12 +137,12 @@ public class NewContactActivity extends Activity
 		 return false;
 	 } 
 	
-	 private boolean isEmailValid(String email)
+	 public boolean isEmailValid(String email)
 	 {
 		 return email.matches(EMAIL_ADDRESS_PATTERN);
 	 }
 	  
-	 private boolean isPhoneValid(String phone)
+	 public boolean isPhoneValid(String phone)
 	 {
 		 if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
 				 | phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )

@@ -12,7 +12,7 @@ import com.riis.NewContactActivity;
 import com.riis.R;
 
 public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<NewContactActivity>{
-
+	
 	private Button cancelButton;
 	private Button saveButton;
 	private TextView firstNameText;
@@ -24,13 +24,13 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	private EditText emailEditField;
 	private EditText phoneEditField;
 	private NewContactActivity newContactActivity;
+		
 	
-
 	public DisasterAppNewContactTest() {
 		super(NewContactActivity.class);
 	}
 	
-   protected void setUp() throws Exception {
+	protected void setUp() throws Exception {
 		super.setUp();
 		newContactActivity = getActivity();
 		cancelButton = (Button) newContactActivity.findViewById(R.id.Cancel_button);
@@ -44,13 +44,13 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		emailEditField = (EditText) newContactActivity.findViewById(R.id.email_address_editText);
 		phoneEditField = (EditText) newContactActivity.findViewById(R.id.phone_number_editText);
 	}
-	
-   public void testCancelButtonExists() 
+		
+	public void testCancelButtonExists() 
 	{
 		assertNotNull(cancelButton);
 	}
    
-   public void testSaveButtonExists() 
+	public void testSaveButtonExists() 
 	{
 		assertNotNull(saveButton);
 	}
@@ -58,22 +58,21 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	public void testFirstNameLabel()
 	{
 		assertNotNull(firstNameText);
-
 	}
+	
 	public void testLastNameLabel()
-	{
+    {
 		assertNotNull(lastNameText);
-
-	}
+    }
+	
 	public void testEmailLabel()
 	{
 		assertNotNull(emailText);
-
 	}
+	
 	public void testPhoneLabel()
 	{
 		assertNotNull(phoneText);
-		
 	}
 	
 	public void testFirstNameChangeTextField()
@@ -84,16 +83,16 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			public void run() 
 			{
 			firstNameEditField.setText("Bob", TextView.BufferType.EDITABLE);
-			}
-			
-		});
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
-		assertEquals("Bob", firstNameEditField.getText().toString());
+		
+	});
+	try {
+		Thread.sleep(500);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
 	}
+	assertEquals("Bob", firstNameEditField.getText().toString());
+}
 	
 	public void testLastNameChangeTextField()
 	{
@@ -162,9 +161,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertTrue(newContactActivity.isNameValid("ghangis'khan"));
 		assertTrue(newContactActivity.isNameValid("williams-Berr"));
 		assertTrue(newContactActivity.isNameValid("Williams Berr"));
-
 	}
-	
 	
 	public void testValidEmail()
 	{
@@ -175,9 +172,8 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertFalse(newContactActivity.isEmailValid("SussieQ!@yahoo.com"));
 		assertFalse(newContactActivity.isEmailValid("alice"));
 		assertFalse(newContactActivity.isEmailValid("@yahoo.com"));
-		
-		
 	}
+	
 	public void testValidPhone()
 	{
 		assertTrue(newContactActivity.isPhoneValid("5550001234"));
@@ -187,11 +183,6 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertFalse(newContactActivity.isPhoneValid("alice"));
 		assertFalse(newContactActivity.isPhoneValid("123"));
 		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
-		
-		
-
-		
-		
 	}
 	
 /*	public void testEmptyFNField()			///Error are not testing properly///
@@ -284,16 +275,26 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		
 	}
 	*/
+
+	public void testSaveButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, saveButton);
+		
+		monitor.waitForActivityWithTimeout(1000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 	
-	
-//	public void testCreateContactButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-//		
-//		TouchUtils.clickView(this, cancelButton);
-//		
-//		monitor.waitForActivityWithTimeout(5000);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
-//	}
+	public void testCreateContactButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, cancelButton);
+		
+		monitor.waitForActivityWithTimeout(5000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 }

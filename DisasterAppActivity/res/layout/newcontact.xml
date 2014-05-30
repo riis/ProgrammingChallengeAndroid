@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        
+        android:inputType="textCapWords"
          />
     
     <!--  - - - - - - - - - - - - - - - - - - last name   - - - - - - - - - - - - - - - - - - -->
@@ -30,9 +29,8 @@
         android:id="@+id/last_name_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="textPersonName"
-        
+        android:ems="10"
+        android:inputType="textCapWords"
 		 />
     <!--  - - - - - - - - - - - - - - - - - - email   - - - - - - - - - - - - - - - - - - -->
     <TextView								

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.riis.DisasterAppActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
+import com.riis.mocks.MockTextMessage;
 
 public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTestCase2<SendEmergencyMessageActivity> {
 	
@@ -19,6 +20,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
+	
+	private MockTextMessage fakeText;
 	
 	public SendEmergencyMessageActivityTest() {
 		super(SendEmergencyMessageActivity.class);
@@ -37,6 +40,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.emergencyMessageField);
 		characterCountLabel = (TextView) sendEmergencyMessageActivity
 				.findViewById(R.id.characterCountLabel);
+		
+		fakeText = new MockTextMessage();
 	}
 	
 	public void testCancelEmergencyMessageButtonExists() {
@@ -86,14 +91,26 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	}
 	
 	public void testSendEmergencyMessageButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
 		
 		TouchUtils.clickView(this, sendEmergencyMessageButton);
+		
+		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				emergencyMessageField.setText("This is a test message");
+			}
+		});
+		monitor.waitForActivityWithTimeout(5000);
+		
 		sendEmergencyMessageActivity.sendEmergencyMessage("5869336419");
+		assertEquals("This is a test message", sendEmergencyMessageActivity.getMessageBack());
+		assertEquals("5869336419", sendEmergencyMessageActivity.getPhoneNumberBack());
 		
 		
-		//ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-		//monitor.waitForActivityWithTimeout(5000);
-		//getInstrumentation().removeMonitor(monitor);
+		getInstrumentation().removeMonitor(monitor);
 	}
 
 }

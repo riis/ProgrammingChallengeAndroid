@@ -19,6 +19,8 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
+	private String theMessage;
+	private String thePhoneNumber;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,14 +58,13 @@ public class SendEmergencyMessageActivity extends Activity {
 	}
 	
 
-	public void sendEmergencyMessage( String message, String phoneNumber) {
-		
+	public void sendEmergencyMessage( String phoneNumber) {
+		theMessage=emergencyMessageField.getText().toString();
+
 		SmsManager sms = SmsManager.getDefault();
-		sms.sendTextMessage(phoneNumber, null, message, null, null);
-		//sms.sendTextMessage(destinationAddress, scAddress, text, sentIntent, deliveryIntent);
+		//sms.sendTextMessage(phoneNumber, null, theMessage, null, null);
 		
-		
-		
+		thePhoneNumber=phoneNumber;
 		
 	//	Intent intent = new Intent(this, DisasterAppActivity.class);
 	//	startActivity(intent);
@@ -80,5 +81,15 @@ public class SendEmergencyMessageActivity extends Activity {
 		}
 		
 		return true;
+	}
+	
+	public String getMessageBack()
+	{
+		return theMessage;
+	}
+	
+	public String getPhoneNumberBack()
+	{
+		return thePhoneNumber;
 	}
 }

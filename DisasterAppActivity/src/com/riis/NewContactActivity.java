@@ -12,6 +12,15 @@ import com.riis.models.Contact;
 
 public class NewContactActivity extends Activity
 {
+	private static final String FIRST_NAME_PATTERN = "^[A-Z](?=[a-z])*";
+	private static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Z]'[A-Z]?[a-z]+";
+	private static final String LAST_NAME_HYPHEN_PATTERN = "^[A-Z][a-z]+(-[A-Z][a-z]+)*";
+	private static final String LAST_NAME_SPACES_PATTERN = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*";
+	private static final String EMAIL_ADDRESS_PATTERN = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b";
+	private static final String BASIC_PHONE_NUMBER_PATTERN = "^\\d{10,10}";
+	private static final String HYPHEN_PHONE_NUMBER_PATTERN = "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
+	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
+	
 	private ContactDataSource dataSource;
 	
 	private EditText firstNameEditField;

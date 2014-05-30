@@ -12,11 +12,11 @@ import com.riis.models.Contact;
 
 public class NewContactActivity extends Activity
 {
-	private static final String FIRST_NAME_PATTERN = "^[A-Z](?=[a-z])*";
-	private static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Z]'[A-Z]?[a-z]+";
-	private static final String LAST_NAME_HYPHEN_PATTERN = "^[A-Z][a-z]+(-[A-Z][a-z]+)*";
-	private static final String LAST_NAME_SPACES_PATTERN = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*";
-	private static final String EMAIL_ADDRESS_PATTERN = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b";
+	private static final String FIRST_NAME_PATTERN = "[A-Za-z]([a-z]+)";
+	private static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Za-z]+('[A-Za-z]+)";
+	private static final String LAST_NAME_HYPHEN_PATTERN =     "^[A-Za-z]+(-[A-Za-z]+)*";
+	private static final String LAST_NAME_SPACES_PATTERN =     "^[A-Za-z]+(\\s[A-Za-z]+)*";
+	private static final String EMAIL_ADDRESS_PATTERN = "[A-Za-z0-9-]+(\\.[a-z0-9-]+)*@[A-Za-z0-9]+(\\.[a-z]+)*(\\.[a-z]{2,4})";
 	private static final String BASIC_PHONE_NUMBER_PATTERN = "^\\d{10,10}";
 	private static final String HYPHEN_PHONE_NUMBER_PATTERN = "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
 	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
@@ -28,6 +28,9 @@ public class NewContactActivity extends Activity
 	private EditText emailEditField;
 	private EditText phoneEditField;
 	private String empty_field;
+	private String name_error_field;
+	private String email_error_field;
+	private String phone_error_field;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -36,6 +39,10 @@ public class NewContactActivity extends Activity
         setContentView(R.layout.newcontact);
 
         empty_field = "Field cannot be blank";
+        name_error_field ="May only contain characters and spaces";
+        email_error_field ="Invalid email";
+        phone_error_field ="Try 10 digits including areacode";
+
 
         dataSource = new ContactDataSource(this);
         dataSource.open();
@@ -53,7 +60,7 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
-		
+////// check if any fields are blank/////////////////		
 		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
 		{
 			firstNameEditField.setError(empty_field);
@@ -70,6 +77,25 @@ public class NewContactActivity extends Activity
 		{
 			phoneEditField.setError(empty_field);
 		}
+		
+////// check if any fields are invalid by any means/////////////////		
+		if (isNameValid(firstNameEditField.getText().toString())) 
+		{
+			firstNameEditField.setError(name_error_field);
+		}
+		if (isNameValid(lastNameEditField.getText().toString())) 
+		{
+			lastNameEditField.setError(name_error_field);
+		}
+		if (isEmailValid(emailEditField.getText().toString())) 
+		{
+			emailEditField.setError(email_error_field);
+		}
+		if (isPhoneValid(phoneEditField.getText().toString())) 
+		{
+			phoneEditField.setError(phone_error_field);
+		}
+		
 		
 		if (phoneEditField.getText().toString().trim().equalsIgnoreCase("") | emailEditField.getText().toString().trim().equalsIgnoreCase("") |
 				lastNameEditField.getText().toString().trim().equalsIgnoreCase("") | firstNameEditField.getText().toString().trim().equalsIgnoreCase(""))
@@ -100,37 +126,30 @@ public class NewContactActivity extends Activity
 		Intent intent = new Intent(this, DisasterAppActivity.class);
 		startActivity(intent);
 	}
-/*	 public void NameErrorchecking()
+
+	private boolean isNameValid(String name)
 	 {
-		 if (firstNameEditField.getText().toString()) //not done
-			{
-				firstNameEditField.setError("Please enter a valid name");
-			}
-		if (lastNameEditField.getText().toString())  //not done
-			{
-				lastNameEditField.setError("Please enter a valid name");
-			}
-	 }*/
-	 
-	 public boolean isEmailValid(CharSequence email)
-	 {
-		 return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-	 }
-	 
-	 public boolean isPhoneValid(CharSequence phone)
-	 {
-		 return android.util.Patterns.PHONE.matcher(phone).matches();
-	 }
-	 
-	 
-/*	 public void PhoneErrorChecking()
-	 {
-			if (phoneEditField.getText())
-			{
-				phoneEditField.setError(empty_field);
-			} 
-	 }
+		 if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
+				 | name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN)  )
+		 { return true;}
+		 
+		 return false;
+	 } 
 	
-	*/
+	 private boolean isEmailValid(String email)
+	 {
+		 return email.matches(EMAIL_ADDRESS_PATTERN);
+	 }
+	  
+	 private boolean isPhoneValid(String phone)
+	 {
+		 if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
+				 | phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
+		 { return true;}
+		 
+		 return false;
+     }
+	 
+
 	
 }

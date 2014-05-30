@@ -152,10 +152,23 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
+	public void testValidName()
+	{
+		assertFalse(newContactActivity.isNameValid("alice@yahoo.com"));
+		assertFalse(newContactActivity.isNameValid("1202"));
+		assertTrue(newContactActivity.isNameValid("ROBERT"));
+		assertTrue(newContactActivity.isNameValid("Allie"));
+		assertTrue(newContactActivity.isNameValid("stacy"));
+		assertTrue(newContactActivity.isNameValid("ghangis'khan"));
+		assertTrue(newContactActivity.isNameValid("williams-Berr"));
+		assertTrue(newContactActivity.isNameValid("Williams Berr"));
+
+	}
+	
 	
 	public void testValidEmail()
 	{
-		
+		//android util version
 		assertTrue(newContactActivity.isEmailValid("alice@yahoo.com"));
 		assertTrue(newContactActivity.isEmailValid("Robert24@gmail.edu"));
 		assertFalse(newContactActivity.isEmailValid("Robert24@jupiterjupiter"));
@@ -170,10 +183,12 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertTrue(newContactActivity.isPhoneValid("5550001234"));
 		assertTrue(newContactActivity.isPhoneValid("101-202-6789"));
 		assertTrue(newContactActivity.isPhoneValid("(586)202-6789"));
-		assertTrue(newContactActivity.isPhoneValid("101-202"));
+		assertFalse(newContactActivity.isPhoneValid("101-202"));
 		assertFalse(newContactActivity.isPhoneValid("alice"));
 		assertFalse(newContactActivity.isPhoneValid("123"));
 		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
+		
+		
 
 		
 		

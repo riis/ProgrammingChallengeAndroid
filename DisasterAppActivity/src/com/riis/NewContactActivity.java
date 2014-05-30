@@ -60,6 +60,7 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
+
 ////// check if any fields are blank/////////////////		
 		if (firstNameEditField.getText().toString().trim().equalsIgnoreCase("")) //if blank
 		{
@@ -127,6 +128,7 @@ public class NewContactActivity extends Activity
 		startActivity(intent);
 	}
 
+
 	private boolean isNameValid(String name)
 	 {
 		 if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
@@ -150,6 +152,7 @@ public class NewContactActivity extends Activity
 		 return false;
      }
 	 
-
+	
+	
 	
 }

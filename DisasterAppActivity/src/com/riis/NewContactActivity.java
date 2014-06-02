@@ -1,7 +1,6 @@
 package com.riis;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,8 +23,6 @@ public class NewContactActivity extends Activity
 	private static final String EMAIL_ADDRESS_ERROR = "Please enter a valid email address!";
 	private static final String PHONE_NUMBER_ERROR = "Please enter a valid 10 digit phone number!";
 	
-	private ContactDataSource dataSource;
-	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
 	private EditText emailEditField;
@@ -36,20 +33,15 @@ public class NewContactActivity extends Activity
     {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
-
-        dataSource = new ContactDataSource(this);
-        dataSource.open();
         
-		firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
+        firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);
 		emailEditField = (EditText) findViewById(R.id.email_address_editText);
 		phoneEditField = (EditText) findViewById(R.id.phone_number_editText);
     }
 	
 	public void cancelCreateContact(View view) {
-		dataSource.close();
-		Intent intent = new Intent(this, DisasterAppActivity.class);
-		startActivity(intent);
+		finish();
 	}
 	
 	public void saveCreateContact(View view) {
@@ -74,11 +66,12 @@ public class NewContactActivity extends Activity
 			newContact.setEmailAddress(emailEditField.getText().toString());
 			newContact.setPhoneNumber(phoneEditField.getText().toString());
 			
+			ContactDataSource dataSource = new ContactDataSource(this);
+	        dataSource.open();
 			dataSource.createContact(newContact);
 			dataSource.close();
 			
-			Intent intent = new Intent(this, DisasterAppActivity.class);
-			startActivity(intent);
+			finish();
 		}
 	}
 

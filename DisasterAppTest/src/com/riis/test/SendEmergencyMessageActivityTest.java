@@ -89,16 +89,16 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		assertEquals(98, Integer.parseInt(characterCountLabel.getText().toString()));
 	}
 	
-//	public void testCancelEmergencyMessageButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-//		
-//		TouchUtils.clickView(this, cancelEmergencyMessageButton);
-//		
-//		monitor.waitForActivityWithTimeout(5000);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
-//	}
+	public void testCancelEmergencyMessageButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, cancelEmergencyMessageButton);
+		
+		monitor.waitForActivityWithTimeout(5000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 	
 	public void testSendEmergencyMessageButtonIntent() {
 		dataSource.open();
@@ -152,8 +152,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	
 		message += " Are you OK?";
 		assertEquals("This is a test message. Are you OK?", message);
-		assertEquals("5555555555", contactList.getContact(0).getPhoneNumber());
-		assertEquals("1234567890", contactList.getContact(1).getPhoneNumber());
+		assertEquals("5555555555", contactList.getContact(contactList.size() - 2).getPhoneNumber());
+		assertEquals("1234567890", contactList.getContact(contactList.size() - 1).getPhoneNumber());
 		
 		getInstrumentation().removeMonitor(monitor);
 	}

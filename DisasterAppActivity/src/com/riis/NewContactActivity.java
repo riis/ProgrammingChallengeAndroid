@@ -80,25 +80,25 @@ public class NewContactActivity extends Activity
 
 
 	public boolean isNameValid(String name)
-	 {
-		 if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
-				 | name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN)  )
-			 return true;
+	{
+		if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
+				| name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN))
+			return true;
 		 
-		 return false;
-	 } 
+		return false;
+	} 
 	
-	 public boolean isEmailValid(String email)
-	 {
-		 return email.matches(EMAIL_ADDRESS_PATTERN);
-	 }
+	public boolean isEmailValid(String email)
+	{
+		return email.matches(EMAIL_ADDRESS_PATTERN);
+	}
 	  
-	 public boolean isPhoneValid(String phone)
-	 {
-		 if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
-				 | phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
-			 return true;
+	public boolean isPhoneValid(String phone)
+	{
+		if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
+				| phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
+			return true;
 		 
-		 return false;
-     }
+		return false;
+    }
 }

@@ -2,7 +2,6 @@ package com.riis;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import com.riis.controllers.ContactDataSource;
 import com.riis.models.ContactList;
 import com.riis.models.EmergencyMessageTextWatcher;
+import com.riis.models.TextMessageSender;
 
 public class SendEmergencyMessageActivity extends Activity {
 	
@@ -40,21 +40,11 @@ public class SendEmergencyMessageActivity extends Activity {
 			contactList.setContactList(dataSource.getContactList());
 			dataSource.close();
 			
-			String messageContent = prepareMessageToSend(emergencyMessageField.getText().toString());
+			TextMessageSender textMessageSender = new TextMessageSender();
+			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
-			SmsManager sms = SmsManager.getDefault();
-			
-			for(int i = 0; i < contactList.size(); i++) {
-				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
-			}
 			finish();
 		}
-	}
-	
-
-	private String prepareMessageToSend(String message) {
-		message += " Are you OK?";
-		return message;
 	}
 	
 	private boolean isValidEmergencyMessage(String message) {

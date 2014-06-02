@@ -1,7 +1,5 @@
 package com.riis.models;
 
-import javax.inject.Inject;
-
 import android.telephony.SmsManager;
 
 public class TextMessageSender implements MessageSender{

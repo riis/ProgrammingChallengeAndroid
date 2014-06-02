@@ -173,6 +173,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertTrue(newContactActivity.isLastNameValid("williams-Berr"));
 		assertTrue(newContactActivity.isLastNameValid("Williams Berr"));
 	}
+
 	
 	public void testValidEmail()
 	{

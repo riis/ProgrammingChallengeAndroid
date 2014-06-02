@@ -19,7 +19,8 @@ public class NewContactActivity extends Activity
 	private static final String HYPHEN_PHONE_NUMBER_PATTERN =  "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
 	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
 	
-	private static final String NAME_ERROR = "Your contact's name may only contain characters and spaces";
+	private static final String FIRST_NAME_ERROR = "Your contact's first name may only contain characters and spaces";
+	private static final String LAST_NAME_ERROR = "Your contact's name may only contain characters,spaces, apostrophes, or hyphens ";
 	private static final String EMAIL_ADDRESS_ERROR = "Please enter a valid email address!";
 	private static final String PHONE_NUMBER_ERROR = "Please enter a valid 10 digit phone number!";
 	
@@ -52,9 +53,9 @@ public class NewContactActivity extends Activity
 		phoneEditField.setError(null);
 		
 		if (!isFirstNameValid(firstNameEditField.getText().toString())) 
-			firstNameEditField.setError(NAME_ERROR);
+			firstNameEditField.setError(FIRST_NAME_ERROR);
 		else if (!isLastNameValid(lastNameEditField.getText().toString())) 
-			lastNameEditField.setError(NAME_ERROR);
+			lastNameEditField.setError(LAST_NAME_ERROR);
 		else if (!isEmailValid(emailEditField.getText().toString())) 
 			emailEditField.setError(EMAIL_ADDRESS_ERROR);
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 

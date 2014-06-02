@@ -16,7 +16,7 @@ public class Contact {
 		this.phoneNumber = "";
 	}
 	
-	public void setId(Long id) {
+	public void setId(Long id) {  //did Thomas change anything here?
 		this.id = id;
 	}
 	

@@ -47,11 +47,11 @@ public class SendEmergencyMessageActivity extends Activity {
 			for(int i = 0; i < contactList.size(); i++) {
 				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
 			}
-			
 			finish();
 		}
 	}
 	
+
 	private String prepareMessageToSend(String message) {
 		message += " Are you OK?";
 		return message;
@@ -65,4 +65,5 @@ public class SendEmergencyMessageActivity extends Activity {
 		
 		return true;
 	}
+
 }

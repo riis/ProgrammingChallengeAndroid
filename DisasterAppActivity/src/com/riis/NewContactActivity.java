@@ -14,9 +14,9 @@ public class NewContactActivity extends Activity
 	private static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Za-z]+('[A-Za-z]+)";
 	private static final String LAST_NAME_HYPHEN_PATTERN =     "^[A-Za-z]+(-[A-Za-z]+)*";
 	private static final String LAST_NAME_SPACES_PATTERN =     "^[A-Za-z]+(\\s[A-Za-z]+)*";
-	private static final String EMAIL_ADDRESS_PATTERN = "[A-Za-z0-9-]+(\\.[a-z0-9-]+)*@[A-Za-z0-9]+(\\.[a-z]+)*(\\.[a-z]{2,4})";
-	private static final String BASIC_PHONE_NUMBER_PATTERN = "^\\d{10,10}";
-	private static final String HYPHEN_PHONE_NUMBER_PATTERN = "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
+	private static final String EMAIL_ADDRESS_PATTERN =        "[A-Za-z0-9-]+(\\.[a-z0-9-]+)*@[A-Za-z0-9]+(\\.[a-z]+)*(\\.[a-z]{2,4})";
+	private static final String BASIC_PHONE_NUMBER_PATTERN =   "^\\d{10,10}";
+	private static final String HYPHEN_PHONE_NUMBER_PATTERN =  "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
 	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
 	
 	private static final String NAME_ERROR = "Your contact's name may only contain characters and spaces";
@@ -51,9 +51,9 @@ public class NewContactActivity extends Activity
 		emailEditField.setError(null);
 		phoneEditField.setError(null);
 		
-		if (!isNameValid(firstNameEditField.getText().toString())) 
+		if (!isFirstNameValid(firstNameEditField.getText().toString())) 
 			firstNameEditField.setError(NAME_ERROR);
-		else if (!isNameValid(lastNameEditField.getText().toString())) 
+		else if (!isLastNameValid(lastNameEditField.getText().toString())) 
 			lastNameEditField.setError(NAME_ERROR);
 		else if (!isEmailValid(emailEditField.getText().toString())) 
 			emailEditField.setError(EMAIL_ADDRESS_ERROR);
@@ -76,14 +76,22 @@ public class NewContactActivity extends Activity
 	}
 
 
-	public boolean isNameValid(String name)
+	public boolean isFirstNameValid(String name)
 	{
-		if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
-				| name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN))
+		if( name.matches(FIRST_NAME_PATTERN))
 			return true;
 		 
 		return false;
-	} 
+	}
+	
+	public boolean isLastNameValid(String name)
+	{
+		if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(LAST_NAME_HYPHEN_PATTERN)
+				| name.matches(LAST_NAME_SPACES_PATTERN))
+			return true;
+		 
+		return false;
+	}
 	
 	public boolean isEmailValid(String email)
 	{

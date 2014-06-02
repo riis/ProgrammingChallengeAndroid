@@ -128,6 +128,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		});
 		
 		monitor.waitForActivityWithTimeout(5000);
+
+
 		message += " Are you OK?";
 		assertEquals("This is a test message. Are you OK?", message);
 		assertEquals("5555555555", contactList.getContact(contactList.size() - 2).getPhoneNumber());
@@ -135,4 +137,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		
 		getInstrumentation().removeMonitor(monitor);
 	}
+
+	
 }

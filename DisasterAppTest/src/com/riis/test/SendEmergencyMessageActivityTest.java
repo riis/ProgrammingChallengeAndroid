@@ -10,9 +10,7 @@ import android.widget.TextView;
 import com.riis.DisasterAppActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
-import com.riis.controllers.ContactDataSource;
 import com.riis.models.Contact;
-import com.riis.models.ContactList;
 
 public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTestCase2<SendEmergencyMessageActivity> {
 	
@@ -22,10 +20,8 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
-	private String message;
 	
 	private Contact contact;
-	private ContactDataSource dataSource;
 	
 	public SendEmergencyMessageActivityTest() {
 		super(SendEmergencyMessageActivity.class);
@@ -44,8 +40,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.emergencyMessageField);
 		characterCountLabel = (TextView) sendEmergencyMessageActivity
 				.findViewById(R.id.characterCountLabel);
-		
-		dataSource = new ContactDataSource(sendEmergencyMessageActivity.getApplicationContext());
 		
 		contact = new Contact();
 		contact.setFirstName("Bob");
@@ -96,43 +90,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		
 		monitor.waitForActivityWithTimeout(5000);
 		assertEquals(1, monitor.getHits());
-		
-		getInstrumentation().removeMonitor(monitor);
-	}
-	
-	public void testSendEmergencyMessageButtonIntent() {
-		dataSource.open();
-		dataSource.createContact(contact);
-		Contact newContact = contact;
-		newContact.setPhoneNumber("1234567890");
-		dataSource.createContact(newContact);
-		ContactList contactList = new ContactList();
-		contactList.setContactList(dataSource.getContactList());
-		dataSource.deleteContact(contact);
-		dataSource.deleteContact(newContact);
-		dataSource.close();
-		
-		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-		
-		message = "";
-		
-		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
-		{
-			@Override
-			public void run() 
-			{
-				emergencyMessageField.setText("This is a test message.");
-				message = emergencyMessageField.getText().toString();
-				sendEmergencyMessageButton.performClick();
-			}
-		});
-		
-		monitor.waitForActivityWithTimeout(5000);
-
-		message += " Are you OK?";
-		assertEquals("This is a test message. Are you OK?", message);
-		assertEquals("5555555555", contactList.getContact(contactList.size() - 2).getPhoneNumber());
-		assertEquals("1234567890", contactList.getContact(contactList.size() - 1).getPhoneNumber());
 		
 		getInstrumentation().removeMonitor(monitor);
 	}

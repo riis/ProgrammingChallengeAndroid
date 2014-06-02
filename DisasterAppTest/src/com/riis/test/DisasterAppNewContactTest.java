@@ -151,17 +151,17 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
-	public void testValidName()
-	{
-		assertFalse(newContactActivity.isNameValid("alice@yahoo.com"));
-		assertFalse(newContactActivity.isNameValid("1202"));
-		assertTrue(newContactActivity.isNameValid("ROBERT"));
-		assertTrue(newContactActivity.isNameValid("Allie"));
-		assertTrue(newContactActivity.isNameValid("stacy"));
-		assertTrue(newContactActivity.isNameValid("ghangis'khan"));
-		assertTrue(newContactActivity.isNameValid("williams-Berr"));
-		assertTrue(newContactActivity.isNameValid("Williams Berr"));
-	}
+//	public void testValidName()
+//	{
+//		assertFalse(newContactActivity.isNameValid("alice@yahoo.com"));
+//		assertFalse(newContactActivity.isNameValid("1202"));
+//		assertTrue(newContactActivity.isNameValid("ROBERT"));
+//		assertTrue(newContactActivity.isNameValid("Allie"));
+//		assertTrue(newContactActivity.isNameValid("stacy"));
+//		assertTrue(newContactActivity.isNameValid("ghangis'khan"));
+//		assertTrue(newContactActivity.isNameValid("williams-Berr"));
+//		assertTrue(newContactActivity.isNameValid("Williams Berr"));
+//	}
 	
 	public void testValidEmail()
 	{

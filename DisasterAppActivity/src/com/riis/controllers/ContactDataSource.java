@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.riis.models.Contact;
 
 public class ContactDataSource {
-	
+
 	private SQLiteDatabase database;
 	private ContactSQLiteHelper dbHelper;
 	private String[] allColumns = {"_id", "firstName", "lastName", "emailAddress", "phoneNumber"};

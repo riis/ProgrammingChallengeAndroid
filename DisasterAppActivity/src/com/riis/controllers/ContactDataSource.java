@@ -17,6 +17,8 @@ public class ContactDataSource {
 	private ContactSQLiteHelper dbHelper;
 	private String[] allColumns = {"_id", "firstName", "lastName", "emailAddress", "phoneNumber"};
 	
+	
+	
 	public ContactDataSource(Context context) {
 		dbHelper = new ContactSQLiteHelper(context);
 	}

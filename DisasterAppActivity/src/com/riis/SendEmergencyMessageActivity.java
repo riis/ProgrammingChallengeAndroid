@@ -54,8 +54,7 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	public void cancelSendEmergencyMessage(View view) {
 		dataSource.close();
-		Intent intent = new Intent(this, DisasterAppActivity.class);
-		startActivity(intent);
+		finish();
 	}
 	
 	public void sendEmergencyMessage(View view) {
@@ -72,8 +71,7 @@ public class SendEmergencyMessageActivity extends Activity {
 			}
 
 			dataSource.close();
-			Intent intent = new Intent(this, DisasterAppActivity.class);
-			startActivity(intent);
+			finish();
 		}
 	}
 	

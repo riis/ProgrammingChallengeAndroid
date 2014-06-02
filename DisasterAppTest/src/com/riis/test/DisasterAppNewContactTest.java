@@ -151,16 +151,27 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
 	}
 	
-	public void testValidName()
+	public void testValidFirstName()
 	{
-		assertFalse(newContactActivity.isNameValid("alice@yahoo.com"));
-		assertFalse(newContactActivity.isNameValid("1202"));
-		assertTrue(newContactActivity.isNameValid("ROBERT"));
-		assertTrue(newContactActivity.isNameValid("Allie"));
-		assertTrue(newContactActivity.isNameValid("stacy"));
-		assertTrue(newContactActivity.isNameValid("ghangis'khan"));
-		assertTrue(newContactActivity.isNameValid("williams-Berr"));
-		assertTrue(newContactActivity.isNameValid("Williams Berr"));
+		assertFalse(newContactActivity.isFirstNameValid("alice@yahoo.com"));
+		assertFalse(newContactActivity.isFirstNameValid("1202"));
+		assertFalse(newContactActivity.isFirstNameValid("ghangis'khan"));
+		assertFalse(newContactActivity.isFirstNameValid("williams-Berr"));
+		assertFalse(newContactActivity.isFirstNameValid("ROBERT"));
+		assertTrue(newContactActivity.isFirstNameValid("Allie"));
+		assertTrue(newContactActivity.isFirstNameValid("stacy"));
+		assertTrue(newContactActivity.isFirstNameValid("Williams"));
+	}
+	public void testValidLastName()
+	{
+		assertFalse(newContactActivity.isLastNameValid("alice@yahoo.com"));
+		assertFalse(newContactActivity.isLastNameValid("1202"));
+		assertTrue(newContactActivity.isLastNameValid("ROBERT"));
+		assertTrue(newContactActivity.isLastNameValid("Allie"));
+		assertTrue(newContactActivity.isLastNameValid("stacy"));
+		assertTrue(newContactActivity.isLastNameValid("ghangis'khan"));
+		assertTrue(newContactActivity.isLastNameValid("williams-Berr"));
+		assertTrue(newContactActivity.isLastNameValid("Williams Berr"));
 	}
 	
 	public void testValidEmail()

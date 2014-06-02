@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactDataSource;
 import com.riis.models.ContactList;
+import com.riis.models.SmsMessageSender;
 
 public class SendEmergencyMessageActivity extends Activity {
 	
@@ -61,20 +62,14 @@ public class SendEmergencyMessageActivity extends Activity {
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
 			ContactList contactList = new ContactList();
 			contactList.setContactList(dataSource.getContactList());
-			
-			String messageContent = prepareMessageToSend(emergencyMessageField.getText().toString());
-			
-			SmsManager sms = SmsManager.getDefault();
-			
-			for(int i = 0; i < contactList.size(); i++) {
-				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
-			}
+			SmsMessageSender smsSenderModel = new SmsMessageSender();
+			//String messageContent = smsSenderModel.prepareMessageToSend(emergencyMessageField.getText().toString());
+		
 
 			dataSource.close();
 			finish();
 		}
 	}
-	
 
 	private String prepareMessageToSend(String message) {
 		message += " Are you OK?";

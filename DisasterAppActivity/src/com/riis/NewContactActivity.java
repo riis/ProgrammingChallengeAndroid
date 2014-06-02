@@ -20,10 +20,9 @@ public class NewContactActivity extends Activity
 	private static final String HYPHEN_PHONE_NUMBER_PATTERN = "^\\d{3,3}-\\d{3,3}-\\d{4,4}";
 	private static final String PARENTHESES_PHONE_NUMBER_PATTERN = "^\\(\\d{3,3}\\)\\s?\\d{3,3}-\\d{4,4}";
 	
-	private static final String FIRST_NAME_ERROR = "Please enter your contact's first name!";
-	private static final String LAST_NAME_ERROR = "Please enter your contact's last name!";
+	private static final String NAME_ERROR = "Your contact's name may only contain characters and spaces";
 	private static final String EMAIL_ADDRESS_ERROR = "Please enter a valid email address!";
-	private static final String PHONE_NUMBER_ERROR = "Please enter a valid phone number!";
+	private static final String PHONE_NUMBER_ERROR = "Please enter a valid 10 digit phone number!";
 	
 	private ContactDataSource dataSource;
 	
@@ -31,22 +30,12 @@ public class NewContactActivity extends Activity
 	private EditText lastNameEditField;
 	private EditText emailEditField;
 	private EditText phoneEditField;
-	private String empty_field;
-	private String name_error_field;
-	private String email_error_field;
-	private String phone_error_field;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.newcontact);
-
-        empty_field = "Field cannot be blank";
-        name_error_field ="May only contain characters and spaces";
-        email_error_field ="Invalid email";
-        phone_error_field ="Try 10 digits including areacode";
-
 
         dataSource = new ContactDataSource(this);
         dataSource.open();
@@ -64,25 +53,17 @@ public class NewContactActivity extends Activity
 	}
 	
 	public void saveCreateContact(View view) {
-//
-//		if (isBlank(firstNameEditField.getText().toString()))
-//			firstNameEditField.setError(empty_field);
-//		else if (isBlank(lastNameEditField.getText().toString()))
-//			lastNameEditField.setError(empty_field);
-//		else if (isBlank(emailEditField.getText().toString()))
-//			emailEditField.setError(empty_field);
-//		else if (isBlank(phoneEditField.getText().toString()))
-//			phoneEditField.setError(empty_field);
-//		
+
 		if (!isNameValid(firstNameEditField.getText().toString())) 
-			firstNameEditField.setError(name_error_field);
+			firstNameEditField.setError(NAME_ERROR);
 		else if (!isNameValid(lastNameEditField.getText().toString())) 
-			lastNameEditField.setError(name_error_field);
+			lastNameEditField.setError(NAME_ERROR);
 		else if (!isEmailValid(emailEditField.getText().toString())) 
-			emailEditField.setError(email_error_field);
+			emailEditField.setError(EMAIL_ADDRESS_ERROR);
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 
-			phoneEditField.setError(phone_error_field);
-		 else {
+
+			phoneEditField.setError(PHONE_NUMBER_ERROR);
+		else {
 			Contact newContact =  new Contact();
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
@@ -104,7 +85,7 @@ public class NewContactActivity extends Activity
 	 {
 		 if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(FIRST_NAME_PATTERN) 
 				 | name.matches(LAST_NAME_HYPHEN_PATTERN)  | name.matches(LAST_NAME_SPACES_PATTERN)  )
-		 { return true;}
+			 return true;
 		 
 		 return false;
 	 } 
@@ -118,15 +99,8 @@ public class NewContactActivity extends Activity
 	 {
 		 if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
 				 | phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
-		 { return true;}
+			 return true;
 		 
 		 return false;
      }
-	 
-//	 private boolean isBlank(String input) {
-//		 if(input.equals("") || input.equals(" "))
-//			 return true;
-//		 
-//		 return false;
-//	 }
 }

@@ -19,8 +19,7 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
-	private String theMessage;
-	private String[] theListOfPhoneNumbers;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +72,7 @@ public class SendEmergencyMessageActivity extends Activity {
 			for(int i = 0; i < contactList.size(); i++) {
 				sms.sendTextMessage(contactList.getContact(i).getPhoneNumber(), null, messageContent, null, null);
 			}
+
 			dataSource.close();
 			Intent intent = new Intent(this, DisasterAppActivity.class);
 			startActivity(intent);
@@ -80,22 +80,8 @@ public class SendEmergencyMessageActivity extends Activity {
 	}
 	
 
-//	public void sendEmergencyMessage( String[] phoneNumbers) {
-//		theMessage=emergencyMessageField.getText().toString();
-//		theListOfPhoneNumbers = new String[phoneNumbers.length];
-//		SmsManager sms = SmsManager.getDefault();
-// //----send the message to everyone in the list-----//
-//		for(int i = 0; i<phoneNumbers.length;i++)
-//		{
-//			sms.sendTextMessage(phoneNumbers[i], null, theMessage, null, null);
-//			theListOfPhoneNumbers[i]=phoneNumbers[i];
-//		}
-//		
-//	//	Intent intent = new Intent(this, DisasterAppActivity.class);
-//	//	startActivity(intent);
-//}
 	private String prepareMessageToSend(String message) {
-		message += "Are you OK?";
+		message += " Are you OK?";
 		return message;
 	}
 	
@@ -107,19 +93,5 @@ public class SendEmergencyMessageActivity extends Activity {
 		
 		return true;
 	}
-	
-	public String getMessageBack()
-	{
-		return theMessage;
-	}
-	
-	public String getFirstPhoneNumberBack()
-	{
-		return theListOfPhoneNumbers[0];
-	}
-	
-	public String getLastPhoneNumberBack()
-	{
-		return theListOfPhoneNumbers[theListOfPhoneNumbers.length-1];
-	}
+
 }

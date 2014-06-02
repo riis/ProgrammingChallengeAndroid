@@ -129,27 +129,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		
 		monitor.waitForActivityWithTimeout(5000);
 
-		
-		sendEmergencyMessageActivity.sendEmergencyMessage();
-		assertEquals("This is a test message.Are you OK?", emergencyMessageField.getText().toString());
-		assertEquals("5556", sendEmergencyMessageActivity.getPhoneNumberBack());
-		
-		getInstrumentation().removeMonitor(monitor);
-	}
 
-	public void testTextMessage() {
-		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
-		{
-			@Override
-			public void run() 
-			{
-				emergencyMessageField.setText("This is a test message.");
-			}
-		});
-		
-		TouchUtils.clickView(this, sendEmergencyMessageButton);
-	
 		message += " Are you OK?";
 		assertEquals("This is a test message. Are you OK?", message);
 		assertEquals("5555555555", contactList.getContact(contactList.size() - 2).getPhoneNumber());
@@ -157,4 +137,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		
 		getInstrumentation().removeMonitor(monitor);
 	}
+
+	
 }

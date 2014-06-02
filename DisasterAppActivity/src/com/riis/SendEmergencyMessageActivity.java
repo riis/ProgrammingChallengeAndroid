@@ -16,10 +16,8 @@ import com.riis.models.ContactList;
 public class SendEmergencyMessageActivity extends Activity {
 	
 	private ContactDataSource dataSource;
-	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
-
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

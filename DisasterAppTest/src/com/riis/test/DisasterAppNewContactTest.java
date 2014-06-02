@@ -187,7 +187,8 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 
 	public void testSaveButtonIntent() {
 		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-		
+		monitor.waitForActivityWithTimeout(1000);
+
 		TouchUtils.clickView(this, saveButton);
 		
 		monitor.waitForActivityWithTimeout(1000);

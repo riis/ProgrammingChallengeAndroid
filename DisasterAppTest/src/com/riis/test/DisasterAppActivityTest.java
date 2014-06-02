@@ -70,7 +70,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	public void testCreateEmergencyMessageButtonIntent() {
 		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
-		
+
 		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 		
 		monitor.waitForActivityWithTimeout(5000);

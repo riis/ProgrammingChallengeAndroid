@@ -39,7 +39,6 @@ public class NewContactActivity extends Activity
 
         dataSource = new ContactDataSource(this);
         dataSource.open();
-        
 		firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);
 		emailEditField = (EditText) findViewById(R.id.email_address_editText);
@@ -61,7 +60,6 @@ public class NewContactActivity extends Activity
 		else if (!isEmailValid(emailEditField.getText().toString())) 
 			emailEditField.setError(EMAIL_ADDRESS_ERROR);
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 
-
 			phoneEditField.setError(PHONE_NUMBER_ERROR);
 		else {
 			Contact newContact =  new Contact();

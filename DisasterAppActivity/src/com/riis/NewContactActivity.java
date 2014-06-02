@@ -53,6 +53,11 @@ public class NewContactActivity extends Activity
 	
 	public void saveCreateContact(View view) {
 
+		firstNameEditField.setError(null);
+		lastNameEditField.setError(null);
+		emailEditField.setError(null);
+		phoneEditField.setError(null);
+		
 		if (!isNameValid(firstNameEditField.getText().toString())) 
 			firstNameEditField.setError(NAME_ERROR);
 		else if (!isNameValid(lastNameEditField.getText().toString())) 

@@ -185,16 +185,16 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
 	}
 
-//	public void testSaveButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-//		
-//		TouchUtils.clickView(this, saveButton);
-//		
-//		monitor.waitForActivityWithTimeout(1000);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
-//	}
+	public void testSaveButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, saveButton);
+		
+		monitor.waitForActivityWithTimeout(1000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 	
 	public void testCreateContactButtonIntent() {
 		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);

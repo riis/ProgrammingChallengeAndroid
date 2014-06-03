@@ -1,6 +1,5 @@
 package com.riis.models;
 
-
 public interface MessageSender {
-	public void sendMessage(ContactList contactList, String message);
+	public boolean sendMessage(ContactList contactList, String message);
 }

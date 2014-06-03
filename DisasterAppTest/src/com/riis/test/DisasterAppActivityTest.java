@@ -22,7 +22,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	private Contact contact;
 	private ContactList contactList;
-	private ContactDataSource dataSource;
 
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
@@ -37,14 +36,16 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
 		sampleLabel = (TextView) disasterAppActivity.findViewById(R.id.sampleLabel);
 		
-		contact = new Contact();
+		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
+		
+		contact = new Contact(dataSource.getContact().getId() + 1);
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
 		
-		dataSource = new ContactDataSource(getActivity().getApplicationContext());
-		dataSource.open();
+		dataSource.close();
 		
 		contactList = new ContactList();
 	}
@@ -80,9 +81,13 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	}
 	
 	public void testCreateContact() {
+		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
+		
 		dataSource.createContact(contact);
 		Contact output = dataSource.getContact();
 		dataSource.deleteContact(output);
+		
 		dataSource.close();
 		assertEquals(output.getFirstName(), contact.getFirstName());
 		assertEquals(output.getLastName(), contact.getLastName());
@@ -91,11 +96,21 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	}
 	
 	public void testGetAllContacts() {
+		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
+		
 		dataSource.createContact(contact);
-		Contact newContact = contact;
+		
+		Contact newContact = new Contact(contact.getId() + 1);
+		newContact.setFirstName("Joe");
+		newContact.setLastName("Smith");
+		newContact.setEmailAddress("jsmith_1@sample.com");
+		newContact.setPhoneNumber("1234567890");
+		
 		dataSource.createContact(newContact);
 		contactList.setContactList(dataSource.getContactList());
 		dataSource.deleteContact(contact);
+		
 		dataSource.close();
 		assertTrue(contactList.size() > 1);
 	}

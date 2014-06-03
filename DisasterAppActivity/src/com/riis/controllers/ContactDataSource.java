@@ -53,12 +53,10 @@ public class ContactDataSource {
 	}
 	
 	public Contact getContact() {
-		Contact contact = new Contact();
-		
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
 		
 		cursor.moveToLast();
-		contact = convertCursorToContact(cursor);
+		Contact contact = convertCursorToContact(cursor);
 		cursor.close();
 		
 		return contact;
@@ -80,8 +78,7 @@ public class ContactDataSource {
 	}
 	
 	private Contact convertCursorToContact(Cursor cursor) {
-		Contact contact = new Contact();
-		contact.setId(cursor.getLong(0));
+		Contact contact = new Contact(cursor.getLong(0));
 		contact.setFirstName(cursor.getString(1));
 		contact.setLastName(cursor.getString(2));
 		contact.setEmailAddress(cursor.getString(3));

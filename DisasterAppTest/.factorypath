@@ -1,6 +1,9 @@
 <factorypath>
-    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="WKSPJAR" id="/DisasterAppTest/libs/dexmaker-1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="WKSPJAR" id="/DisasterAppTest/libs/dexmaker-mockito-1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="WKSPJAR" id="/DisasterAppTest/libs/mockito-all-1.9.5.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/DisasterAppActivity/libs/dagger-1.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/DisasterAppActivity/libs/javax.inject.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/DisasterAppActivity/compile-libs/dagger-compiler-1.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/DisasterAppActivity/compile-libs/javawriter-2.2.1.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

@@ -61,21 +61,28 @@ public class NewContactActivity extends Activity
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 
 			phoneEditField.setError(PHONE_NUMBER_ERROR);
 		else {
-			Contact newContact =  new Contact();
+			ContactDataSource dataSource = new ContactDataSource(this);
+	        dataSource.open();
+	        
+	        Contact newContact;
+	        
+	        try {
+	          	newContact =  new Contact(dataSource.getContact().getId() + 1);
+	        } catch (Exception e) {
+	        	newContact = new Contact(1);
+	        }
+	        
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
 			newContact.setEmailAddress(emailEditField.getText().toString());
 			newContact.setPhoneNumber(phoneEditField.getText().toString());
-			
-			ContactDataSource dataSource = new ContactDataSource(this);
-	        dataSource.open();
+	        
 			dataSource.createContact(newContact);
 			dataSource.close();
 			
 			finish();
 		}
 	}
-
 
 	public boolean isFirstNameValid(String name)
 	{

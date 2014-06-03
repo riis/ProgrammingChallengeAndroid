@@ -13,8 +13,7 @@ public class TextMessageSender implements MessageSender{
 	public void sendMessage(ContactList contactList, String message) {
 		
 		
-		message = prepareMessageToSend(message);
-		
+		message = prepareMessageToSend(message);	
 		SmsManager sms = SmsManager.getDefault();
 		
 		for(int i = 0; i < contactList.size(); i++) {

@@ -80,6 +80,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	public void testSendEmergencyTextMessage()
 	{
 		sendEmergencyMessageActivity.sendEmergencyMessage(null);
+		//
 	}
 	
 	public void testCancelEmergencyMessageButtonIntent() {

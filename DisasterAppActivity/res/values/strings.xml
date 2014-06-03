@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DisasterAppActivity</string>
+    <string name="createContactScreenButtonLabel">Create Contact</string>
+    <string name="contact_info">contact info</string>
+    
+    <!--NewContactActivity strings -->
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
+    <string name="email_address_label">Email Address</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="empty_field">Field cannot be blank</string>
+    <string name="firstNameHint">Example: Bob</string>
+    <string name="lastNameHint">Example: Smith</string>
+    <string name="emailAddressHint">Example: bsmith@disaster.com</string>
+    <string name="phoneNumberHint">Example: 555&#8211;555&#8211;5555</string>
+    
+    <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
+    <string name="sendEmergencyMessageButtonLabel">Send Message</string>
+    <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <EditText
+        android:id="@+id/emergencyMessageField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:minLines="4"
+        android:gravity="top|left"
+        android:hint="@string/emergencyMessageFieldHint" />
+    
+    <TextView
+        android:id="@+id/characterCountLabel"
+        android:layout_below="@id/emergencyMessageField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right" />
+    
+    <LinearLayout
+        android:layout_below="@id/characterCountLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button
+	        android:id="@+id/cancelEmergencyMessageButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/cancel_button"
+	        android:onClick="cancelSendEmergencyMessage" />
+        
+        <Button
+	        android:id="@+id/sendEmergencyMessageButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/sendEmergencyMessageButtonLabel"
+	        android:onClick="sendEmergencyMessage" />
+    </LinearLayout>
+</RelativeLayout>

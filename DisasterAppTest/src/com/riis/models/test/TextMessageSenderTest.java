@@ -25,7 +25,7 @@ public class TextMessageSenderTest extends TestCase{
 		
 		String message = "Testing";
 		
-		Contact contact = new Contact();
+		Contact contact = new Contact(1);
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -34,7 +34,7 @@ public class TextMessageSenderTest extends TestCase{
 		ContactList contactList = new ContactList();
 		contactList.addContact(contact);
 		
-	try {
+		try {
 			textMessageSender.sendMessage(contactList, message);
 			flag = true;
 		} catch(IllegalArgumentException e)

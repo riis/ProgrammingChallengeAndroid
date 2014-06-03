@@ -4,14 +4,11 @@ import android.telephony.SmsManager;
 
 public class TextMessageSender implements MessageSender{
 	
-	
-	
 	public TextMessageSender() {
 	}
 
 	@Override
 	public void sendMessage(ContactList contactList, String message) {
-		
 		
 		message = prepareMessageToSend(message);
 		

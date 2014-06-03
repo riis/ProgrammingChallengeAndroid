@@ -21,8 +21,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
 	
-	private Contact contact;
-	
 	public SendEmergencyMessageActivityTest() {
 		super(SendEmergencyMessageActivity.class);
 	}
@@ -40,12 +38,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.emergencyMessageField);
 		characterCountLabel = (TextView) sendEmergencyMessageActivity
 				.findViewById(R.id.characterCountLabel);
-		
-		contact = new Contact();
-		contact.setFirstName("Bob");
-		contact.setLastName("Jones");
-		contact.setEmailAddress("bjones@example.com");
-		contact.setPhoneNumber("5555555555");
 	}
 	
 	public void testCancelEmergencyMessageButtonExists() {

@@ -15,12 +15,7 @@ public class ContactTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		newContact = new Contact();
-	}
-	
-	public void testNewId() {
-		newContact.setId(1L);
-		assertEquals(1L, (long) newContact.getId());
+		newContact = new Contact(1);
 	}
 	
 	public void testNewFirstName() {
@@ -44,7 +39,7 @@ public class ContactTest extends TestCase {
 	}
 	
 	public void testInitialId() {
-		assertEquals(0L, (long) newContact.getId());
+		assertEquals(1L, (long) newContact.getId());
 	}
 	
 	public void testInitialFirstName() {
@@ -62,5 +57,4 @@ public class ContactTest extends TestCase {
 	public void testInitialPhoneNumber() {
 		assertNotNull(newContact.getPhoneNumber());
 	}
-
 }

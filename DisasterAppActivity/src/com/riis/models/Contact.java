@@ -8,17 +8,17 @@ public class Contact {
 	private String emailAddress;
 	private String phoneNumber;
 	
-	public Contact() {
-		this.id = 0L;
+	public Contact(long id) {
+		this.id = id;
 		this.firstName = "";
 		this.lastName = "";
 		this.emailAddress = "";
 		this.phoneNumber = "";
 	}
 	
-	public void setId(Long id) {  //did Thomas change anything here?
-		this.id = id;
-	}
+//	public void setId(Long id) {  //did Thomas change anything here?
+//		this.id = id;
+//	}
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;

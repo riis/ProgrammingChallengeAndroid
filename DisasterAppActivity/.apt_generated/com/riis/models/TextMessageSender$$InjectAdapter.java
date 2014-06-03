@@ -64,7 +64,7 @@ public final class TextMessageSender$$InjectAdapter extends Binding<TextMessageS
    */
   @Override
   public void injectMembers(TextMessageSender object) {
-    object.contactList = contactList.get();
+    //object.contactList = contactList.get();
   }
 
 }

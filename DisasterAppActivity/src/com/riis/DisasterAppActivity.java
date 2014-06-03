@@ -21,12 +21,12 @@ public class DisasterAppActivity extends Activity{
         
         dataSource = new ContactDataSource(this);
         dataSource.open();
-        Contact contact = new Contact();
+        Contact contact;
         try {
    
           	contact = dataSource.getContact();
         } catch (Exception e) {
-        	
+        	contact = new Contact(1);
         }
         dataSource.close();
         

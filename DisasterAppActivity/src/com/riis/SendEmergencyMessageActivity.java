@@ -58,5 +58,4 @@ public class SendEmergencyMessageActivity extends Activity {
 		
 		return true;
 	}
-
 }

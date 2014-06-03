@@ -177,7 +177,6 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	
 	public void testValidEmail()
 	{
-		//android util version
 		assertTrue(newContactActivity.isEmailValid("alice@yahoo.com"));
 		assertTrue(newContactActivity.isEmailValid("Robert24@gmail.edu"));
 		assertFalse(newContactActivity.isEmailValid("Robert24@jupiterjupiter"));

@@ -36,7 +36,11 @@ public class Contact {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void setMessageSentTimeStamp() {
+	public void setMessageSentTimeStamp(String messageSentTimeStamp) {
+		this.messageSentTimeStamp = messageSentTimeStamp;
+	}
+	
+	public void updateMessageSentTimeStamp() {
 		Calendar cal = Calendar.getInstance();
 		this.messageSentTimeStamp = (cal.get(Calendar.MONTH) + 1) +
 				"-"+ cal.get(Calendar.DAY_OF_MONTH) +

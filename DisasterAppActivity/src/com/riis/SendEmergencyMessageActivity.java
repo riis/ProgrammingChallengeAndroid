@@ -30,7 +30,6 @@ public class SendEmergencyMessageActivity extends Activity {
 		objectGraph.inject(this);
 		setContentView(R.layout.message_screen);
 		
-		
 		characterCountLabel = (TextView) findViewById(R.id.characterCountLabel);
 		characterCountLabel.setText(""+ 120);
 		emergencyMessageField = (EditText) findViewById(R.id.emergencyMessageField);

@@ -1,21 +1,11 @@
 package com.riis.dagger;
 
-import com.riis.SendEmergencyMessageActivity;
-import com.riis.models.ContactList;
-import com.riis.models.TextMessageSender;
+import com.riis.DisasterAppActivity;
 
 import dagger.Module;
-import dagger.Provides;
 
-@Module(injects=SendEmergencyMessageActivity.class)
+@Module(injects=DisasterAppActivity.class)
 public class DisasterAppObjectGraph 
 {
-	@Provides ContactList provideContactList() 
-	{
-		return new ContactList();
-	}
-	@Provides TextMessageSender provideTextMessageSender() 
-	{
-		return new TextMessageSender();
-	}
+	
 }

@@ -22,4 +22,11 @@
         android:layout_height="wrap_content"
         android:onClick="createEmergencyMessageScreen"
         android:text="@string/createEmergencyMessageScreenButtonLabel" />
+    
+    <Button 
+        android:id="@+id/viewMessageResponsesScreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="viewMessageResponsesScreen"
+        android:text="@string/viewResponseMessagesScreenButtonLabel" />
 </LinearLayout>

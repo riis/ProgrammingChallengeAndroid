@@ -1,13 +1,10 @@
 package com.riis.test;
 
-import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 

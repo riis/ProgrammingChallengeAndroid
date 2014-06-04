@@ -46,4 +46,9 @@ public class DisasterAppActivity extends Activity{
     	Intent intent = new Intent(this, SendEmergencyMessageActivity.class);
     	startActivity(intent);
     }
+   
+   public void viewMessageResponsesScreen(View view) {
+	   Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
+	   startActivity(intent);
+   }
 }

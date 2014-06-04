@@ -20,4 +20,7 @@
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
+    
+    <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
+    <string name="returnToMainScreenButtonLabel">Home</string>
 </resources>

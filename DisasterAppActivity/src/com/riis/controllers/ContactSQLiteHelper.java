@@ -14,7 +14,8 @@ public class ContactSQLiteHelper extends SQLiteOpenHelper {
 			+ "firstName text not null, "
 			+ "lastName text not null, "
 			+ "emailAddress text not null, "
-			+ "phoneNumber integer not null);";
+			+ "phoneNumber integer not null, "
+			+ "messageSentTimeStamp text not null);";
 
 	public ContactSQLiteHelper(Context context) {
 		super(context, CONTACT_DATABASE_NAME, null, CONTACT_DATABASE_VERSION);

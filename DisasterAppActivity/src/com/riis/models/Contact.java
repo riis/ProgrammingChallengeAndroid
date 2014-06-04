@@ -1,8 +1,6 @@
 package com.riis.models;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class Contact {
 	
@@ -11,7 +9,6 @@ public class Contact {
 	private String lastName;
 	private String emailAddress;
 	private String phoneNumber;
-	private boolean messageSent;
 	private String messageSentTimeStamp;
 	
 	public Contact(long id) {
@@ -20,7 +17,6 @@ public class Contact {
 		this.lastName = "";
 		this.emailAddress = "";
 		this.phoneNumber = "";
-		this.messageSent = false;
 		this.messageSentTimeStamp = "";
 	}
 	
@@ -40,20 +36,12 @@ public class Contact {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void booleanMessageWasSent() {
-		this.messageSent = true;
-	}
-	
-	public void booleanMessageWasReceived() {
-		this.messageSent = false;
-	}
-	
 	public void setMessageSentTimeStamp() {
 		Calendar cal = Calendar.getInstance();
-		this.messageSentTimeStamp = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) +
-				"-"+ cal.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT, Locale.US) +
-				"-"+ cal.getDisplayName(Calendar.YEAR, Calendar.SHORT, Locale.US) +
-				" "+cal.getTime().toString();
+		this.messageSentTimeStamp = (cal.get(Calendar.MONTH) + 1) +
+				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
+				"-"+ cal.get(Calendar.YEAR) +
+				" "+cal.getTime().toString().substring(11, 16);
 	}
 	
 	public Long getId() {
@@ -74,10 +62,6 @@ public class Contact {
 	
 	public String getPhoneNumber() {
 		return phoneNumber;
-	}
-	
-	public boolean getBooleanMessageSent() {
-		return messageSent;
 	}
 	
 	public String getMessageSentTimeStamp() {

@@ -51,6 +51,24 @@ public class ContactDataSource {
 		database.delete("contact", "_id = "+ id, null);
 	}
 	
+	public Contact updateContact(Contact contact) {
+		ContentValues values = new ContentValues();
+		values.put("firstName", contact.getFirstName());
+		values.put("lastName", contact.getLastName());
+		values.put("emailAddress", contact.getEmailAddress());
+		values.put("phoneNumber", contact.getPhoneNumber());
+		values.put("messageSentTimeStamp", contact.getMessageSentTimeStamp());
+		
+		long updateId = database.update("contact", values, null, null);
+		
+		Cursor cursor = database.query("contact", allColumns, "_id = "+ updateId, null, null, null, null);
+		cursor.moveToFirst();
+		contact = convertCursorToContact(cursor);
+		cursor.close();
+		
+		return contact;
+	}
+	
 	public Contact getContact() {
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
 		cursor.moveToLast();

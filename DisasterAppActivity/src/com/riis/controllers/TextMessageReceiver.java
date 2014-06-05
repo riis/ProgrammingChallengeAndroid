@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 
@@ -37,20 +38,15 @@ public class TextMessageReceiver extends BroadcastReceiver{
 		ContactList contactList = new ContactList();
 		contactList.setContactList(contactDataSource.getContactList());
 		contactDataSource.close();
-		  Log.i("SmsReceiver", "outside if "+ sms[sms.length - 1].getOriginatingAddress().toString());
-		 
-
-
+		Log.i("SmsReceiver", "outside if "+ sms[sms.length - 1].getOriginatingAddress().toString());
 		
 		for(int i = 0; i < contactList.size(); i++) {
-			
-			  Log.i("SmsReceiver", "outside if "+ contactList.getContact(i).getPhoneNumber());
-			  
-			  if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))) {
+			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
+					&& !contactList.getContact(i).getMessageSentTimeStamp().equals("")) {
 				messageDataSource = new ResponseMessageDataSource(context);
 				messageDataSource.open();
 				
-				  Log.i("SmsReceiver", "inside:  "+ sms[sms.length - 1].getOriginatingAddress().toString());
+				Log.i("SmsReceiver", "inside:  "+ sms[sms.length - 1].getOriginatingAddress().toString());
 				  
 				ResponseMessage response = new ResponseMessage();
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
@@ -59,6 +55,14 @@ public class TextMessageReceiver extends BroadcastReceiver{
 				
 				messageDataSource.createResponseMessage(response);
 				messageDataSource.close();
+				
+				contactDataSource.open();
+				
+				Contact contact = contactList.getContact(i);
+				contact.setMessageSentTimeStamp("");
+				contactDataSource.updateContact(contact);
+				
+				contactDataSource.close();
 				
 				return true;
 			}

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactDataSource;
 import com.riis.dagger.DaggerApplication;
+import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.EmergencyMessageTextWatcher;
 import com.riis.models.TextMessageSender;
@@ -43,14 +44,18 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	public void sendEmergencyMessage(View view) {
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
-			//ContactList contactList = new ContactList();
 			ContactDataSource dataSource = new ContactDataSource(this);
 			dataSource.open();
 			contactList.setContactList(dataSource.getContactList());
+			
+			for(int i = 0; i < contactList.size(); i++) {
+				Contact contact = contactList.getContact(i);
+				contact.updateMessageSentTimeStamp();
+				dataSource.updateContact(contact);
+			}
 
 			dataSource.close();
 			
-			//TextMessageSender textMessageSender = new TextMessageSender();
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
 			finish();

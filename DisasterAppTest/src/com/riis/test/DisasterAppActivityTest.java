@@ -26,6 +26,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private TextView sampleLabel;
 	
 	private Contact contact;
+	private Contact secondContact;
 	private ContactList contactList;
 	
 
@@ -57,6 +58,14 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
+		
+		secondContact = new Contact(contact.getId() + 1);
+		secondContact.setFirstName("Robin");
+		secondContact.setLastName("Williams");
+		secondContact.setEmailAddress("RWill@comcast.com");
+		secondContact.setPhoneNumber("2221234567");
+		
+		dataSource.createContact(secondContact);
 		
 		Calendar cal = Calendar.getInstance();
 		String date = (cal.get(Calendar.MONTH) + 1) +
@@ -113,7 +122,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, viewMessageResponsesScreenButton);
 		
-		monitor.waitForActivityWithTimeout(5000);
+		monitor.waitForActivityWithTimeout(2000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -139,31 +148,49 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
-		//dataSource.createContact(contact);
 		
 		Contact secondContact = new Contact(contact.getId() + 1);
-		secondContact.setFirstName("Robin");
-		secondContact.setLastName("Williams");
+		secondContact.setFirstName("Rob");
+		secondContact.setLastName("Will");
 		secondContact.setEmailAddress("RWill@comcast.com");
 		secondContact.setPhoneNumber("0001234567");
 		
 		dataSource.createContact(secondContact);
+		dataSource.deleteContact(secondContact);
 		
 		contactList.setContactList(dataSource.getContactList());
-		
-		
 		Log.e("my log ", "text inside: " + sampleLabel.getText());
 		assertTrue(sampleLabel.getLineCount()>1);
-		dataSource.deleteContact(secondContact);
-		dataSource.deleteContact(contact);
 
 		dataSource.close();
+	}
+	
+	public void testRecievedMessageIndicatorinTextView() {
+		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
 		
+		dataSource.createContact(contact);
+		
+		dataSource.close();
+		
+		String text = sampleLabel.getText().toString();
+		
+		text = text.substring(0, text.lastIndexOf("\n"));
+		text = text.substring(text.lastIndexOf("\n") + 1);
+		
+		assertTrue(sampleLabel.getText().toString().contains(secondContact.getFirstName() 
+				   + " " + secondContact.getLastName() 
+				   + "\t "+ secondContact.getEmailAddress() 
+				   + "\t "+ secondContact.getPhoneNumber()
+				   + "\t "+ "*"
+				 ));
 		
 		
 	}
 	
-	public void testGetAllContacts() {
+	public void testGetAllContactsInTextView() {
+		
+		
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
@@ -177,11 +204,14 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		dataSource.createContact(newContact);
 		contactList.setContactList(dataSource.getContactList());
+		dataSource.deleteContact(newContact);
 		dataSource.deleteContact(contact);
 
-		//dataSource.deleteContact(newContact);
 		dataSource.close();
 		assertTrue(contactList.size() > 1);
 		
 	}
+	
+	
+	
 }

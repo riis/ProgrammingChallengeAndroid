@@ -1,21 +1,22 @@
 package com.riis;
 
-import javax.inject.Inject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.ResponseMessageDataSource;
+import com.riis.controllers.TextMessageReceiver;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-import com.riis.models.TextMessageReceiver;
 
 public class DisasterAppActivity extends Activity{
 	
 	private ContactDataSource dataSource;
+	private ResponseMessageDataSource messageDataSource;
 	private TextMessageReceiver textMessageReceiver;
 	private String receivedMessageCheck;
 	private boolean tempTestingBoolean;
@@ -29,33 +30,60 @@ public class DisasterAppActivity extends Activity{
         dataSource = new ContactDataSource(this);
         //textMessageReceiver = new TextMessageReceiver(this, intent);
         dataSource.open();
-        Contact contact;
-        
+        ContactList contactList = new ContactList();
         
         try {
-          	contact = dataSource.getContact();
+          	contactList.setContactList(dataSource.getContactList());
         } catch (Exception e) {
-        	contact = new Contact(1);
+        	
         }
+        
+        dataSource.close();
 
-      TextView contactView = (TextView) findViewById(R.id.sampleLabel);
+        TextView contactView = (TextView) findViewById(R.id.sampleLabel);
+        
+        messageDataSource = new ResponseMessageDataSource(this);
+        messageDataSource.open();
       
-
-      ContactList contactList = new ContactList();
-       contactList.setContactList(dataSource.getContactList());
-        for(int i =0;i<dataSource.getContactList().size();i++)
+        for(int i =0;i<contactList.size();i++)
         {
-        	contact = contactList.getContact(i);
+        	if(!contactList.getContact(i).getMessageSentTimeStamp().equals("")) {
+        		if(contactList.getContact(i).getPhoneNumber().equals(
+        				messageDataSource.getResponseMessageList().get(i).getPhoneNumber())) {
+        			String sentMessageTimeStamp = contactList.getContact(i).getMessageSentTimeStamp();
+        			String textTimeStamp = messageDataSource.getResponseMessageList().get(i).getTimeStamp();
+        			
+        			int sentMonth = Integer.parseInt(sentMessageTimeStamp.substring(0, 1));
+        			int textMonth = Integer.parseInt(textTimeStamp.substring(0, 1));
+        			
+        			int sentDay = Integer.parseInt(sentMessageTimeStamp.substring(3, 4));
+        			int textDay = Integer.parseInt(textTimeStamp.substring(3, 4));
+        			
+        			int sentYear = Integer.parseInt(sentMessageTimeStamp.substring(6, 9));
+        			int textYear = Integer.parseInt(textTimeStamp.substring(6, 9));
+        			
+        			int sentHour = Integer.parseInt(sentMessageTimeStamp.substring(12, 13));
+        			int textHour = Integer.parseInt(textTimeStamp.substring(12, 13));
+        			
+        			int sentMinute = Integer.parseInt(sentMessageTimeStamp.substring(14, 15));
+        			int textMinute = Integer.parseInt(textTimeStamp.substring(14, 15));
+        			
+        			Log.i("Time stamp", sentMonth +" "+ sentDay +" "+ sentYear +" "+sentHour +" "+ sentMinute);
+        			addContactToTextView(contactView, contactList.getContact(i));
+        		}
+        	} else {receivedMessageCheck="";
+        	addContactToTextView(contactView, contactList.getContact(i));}
+//        	contact = contactList.getContact(i);
         	
-        	if(checkIfContactReceivedMessage(tempTestingBoolean))
-        		  {receivedMessageCheck="*";}
-        	else {receivedMessageCheck="";} 
-        	
-        	addContactToTextView(contactView, contact);   	
+//        	if(contact.getMessageSentTimeStamp())
+//        		  {receivedMessageCheck="*";}
+//        	else {receivedMessageCheck="";} 
+//        	
+        	   	
         	//using toggling just to test	
         	tempTestingBoolean =!tempTestingBoolean;
         }
-       dataSource.close();
+       
 
     }
 	

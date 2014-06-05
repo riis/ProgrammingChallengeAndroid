@@ -29,15 +29,7 @@ public class ViewResponseMessagesActivity extends Activity{
         contactDataSource.close();
        
         ListView listView = (ListView) findViewById(R.id.responseMessagesListView);
-//        for(int i = 0; i < 15; i++) {
-//        	ResponseMessage response = new ResponseMessage();
-//        	response.setPhoneNumber("1234567890");
-//        	response.setTextMessageContents("This is a test");
-//        	response.updateMessageSentTimeStamp();
-//        	responseMessageDataSource.open();
-//        	responseMessageDataSource.createResponseMessage(response);
-//        	responseMessageDataSource.close();
-//        }
+
         
         listView.setAdapter(new ResponseMessagesAdapter(this, contactList.getContacts()));
     }

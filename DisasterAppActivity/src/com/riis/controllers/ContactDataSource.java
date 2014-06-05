@@ -1,7 +1,6 @@
 package com.riis.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,13 +13,11 @@ import com.riis.models.Contact;
 public class ContactDataSource {
 
 	private SQLiteDatabase database;
-	private ContactSQLiteHelper dbHelper;
+	private DisasterAppSQLiteHelper dbHelper;
 	private String[] allColumns = {"_id", "firstName", "lastName", "emailAddress", "phoneNumber", "messageSentTimeStamp"};
 	
-	
-	
 	public ContactDataSource(Context context) {
-		dbHelper = new ContactSQLiteHelper(context);
+		dbHelper = new DisasterAppSQLiteHelper(context);
 	}
 	
 	public void open() throws SQLException {
@@ -63,8 +60,8 @@ public class ContactDataSource {
 		return contact;
 	}
 	
-	public List<Contact> getContactList() {
-		List<Contact> contacts = new ArrayList<Contact>();
+	public ArrayList<Contact> getContactList() {
+		ArrayList<Contact> contacts = new ArrayList<Contact>();
 		
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
 		

@@ -56,6 +56,8 @@ public class TextMessageReceiver extends BroadcastReceiver{
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
 				response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 				response.updateMessageSentTimeStamp();
+				  Log.i("SmsReceiver", "(inside) message is "+ sms[sms.length - 1].getMessageBody());
+
 				
 				messageDataSource.createResponseMessage(response);
 				messageDataSource.close();

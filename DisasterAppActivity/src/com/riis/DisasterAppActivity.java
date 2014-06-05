@@ -1,7 +1,5 @@
 package com.riis;
 
-import javax.inject.Inject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +9,10 @@ import android.widget.TextView;
 import com.riis.controllers.ContactDataSource;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-import com.riis.models.TextMessageReceiver;
 
 public class DisasterAppActivity extends Activity{
 	
 	private ContactDataSource dataSource;
-	private TextMessageReceiver textMessageReceiver;
 	private String receivedMessageCheck;
 	private boolean tempTestingBoolean;
 	
@@ -27,7 +23,6 @@ public class DisasterAppActivity extends Activity{
         setContentView(R.layout.main);
         
         dataSource = new ContactDataSource(this);
-        //textMessageReceiver = new TextMessageReceiver(this, intent);
         dataSource.open();
         Contact contact;
         

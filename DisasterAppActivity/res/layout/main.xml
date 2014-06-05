@@ -28,14 +28,19 @@
         android:onClick="viewMessageResponsesScreen"
         android:text="@string/viewResponseMessagesScreenButtonLabel" />
     
-    
-    <TextView
+    <ScrollView 
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+          android:layout_below="@id/viewMessageResponsesScreenButton"
+        >
+      <TextView
         android:id="@+id/sampleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/viewMessageResponsesScreenButton" /> 
-   
- 
+       
+         />    
+        
+    </ScrollView>
 
 </RelativeLayout>
 

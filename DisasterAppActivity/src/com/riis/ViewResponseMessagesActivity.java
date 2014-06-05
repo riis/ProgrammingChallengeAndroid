@@ -12,7 +12,6 @@ import com.riis.models.ContactList;
 public class ViewResponseMessagesActivity extends Activity{
 	
 	private ContactDataSource contactDataSource;
-//	private ResponseMessageDataSource responseMessageDataSource;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -21,7 +20,6 @@ public class ViewResponseMessagesActivity extends Activity{
         setContentView(R.layout.response_messages_screen);
         
         contactDataSource = new ContactDataSource(this);
-//        responseMessageDataSource = new ResponseMessageDataSource(this);
         
         contactDataSource.open();
         ContactList contactList = new ContactList();

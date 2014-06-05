@@ -38,8 +38,7 @@ public class TextMessageReceiver extends BroadcastReceiver{
 		ContactList contactList = new ContactList();
 		contactList.setContactList(contactDataSource.getContactList());
 		contactDataSource.close();
-		Log.i("SmsReceiver", "outside if "+ sms[sms.length - 1].getOriginatingAddress().toString());
-		
+
 		for(int i = 0; i < contactList.size(); i++) {
 			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
 					&& !contactList.getContact(i).getMessageSentTimeStamp().equals(""))
@@ -47,8 +46,6 @@ public class TextMessageReceiver extends BroadcastReceiver{
 				messageDataSource = new ResponseMessageDataSource(context);
 				messageDataSource.open();
 				
-				Log.i("SmsReceiver", "inside:  "+ sms[sms.length - 1].getOriginatingAddress().toString());
-				  
 				ResponseMessage response = new ResponseMessage();
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
 				response.setTextMessageContents(sms[sms.length - 1].getMessageBody());

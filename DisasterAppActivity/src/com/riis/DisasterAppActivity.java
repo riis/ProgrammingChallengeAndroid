@@ -16,8 +16,10 @@ import com.riis.models.ContactList;
 public class DisasterAppActivity extends Activity{
 	
 	private ContactDataSource dataSource;
+
 	private ResponseMessageDataSource messageDataSource;
 	private TextMessageReceiver textMessageReceiver;
+
 	private String receivedMessageCheck;
 	private boolean tempTestingBoolean;
 	
@@ -28,7 +30,6 @@ public class DisasterAppActivity extends Activity{
         setContentView(R.layout.main);
         
         dataSource = new ContactDataSource(this);
-        //textMessageReceiver = new TextMessageReceiver(this, intent);
         dataSource.open();
         ContactList contactList = new ContactList();
         

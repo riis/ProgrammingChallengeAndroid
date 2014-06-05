@@ -59,7 +59,7 @@ public class ContactDataSource {
 		values.put("phoneNumber", contact.getPhoneNumber());
 		values.put("messageSentTimeStamp", contact.getMessageSentTimeStamp());
 		
-		long updateId = database.update("contact", values, null, null);
+		long updateId = database.update("contact", values, "emailAddress = '"+ contact.getEmailAddress() +"'", null);
 		
 		Cursor cursor = database.query("contact", allColumns, "_id = "+ updateId, null, null, null, null);
 		cursor.moveToFirst();
@@ -98,6 +98,7 @@ public class ContactDataSource {
 		contact.setLastName(cursor.getString(2));
 		contact.setEmailAddress(cursor.getString(3));
 		contact.setPhoneNumber(cursor.getString(4));
+		contact.setMessageSentTimeStamp(cursor.getString(5));
 		return contact;
 	}
 

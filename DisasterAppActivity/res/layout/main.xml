@@ -20,14 +20,23 @@
         android:onClick="createEmergencyMessageScreen"
         android:text="@string/createEmergencyMessageScreenButtonLabel" />
     
+    <Button 
+        android:id="@+id/viewMessageResponsesScreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createEmergencyMessageScreenButton"
+        android:onClick="viewMessageResponsesScreen"
+        android:text="@string/viewResponseMessagesScreenButtonLabel" />
+    
     
     <TextView
         android:id="@+id/sampleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/createEmergencyMessageScreenButton"
-        /> 
+        android:layout_below="@id/viewMessageResponsesScreenButton" /> 
    
  
 
 </RelativeLayout>
+
+    

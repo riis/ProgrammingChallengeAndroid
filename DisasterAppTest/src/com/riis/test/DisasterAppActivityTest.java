@@ -1,5 +1,7 @@
 package com.riis.test;
 
+import java.util.Calendar;
+
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
@@ -11,6 +13,7 @@ import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
+import com.riis.ViewResponseMessagesActivity;
 import com.riis.controllers.ContactDataSource;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -19,6 +22,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	private Button createContactScreenButton;
 	private Button createEmergencyMessageScreenButton;
+	private Button viewMessageResponsesScreenButton;
 	private TextView sampleLabel;
 	
 	private Contact contact;
@@ -36,16 +40,30 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
+		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
 		sampleLabel = (TextView) disasterAppActivity.findViewById(R.id.sampleLabel);
 		
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
-		contact = new Contact(dataSource.getContact().getId()+1);
+
+		try {
+			contact = new Contact(dataSource.getContact().getId() + 1);
+		} catch (Exception e) {
+			contact = new Contact(1);
+		}
+		
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
+		
+		Calendar cal = Calendar.getInstance();
+		String date = (cal.get(Calendar.MONTH) + 1) +
+				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
+				"-"+ cal.get(Calendar.YEAR) +
+				" "+cal.getTime().toString().substring(11, 16);
+		contact.setMessageSentTimeStamp(date);
 		
 		dataSource.close();
 		
@@ -58,6 +76,14 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	public void testCreateContactScreenButtonExists() {
 		assertNotNull(createContactScreenButton);
+	}
+	
+	public void testEmergencyMessageScreenButtonExists() {
+		assertNotNull(createEmergencyMessageScreenButton);
+	}
+	
+	public void testViewMessageResponsesScreenButtonExists() {
+		assertNotNull(viewMessageResponsesScreenButton);
 	}
 	
 	public void testCreateContactButtonIntent() {
@@ -77,6 +103,17 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 		
 		monitor.waitForActivityWithTimeout(2000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
+	
+	public void testViewMessageResponsesScreenButtonIntent() {
+		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);
+
+		TouchUtils.clickView(this, viewMessageResponsesScreenButton);
+		
+		monitor.waitForActivityWithTimeout(5000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);

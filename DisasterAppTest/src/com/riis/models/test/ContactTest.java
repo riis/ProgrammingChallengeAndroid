@@ -1,7 +1,6 @@
 package com.riis.models.test;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 import junit.framework.TestCase;
 
@@ -41,23 +40,23 @@ public class ContactTest extends TestCase {
 		assertEquals("5555555555", newContact.getPhoneNumber());
 	}
 	
-	public void testMessageWasSent() {
-		//newContact.messageWasSent();
-		assertTrue(newContact.getBooleanMessageSent());
-	}
-	
-	public void testMessageWasReceived() {
-		//newContact.messageWasReceived();
-		assertFalse(newContact.getBooleanMessageSent());
-	}
-	
-	public void testMessageSentTimeStamp() {
-		newContact.setMessageSentTimeStamp();
+	public void testNewMessageSentTimeStamp() {
 		Calendar cal = Calendar.getInstance();
-		String date = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) +
-				"-"+ cal.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT, Locale.US) +
-				"-"+ cal.getDisplayName(Calendar.YEAR, Calendar.SHORT, Locale.US) +
-				" "+cal.getTime().toString();
+		String date = (cal.get(Calendar.MONTH) + 1) +
+				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
+				"-"+ cal.get(Calendar.YEAR) +
+				" "+cal.getTime().toString().substring(11, 16);
+		newContact.setMessageSentTimeStamp(date);
+		assertEquals(newContact.getMessageSentTimeStamp(), date);
+	}
+	
+	public void testUpdateMessageSentTimeStamp() {
+		newContact.updateMessageSentTimeStamp();
+		Calendar cal = Calendar.getInstance();
+		String date = (cal.get(Calendar.MONTH) + 1) +
+				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
+				"-"+ cal.get(Calendar.YEAR) +
+				" "+cal.getTime().toString().substring(11, 16);
 		assertEquals(newContact.getMessageSentTimeStamp(), date);
 	}
 	
@@ -79,10 +78,6 @@ public class ContactTest extends TestCase {
 	
 	public void testInitialPhoneNumber() {
 		assertNotNull(newContact.getPhoneNumber());
-	}
-	
-	public void testInitialMessageSent() {
-		assertFalse(newContact.getBooleanMessageSent());
 	}
 	
 	public void testInitialMessageSentTimeStamp() {

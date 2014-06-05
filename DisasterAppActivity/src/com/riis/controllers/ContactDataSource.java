@@ -16,7 +16,7 @@ public class ContactDataSource {
 
 	private SQLiteDatabase database;
 	private ContactSQLiteHelper dbHelper;
-	private String[] allColumns = {"_id", "firstName", "lastName", "emailAddress", "phoneNumber"};
+	private String[] allColumns = {"_id", "firstName", "lastName", "emailAddress", "phoneNumber", "messageSentTimeStamp"};
 	
 	
 	
@@ -39,6 +39,7 @@ public class ContactDataSource {
 		values.put("lastName", contact.getLastName());
 		values.put("emailAddress", contact.getEmailAddress());
 		values.put("phoneNumber", contact.getPhoneNumber());
+		values.put("messageSentTimeStamp", contact.getMessageSentTimeStamp());
 		
 		long insertId = database.insert("contact", null, values);
 		

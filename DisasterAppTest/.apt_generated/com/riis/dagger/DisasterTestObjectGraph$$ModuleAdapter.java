@@ -30,35 +30,8 @@ public final class DisasterTestObjectGraph$$ModuleAdapter extends ModuleAdapter<
    */
   @Override
   public void getBindings(BindingsGroup bindings, DisasterTestObjectGraph module) {
-    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.TextMessageSender", new ProvideTextMessageSenderProvidesAdapter(module));
-  }
-
-  /**
-   * A {@code Binding<com.riis.models.ContactList>} implementation which satisfies
-   * Dagger's infrastructure requirements including:
-   *
-   * Being a {@code Provider<com.riis.models.ContactList>} and handling creation and
-   * preparation of object instances.
-   */
-  public static final class ProvideContactListProvidesAdapter extends ProvidesBinding<com.riis.models.ContactList>
-      implements Provider<com.riis.models.ContactList> {
-    private final DisasterTestObjectGraph module;
-
-    public ProvideContactListProvidesAdapter(DisasterTestObjectGraph module) {
-      super("com.riis.models.ContactList", NOT_SINGLETON, "com.riis.dagger.DisasterTestObjectGraph", "provideContactList");
-      this.module = module;
-      setLibrary(false);
-    }
-
-    /**
-     * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.models.ContactList>}.
-     */
-    @Override
-    public com.riis.models.ContactList get() {
-      return module.provideContactList();
-    }
+    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
   }
 
   /**
@@ -85,6 +58,33 @@ public final class DisasterTestObjectGraph$$ModuleAdapter extends ModuleAdapter<
     @Override
     public com.riis.models.TextMessageSender get() {
       return module.provideTextMessageSender();
+    }
+  }
+
+  /**
+   * A {@code Binding<com.riis.models.ContactList>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   *
+   * Being a {@code Provider<com.riis.models.ContactList>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvideContactListProvidesAdapter extends ProvidesBinding<com.riis.models.ContactList>
+      implements Provider<com.riis.models.ContactList> {
+    private final DisasterTestObjectGraph module;
+
+    public ProvideContactListProvidesAdapter(DisasterTestObjectGraph module) {
+      super("com.riis.models.ContactList", NOT_SINGLETON, "com.riis.dagger.DisasterTestObjectGraph", "provideContactList");
+      this.module = module;
+      setLibrary(false);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.riis.models.ContactList>}.
+     */
+    @Override
+    public com.riis.models.ContactList get() {
+      return module.provideContactList();
     }
   }
 }

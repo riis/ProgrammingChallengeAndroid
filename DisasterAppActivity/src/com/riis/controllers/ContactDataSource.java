@@ -29,6 +29,7 @@ public class ContactDataSource {
 	}
 	
 	public Contact createContact(Contact contact) {
+		
 		ContentValues values = new ContentValues();
 		values.put("firstName", contact.getFirstName());
 		values.put("lastName", contact.getLastName());
@@ -52,11 +53,9 @@ public class ContactDataSource {
 	
 	public Contact getContact() {
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
-		
 		cursor.moveToLast();
 		Contact contact = convertCursorToContact(cursor);
 		cursor.close();
-		
 		return contact;
 	}
 	

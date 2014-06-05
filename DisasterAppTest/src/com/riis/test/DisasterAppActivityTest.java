@@ -3,6 +3,7 @@ package com.riis.test;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	private Contact contact;
 	private ContactList contactList;
+	
 
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
@@ -39,7 +41,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
-		contact = new Contact(dataSource.getContact().getId() + 1);
+		contact = new Contact(dataSource.getContact().getId()+1);
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -63,7 +65,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		TouchUtils.clickView(this, createContactScreenButton);
 		
-		monitor.waitForActivityWithTimeout(5000);
+		monitor.waitForActivityWithTimeout(2000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -74,7 +76,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 		
-		monitor.waitForActivityWithTimeout(5000);
+		monitor.waitForActivityWithTimeout(2000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -84,15 +86,44 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
+		
 		dataSource.createContact(contact);
 		Contact output = dataSource.getContact();
 		dataSource.deleteContact(output);
-		
 		dataSource.close();
 		assertEquals(output.getFirstName(), contact.getFirstName());
 		assertEquals(output.getLastName(), contact.getLastName());
 		assertEquals(output.getEmailAddress(), contact.getEmailAddress());
 		assertEquals(output.getPhoneNumber(), contact.getPhoneNumber());
+
+	}
+	
+	public void testTextViewDisplaysContacts() {
+		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		dataSource.open();
+		
+		//dataSource.createContact(contact);
+		
+		Contact secondContact = new Contact(contact.getId() + 1);
+		secondContact.setFirstName("Robin");
+		secondContact.setLastName("Williams");
+		secondContact.setEmailAddress("RWill@comcast.com");
+		secondContact.setPhoneNumber("0001234567");
+		
+		dataSource.createContact(secondContact);
+		
+		contactList.setContactList(dataSource.getContactList());
+		
+		
+		Log.e("my log ", "text inside: " + sampleLabel.getText());
+		assertTrue(sampleLabel.getLineCount()>1);
+		dataSource.deleteContact(secondContact);
+		dataSource.deleteContact(contact);
+
+		dataSource.close();
+		
+		
+		
 	}
 	
 	public void testGetAllContacts() {
@@ -110,8 +141,10 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		dataSource.createContact(newContact);
 		contactList.setContactList(dataSource.getContactList());
 		dataSource.deleteContact(contact);
-		
+
+		//dataSource.deleteContact(newContact);
 		dataSource.close();
 		assertTrue(contactList.size() > 1);
+		
 	}
 }

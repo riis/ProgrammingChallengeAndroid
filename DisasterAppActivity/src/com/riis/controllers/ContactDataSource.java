@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.riis.models.Contact;
 
@@ -32,6 +33,7 @@ public class ContactDataSource {
 	}
 	
 	public Contact createContact(Contact contact) {
+		
 		ContentValues values = new ContentValues();
 		values.put("firstName", contact.getFirstName());
 		values.put("lastName", contact.getLastName());
@@ -54,13 +56,13 @@ public class ContactDataSource {
 	
 	public Contact getContact() {
 		Cursor cursor = database.query("contact", allColumns, null, null, null, null, null);
-		
 		cursor.moveToLast();
 		Contact contact = convertCursorToContact(cursor);
 		cursor.close();
-		
 		return contact;
 	}
+	
+	
 	
 	public List<Contact> getContactList() {
 		List<Contact> contacts = new ArrayList<Contact>();

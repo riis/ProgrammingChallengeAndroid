@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
@@ -17,6 +18,8 @@ public class TextMessageReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
+		  Log.i("SmsReceiver", "went into onReceive ");
+
 		
 		Object[] messages = (Object[]) bundle.get("pdus");
 		SmsMessage[] sms = new SmsMessage[messages.length];
@@ -34,14 +37,23 @@ public class TextMessageReceiver extends BroadcastReceiver{
 		ContactList contactList = new ContactList();
 		contactList.setContactList(contactDataSource.getContactList());
 		contactDataSource.close();
+		  Log.i("SmsReceiver", "outside if "+ sms[sms.length - 1].getOriginatingAddress().toString());
+		 
+
+
 		
 		for(int i = 0; i < contactList.size(); i++) {
-			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString())) {
+			
+			  Log.i("SmsReceiver", "outside if "+ contactList.getContact(i).getPhoneNumber());
+			  
+			  if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))) {
 				messageDataSource = new ResponseMessageDataSource(context);
 				messageDataSource.open();
 				
+				  Log.i("SmsReceiver", "inside:  "+ sms[sms.length - 1].getOriginatingAddress().toString());
+				  
 				ResponseMessage response = new ResponseMessage();
-				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress());
+				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
 				response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 				response.updateMessageSentTimeStamp();
 				

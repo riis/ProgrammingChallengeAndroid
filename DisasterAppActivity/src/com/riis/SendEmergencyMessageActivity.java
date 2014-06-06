@@ -10,8 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.riis.controllers.ContactDataSource;
-import com.riis.controllers.ResponseMessageDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -48,7 +47,7 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	public void sendEmergencyMessage(View view) {
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
-			ContactDataSource dataSource = new ContactDataSource(this);
+			DisasterAppDataSource dataSource = new DisasterAppDataSource(this);
 			dataSource.open();
 			contactList.setContactList(dataSource.getContactList());
 			
@@ -57,21 +56,17 @@ public class SendEmergencyMessageActivity extends Activity {
 				contact.updateMessageSentTimeStamp();
 				dataSource.updateContact(contact);
 			}
-
-			dataSource.close();
 			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
-			ResponseMessageDataSource responseDataSource = new ResponseMessageDataSource(this);
-			responseDataSource.open();
-			ArrayList<ResponseMessage> responses = responseDataSource.getResponseMessageList();
+			ArrayList<ResponseMessage> responses = dataSource.getResponseMessageList();
 			
 			for(int i = 0; i < responses.size(); i++) {
 				ResponseMessage response = responses.get(i);
-				responseDataSource.deleteResponseMessage(response);
+				dataSource.deleteResponseMessage(response);
 			}
 
-			responseDataSource.close();
+			dataSource.close();
 			
 			finish();
 		}

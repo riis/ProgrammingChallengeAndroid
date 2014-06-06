@@ -13,11 +13,14 @@ import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.DisasterAppDataSource;
+import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
+	
+	private DisasterAppActivity disasterAppActivity;
 	
 	private Button createContactScreenButton;
 	private Button createEmergencyMessageScreenButton;
@@ -25,7 +28,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private ListView contactIndicatorListView;
 	
 	private Contact contact;
-	private Contact anotherContact;
 	
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
@@ -34,7 +36,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		DisasterAppActivity disasterAppActivity = getActivity();
+		disasterAppActivity = getActivity();
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
@@ -42,9 +44,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
 
-		
 		contact = new Contact();
-		
 		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -56,8 +56,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				"-"+ cal.get(Calendar.YEAR) +
 				" "+cal.getTime().toString().substring(11, 16);
 		contact.setMessageSentTimeStamp(date);
-		
-		
 	}
 	
 	public void testIndicatorListViewExists() {
@@ -110,15 +108,19 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	}
 	
 	public void testCreateContact() {
-		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(getActivity().getApplicationContext());
 		dataSource.open();
-
+		
 		dataSource.createContact(contact);
 		
 		ContactList contactList = new ContactList();
 		contactList.setContactList(dataSource.getContactList());
 		Contact output = contactList.getContact(contactList.size() - 1);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 53d4112e75f1d4b88b8b65034f710b650701f38b
 		dataSource.deleteContact(output);
 		dataSource.close();
 		
@@ -126,5 +128,38 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		assertEquals(output.getLastName(), contact.getLastName());
 		assertEquals(output.getEmailAddress(), contact.getEmailAddress());
 		assertEquals(output.getPhoneNumber(), contact.getPhoneNumber());
-	}	
+	}
+	
+	public void testListViewPopulates() {
+		disasterAppActivity.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				DisasterAppDataSource dataSource = new DisasterAppDataSource(
+						disasterAppActivity.getApplicationContext());
+				
+	        	dataSource.open();
+	        	
+				dataSource.createContact(contact);
+				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(disasterAppActivity.getApplicationContext(),
+						dataSource.getContactList()));
+				dataSource.close();
+			}
+		});
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(contactIndicatorListView.getCount() > 0);
+		
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(disasterAppActivity.getApplicationContext());
+		dataSource.open();
+		
+		dataSource.deleteContact(contact);
+		
+		dataSource.close();
+	}
 }

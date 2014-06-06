@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.models.Contact;
 
 public class NewContactActivity extends Activity
@@ -61,7 +61,7 @@ public class NewContactActivity extends Activity
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 
 			phoneEditField.setError(PHONE_NUMBER_ERROR);
 		else {
-			ContactDataSource dataSource = new ContactDataSource(this);
+			DisasterAppDataSource dataSource = new DisasterAppDataSource(this);
 	        dataSource.open();
 	        
 	        Contact newContact = new Contact();

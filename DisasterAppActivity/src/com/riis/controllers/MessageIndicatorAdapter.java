@@ -16,7 +16,6 @@ import com.riis.models.ResponseMessage;
 
 public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 	
-	private ResponseMessageDataSource dataSource;
 	private Context context;
 	private ArrayList<Contact> values;
 
@@ -36,7 +35,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 		
 		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorListValue);
 		
-		dataSource = new ResponseMessageDataSource(context);
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
 		dataSource.open();
 		
 		ArrayList<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();

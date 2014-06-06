@@ -48,7 +48,7 @@ public class DisasterAppActivity extends Activity{
       
         for(int i =0;i<contactList.size();i++)
         {
-        	if(!contactList.getContact(i).getMessageSentTimeStamp().equals("")) {
+        	if(!contactList.getContact(i).getMessageSentTimeStamp().equals("")) {  // set boolean off once star is on unless view responses is clicked
         		if(contactList.getContact(i).getPhoneNumber().equals(
         				messageDataSource.getResponseMessageList().get(i).getPhoneNumber())) {
         			String sentMessageTimeStamp = contactList.getContact(i).getMessageSentTimeStamp();

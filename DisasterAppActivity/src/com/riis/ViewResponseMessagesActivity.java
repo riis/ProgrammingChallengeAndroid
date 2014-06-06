@@ -14,7 +14,7 @@ public class ViewResponseMessagesActivity extends Activity{
 	private ContactDataSource contactDataSource;
 	
 	@Override
-    public void onCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.response_messages_screen);

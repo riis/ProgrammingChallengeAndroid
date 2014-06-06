@@ -32,7 +32,7 @@ public class TextMessageReceiver extends BroadcastReceiver{
 		isEmergencyContact(context, sms);
 	}
 
-	private boolean isEmergencyContact(Context context, SmsMessage[] sms) {
+	private boolean isEmergencyContact(Context context, SmsMessage[] sms) {  // turn boolean back on for contact
 		contactDataSource = new ContactDataSource(context);
 		contactDataSource.open();
 		ContactList contactList = new ContactList();

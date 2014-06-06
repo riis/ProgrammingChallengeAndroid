@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
     
-    <RelativeLayout
+<!--     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent" > -->
         
         <TextView
             android:id="@+id/indicatorListName"
@@ -17,11 +17,10 @@
         <TextView
             android:id="@+id/indicatorListValue"
             android:gravity="right"
-            android:layout_toRightOf="@id/indicatorListName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingRight="10sp"
             android:textSize="18sp" />
         
-    </RelativeLayout>
+   <!--  </RelativeLayout> -->
 </LinearLayout>

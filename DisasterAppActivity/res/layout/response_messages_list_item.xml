@@ -22,7 +22,10 @@
 	    <TextView
 	        android:id="@+id/listMessageContent"
 	        android:layout_toRightOf="@id/listTimeStamp"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
+	        android:gravity="right"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10sp" />
+	    
     </RelativeLayout>
 </LinearLayout>

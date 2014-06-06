@@ -1,6 +1,7 @@
 package com.riis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -28,11 +29,13 @@ public class ViewResponseMessagesActivity extends Activity{
        
         ListView listView = (ListView) findViewById(R.id.responseMessagesListView);
 
-        
         listView.setAdapter(new ResponseMessagesAdapter(this, contactList.getContacts()));
     }
 	
 	public void returnToMainScreen(View view) {
-		finish();
+//		finish();
+		Intent i = new Intent(getBaseContext(), DisasterAppActivity.class); 
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP); 
+        startActivity(i);
 	}
 }

@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
     
     <Button
         android:id="@+id/createContactScreenButton"
@@ -28,20 +27,11 @@
         android:onClick="viewMessageResponsesScreen"
         android:text="@string/viewResponseMessagesScreenButtonLabel" />
     
-    <ScrollView 
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-          android:layout_below="@id/viewMessageResponsesScreenButton"
-        >
-      <TextView
-        android:id="@+id/sampleLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       
-         />    
-        
-    </ScrollView>
-
+    <ListView
+        android:id="@+id/contactIndicatorListView"
+        android:layout_below="@id/viewMessageResponsesScreenButton"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
 </RelativeLayout>
 
     

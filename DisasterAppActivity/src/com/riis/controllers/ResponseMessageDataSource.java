@@ -43,8 +43,24 @@ public class ResponseMessageDataSource {
 	}
 	
 	public void deleteResponseMessage(ResponseMessage responseMessage) {
-		String id = responseMessage.getTimeStamp();
-		database.delete("responseMessage", "timeStamp = '"+ id + "'", null);
+		String phoneNumber = responseMessage.getPhoneNumber();
+		database.delete("responseMessage", "phoneNumber = '"+ phoneNumber + "'", null);
+	}
+	
+	public ResponseMessage updateResponseMessage(ResponseMessage response) {
+		ContentValues values = new ContentValues();
+		values.put("phoneNumber", response.getPhoneNumber());
+		values.put("timeStamp", response.getTimeStamp());
+		values.put("textMessageContents", response.getTextMessageContents());
+		
+		long updateId = database.update("responseMessage", values, "phoneNumber = '"+ response.getPhoneNumber() +"'", null);
+		
+		Cursor cursor = database.query("contact", null, "_id = "+ updateId, null, null, null, null);
+		cursor.moveToFirst();
+		response = convertCursorToResponseMessage(cursor);
+		cursor.close();
+		
+		return response;
 	}
 	
 	public ResponseMessage getResponseMessage(int index) {

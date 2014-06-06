@@ -116,7 +116,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		ContactList contactList = new ContactList();
 		contactList.setContactList(dataSource.getContactList());
 		Contact output = contactList.getContact(contactList.size() - 1);
-		
+
 		dataSource.deleteContact(output);
 		dataSource.close();
 		

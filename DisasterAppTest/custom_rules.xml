@@ -29,7 +29,7 @@
                 <path refid="project.all.jars.path" />
                 <path refid="tested.project.classpath" />
                 <path path="${java.compiler.classpath}" />
-                <fileset dir="compile-libs" includes="*.jar"/>
+                <fileset dir="../DisasterAppActivity/compile-libs" includes="*.jar"/>
             </path>
             <javac encoding="${java.encoding}"
                     source="${java.source}" target="${java.target}"

@@ -25,6 +25,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private ListView contactIndicatorListView;
 	
 	private Contact contact;
+	private Contact anotherContact;
 	
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
@@ -44,7 +45,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		contact = new Contact();
 		
-		contact.setFirstName("Bob");
+		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
@@ -55,6 +56,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				"-"+ cal.get(Calendar.YEAR) +
 				" "+cal.getTime().toString().substring(11, 16);
 		contact.setMessageSentTimeStamp(date);
+		
+		
 	}
 	
 	public void testIndicatorListViewExists() {
@@ -109,12 +112,21 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testCreateContact() {
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();
+
 		
-		dataSource.createContact(contact);
 		
 		ContactList contactList = new ContactList();
 		contactList.setContactList(dataSource.getContactList());
 		Contact output = contactList.getContact(contactList.size() - 1);
+		
+
+		anotherContact.setFirstName("robin");
+		anotherContact.setLastName("williams");
+		anotherContact.setEmailAddress("rw@example.com");
+		anotherContact.setPhoneNumber("1115550099");
+
+		
+		
 		
 		dataSource.deleteContact(output);
 		dataSource.close();

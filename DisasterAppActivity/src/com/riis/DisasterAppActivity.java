@@ -35,7 +35,6 @@ public class DisasterAppActivity extends Activity{
 
         ListView listView = (ListView) findViewById(R.id.contactIndicatorListView);
 
-
         listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
     }
 	 

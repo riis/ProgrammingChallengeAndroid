@@ -77,11 +77,6 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		assertEquals(98, Integer.parseInt(characterCountLabel.getText().toString()));
 	}
 	
-	public void testSendEmergencyTextMessage()
-	{
-		sendEmergencyMessageActivity.sendEmergencyMessage(null);
-	}
-	
 	public void testCancelEmergencyMessageButtonIntent() {
 //		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
 //		

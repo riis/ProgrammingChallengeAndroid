@@ -15,7 +15,6 @@ import com.riis.models.ResponseMessage;
 
 public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 
-	private ResponseMessageDataSource dataSource;
 	private final Context context;
 	private final ArrayList<Contact> values;
 	
@@ -36,7 +35,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 		TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
 		TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
 		
-		dataSource = new ResponseMessageDataSource(context);
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
 		dataSource.open();
 		
 		ArrayList<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
@@ -46,12 +45,11 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 		
 		for(int i = 0; i < responseMessages.size(); i++) {
 			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber())) {
-				timeStampView.setText(timeStampView.getText().toString() +"\n" + responseMessages.get(position).getTimeStamp());
-				messageView.setText(messageView.getText().toString() +"\n"+ responseMessages.get(position).getTextMessageContents());
+				timeStampView.setText(responseMessages.get(position).getTimeStamp());
+				messageView.setText(responseMessages.get(position).getTextMessageContents());
 			}
 		}
 
 		return rowView;
 	}
-
 }

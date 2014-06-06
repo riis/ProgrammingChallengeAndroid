@@ -13,9 +13,6 @@ import com.riis.models.ResponseMessage;
 
 public class TextMessageReceiver extends BroadcastReceiver{
 	
-	private ContactDataSource contactDataSource;
-	private ResponseMessageDataSource messageDataSource;
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
@@ -32,40 +29,34 @@ public class TextMessageReceiver extends BroadcastReceiver{
 		isEmergencyContact(context, sms);
 	}
 
-	private boolean isEmergencyContact(Context context, SmsMessage[] sms) {  // turn boolean back on for contact
-		contactDataSource = new ContactDataSource(context);
-		contactDataSource.open();
+	private boolean isEmergencyContact(Context context, SmsMessage[] sms) {
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
+		dataSource.open();
 		ContactList contactList = new ContactList();
-		contactList.setContactList(contactDataSource.getContactList());
-		contactDataSource.close();
+		contactList.setContactList(dataSource.getContactList());
 
 		for(int i = 0; i < contactList.size(); i++) {
 			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
 					&& !contactList.getContact(i).getMessageSentTimeStamp().equals(""))
 			{
-				messageDataSource = new ResponseMessageDataSource(context);
-				messageDataSource.open();
-				
 				ResponseMessage response = new ResponseMessage();
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
 				response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 				response.updateMessageSentTimeStamp();
-				Log.i("SmsReceiver", "(inside) message is "+ sms[sms.length - 1].getMessageBody());
 
-				messageDataSource.createResponseMessage(response);
-				messageDataSource.close();
-				
-				contactDataSource.open();
+				dataSource.createResponseMessage(response);
 				
 				Contact contact = contactList.getContact(i);
 				contact.setMessageSentTimeStamp("");
-				contactDataSource.updateContact(contact);
+				dataSource.updateContact(contact);
 				
-				contactDataSource.close();
+				dataSource.close();
 				
 				return true;
 			}
 		}
+		
+		dataSource.close();
 		
 		return false;
 	}

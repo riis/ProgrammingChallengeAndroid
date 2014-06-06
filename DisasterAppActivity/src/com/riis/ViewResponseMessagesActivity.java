@@ -1,18 +1,17 @@
 package com.riis;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.ContactList;
 
 public class ViewResponseMessagesActivity extends Activity{
 	
-	private ContactDataSource contactDataSource;
+	private DisasterAppDataSource contactDataSource;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -20,7 +19,7 @@ public class ViewResponseMessagesActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.response_messages_screen);
         
-        contactDataSource = new ContactDataSource(this);
+        contactDataSource = new DisasterAppDataSource(this);
         
         contactDataSource.open();
         ContactList contactList = new ContactList();
@@ -33,9 +32,6 @@ public class ViewResponseMessagesActivity extends Activity{
     }
 	
 	public void returnToMainScreen(View view) {
-//		finish();
-		Intent i = new Intent(getBaseContext(), DisasterAppActivity.class); 
-        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP); 
-        startActivity(i);
+		finish();
 	}
 }

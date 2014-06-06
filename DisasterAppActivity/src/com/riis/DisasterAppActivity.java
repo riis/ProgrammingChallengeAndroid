@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
 
 public class DisasterAppActivity extends Activity{
 	
-	private ContactDataSource dataSource;
+	private DisasterAppDataSource dataSource;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -21,7 +21,7 @@ public class DisasterAppActivity extends Activity{
         setContentView(R.layout.main);
         
         
-        dataSource = new ContactDataSource(this);
+        dataSource = new DisasterAppDataSource(this);
         dataSource.open();
         ContactList contactList = new ContactList();
         

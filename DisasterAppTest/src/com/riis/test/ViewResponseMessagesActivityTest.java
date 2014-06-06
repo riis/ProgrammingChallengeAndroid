@@ -6,8 +6,7 @@ import android.widget.ListView;
 
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ContactDataSource;
-import com.riis.controllers.ResponseMessageDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ResponseMessage;
@@ -18,6 +17,8 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 	private ViewResponseMessagesActivity viewResponseMessagesActivity;
 	private Button returnToMainScreenButton;
 	private ListView responseMessagesListView;
+	
+	private Contact contact;
 	
 	public ViewResponseMessagesActivityTest() {
 		super(ViewResponseMessagesActivity.class);
@@ -32,6 +33,12 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.returnToMainScreenButton);
 		responseMessagesListView = (ListView) viewResponseMessagesActivity
 				.findViewById(R.id.responseMessagesListView);
+		
+		contact = new Contact();
+		contact.setFirstName("Robert");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("5555555555");
 	}
 	
 	public void testListViewPopulates() {
@@ -39,26 +46,17 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 			
 			@Override
 			public void run() {
-				ResponseMessageDataSource responseMessageDataSource = new ResponseMessageDataSource(
+				DisasterAppDataSource dataSource = new DisasterAppDataSource(
 						viewResponseMessagesActivity.getApplicationContext());
 				
-				Contact contact = new Contact();
-				contact.setFirstName("Bob");
-				contact.setLastName("Jones");
-				contact.setEmailAddress("t@t.co");
-				contact.setPhoneNumber("1234567890");
-				
 				ResponseMessage response = new ResponseMessage();
-	        	response.setPhoneNumber("1234567890");
+	        	response.setPhoneNumber("5555555555");
 	        	response.setTextMessageContents("This is a test");
 	        	response.updateMessageSentTimeStamp();
 	        	
-	        	responseMessageDataSource.open();
-	        	responseMessageDataSource.createResponseMessage(response);
-	        	responseMessageDataSource.close();
+	        	dataSource.open();
+	        	dataSource.createResponseMessage(response);
 				
-	        	ContactDataSource dataSource = new ContactDataSource(viewResponseMessagesActivity.getApplicationContext());
-				dataSource.open();
 				dataSource.createContact(contact);
 				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.getApplicationContext(),
 						dataSource.getContactList()));
@@ -70,7 +68,21 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		assertTrue(responseMessagesListView.getCount() > 0);
+		
+		ResponseMessage response = new ResponseMessage();
+    	response.setPhoneNumber("5555555555");
+    	response.setTextMessageContents("This is a test");
+    	response.updateMessageSentTimeStamp();
+		
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(viewResponseMessagesActivity.getApplicationContext());
+		dataSource.open();
+		
+		dataSource.deleteContact(contact);
+		dataSource.deleteResponseMessage(response);
+		
+		dataSource.close();
 	}
 	
 	public void testResponseMessagesListViewExists() {

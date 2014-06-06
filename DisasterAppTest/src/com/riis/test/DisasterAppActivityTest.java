@@ -13,12 +13,10 @@ import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.MessageIndicatorAdapter;
-import com.riis.controllers.ResponseMessageDataSource;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-import com.riis.models.ResponseMessage;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
 	
@@ -47,7 +45,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
 
 		contact = new Contact();
-		
 		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -111,7 +108,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	}
 	
 	public void testCreateContact() {
-		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(getActivity().getApplicationContext());
 		dataSource.open();
 		
 		dataSource.createContact(contact);
@@ -134,37 +131,31 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			
 			@Override
 			public void run() {
-				ResponseMessageDataSource responseMessageDataSource = new ResponseMessageDataSource(
+				DisasterAppDataSource dataSource = new DisasterAppDataSource(
 						disasterAppActivity.getApplicationContext());
 				
-				Contact contact = new Contact();
-				contact.setFirstName("Bob");
-				contact.setLastName("Jones");
-				contact.setEmailAddress("t@t.co");
-				contact.setPhoneNumber("1234567890");
-				
-				ResponseMessage response = new ResponseMessage();
-	        	response.setPhoneNumber("1234567890");
-	        	response.setTextMessageContents("This is a test");
-	        	response.updateMessageSentTimeStamp();
+	        	dataSource.open();
 	        	
-	        	responseMessageDataSource.open();
-	        	responseMessageDataSource.createResponseMessage(response);
-	        	responseMessageDataSource.close();
-				
-	        	ContactDataSource dataSource = new ContactDataSource(disasterAppActivity.getApplicationContext());
-				dataSource.open();
 				dataSource.createContact(contact);
 				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(disasterAppActivity.getApplicationContext(),
 						dataSource.getContactList()));
 				dataSource.close();
 			}
 		});
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		assertTrue(contactIndicatorListView.getCount() > 0);
+		
+		DisasterAppDataSource dataSource = new DisasterAppDataSource(disasterAppActivity.getApplicationContext());
+		dataSource.open();
+		
+		dataSource.deleteContact(contact);
+		
+		dataSource.close();
 	}
 }

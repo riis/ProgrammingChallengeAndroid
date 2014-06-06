@@ -20,6 +20,7 @@ public class DisasterAppActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        
         dataSource = new ContactDataSource(this);
         dataSource.open();
         ContactList contactList = new ContactList();
@@ -38,6 +39,12 @@ public class DisasterAppActivity extends Activity{
 
         listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
     }
+	@Override
+	protected void onResume() {
+
+	   super.onResume();
+	   this.onCreate(null);
+	}
 	 
     public void createContactScreen(View view) {
     	Intent intent = new Intent(this, NewContactActivity.class);

@@ -64,13 +64,7 @@ public class NewContactActivity extends Activity
 			ContactDataSource dataSource = new ContactDataSource(this);
 	        dataSource.open();
 	        
-	        Contact newContact;
-	        
-	        try {
-	          	newContact =  new Contact(dataSource.getContact().getId() + 1);
-	        } catch (Exception e) {
-	        	newContact = new Contact(1);
-	        }
+	        Contact newContact = new Contact();
 	        
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());

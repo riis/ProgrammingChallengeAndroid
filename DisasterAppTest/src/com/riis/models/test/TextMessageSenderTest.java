@@ -25,7 +25,7 @@ public class TextMessageSenderTest extends TestCase{
 		
 		String message = "Testing";
 		
-		Contact contact = new Contact(1);
+		Contact contact = new Contact();
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -44,5 +44,4 @@ public class TextMessageSenderTest extends TestCase{
 		
 		assertTrue(flag);
 	}
-
 }

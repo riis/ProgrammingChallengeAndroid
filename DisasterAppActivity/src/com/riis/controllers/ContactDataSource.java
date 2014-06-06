@@ -28,7 +28,6 @@ public class ContactDataSource {
 	}
 	
 	public Contact createContact(Contact contact) {
-		
 		ContentValues values = new ContentValues();
 		values.put("firstName", contact.getFirstName());
 		values.put("lastName", contact.getLastName());

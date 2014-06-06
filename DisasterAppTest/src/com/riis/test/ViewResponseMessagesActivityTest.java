@@ -6,6 +6,11 @@ import android.widget.ListView;
 
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
+import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.ResponseMessageDataSource;
+import com.riis.controllers.ResponseMessagesAdapter;
+import com.riis.models.Contact;
+import com.riis.models.ResponseMessage;
 
 
 public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>{
@@ -29,34 +34,44 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 				.findViewById(R.id.responseMessagesListView);
 	}
 	
-//	public void testListViewPopulates() {
-//		viewResponseMessagesActivity.runOnUiThread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				ResponseMessageDataSource responseMessageDataSource = new ResponseMessageDataSource(
-//						viewResponseMessagesActivity.getApplicationContext());
-//				ResponseMessage response = new ResponseMessage();
-//	        	response.setPhoneNumber("1234567890");
-//	        	response.setTextMessageContents("This is a test");
-//	        	response.updateMessageSentTimeStamp();
-//	        	responseMessageDataSource.open();
-//	        	responseMessageDataSource.createResponseMessage(response);
-//	        	responseMessageDataSource.close();
-//				ContactDataSource dataSource = new ContactDataSource(viewResponseMessagesActivity.getApplicationContext());
-//				dataSource.open();
-//				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.getApplicationContext(),
-//						dataSource.getContactList()));
-//				dataSource.close();
-//			}
-//		});
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		assertTrue(responseMessagesListView.getCount() > 0);
-//	}
+	public void testListViewPopulates() {
+		viewResponseMessagesActivity.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ResponseMessageDataSource responseMessageDataSource = new ResponseMessageDataSource(
+						viewResponseMessagesActivity.getApplicationContext());
+				
+				Contact contact = new Contact();
+				contact.setFirstName("Bob");
+				contact.setLastName("Jones");
+				contact.setEmailAddress("t@t.co");
+				contact.setPhoneNumber("1234567890");
+				
+				ResponseMessage response = new ResponseMessage();
+	        	response.setPhoneNumber("1234567890");
+	        	response.setTextMessageContents("This is a test");
+	        	response.updateMessageSentTimeStamp();
+	        	
+	        	responseMessageDataSource.open();
+	        	responseMessageDataSource.createResponseMessage(response);
+	        	responseMessageDataSource.close();
+				
+	        	ContactDataSource dataSource = new ContactDataSource(viewResponseMessagesActivity.getApplicationContext());
+				dataSource.open();
+				dataSource.createContact(contact);
+				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.getApplicationContext(),
+						dataSource.getContactList()));
+				dataSource.close();
+			}
+		});
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertTrue(responseMessagesListView.getCount() > 0);
+	}
 	
 	public void testResponseMessagesListViewExists() {
 		assertNotNull(responseMessagesListView);

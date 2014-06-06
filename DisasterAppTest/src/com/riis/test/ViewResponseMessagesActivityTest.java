@@ -6,10 +6,6 @@ import android.widget.ListView;
 
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ContactDataSource;
-import com.riis.controllers.ResponseMessageDataSource;
-import com.riis.controllers.ResponseMessagesAdapter;
-import com.riis.models.ResponseMessage;
 
 
 public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>{

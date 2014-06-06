@@ -16,7 +16,7 @@ public class MockContactList extends ContactList
 	}
 	public Contact getContact(int i)
 	{
-		Contact contact = new Contact(1);
+		Contact contact = new Contact();
 		contact.setPhoneNumber("5869336419");
 		return contact;
 		

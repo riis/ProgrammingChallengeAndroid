@@ -11,8 +11,7 @@ public class Contact {
 	private String phoneNumber;
 	private String messageSentTimeStamp;
 	
-	public Contact(long id) {
-		this.id = id;
+	public Contact() {
 		this.firstName = "";
 		this.lastName = "";
 		this.emailAddress = "";

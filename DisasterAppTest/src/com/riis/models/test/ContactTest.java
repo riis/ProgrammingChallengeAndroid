@@ -17,7 +17,7 @@ public class ContactTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		newContact = new Contact(1);
+		newContact = new Contact();
 	}
 	
 	public void testNewFirstName() {
@@ -58,10 +58,6 @@ public class ContactTest extends TestCase {
 				"-"+ cal.get(Calendar.YEAR) +
 				" "+cal.getTime().toString().substring(11, 16);
 		assertEquals(newContact.getMessageSentTimeStamp(), date);
-	}
-	
-	public void testInitialId() {
-		assertEquals(1L, (long) newContact.getId());
 	}
 	
 	public void testInitialFirstName() {

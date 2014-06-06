@@ -17,7 +17,7 @@ public class ContactListTest extends TestCase{
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		contact = new Contact(1);
+		contact = new Contact();
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");

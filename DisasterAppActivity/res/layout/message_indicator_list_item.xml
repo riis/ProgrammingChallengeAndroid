@@ -11,15 +11,17 @@
         <TextView
             android:id="@+id/indicatorListName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
         
         <TextView
             android:id="@+id/indicatorListValue"
+            android:gravity="right"
             android:layout_toRightOf="@id/indicatorListName"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10sp"
-            android:background="@android:color/white" />
+            android:paddingRight="10sp"
+            android:textSize="18sp" />
         
     </RelativeLayout>
 </LinearLayout>

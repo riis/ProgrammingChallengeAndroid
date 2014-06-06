@@ -42,7 +42,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
 		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
-		sampleLabel = (TextView) disasterAppActivity.findViewById(R.id.sampleLabel);
+	
 		
 		ContactDataSource dataSource = new ContactDataSource(getActivity().getApplicationContext());
 		dataSource.open();

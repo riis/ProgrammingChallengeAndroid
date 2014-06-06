@@ -52,7 +52,6 @@ public class TextMessageReceiver extends BroadcastReceiver{
 				response.updateMessageSentTimeStamp();
 				Log.i("SmsReceiver", "(inside) message is "+ sms[sms.length - 1].getMessageBody());
 
-				
 				messageDataSource.createResponseMessage(response);
 				messageDataSource.close();
 				

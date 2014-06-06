@@ -1,5 +1,7 @@
 package com.riis;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import android.app.Activity;
@@ -9,10 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactDataSource;
+import com.riis.controllers.ResponseMessageDataSource;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.EmergencyMessageTextWatcher;
+import com.riis.models.ResponseMessage;
 import com.riis.models.TextMessageSender;
 
 import dagger.ObjectGraph;
@@ -57,6 +61,17 @@ public class SendEmergencyMessageActivity extends Activity {
 			dataSource.close();
 			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
+			
+			ResponseMessageDataSource responseDataSource = new ResponseMessageDataSource(this);
+			responseDataSource.open();
+			ArrayList<ResponseMessage> responses = responseDataSource.getResponseMessageList();
+			
+			for(int i = 0; i < responses.size(); i++) {
+				ResponseMessage response = responses.get(i);
+				responseDataSource.deleteResponseMessage(response);
+			}
+
+			responseDataSource.close();
 			
 			finish();
 		}

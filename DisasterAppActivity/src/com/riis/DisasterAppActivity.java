@@ -3,26 +3,17 @@ package com.riis;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.riis.controllers.ContactDataSource;
-import com.riis.controllers.ResponseMessageDataSource;
-import com.riis.controllers.TextMessageReceiver;
-import com.riis.models.Contact;
+import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
 
 public class DisasterAppActivity extends Activity{
 	
 	private ContactDataSource dataSource;
 
-	private ResponseMessageDataSource messageDataSource;
-	private TextMessageReceiver textMessageReceiver;
-
-	private String receivedMessageCheck;
-	private boolean tempTestingBoolean;
-	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -40,72 +31,14 @@ public class DisasterAppActivity extends Activity{
         }
         
         dataSource.close();
-
-        TextView contactView = (TextView) findViewById(R.id.sampleLabel);
         
-        messageDataSource = new ResponseMessageDataSource(this);
-        messageDataSource.open();
-      
-        for(int i =0;i<contactList.size();i++)
-        {
-        	if(!contactList.getContact(i).getMessageSentTimeStamp().equals("")) {  // set boolean off once star is on unless view responses is clicked
-        		if(contactList.getContact(i).getPhoneNumber().equals(
-        				messageDataSource.getResponseMessageList().get(i).getPhoneNumber())) {
-        			String sentMessageTimeStamp = contactList.getContact(i).getMessageSentTimeStamp();
-        			String textTimeStamp = messageDataSource.getResponseMessageList().get(i).getTimeStamp();
-        			
-        			int sentMonth = Integer.parseInt(sentMessageTimeStamp.substring(0, 1));
-        			int textMonth = Integer.parseInt(textTimeStamp.substring(0, 1));
-        			
-        			int sentDay = Integer.parseInt(sentMessageTimeStamp.substring(3, 4));
-        			int textDay = Integer.parseInt(textTimeStamp.substring(3, 4));
-        			
-        			int sentYear = Integer.parseInt(sentMessageTimeStamp.substring(6, 9));
-        			int textYear = Integer.parseInt(textTimeStamp.substring(6, 9));
-        			
-        			int sentHour = Integer.parseInt(sentMessageTimeStamp.substring(12, 13));
-        			int textHour = Integer.parseInt(textTimeStamp.substring(12, 13));
-        			
-        			int sentMinute = Integer.parseInt(sentMessageTimeStamp.substring(14, 15));
-        			int textMinute = Integer.parseInt(textTimeStamp.substring(14, 15));
-        			
-        			Log.i("Time stamp", sentMonth +" "+ sentDay +" "+ sentYear +" "+sentHour +" "+ sentMinute);
-        			addContactToTextView(contactView, contactList.getContact(i));
-        		}
-        	} else {receivedMessageCheck="";
-        	addContactToTextView(contactView, contactList.getContact(i));}
-//        	contact = contactList.getContact(i);
-        	
-//        	if(contact.getMessageSentTimeStamp())
-//        		  {receivedMessageCheck="*";}
-//        	else {receivedMessageCheck="";} 
-//        	
-        	   	
-        	//using toggling just to test	
-        	tempTestingBoolean =!tempTestingBoolean;
-        }
-       
 
+        ListView listView = (ListView) findViewById(R.id.contactIndicatorListView);
+
+
+        listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
     }
-	
-	 public void addContactToTextView(TextView textView, Contact contact)
-	   {
-		 
-		   textView.append( contact.getFirstName() 
-				   + " " + contact.getLastName() 
-				   + "\t "+ contact.getEmailAddress() 
-				   + "\t "+ contact.getPhoneNumber()
-				   + "\t "+ receivedMessageCheck
-				   + "\n");
-		
-	   }
 	 
-	 public boolean checkIfContactReceivedMessage(boolean state)
-	 { 
-		 
-		 return state;
-	 }
-    
     public void createContactScreen(View view) {
     	Intent intent = new Intent(this, NewContactActivity.class);
     	startActivity(intent);

@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100"
-    android:orientation="horizontal" >
+    android:layout_height="match_parent" >
     
-	<TextView
-        android:id="@+id/indicatorListName"          
-		android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_weight="70" />
-     
-	<TextView
-		android:id="@+id/indicatorListValue"
-        android:gravity="right"
-        android:layout_toEndOf="@id/indicatorListName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" 
-        android:paddingRight="10sp"
-        android:layout_weight="30" />
-</LinearLayout>
+    <TextView
+			android:id="@+id/indicatorListValue"
+	        android:gravity="right"
+	        android:minLines="1"
+	        android:maxLines="2"
+	        android:layout_alignParentRight="true"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp" 
+	        android:paddingRight="10sp" />
+    
+		<TextView
+	        android:id="@+id/indicatorListName"
+	        android:layout_toLeftOf="@id/indicatorListValue"
+	        android:layout_alignParentLeft="true"
+			android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp" />
+		
+		 
+    
+    
+</RelativeLayout>

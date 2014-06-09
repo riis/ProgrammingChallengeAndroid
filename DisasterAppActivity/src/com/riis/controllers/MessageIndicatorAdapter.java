@@ -47,7 +47,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 		
 		for(int i = 0; i < responseMessages.size(); i++) {
 			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber())) {
-				if(values.get(position).getMessageSentTimeStamp().equals("")) {
+				if(values.get(position).getMessageSentTimeStamp() == 0L) {
 					indicatorView.setText("Responded");
 					indicatorView.setTextColor(Color.GREEN);
 					flag = true;
@@ -55,7 +55,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 			}
 		}
 		
-		if(!values.get(position).getMessageSentTimeStamp().equals("")) {
+		if(values.get(position).getMessageSentTimeStamp() != 0L) {
 			if(!flag) {
 				indicatorView.setText("Not Responded");
 				indicatorView.setTextColor(Color.RED);

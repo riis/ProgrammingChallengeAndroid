@@ -48,13 +48,13 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 		
 		for(int i = 0; i < responseMessages.size(); i++) {
 			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber())) {
-				timeStampView.setText(responseMessages.get(position).getTimeStamp());
+				timeStampView.setText(responseMessages.get(position).getFormattedMessageSentTimeStamp());
 				messageView.setText(responseMessages.get(position).getTextMessageContents());
 				flag = true;
 			}
 		}
 		
-		if(!values.get(position).getMessageSentTimeStamp().equals("")) {
+		if(values.get(position).getMessageSentTimeStamp() != 0L) {
 			if(!flag) {
 				timeStampView.setVisibility(View.GONE);
 				messageView.setText("No messages received");

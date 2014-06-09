@@ -9,14 +9,14 @@ public class Contact {
 	private String lastName;
 	private String emailAddress;
 	private String phoneNumber;
-	private String messageSentTimeStamp;
+	private long messageSentTimeStamp;
 	
 	public Contact() {
 		this.firstName = "";
 		this.lastName = "";
 		this.emailAddress = "";
 		this.phoneNumber = "";
-		this.messageSentTimeStamp = "";
+		this.messageSentTimeStamp = 0L;
 	}
 	
 	public void setFirstName(String firstName) {
@@ -35,16 +35,13 @@ public class Contact {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void setMessageSentTimeStamp(String messageSentTimeStamp) {
+	public void setMessageSentTimeStamp(long messageSentTimeStamp) {
 		this.messageSentTimeStamp = messageSentTimeStamp;
 	}
 	
 	public void updateMessageSentTimeStamp() {
 		Calendar cal = Calendar.getInstance();
-		this.messageSentTimeStamp = (cal.get(Calendar.MONTH) + 1) +
-				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
-				"-"+ cal.get(Calendar.YEAR) +
-				" "+cal.getTime().toString().substring(11, 16);
+		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
 	public Long getId() {
@@ -67,7 +64,7 @@ public class Contact {
 		return phoneNumber;
 	}
 	
-	public String getMessageSentTimeStamp() {
+	public long getMessageSentTimeStamp() {
 		return messageSentTimeStamp;
 	}
 }

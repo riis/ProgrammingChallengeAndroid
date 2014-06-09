@@ -147,7 +147,7 @@ public class DisasterAppDataSource {
 	private ResponseMessage convertCursorToResponseMessage(Cursor cursor) {
 		ResponseMessage responseMessage = new ResponseMessage();
 		responseMessage.setPhoneNumber(cursor.getString(1));
-		responseMessage.setTimeStamp(cursor.getString(2));
+		responseMessage.setTimeStamp(cursor.getInt(2));
 		responseMessage.setTextMessageContents(cursor.getString(3));
 		return responseMessage;
 	}
@@ -158,7 +158,7 @@ public class DisasterAppDataSource {
 		contact.setLastName(cursor.getString(2));
 		contact.setEmailAddress(cursor.getString(3));
 		contact.setPhoneNumber(cursor.getString(4));
-		contact.setMessageSentTimeStamp(cursor.getString(5));
+		contact.setMessageSentTimeStamp(cursor.getInt(5));
 		return contact;
 	}
 }

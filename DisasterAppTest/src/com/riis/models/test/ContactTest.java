@@ -42,21 +42,15 @@ public class ContactTest extends TestCase {
 	
 	public void testNewMessageSentTimeStamp() {
 		Calendar cal = Calendar.getInstance();
-		String date = (cal.get(Calendar.MONTH) + 1) +
-				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
-				"-"+ cal.get(Calendar.YEAR) +
-				" "+cal.getTime().toString().substring(11, 16);
-		newContact.setMessageSentTimeStamp(date);
-		assertEquals(newContact.getMessageSentTimeStamp(), date);
+		long time = cal.getTimeInMillis();
+		newContact.setMessageSentTimeStamp(time);
+		assertEquals(newContact.getMessageSentTimeStamp(), time);
 	}
 	
 	public void testUpdateMessageSentTimeStamp() {
 		newContact.updateMessageSentTimeStamp();
 		Calendar cal = Calendar.getInstance();
-		String date = (cal.get(Calendar.MONTH) + 1) +
-				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
-				"-"+ cal.get(Calendar.YEAR) +
-				" "+cal.getTime().toString().substring(11, 16);
+		long date = cal.getTimeInMillis();
 		assertEquals(newContact.getMessageSentTimeStamp(), date);
 	}
 	

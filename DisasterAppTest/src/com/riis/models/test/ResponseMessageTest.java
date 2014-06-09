@@ -1,5 +1,7 @@
 package com.riis.models.test;
 
+import java.util.Calendar;
+
 import junit.framework.TestCase;
 
 import com.riis.models.ResponseMessage;
@@ -16,6 +18,16 @@ public class ResponseMessageTest extends TestCase{
 		super.setUp();
 		
 		responseMessage = new ResponseMessage();
+	}
+	
+	public void testGetFormattedMessageSentTimeStamp() {
+		responseMessage.updateMessageSentTimeStamp();
+		Calendar cal = Calendar.getInstance();
+		String date = (cal.get(Calendar.MONTH) + 1) +
+				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
+				"-"+ cal.get(Calendar.YEAR) +
+				" "+cal.getTime().toString().substring(11, 16);
+		assertEquals(date, responseMessage.getFormattedMessageSentTimeStamp());
 	}
 	
 	public void testNewPhoneNumber() {

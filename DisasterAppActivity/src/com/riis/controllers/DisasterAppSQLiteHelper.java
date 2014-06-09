@@ -15,12 +15,12 @@ public class DisasterAppSQLiteHelper extends SQLiteOpenHelper {
 			+ "lastName text not null, "
 			+ "emailAddress text not null, "
 			+ "phoneNumber integer not null, "
-			+ "messageSentTimeStamp text not null);";
+			+ "messageSentTimeStamp integer not null);";
 	
 	private static final String RESPONSE_MESSAGE_TABLE_CREATE_STMT = "create table "
 			+ "responseMessage(_id integer primary key autoincrement, "
 			+ "phoneNumber text not null, "
-			+ "timeStamp text not null, "
+			+ "timeStamp integer not null, "
 			+ "textMessageContents text not null);";
 
 	public DisasterAppSQLiteHelper(Context context) {

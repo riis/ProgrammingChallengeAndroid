@@ -51,11 +51,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		contact.setPhoneNumber("5555555555");
 		
 		Calendar cal = Calendar.getInstance();
-		String date = (cal.get(Calendar.MONTH) + 1) +
-				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
-				"-"+ cal.get(Calendar.YEAR) +
-				" "+cal.getTime().toString().substring(11, 16);
-		contact.setMessageSentTimeStamp(date);
+		contact.setMessageSentTimeStamp(cal.getTimeInMillis());
 	}
 	
 	public void testIndicatorListViewExists() {

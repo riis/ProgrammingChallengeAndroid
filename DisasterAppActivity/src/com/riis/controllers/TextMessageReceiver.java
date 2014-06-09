@@ -37,7 +37,7 @@ public class TextMessageReceiver extends BroadcastReceiver{
 
 		for(int i = 0; i < contactList.size(); i++) {
 			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
-					&& !contactList.getContact(i).getMessageSentTimeStamp().equals(""))
+					&& contactList.getContact(i).getMessageSentTimeStamp() != 0L)
 			{
 				ResponseMessage response = new ResponseMessage();
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
@@ -47,7 +47,7 @@ public class TextMessageReceiver extends BroadcastReceiver{
 				dataSource.createResponseMessage(response);
 				
 				Contact contact = contactList.getContact(i);
-				contact.setMessageSentTimeStamp("");
+				contact.setMessageSentTimeStamp(0L);
 				dataSource.updateContact(contact);
 				
 				dataSource.close();

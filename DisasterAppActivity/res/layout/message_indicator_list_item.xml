@@ -9,10 +9,11 @@
 	        android:minLines="1"
 	        android:maxLines="2"
 	        android:layout_alignParentRight="true"
-	        android:layout_width="fill_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textSize="18sp" 
-	        android:paddingRight="10sp" />
+	        android:textSize="18sp"
+	        android:paddingLeft="5sp" 
+	        android:paddingRight="5sp" />
     
 		<TextView
 	        android:id="@+id/indicatorListName"

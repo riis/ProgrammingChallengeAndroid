@@ -6,16 +6,18 @@
     
     <Button 
         android:id="@+id/returnToMainScreenButton"
-        android:layout_width="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="returnToMainScreen"
         android:text="@string/returnToMainScreenButtonLabel"/>
     
 	<ListView
 	    android:id="@+id/responseMessagesListView"
-		android:layout_below="@id/returnToMainScreenButton"
+	    android:layout_above="@id/returnToMainScreenButton"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent" 
 		android:divider="@android:color/black" />
-
+	
 </RelativeLayout>

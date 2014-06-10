@@ -16,6 +16,7 @@ import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.EmergencyMessageTextWatcher;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 import com.riis.models.TextMessageSender;
 
 import dagger.ObjectGraph;
@@ -28,7 +29,8 @@ public class SendEmergencyMessageActivity extends Activity {
 	@Inject TextMessageSender textMessageSender;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getObjectGraph();
 		objectGraph.inject(this);
@@ -47,27 +49,26 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	public void sendEmergencyMessage(View view) {
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString())) {
-			DisasterAppDataSource dataSource = new DisasterAppDataSource(this);
-			dataSource.open();
-			contactList.setContactList(dataSource.getContactList());
+			contactList.read();
 			
 			for(int i = 0; i < contactList.size(); i++) {
 				Contact contact = contactList.getContact(i);
 				contact.updateMessageSentTimeStamp();
-				dataSource.updateContact(contact);
+				contact.update();
 			}
 			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
-			ArrayList<ResponseMessage> responses = dataSource.getResponseMessageList();
+			ResponseMessageList responseMessageList = new ResponseMessageList(this);
+			responseMessageList.read();
+			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 			
-			for(int i = 0; i < responses.size(); i++) {
+			for(int i = 0; i < responses.size(); i++) 
+			{
 				ResponseMessage response = responses.get(i);
-				dataSource.deleteResponseMessage(response);
+				response.delete();
 			}
 
-			dataSource.close();
-			
 			finish();
 		}
 	}

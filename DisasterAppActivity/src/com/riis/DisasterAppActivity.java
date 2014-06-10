@@ -10,51 +10,42 @@ import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
 
-public class DisasterAppActivity extends Activity{
-	
-	private DisasterAppDataSource dataSource;
-
+public class DisasterAppActivity extends Activity
+{	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        
-        dataSource = new DisasterAppDataSource(this);
-        dataSource.open();
-        ContactList contactList = new ContactList();
-        
-        try {
-          	contactList.setContactList(dataSource.getContactList());
-        } catch (Exception e) {
-        	
-        }
-        
-        dataSource.close();
-        
-        ListView listView = (ListView) findViewById(R.id.contactIndicatorListView);
-        
+                
+        ContactList contactList = new ContactList(this);
+        contactList.read();
+                
+        ListView listView = (ListView) findViewById(R.id.contactIndicatorListView);        
         listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
     }
+	
 	@Override
-	protected void onResume() {
-
+	protected void onResume() 
+	{
 	   super.onResume();
 	   this.onCreate(null);
 	}
 	 
-    public void createContactScreen(View view) {
+    public void createContactScreen(View view) 
+    {
     	Intent intent = new Intent(this, NewContactActivity.class);
     	startActivity(intent);
     }
     
-   public void createEmergencyMessageScreen(View view) {
+   public void createEmergencyMessageScreen(View view)
+   {
     	Intent intent = new Intent(this, SendEmergencyMessageActivity.class);
     	startActivity(intent);
     }
 
-   public void viewMessageResponsesScreen(View view) {
+   public void viewMessageResponsesScreen(View view) 
+   {
 	   Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
 	   startActivity(intent);
    }

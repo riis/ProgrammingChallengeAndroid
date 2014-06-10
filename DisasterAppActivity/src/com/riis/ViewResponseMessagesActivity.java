@@ -5,26 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.ContactList;
 
-public class ViewResponseMessagesActivity extends Activity{
-	
-	private DisasterAppDataSource contactDataSource;
-	
+public class ViewResponseMessagesActivity extends Activity
+{
 	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.response_messages_screen);
         
-        contactDataSource = new DisasterAppDataSource(this);
         
-        contactDataSource.open();
-        ContactList contactList = new ContactList();
-        contactList.setContactList(contactDataSource.getContactList());
-        contactDataSource.close();
+        ContactList contactList = new ContactList(this);
+        contactList.read();
        
         ListView listView = (ListView) findViewById(R.id.responseMessagesListView);
 

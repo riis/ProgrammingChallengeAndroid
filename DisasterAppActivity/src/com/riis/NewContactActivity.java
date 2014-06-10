@@ -41,12 +41,13 @@ public class NewContactActivity extends Activity
 		phoneEditField = (EditText) findViewById(R.id.phone_number_editText);
     }
 	
-	public void cancelCreateContact(View view) {
+	public void cancelCreateContact(View view) 
+	{
 		finish();
 	}
 	
-	public void saveCreateContact(View view) {
-
+	public void saveCreateContact(View view) 
+	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
 		emailEditField.setError(null);
@@ -60,19 +61,15 @@ public class NewContactActivity extends Activity
 			emailEditField.setError(EMAIL_ADDRESS_ERROR);
 		else if (!isPhoneValid(phoneEditField.getText().toString())) 
 			phoneEditField.setError(PHONE_NUMBER_ERROR);
-		else {
-			DisasterAppDataSource dataSource = new DisasterAppDataSource(this);
-	        dataSource.open();
-	        
-	        Contact newContact = new Contact();
+		else 
+		{	        
+	        Contact newContact = new Contact(this);
 	        
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
 			newContact.setEmailAddress(emailEditField.getText().toString());
 			newContact.setPhoneNumber(phoneEditField.getText().toString());
-	        
-			dataSource.createContact(newContact);
-			dataSource.close();
+	        newContact.create();
 			
 			finish();
 		}

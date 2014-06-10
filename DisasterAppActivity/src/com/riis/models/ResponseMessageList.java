@@ -5,41 +5,41 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 
-public class ContactList extends BasePersistentModel<Contact>
-{	
-	private ArrayList<Contact> contacts;
+public class ResponseMessageList extends BasePersistentModel 
+{
+	private ArrayList<ResponseMessage> responseMessage;
 	private Context context;
 	
-	public ContactList(Context context) 
+	public ResponseMessageList(Context context) 
 	{
 		super(context);
 		this.context = context;
-		contacts = new ArrayList<Contact>();
+		responseMessage = new ArrayList<ResponseMessage>();
 	}
 	
 	public int size() 
 	{
-		return contacts.size();
+		return responseMessage.size();
 	}
 	
-	public Contact getContact(int index) 
+	public ResponseMessage getResponseMessage(int index) 
 	{
-		return contacts.get(index);
+		return responseMessage.get(index);
 	}
 	
-	public void addContact(Contact contact) 
+	public void addResponseMessage(ResponseMessage responseMessage) 
 	{
-		contacts.add(contact);
+		this.responseMessage.add(responseMessage);
 	}
 	
-	public void setContactList(ArrayList<Contact> contacts) 
+	public void setResponseMessage(ArrayList<ResponseMessage> responseMessage) 
 	{
-		this.contacts = contacts;
+		this.responseMessage = responseMessage;
 	}
 	
-	public ArrayList<Contact> getContacts() 
+	public ArrayList<ResponseMessage> getResponseMessage() 
 	{
-		return contacts;
+		return responseMessage;
 	}
 
 	@Override
@@ -62,16 +62,16 @@ public class ContactList extends BasePersistentModel<Contact>
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
+		Cursor cursor = database.query("responseMessage", columns, null, null, null, null, null);
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			Contact next = new Contact(this.context);
+			ResponseMessage next = new ResponseMessage(this.context);
 			boolean success = next.read(cursor.getInt(0));
 			if (success)
 			{
-				contacts.add(next);
+				responseMessage.add(next);
 			}
 			else
 			{

@@ -30,34 +30,27 @@ public class TextMessageReceiver extends BroadcastReceiver{
 	}
 
 	private boolean isEmergencyContact(Context context, SmsMessage[] sms) {
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
-		dataSource.open();
-		ContactList contactList = new ContactList();
-		contactList.setContactList(dataSource.getContactList());
+		ContactList contactList = new ContactList(context);
+		contactList.read();
 
 		for(int i = 0; i < contactList.size(); i++) {
 			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
 					&& contactList.getContact(i).getMessageSentTimeStamp() != 0L)
 			{
-				ResponseMessage response = new ResponseMessage();
+				ResponseMessage response = new ResponseMessage(context);
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
 				response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 				response.updateMessageSentTimeStamp();
-
-				dataSource.createResponseMessage(response);
+				response.create();
 				
 				Contact contact = contactList.getContact(i);
 				contact.setMessageSentTimeStamp(0L);
-				dataSource.updateContact(contact);
-				
-				dataSource.close();
-				
+				contact.update();
+								
 				return true;
 			}
 		}
-		
-		dataSource.close();
-		
+				
 		return false;
 	}
 }

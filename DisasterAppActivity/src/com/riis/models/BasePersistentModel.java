@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public abstract class BasePersistentModel<T> extends SQLiteOpenHelper{
+public abstract class BasePersistentModel<T> extends SQLiteOpenHelper
+{
 	
 	private static final String DATABASE_NAME = "disasterApp.db";
 	private static final int DATABASE_VERSION = 1;
@@ -18,34 +19,47 @@ public abstract class BasePersistentModel<T> extends SQLiteOpenHelper{
 			+ "firstName text not null, "
 			+ "lastName text not null, "
 			+ "emailAddress text not null, "
-			+ "phoneNumber integer not null "
-			+ "messageSent integer not null);";
+			+ "phoneNumber integer not null, "
+			+ "messageSentTimeStamp integer not null);";
 	
-	public BasePersistentModel(Context context) {
+	private static final String RESPONSE_MESSAGE_TABLE_CREATE_STMT = "create table "
+			+ "responseMessage(_id integer primary key autoincrement, "
+			+ "phoneNumber text not null, "
+			+ "timeStamp integer not null, "
+			+ "textMessageContents text not null);";
+
+	public BasePersistentModel(Context context) 
+	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase database) {
+	public void onCreate(SQLiteDatabase database) 
+	{
 		database.execSQL(CONTACT_TABLE_CREATE_STMT);
+		database.execSQL(RESPONSE_MESSAGE_TABLE_CREATE_STMT);
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) 
+	{
 		database.execSQL("DROP TABLE IF EXISTS contact");
+		database.execSQL("DROP TABLE IF EXISTS responseMessage");
 		onCreate(database);
 	}
 	
-	public void open() throws SQLException {
+	protected void open() throws SQLException 
+	{
 		database = getWritableDatabase();
 	}
 	
-	public void close() {
-		close();
+	public void close() 
+	{
+		database.close();
 	}
 	
-	abstract boolean create();
-	abstract boolean delete();
-	abstract T read(String input);
-	abstract boolean update();
+	abstract public boolean create();
+	abstract public boolean delete();
+	abstract public boolean read();
+	abstract public boolean update();
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.riis.R;
 import com.riis.models.Contact;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 
 public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 	
@@ -35,14 +36,10 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 		
 		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorListValue);
 		
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
-		dataSource.open();
-		
-		ArrayList<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
-		responseMessages = dataSource.getResponseMessageList();
-		
-		dataSource.close();
-		
+		ResponseMessageList responseMessageList = new ResponseMessageList(context);
+		responseMessageList.read();
+		ArrayList<ResponseMessage> responseMessages = responseMessageList.getResponseMessage();
+				
 		boolean flag = false;
 		
 		for(int i = 0; i < responseMessages.size(); i++) {

@@ -1,6 +1,7 @@
 package com.riis.dagger;
 
 import android.app.Application;
+import android.content.Context;
 import dagger.ObjectGraph;
 
 public class DaggerApplication extends Application
@@ -11,7 +12,8 @@ public class DaggerApplication extends Application
 	public void onCreate()
 	{
 		super.onCreate();
-		objectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph());
+		Context context = getApplicationContext();
+		objectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph(context));
 	}
 
 	public ObjectGraph getObjectGraph() {

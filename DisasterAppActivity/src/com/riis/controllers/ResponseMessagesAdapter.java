@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.riis.R;
 import com.riis.models.Contact;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 
 public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 
@@ -36,13 +37,9 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 		TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
 		TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
 		
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(context);
-		dataSource.open();
-		
-		ArrayList<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
-		responseMessages = dataSource.getResponseMessageList();
-		
-		dataSource.close();
+		ResponseMessageList responseMessageList = new ResponseMessageList(context);
+		responseMessageList.read();
+		ArrayList<ResponseMessage> responseMessages = responseMessageList.getResponseMessage();
 		
 		boolean flag = false;
 		

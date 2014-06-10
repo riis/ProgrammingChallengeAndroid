@@ -185,15 +185,15 @@ public class ResponseMessage extends BasePersistentModel
 	private String buildWhereClause()
 	{
 		StringBuilder selection = new StringBuilder();
-		String  comma = "";
+		String  and = "";
 		if (!phoneNumber.isEmpty())
 		{
 			selection.append("phoneNumber='").append(phoneNumber).append("'");
-			comma = ", ";
+			and = " AND ";
 		}
 		if (!textMessageContents.isEmpty())
 		{
-			selection.append(comma);
+			selection.append(and);
 			selection.append("textMessageContents='").append(textMessageContents).append("'");
 		}
 		return selection.toString();

@@ -17,13 +17,13 @@ public class ContactListTest extends TestCase{
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		contact = new Contact();
+		contact = new Contact(null);
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
 		
-		contactList = new ContactList();
+		contactList = new ContactList(null);
 	}
 	
 	public void testSize() {

@@ -17,7 +17,7 @@ public class ContactTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		newContact = new Contact();
+		newContact = new Contact(null);
 	}
 	
 	public void testNewFirstName() {
@@ -49,11 +49,8 @@ public class ContactTest extends TestCase {
 	
 	public void testUpdateMessageSentTimeStamp() {
 		newContact.updateMessageSentTimeStamp();
-		Calendar cal = Calendar.getInstance();
-		long date = cal.getTimeInMillis();
-		assertEquals(newContact.getMessageSentTimeStamp(), date);
+		assertTrue(newContact.getMessageSentTimeStamp() > 0);
 	}
-	
 	public void testInitialFirstName() {
 		assertNotNull(newContact.getFirstName());
 	}

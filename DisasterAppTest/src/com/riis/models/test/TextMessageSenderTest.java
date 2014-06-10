@@ -25,13 +25,13 @@ public class TextMessageSenderTest extends TestCase{
 		
 		String message = "Testing";
 		
-		Contact contact = new Contact();
+		Contact contact = new Contact(null);
 		contact.setFirstName("Bob");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
 		
-		ContactList contactList = new ContactList();
+		ContactList contactList = new ContactList(null);
 		contactList.addContact(contact);
 		
 		try {

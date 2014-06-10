@@ -191,27 +191,27 @@ public class Contact extends BasePersistentModel
 	private String buildWhereClause()
 	{
 		StringBuilder selection = new StringBuilder();
-		String  comma = "";
+		String  and = "";
 		if (!firstName.isEmpty())
 		{
 			selection.append("firstName='").append(firstName).append("'");
-			comma = ", ";
+			and = " AND ";
 		}
 		if (!lastName.isEmpty())
 		{
-			selection.append(comma);
-			selection.append("LastName='").append(lastName).append("'");
-			comma = ", ";
+			selection.append(and);
+			selection.append("lastName='").append(lastName).append("'");
+			and = " AND ";
 		}
 		if (!emailAddress.isEmpty())
 		{
-			selection.append(comma);
+			selection.append(and);
 			selection.append("emailAddress='").append(emailAddress).append("'");
-			comma = ", ";
+			and = " AND ";
 		}
 		if (!phoneNumber.isEmpty())
 		{
-			selection.append(comma);
+			selection.append(and);
 			selection.append("phoneNumber='").append(phoneNumber).append("'");
 		}
 		return selection.toString();

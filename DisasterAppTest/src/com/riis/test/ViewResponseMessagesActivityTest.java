@@ -1,5 +1,6 @@
 package com.riis.test;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.ListView;
@@ -9,6 +10,7 @@ import com.riis.ViewResponseMessagesActivity;
 import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.Contact;
+import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 
 
@@ -19,14 +21,18 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 	private ListView responseMessagesListView;
 	
 	private Contact contact;
+	private Context context;
 	
-	public ViewResponseMessagesActivityTest() {
+	public ViewResponseMessagesActivityTest() 
+	{
 		super(ViewResponseMessagesActivity.class);
 	}
 	
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception 
+	{
 		super.setUp();
-		
+		context = this.getInstrumentation()
+				.getTargetContext().getApplicationContext();
 		viewResponseMessagesActivity = getActivity();
 		
 		returnToMainScreenButton = (Button) viewResponseMessagesActivity
@@ -34,62 +40,63 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		responseMessagesListView = (ListView) viewResponseMessagesActivity
 				.findViewById(R.id.responseMessagesListView);
 		
-		contact = new Contact();
+		contact = new Contact(context);
 		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
 	}
 	
-	public void testListViewPopulates() {
-		viewResponseMessagesActivity.runOnUiThread(new Runnable() {
-			
+	public void testListViewPopulates() 
+	{
+		viewResponseMessagesActivity.runOnUiThread(new Runnable() 
+		{	
 			@Override
-			public void run() {
-				DisasterAppDataSource dataSource = new DisasterAppDataSource(
-						viewResponseMessagesActivity.getApplicationContext());
-				
-				ResponseMessage response = new ResponseMessage();
+			public void run() 
+			{
+				ResponseMessage response = new ResponseMessage(context);
 	        	response.setPhoneNumber("5555555555");
 	        	response.setTextMessageContents("This is a test");
 	        	response.updateMessageSentTimeStamp();
-	        	
-	        	dataSource.open();
-	        	dataSource.createResponseMessage(response);
+	        	response.create();
+	    		
+				contact.create();
 				
-				dataSource.createContact(contact);
+				ContactList contactList = new ContactList(context);
+				contactList.read();
 				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.getApplicationContext(),
-						dataSource.getContactList()));
-				dataSource.close();
+						contactList.getContacts()));
 			}
 		});
-		try {
+		try 
+		{
 			Thread.sleep(5000);
-		} catch (InterruptedException e) {
+		} 
+		catch (InterruptedException e) 
+		{
 			e.printStackTrace();
 		}
 		
 		assertTrue(responseMessagesListView.getCount() > 0);
 		
-		ResponseMessage response = new ResponseMessage();
+		ResponseMessage response = new ResponseMessage(context);
     	response.setPhoneNumber("5555555555");
     	response.setTextMessageContents("This is a test");
     	response.updateMessageSentTimeStamp();
-		
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(viewResponseMessagesActivity.getApplicationContext());
-		dataSource.open();
-		
-		dataSource.deleteContact(contact);
-		dataSource.deleteResponseMessage(response);
-		
-		dataSource.close();
+				
+		contact.read();
+		contact.delete();
+		response.read();
+		response.delete();		
 	}
 	
-	public void testResponseMessagesListViewExists() {
+	public void testResponseMessagesListViewExists() 
+	{
 		assertNotNull(responseMessagesListView);
 	}
 	
-	public void testReturnToMainScreenButtonExists() {
+	public void testReturnToMainScreenButtonExists() 
+	{
 		assertNotNull(returnToMainScreenButton);
 	}
 }

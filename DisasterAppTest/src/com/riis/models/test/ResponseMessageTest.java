@@ -17,7 +17,7 @@ public class ResponseMessageTest extends TestCase{
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		responseMessage = new ResponseMessage();
+		responseMessage = new ResponseMessage(null);
 	}
 	
 	public void testGetFormattedMessageSentTimeStamp() {

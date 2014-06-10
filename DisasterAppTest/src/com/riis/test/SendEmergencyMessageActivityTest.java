@@ -1,5 +1,6 @@
 package com.riis.test;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
 	private TextView characterCountLabel;
+	private Context context;
 	
 	public SendEmergencyMessageActivityTest() {
 		super(SendEmergencyMessageActivity.class);
@@ -27,7 +29,10 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		ObjectGraph objectGraph= ObjectGraph.create(new DisasterTestObjectGraph());
+		context = this.getInstrumentation()
+				.getTargetContext().getApplicationContext();
+
+		ObjectGraph objectGraph= ObjectGraph.create(new DisasterTestObjectGraph(context));
 		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().getTargetContext().getApplicationContext();
 		myapp.setObjectGraph(objectGraph);
 		

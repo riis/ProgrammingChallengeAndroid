@@ -3,6 +3,7 @@ package com.riis.test;
 import java.util.Calendar;
 
 import android.app.Instrumentation.ActivityMonitor;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -26,25 +26,27 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private Button createEmergencyMessageScreenButton;
 	private Button viewMessageResponsesScreenButton;
 	private ListView contactIndicatorListView;
-	
+	private Context context;
 	private Contact contact;
 	
 	public DisasterAppActivityTest() {
 		super(DisasterAppActivity.class);
+		
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
 		
 		disasterAppActivity = getActivity();
-		
+		context = this.getInstrumentation()
+				.getTargetContext().getApplicationContext();
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
 		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
 
 		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
 
-		contact = new Contact();
+		contact = new Contact(context);
 		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
@@ -103,18 +105,15 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		getInstrumentation().removeMonitor(monitor);
 	}
 	
-	public void testCreateContact() {
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(getActivity().getApplicationContext());
-		dataSource.open();
+	public void testCreateContact() 
+	{
+		contact.create();
 		
-		dataSource.createContact(contact);
-		
-		ContactList contactList = new ContactList();
-		contactList.setContactList(dataSource.getContactList());
+		ContactList contactList = new ContactList(context);
+		contactList.read();
 		Contact output = contactList.getContact(contactList.size() - 1);
 
-		dataSource.deleteContact(output);
-		dataSource.close();
+		contact.delete();
 		
 		assertEquals(output.getFirstName(), contact.getFirstName());
 		assertEquals(output.getLastName(), contact.getLastName());
@@ -122,20 +121,17 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		assertEquals(output.getPhoneNumber(), contact.getPhoneNumber());
 	}
 	
-	public void testListViewPopulates() {
-		disasterAppActivity.runOnUiThread(new Runnable() {
-			
+	public void testListViewPopulates() 
+	{
+		disasterAppActivity.runOnUiThread(new Runnable() 
+		{	
 			@Override
-			public void run() {
-				DisasterAppDataSource dataSource = new DisasterAppDataSource(
-						disasterAppActivity.getApplicationContext());
-				
-	        	dataSource.open();
-	        	
-				dataSource.createContact(contact);
+			public void run() {	
+				contact.create();
+				ContactList contactList = new ContactList(context);
+				contactList.read();
 				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(disasterAppActivity.getApplicationContext(),
-						dataSource.getContactList()));
-				dataSource.close();
+						contactList.getContacts()));
 			}
 		});
 		
@@ -145,13 +141,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			e.printStackTrace();
 		}
 		
-		assertTrue(contactIndicatorListView.getCount() > 0);
-		
-		DisasterAppDataSource dataSource = new DisasterAppDataSource(disasterAppActivity.getApplicationContext());
-		dataSource.open();
-		
-		dataSource.deleteContact(contact);
-		
-		dataSource.close();
+		assertTrue(contactIndicatorListView.getCount() > 0);	
+		contact.read();
+		contact.delete();
 	}
 }

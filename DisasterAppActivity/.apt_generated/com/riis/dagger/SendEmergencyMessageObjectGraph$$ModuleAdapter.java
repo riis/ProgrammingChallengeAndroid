@@ -19,46 +19,14 @@ public final class SendEmergencyMessageObjectGraph$$ModuleAdapter extends Module
     super(com.riis.dagger.SendEmergencyMessageObjectGraph.class, INJECTS, STATIC_INJECTIONS, false /*overrides*/, INCLUDES, true /*complete*/, false /*library*/);
   }
 
-  @Override
-  public SendEmergencyMessageObjectGraph newModule() {
-    return new com.riis.dagger.SendEmergencyMessageObjectGraph();
-  }
-
   /**
    * Used internally obtain dependency information, such as for cyclical
    * graph detection.
    */
   @Override
   public void getBindings(BindingsGroup bindings, SendEmergencyMessageObjectGraph module) {
-    bindings.contributeProvidesBinding("com.riis.models.TextMessageSender", new ProvideTextMessageSenderProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
-  }
-
-  /**
-   * A {@code Binding<com.riis.models.TextMessageSender>} implementation which satisfies
-   * Dagger's infrastructure requirements including:
-   *
-   * Being a {@code Provider<com.riis.models.TextMessageSender>} and handling creation and
-   * preparation of object instances.
-   */
-  public static final class ProvideTextMessageSenderProvidesAdapter extends ProvidesBinding<com.riis.models.TextMessageSender>
-      implements Provider<com.riis.models.TextMessageSender> {
-    private final SendEmergencyMessageObjectGraph module;
-
-    public ProvideTextMessageSenderProvidesAdapter(SendEmergencyMessageObjectGraph module) {
-      super("com.riis.models.TextMessageSender", NOT_SINGLETON, "com.riis.dagger.SendEmergencyMessageObjectGraph", "provideTextMessageSender");
-      this.module = module;
-      setLibrary(false);
-    }
-
-    /**
-     * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.models.TextMessageSender>}.
-     */
-    @Override
-    public com.riis.models.TextMessageSender get() {
-      return module.provideTextMessageSender();
-    }
+    bindings.contributeProvidesBinding("com.riis.models.TextMessageSender", new ProvideTextMessageSenderProvidesAdapter(module));
   }
 
   /**
@@ -85,6 +53,33 @@ public final class SendEmergencyMessageObjectGraph$$ModuleAdapter extends Module
     @Override
     public com.riis.models.ContactList get() {
       return module.provideContactList();
+    }
+  }
+
+  /**
+   * A {@code Binding<com.riis.models.TextMessageSender>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   *
+   * Being a {@code Provider<com.riis.models.TextMessageSender>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvideTextMessageSenderProvidesAdapter extends ProvidesBinding<com.riis.models.TextMessageSender>
+      implements Provider<com.riis.models.TextMessageSender> {
+    private final SendEmergencyMessageObjectGraph module;
+
+    public ProvideTextMessageSenderProvidesAdapter(SendEmergencyMessageObjectGraph module) {
+      super("com.riis.models.TextMessageSender", NOT_SINGLETON, "com.riis.dagger.SendEmergencyMessageObjectGraph", "provideTextMessageSender");
+      this.module = module;
+      setLibrary(false);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.riis.models.TextMessageSender>}.
+     */
+    @Override
+    public com.riis.models.TextMessageSender get() {
+      return module.provideTextMessageSender();
     }
   }
 }

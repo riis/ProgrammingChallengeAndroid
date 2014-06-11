@@ -62,22 +62,55 @@ public class ContactList extends BasePersistentModel
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			Contact next = new Contact(this.context);
-			boolean success = next.read(cursor.getInt(0));
+			Contact currentContact = new Contact(this.context);
+
+			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
 			{
-				contacts.add(next);
+				contacts.add(currentContact);
 			}
 			else
 			{
 				returnVal = false;
 			}
 			cursor.moveToNext();
+			
+			
+		}
+		cursor.close();
+		close();
+		return returnVal;
+	}
+	
+	public boolean readByTimeStamp() 
+	{
+		String[] columns = {"_id"};
+		
+		open();
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "timestamp ASC");
+
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			Contact currentContact = new Contact(this.context);
+			
+			boolean success = currentContact.read(cursor.getInt(0)); 
+			if (success)
+			{
+				contacts.add(currentContact);
+			}
+			else
+			{
+				returnVal = false;
+			}
+			cursor.moveToNext();
+			
+			
 		}
 		cursor.close();
 		close();
@@ -87,8 +120,8 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean update() 
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	
 }

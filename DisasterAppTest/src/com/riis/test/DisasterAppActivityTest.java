@@ -7,8 +7,6 @@ import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -136,6 +134,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				contactList.read();
 				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,
 						contactList.getContacts()));
+				
 			}
 		});
 		
@@ -204,5 +203,27 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 //		assertEquals(phoneVisibility, visible);
 //		contact.read();
 //		contact.delete();
+	}
+
+	public void testAscendingOrderOfContacts()
+	{
+		Contact secondContact = new Contact(context);
+		secondContact.setFirstName("Mike");
+		secondContact.setLastName("Richardson");
+		secondContact.setEmailAddress("MJ@example.com");
+		secondContact.setPhoneNumber("1235550066");
+		
+		secondContact.create();
+		contact.create();
+		
+		ContactList contactList = new ContactList(context);
+		contactList.read();
+		
+		contact.delete();
+		secondContact.delete();
+		
+		
+		assertEquals("Jones",contactList.getContact(0).getLastName());
+		assertEquals("Richardson",contactList.getContact(1).getLastName());
 	}
 }

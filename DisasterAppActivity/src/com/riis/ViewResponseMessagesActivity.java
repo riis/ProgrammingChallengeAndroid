@@ -18,7 +18,7 @@ public class ViewResponseMessagesActivity extends Activity
         
         
         ContactList contactList = new ContactList(this);
-        contactList.read();
+        contactList.readByTimeStamp();
        
         ListView listView = (ListView) findViewById(R.id.responseMessagesListView);
 

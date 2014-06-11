@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,14 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read();
-		ArrayList<ResponseMessage> responseMessages = responseMessageList.getResponseMessage();
+
+
 				
 		boolean flag = false;
-		
-		for(int i = 0; i < responseMessages.size(); i++)
+		for(int i = 0; i < responseMessageList.size(); i++)
 		{
-			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
+
+			if(responseMessageList.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
 			{
 				if(values.get(position).getMessageSentTimeStamp() == 0L)
 				{
@@ -67,7 +69,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		} 
 		else if(!flag)
 		{
-			indicatorView.setVisibility(View.GONE);
+			indicatorView.setVisibility(View.INVISIBLE);
 		}
 
 		return rowView;

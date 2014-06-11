@@ -3,6 +3,7 @@ package com.riis.controllers;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		
 		ResponseMessageList responseMessages = new ResponseMessageList(context);
 		responseMessages.read();
+		Log.i("my log", "gets outside for loop" + 		values.get(position).getFirstName());
 		
 		boolean flag = false;
 		
@@ -64,7 +66,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		} 
 		else if(!flag)
 		{
-			rowView.setVisibility(View.GONE);
+			rowView.setVisibility(View.INVISIBLE);
 		}
 
 		return rowView;

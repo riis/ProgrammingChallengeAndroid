@@ -47,8 +47,8 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		{
 			if(responseMessages.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
 			{
-				timeStampView.setText(responseMessages.getResponseMessage(position).getFormattedMessageSentTimeStamp());
-				messageView.setText(responseMessages.getResponseMessage(position).getTextMessageContents());
+				timeStampView.setText(responseMessages.getResponseMessage(i).getFormattedMessageSentTimeStamp());
+				messageView.setText(responseMessages.getResponseMessage(i).getTextMessageContents());
 				flag = true;
 			}
 		}
@@ -64,7 +64,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		} 
 		else if(!flag)
 		{
-			rowView.setVisibility(View.GONE);
+			rowView.setVisibility(View.INVISIBLE);
 		}
 
 		return rowView;

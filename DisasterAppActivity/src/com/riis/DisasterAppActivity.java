@@ -10,13 +10,13 @@ import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
 
 public class DisasterAppActivity extends Activity
-{	
+{
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-                
+        
         ContactList contactList = new ContactList(this);
         contactList.read();
                 

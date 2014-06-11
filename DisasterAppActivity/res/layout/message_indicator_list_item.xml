@@ -15,15 +15,11 @@
 	        android:paddingLeft="5sp" 
 	        android:paddingRight="5sp" />
     
-		<TextView
-	        android:id="@+id/indicatorListName"
-	        android:layout_toLeftOf="@id/indicatorListValue"
-	        android:layout_alignParentLeft="true"
-			android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:textSize="18sp" />
-		
-		 
-    
-    
+	<TextView
+        android:id="@+id/indicatorListName"
+        android:layout_toLeftOf="@id/indicatorListValue"
+        android:layout_alignParentLeft="true"
+		android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
 </RelativeLayout>

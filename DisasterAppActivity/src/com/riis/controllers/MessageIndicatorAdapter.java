@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.riis.R;
 import com.riis.models.Contact;
-import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
 public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
@@ -40,13 +39,12 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read();
-		ArrayList<ResponseMessage> responseMessages = responseMessageList.getResponseMessage();
 				
 		boolean flag = false;
 		
-		for(int i = 0; i < responseMessages.size(); i++)
+		for(int i = 0; i < responseMessageList.size(); i++)
 		{
-			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
+			if(responseMessageList.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
 			{
 				if(values.get(position).getMessageSentTimeStamp() == 0L)
 				{
@@ -67,7 +65,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		} 
 		else if(!flag)
 		{
-			indicatorView.setVisibility(View.GONE);
+			indicatorView.setVisibility(View.INVISIBLE);
 		}
 
 		return rowView;

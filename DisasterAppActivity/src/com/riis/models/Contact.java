@@ -6,7 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-public class Contact extends BasePersistentModel 
+public class Contact extends BasePersistentModel
 {	
 	private long id;
 	private String firstName;

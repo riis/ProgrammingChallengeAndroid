@@ -39,9 +39,8 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read();
-				
+	
 		boolean flag = false;
-		
 		for(int i = 0; i < responseMessageList.size(); i++)
 		{
 			if(responseMessageList.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))

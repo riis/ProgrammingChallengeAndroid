@@ -28,7 +28,7 @@ public class DisasterAppActivity extends Activity
 	protected void onResume() 
 	{
 	   super.onResume();
-	   this.onCreate(null);
+	   onCreate(null);
 	}
 	 
     public void createContactScreen(View view) 

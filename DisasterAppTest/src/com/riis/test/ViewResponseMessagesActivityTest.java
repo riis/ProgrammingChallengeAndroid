@@ -7,15 +7,14 @@ import android.widget.ListView;
 
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 
 
-public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>{
-
+public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>
+{
 	private ViewResponseMessagesActivity viewResponseMessagesActivity;
 	private Button returnToMainScreenButton;
 	private ListView responseMessagesListView;

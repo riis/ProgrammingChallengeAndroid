@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 
-public class ResponseMessageList extends BasePersistentModel 
+public class ResponseMessageList extends BasePersistentModel
 {
 	private ArrayList<ResponseMessage> responseMessage;
 	private Context context;

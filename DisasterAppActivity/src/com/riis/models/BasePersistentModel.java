@@ -6,9 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public abstract class BasePersistentModel<T> extends SQLiteOpenHelper
+public abstract class BasePersistentModel extends SQLiteOpenHelper
 {
-	
 	private static final String DATABASE_NAME = "disasterApp.db";
 	private static final int DATABASE_VERSION = 1;
 

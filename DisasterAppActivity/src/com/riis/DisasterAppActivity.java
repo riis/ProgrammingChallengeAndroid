@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.DisasterAppDataSource;
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
 

@@ -237,4 +237,3 @@ public class Contact extends BasePersistentModel
 		return false;
 	}
 }
-

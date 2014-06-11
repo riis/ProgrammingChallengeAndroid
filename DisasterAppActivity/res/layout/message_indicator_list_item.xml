@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:onClick="expandOrCollapseContact" >
     
     <TextView
-			android:id="@+id/indicatorListValue"
-	        android:gravity="right"
-	        android:minLines="1"
-	        android:maxLines="2"
-	        android:layout_alignParentRight="true"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="18sp"
-	        android:paddingLeft="5sp" 
-	        android:paddingRight="5sp" />
+		android:id="@+id/indicatorListValue"
+        android:gravity="right|center_vertical"
+        android:minLines="1"
+        android:maxLines="2"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textSize="18sp"
+        android:paddingLeft="5sp" 
+        android:paddingRight="5sp" />
     
-	<TextView
-        android:id="@+id/indicatorListName"
+    <LinearLayout
         android:layout_toLeftOf="@id/indicatorListValue"
         android:layout_alignParentLeft="true"
-		android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:orientation="vertical" >
+        <TextView
+	        android:id="@+id/indicatorListName"
+			android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp" />
+		
+		<TextView
+	        android:id="@+id/indicatorListEmail"
+	        android:visibility="gone"
+			android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp" />
+		
+		<TextView
+	        android:id="@+id/indicatorListPhoneNumber"
+	        android:visibility="gone"
+			android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="18sp" />
+    </LinearLayout>
 </RelativeLayout>

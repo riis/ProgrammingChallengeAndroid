@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.ContactList;
@@ -29,6 +30,31 @@ public class DisasterAppActivity extends Activity
 	{
 	   super.onResume();
 	   onCreate(null);
+	}
+	
+	public void expandOrCollapseContact(View view)
+	{
+		TextView emailView = (TextView) view.findViewById(R.id.indicatorListEmail);
+		TextView phoneView = (TextView) view.findViewById(R.id.indicatorListPhoneNumber);
+		
+		if(emailView.getVisibility() == View.GONE)
+		{
+			ListView parent = (ListView) view.getParent();
+			
+			for(int i = 0; i < parent.getCount(); i++)
+			{
+				parent.getChildAt(i).findViewById(R.id.indicatorListEmail).setVisibility(View.GONE);
+				parent.getChildAt(i).findViewById(R.id.indicatorListPhoneNumber).setVisibility(View.GONE);
+			}
+			
+			emailView.setVisibility(View.VISIBLE);
+			phoneView.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			emailView.setVisibility(View.GONE);
+			phoneView.setVisibility(View.GONE);
+		}
 	}
 	 
     public void createContactScreen(View view) 

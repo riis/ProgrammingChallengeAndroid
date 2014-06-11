@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 
-public class ContactList extends BasePersistentModel<Contact>
+public class ContactList extends BasePersistentModel
 {	
 	private ArrayList<Contact> contacts;
 	private Context context;

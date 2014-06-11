@@ -19,11 +19,6 @@ public final class DisasterTestObjectGraph$$ModuleAdapter extends ModuleAdapter<
     super(com.riis.dagger.DisasterTestObjectGraph.class, INJECTS, STATIC_INJECTIONS, false /*overrides*/, INCLUDES, true /*complete*/, false /*library*/);
   }
 
-  @Override
-  public DisasterTestObjectGraph newModule() {
-    return new com.riis.dagger.DisasterTestObjectGraph();
-  }
-
   /**
    * Used internally obtain dependency information, such as for cyclical
    * graph detection.

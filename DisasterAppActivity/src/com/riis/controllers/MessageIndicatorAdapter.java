@@ -15,19 +15,21 @@ import com.riis.models.Contact;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
-public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
-	
+public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
+{
 	private Context context;
 	private ArrayList<Contact> values;
 
-	public MessageIndicatorAdapter(Context context, ArrayList<Contact> values) {
+	public MessageIndicatorAdapter(Context context, ArrayList<Contact> values)
+	{
 		super(context, R.layout.message_indicator_list_item, values);
 		this.context = context;
 		this.values = values;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.message_indicator_list_item, parent, false);
 		
@@ -42,9 +44,12 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 				
 		boolean flag = false;
 		
-		for(int i = 0; i < responseMessages.size(); i++) {
-			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber())) {
-				if(values.get(position).getMessageSentTimeStamp() == 0L) {
+		for(int i = 0; i < responseMessages.size(); i++)
+		{
+			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
+			{
+				if(values.get(position).getMessageSentTimeStamp() == 0L)
+				{
 					indicatorView.setText("Responded");
 					indicatorView.setTextColor(Color.GREEN);
 					flag = true;
@@ -52,14 +57,18 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>{
 			}
 		}
 		
-		if(values.get(position).getMessageSentTimeStamp() != 0L) {
-			if(!flag) {
+		if(values.get(position).getMessageSentTimeStamp() != 0L)
+		{
+			if(!flag)
+			{
 				indicatorView.setText("Not Responded");
 				indicatorView.setTextColor(Color.RED);
-
 			}
-		} else if(!flag)
+		} 
+		else if(!flag)
+		{
 			indicatorView.setVisibility(View.GONE);
+		}
 
 		return rowView;
 	}

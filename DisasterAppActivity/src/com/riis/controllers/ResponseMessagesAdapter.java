@@ -12,22 +12,23 @@ import android.widget.TextView;
 
 import com.riis.R;
 import com.riis.models.Contact;
-import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
-public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
-
+public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
+{
 	private final Context context;
 	private final ArrayList<Contact> values;
 	
-	public ResponseMessagesAdapter(Context context, ArrayList<Contact> values) {
+	public ResponseMessagesAdapter(Context context, ArrayList<Contact> values)
+	{
 		super(context, R.layout.response_messages_list_item, values);
 		this.context = context;
 		this.values = values;
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.response_messages_list_item, parent, false);
 		
@@ -37,28 +38,34 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>{
 		TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
 		TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
 		
-		ResponseMessageList responseMessageList = new ResponseMessageList(context);
-		responseMessageList.read();
-		ArrayList<ResponseMessage> responseMessages = responseMessageList.getResponseMessage();
+		ResponseMessageList responseMessages = new ResponseMessageList(context);
+		responseMessages.read();
 		
 		boolean flag = false;
 		
-		for(int i = 0; i < responseMessages.size(); i++) {
-			if(responseMessages.get(i).getPhoneNumber().equals(values.get(position).getPhoneNumber())) {
-				timeStampView.setText(responseMessages.get(position).getFormattedMessageSentTimeStamp());
-				messageView.setText(responseMessages.get(position).getTextMessageContents());
+		for(int i = 0; i < responseMessages.size(); i++)
+		{
+			if(responseMessages.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
+			{
+				timeStampView.setText(responseMessages.getResponseMessage(position).getFormattedMessageSentTimeStamp());
+				messageView.setText(responseMessages.getResponseMessage(position).getTextMessageContents());
 				flag = true;
 			}
 		}
 		
-		if(values.get(position).getMessageSentTimeStamp() != 0L) {
-			if(!flag) {
+		if(values.get(position).getMessageSentTimeStamp() != 0L)
+		{
+			if(!flag)
+			{
 				timeStampView.setVisibility(View.GONE);
 				messageView.setText("No messages received");
 				messageView.setGravity(Gravity.CENTER_HORIZONTAL);
 			}
-		} else if(!flag)
+		} 
+		else if(!flag)
+		{
 			rowView.setVisibility(View.GONE);
+		}
 
 		return rowView;
 	}

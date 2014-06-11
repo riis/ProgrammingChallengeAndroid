@@ -74,7 +74,6 @@ public class ResponseMessage extends BasePersistentModel
 		return textMessageContents;
 	}
 	
-
 	@Override
 	public boolean create() 
 	{
@@ -97,7 +96,6 @@ public class ResponseMessage extends BasePersistentModel
 		}
 		return true;
 	}
-
 
 	@Override
 	public boolean delete() 
@@ -131,7 +129,6 @@ public class ResponseMessage extends BasePersistentModel
 		return result;
 	}
 
-	
 	public boolean read(long id) 
 	{
 		if (id == -1)
@@ -216,5 +213,4 @@ public class ResponseMessage extends BasePersistentModel
 		}
 		return false;
 	}
-
 }

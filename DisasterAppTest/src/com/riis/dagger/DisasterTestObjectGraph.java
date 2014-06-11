@@ -23,9 +23,9 @@ public class DisasterTestObjectGraph
 	{
 		return new MockContactList(context);
 	}
+	
 	@Provides TextMessageSender provideTextMessageSender() 
 	{
 		return new MockTextMessageSender();
 	}
-
 }

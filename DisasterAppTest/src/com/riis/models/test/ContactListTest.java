@@ -5,16 +5,18 @@ import junit.framework.TestCase;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
-public class ContactListTest extends TestCase{
-	
+public class ContactListTest extends TestCase
+{
 	private Contact contact;
 	private ContactList contactList;
 
-	public ContactListTest(String name) {
+	public ContactListTest(String name)
+	{
 		super(name);
 	}
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		super.setUp();
 		
 		contact = new Contact(null);
@@ -26,11 +28,13 @@ public class ContactListTest extends TestCase{
 		contactList = new ContactList(null);
 	}
 	
-	public void testSize() {
+	public void testSize()
+	{
 		assertEquals(0, contactList.size());
 	}
 	
-	public void testGetContact() {
+	public void testGetContact()
+	{
 		contactList.addContact(contact);
 		assertEquals(contact, contactList.getContact(0));
 	}

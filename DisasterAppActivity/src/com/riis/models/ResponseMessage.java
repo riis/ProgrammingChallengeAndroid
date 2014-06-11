@@ -25,11 +25,14 @@ public class ResponseMessage extends BasePersistentModel
 	{
 		String date = "";
 		
-		if(timeStamp == 0L)
+		if(getTimeStamp() == 0L)
+		{
 			return date;
-		else {
+		}
+		else
+		{
 			Calendar cal = Calendar.getInstance();
-			cal.setTimeInMillis(timeStamp);
+			cal.setTimeInMillis(getTimeStamp());
 			date = (cal.get(Calendar.MONTH) + 1) +
 					"-"+ cal.get(Calendar.DAY_OF_MONTH) +
 					"-"+ cal.get(Calendar.YEAR) +
@@ -148,9 +151,9 @@ public class ResponseMessage extends BasePersistentModel
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
-			id = (cursor.getInt(0));
+			id = (cursor.getLong(0));
 			setPhoneNumber(cursor.getString(1));
-			setTimeStamp(cursor.getInt(2));
+			setTimeStamp(cursor.getLong(2));
 			setTextMessageContents(cursor.getString(3));
 			return true;			
 		}

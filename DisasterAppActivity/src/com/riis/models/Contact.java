@@ -153,12 +153,12 @@ public class Contact extends BasePersistentModel
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
-			id = (cursor.getInt(0));
+			id = (cursor.getLong(0));
 			setFirstName(cursor.getString(1));
 			setLastName(cursor.getString(2));
 			setEmailAddress(cursor.getString(3));
 			setPhoneNumber(cursor.getString(4));
-			setMessageSentTimeStamp(cursor.getInt(5));
+			setMessageSentTimeStamp(cursor.getLong(5));
 			return true;
 		}
 		return false;

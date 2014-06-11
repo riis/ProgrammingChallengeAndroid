@@ -62,7 +62,7 @@ public class ResponseMessageList extends BasePersistentModel
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("responseMessage", columns, null, null, null, null, null);
+		Cursor cursor = database.query("responseMessage", columns, null, null, null, null, "timestamp DESC");
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 

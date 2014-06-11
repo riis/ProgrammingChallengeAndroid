@@ -62,22 +62,32 @@ public class ContactList extends BasePersistentModel
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			Contact next = new Contact(this.context);
-			boolean success = next.read(cursor.getInt(0));
+			Contact currentContact = new Contact(this.context);
+			cursor.moveToNext();
+			Contact nextContact = new Contact(this.context);
+			cursor.moveToPrevious();
+			if(currentContact.getLastName().toString().compareTo(nextContact.getLastName().toString())>0) // nextContact last name precedes the current 
+			{
+				
+			}
+			
+			boolean success = currentContact.read(cursor.getInt(0)); // change this logic
 			if (success)
 			{
-				contacts.add(next);
+				contacts.add(currentContact);
 			}
 			else
 			{
 				returnVal = false;
 			}
 			cursor.moveToNext();
+			
+			
 		}
 		cursor.close();
 		close();
@@ -87,8 +97,8 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean update() 
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	
 }

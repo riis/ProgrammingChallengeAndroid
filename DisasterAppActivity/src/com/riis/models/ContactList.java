@@ -68,15 +68,38 @@ public class ContactList extends BasePersistentModel
 		while (!cursor.isAfterLast()) 
 		{
 			Contact currentContact = new Contact(this.context);
-			cursor.moveToNext();
-			Contact nextContact = new Contact(this.context);
-			cursor.moveToPrevious();
-			if(currentContact.getLastName().toString().compareTo(nextContact.getLastName().toString())>0) // nextContact last name precedes the current 
+
+			boolean success = currentContact.read(cursor.getInt(0)); 
+			if (success)
 			{
-				
+				contacts.add(currentContact);
 			}
+			else
+			{
+				returnVal = false;
+			}
+			cursor.moveToNext();
 			
-			boolean success = currentContact.read(cursor.getInt(0)); // change this logic
+			
+		}
+		cursor.close();
+		close();
+		return returnVal;
+	}
+	
+	public boolean readByTimeStamp() 
+	{
+		String[] columns = {"_id"};
+		
+		open();
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "timestamp ASC");
+
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			Contact currentContact = new Contact(this.context);
+			
+			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
 			{
 				contacts.add(currentContact);

@@ -16,8 +16,12 @@ import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
 import com.riis.controllers.MessageIndicatorAdapter;
+import com.riis.dagger.DaggerApplication;
+import com.riis.dagger.DisasterAppTestObjectGraph;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+
+import dagger.ObjectGraph;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
 {
@@ -41,6 +45,10 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		disasterAppActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
+		
+		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
+		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().getTargetContext().getApplicationContext();
+		myapp.setDisasterAppObjectGraph(objectGraph);
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
@@ -130,6 +138,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			@Override
 			public void run()
 			{	
+				contact.create();
 				ContactList contactList = new ContactList(context);
 				contactList.read();
 				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,

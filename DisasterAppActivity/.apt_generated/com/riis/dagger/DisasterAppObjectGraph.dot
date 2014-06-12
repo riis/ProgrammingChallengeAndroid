@@ -1,3 +1,4 @@
 digraph G1 {
   concentrate = true;
+  DisasterAppActivity -> ContactList;
 }

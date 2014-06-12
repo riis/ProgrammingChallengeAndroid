@@ -28,6 +28,15 @@
         android:onClick="viewMessageResponsesScreen"
         android:text="@string/viewResponseMessagesScreenButtonLabel" />
     
+    <!-- <ExpandableListView
+        android:id="@+id/contactTestView"
+        android:layout_below="@id/viewMessageResponsesScreenButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:groupIndicator="@null"
+        android:scrollbars="vertical" /> -->
+    
     <ListView
         android:id="@+id/contactIndicatorListView"
         android:layout_below="@id/viewMessageResponsesScreenButton"

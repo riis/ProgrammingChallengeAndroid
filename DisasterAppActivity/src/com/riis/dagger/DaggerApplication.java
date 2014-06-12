@@ -6,21 +6,31 @@ import dagger.ObjectGraph;
 
 public class DaggerApplication extends Application
 {
-	private ObjectGraph objectGraph;
+	private ObjectGraph sendEmergencyMessageObjectGraph;
+	private ObjectGraph disasterAppObjectGraph;
 	
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		Context context = getApplicationContext();
-		objectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph(context));
+		disasterAppObjectGraph = ObjectGraph.create(new DisasterAppObjectGraph(context));
+		sendEmergencyMessageObjectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph(context));
+	}
+	
+	public ObjectGraph getDisasterAppObjectGraph() {
+		return disasterAppObjectGraph;
 	}
 
-	public ObjectGraph getObjectGraph() {
-		return objectGraph;
+	public void setDisasterAppObjectGraph(ObjectGraph disasterAppObjectGraph) {
+		this.disasterAppObjectGraph = disasterAppObjectGraph;
 	}
 
-	public void setObjectGraph(ObjectGraph objectGraph) {
-		this.objectGraph = objectGraph;
+	public ObjectGraph getSendEmergencyMessageObjectGraph() {
+		return sendEmergencyMessageObjectGraph;
+	}
+
+	public void setSendEmergencyMessageObjectGraph(ObjectGraph sendEmergencyMessageObjectGraph) {
+		this.sendEmergencyMessageObjectGraph = sendEmergencyMessageObjectGraph;
 	}
 }

@@ -34,6 +34,12 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		
 		TextView nameView = (TextView) rowView.findViewById(R.id.indicatorListName);
 		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+
+		TextView emailView = (TextView) rowView.findViewById(R.id.indicatorListEmail);
+		emailView.setText(values.get(position).getEmailAddress());
+		
+		TextView phoneView = (TextView) rowView.findViewById(R.id.indicatorListPhoneNumber);
+		phoneView.setText(values.get(position).getPhoneNumber());
 		
 		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorListValue);
 		

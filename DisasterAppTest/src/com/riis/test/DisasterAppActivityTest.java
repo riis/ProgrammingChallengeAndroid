@@ -6,7 +6,7 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.util.Log;
+import android.test.UiThreadTest;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -19,8 +19,8 @@ import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
-public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity> {
-	
+public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
+{
 	private DisasterAppActivity disasterAppActivity;
 	
 	private Button createContactScreenButton;
@@ -30,17 +30,18 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private Context context;
 	private Contact contact;
 	
-	public DisasterAppActivityTest() {
+	public DisasterAppActivityTest()
+	{
 		super(DisasterAppActivity.class);
-		
 	}
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		super.setUp();
 		
 		disasterAppActivity = getActivity();
-		context = this.getInstrumentation()
-				.getTargetContext().getApplicationContext();
+		context = this.getInstrumentation().getTargetContext().getApplicationContext();
+		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
 		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
 		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
@@ -127,11 +128,11 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		disasterAppActivity.runOnUiThread(new Runnable() 
 		{	
 			@Override
-			public void run() {	
-				contact.create();
+			public void run()
+			{	
 				ContactList contactList = new ContactList(context);
 				contactList.read();
-				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(disasterAppActivity.getApplicationContext(),
+				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,
 						contactList.getContacts()));
 				
 			}
@@ -148,6 +149,62 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		contact.delete();
 	}
 	
+	@UiThreadTest
+	public void testListItemExpands()
+	{
+//		disasterAppActivity.runOnUiThread(new Runnable() 
+//		{	
+//			@Override
+//			public void run()
+//			{	
+//				contact.create();
+//				ContactList contactList = new ContactList(context);
+//				contactList.read();
+//				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,
+//						contactList.getContacts()));
+//				disasterAppActivity.expandOrCollapseContact(contactIndicatorListView.getChildAt(0));
+//				contactIndicatorListView.getAdapter().getView(0, null, null).performClick();
+//			}
+//		});
+//		
+//		contact.create();
+//		ContactList contactList = new ContactList(context);
+//		contactList.read();
+//		contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,
+//				contactList.getContacts()));
+//		
+//		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//		View rowView = inflater.inflate(R.layout.message_indicator_list_item, contactIndicatorListView, false);
+//		
+//		rowView.performClick();
+//		
+//		while(true)
+//		{
+//			if(contactIndicatorListView.getChildAt(0) != null)
+//			{
+//				contactIndicatorListView.getChildAt(0).performClick();
+//				break;
+//			}
+//		}
+//		
+//		disasterAppActivity.expandOrCollapseContact(contactIndicatorListView.getChildAt(0));
+//		
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		int visible = View.VISIBLE;
+//		int emailVisibility = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorListEmail).getVisibility();
+//		int phoneVisibility = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorListPhoneNumber).getVisibility();
+//		
+//		assertEquals(emailVisibility, visible);
+//		assertEquals(phoneVisibility, visible);
+//		contact.read();
+//		contact.delete();
+	}
+
 	public void testAscendingOrderOfContacts()
 	{
 		Contact secondContact = new Contact(context);
@@ -168,6 +225,5 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		assertEquals("Jones",contactList.getContact(0).getLastName());
 		assertEquals("Richardson",contactList.getContact(1).getLastName());
-		
 	}
 }

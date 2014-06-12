@@ -3,7 +3,6 @@ package com.riis.controllers;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,11 +46,9 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 			timeStampView.setVisibility(View.GONE);
 			messageView.setText("No messages received");
 			messageView.setGravity(Gravity.CENTER_HORIZONTAL);
-		
 		}
 		else
 		{
-		
 			for(int i = 0; i < values.size(); i++)
 			{
 				if(responseMessages.getResponseMessage(position).getPhoneNumber().equals(values.get(i).getPhoneNumber()))
@@ -68,8 +65,6 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 				}
 			}
 		}
-		
-
 
 		return rowView;
 	}

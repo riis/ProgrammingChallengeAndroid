@@ -31,7 +31,7 @@ public class SendEmergencyMessageActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getObjectGraph();
+		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getSendEmergencyMessageObjectGraph();
 		objectGraph.inject(this);
 		setContentView(R.layout.message_screen);
 		

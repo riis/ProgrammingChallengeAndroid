@@ -8,18 +8,18 @@ import com.riis.models.ContactList;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects=DisasterAppActivity.class)
-public class DisasterAppObjectGraph 
+@Module (injects=DisasterAppActivity.class)
+public class DisasterAppTestObjectGraph
 {
 	Context context;
 	
-	public DisasterAppObjectGraph(Context context)
+	public DisasterAppTestObjectGraph(Context context)
 	{
 		this.context = context;
 	}
 	
 	@Provides ContactList provideContactList() 
 	{
-		return new ContactList(context);
+		return new MockContactList(context);
 	}
 }

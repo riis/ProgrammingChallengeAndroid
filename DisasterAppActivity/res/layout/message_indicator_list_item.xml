@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="expandOrCollapseContact" >
+    android:layout_height="match_parent" >
     
     <TextView
 		android:id="@+id/indicatorListValue"
@@ -29,18 +28,24 @@
 	        android:layout_height="wrap_content"
 	        android:textSize="18sp" />
 		
-		<TextView
-	        android:id="@+id/indicatorListEmail"
-	        android:visibility="gone"
-			android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:textSize="18sp" />
-		
-		<TextView
-	        android:id="@+id/indicatorListPhoneNumber"
-	        android:visibility="gone"
-			android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/indicatorExpandableLayout"
+            android:layout_marginBottom="-36sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+            <TextView
+		        android:id="@+id/indicatorListEmail"
+				android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="18sp" />
+			
+			<TextView
+		        android:id="@+id/indicatorListPhoneNumber"
+				android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

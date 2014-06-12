@@ -10,11 +10,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module (injects=SendEmergencyMessageActivity.class)
-public class DisasterTestObjectGraph 
+public class SendEmergencyMessageTestObjectGraph 
 {
 	Context context;
 	
-	public DisasterTestObjectGraph(Context context)
+	public SendEmergencyMessageTestObjectGraph(Context context)
 	{
 		this.context = context;
 	}

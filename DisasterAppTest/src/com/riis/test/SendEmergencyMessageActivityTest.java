@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.dagger.DaggerApplication;
-import com.riis.dagger.DisasterTestObjectGraph;
+import com.riis.dagger.SendEmergencyMessageTestObjectGraph;
 
 import dagger.ObjectGraph;
 
@@ -23,18 +23,19 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private TextView characterCountLabel;
 	private Context context;
 	
-	public SendEmergencyMessageActivityTest() {
+	public SendEmergencyMessageActivityTest()
+	{
 		super(SendEmergencyMessageActivity.class);
 	}
 	
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		super.setUp();
-		context = this.getInstrumentation()
-				.getTargetContext().getApplicationContext();
+		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 
-		ObjectGraph objectGraph= ObjectGraph.create(new DisasterTestObjectGraph(context));
+		ObjectGraph objectGraph= ObjectGraph.create(new SendEmergencyMessageTestObjectGraph(context));
 		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().getTargetContext().getApplicationContext();
-		myapp.setObjectGraph(objectGraph);
+		myapp.setSendEmergencyMessageObjectGraph(objectGraph);
 		
 		sendEmergencyMessageActivity = getActivity();
 		cancelEmergencyMessageButton = (Button) sendEmergencyMessageActivity

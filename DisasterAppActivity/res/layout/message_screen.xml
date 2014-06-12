@@ -30,12 +30,14 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/cancel_button"
-	        android:onClick="cancelSendEmergencyMessage" />
+	        android:onClick="cancelSendEmergencyMessage"
+	        android:layout_marginLeft="50dp" />
         
         <Button
 	        android:id="@+id/sendEmergencyMessageButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
 	        android:text="@string/sendEmergencyMessageButtonLabel"
 	        android:onClick="sendEmergencyMessage" />
     </LinearLayout>

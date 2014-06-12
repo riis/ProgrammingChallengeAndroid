@@ -143,7 +143,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		ResponseMessage response = new ResponseMessage(context);
     	response.setPhoneNumber("5555555555");
     	response.setTextMessageContents("This is a test");
-    	response.setTimeStamp(4000);
+    	response.setTimeStamp(40);
     	response.create();
     	
     	ResponseMessage secondResponse = new ResponseMessage(context);

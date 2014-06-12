@@ -21,24 +21,24 @@
     
     <LinearLayout
         android:layout_below="@id/characterCountLabel"
-        android:layout_width="fill_parent"
+       android:layout_width="fill_parent"    
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
         <Button
 	        android:id="@+id/cancelEmergencyMessageButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/cancel_button"
 	        android:onClick="cancelSendEmergencyMessage"
-	        android:layout_marginLeft="50dp" />
-        
+	         />
         <Button
 	        android:id="@+id/sendEmergencyMessageButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="20dp"
 	        android:text="@string/sendEmergencyMessageButtonLabel"
-	        android:onClick="sendEmergencyMessage" />
+	        android:onClick="sendEmergencyMessage" 
+	         />
     </LinearLayout>
 </RelativeLayout>

@@ -32,11 +32,11 @@ public class TextMessageReceiver extends BroadcastReceiver
 	{
 		ContactList contactList = new ContactList(context);
 		contactList.read();
-
+		
 		for(int i = 0; i < contactList.size(); i++)
 		{
-			if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
-					&& contactList.getContact(i).getMessageSentTimeStamp() != 0L)
+		   if(contactList.getContact(i).getPhoneNumber().equals(sms[sms.length - 1].getOriginatingAddress().toString().substring(2))
+					&& contactList.getContact(i).getMessageSentTimeStamp() != 0L)	
 			{
 				ResponseMessage response = new ResponseMessage(context);
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
@@ -45,13 +45,11 @@ public class TextMessageReceiver extends BroadcastReceiver
 				response.create();
 				
 				Contact contact = contactList.getContact(i);
-				contact.setMessageSentTimeStamp(0L);
+				contact.setMessageSentTimeStamp(0L);  
 				contact.update();
-								
 				return true;
 			}
-		}
-				
+		}		
 		return false;
 	}
 }

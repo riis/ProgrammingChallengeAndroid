@@ -92,7 +92,7 @@ public class ContactList extends BasePersistentModel
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "timestamp ASC");
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "messageSentTimeStamp ASC");
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 

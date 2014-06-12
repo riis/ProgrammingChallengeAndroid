@@ -133,7 +133,6 @@ public class Contact extends BasePersistentModel
 		return result;
 	}
 
-	
 	public boolean read(long id) 
 	{
 		if (id == -1)

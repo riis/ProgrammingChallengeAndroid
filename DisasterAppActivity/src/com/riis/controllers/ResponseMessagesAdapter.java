@@ -33,41 +33,43 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.response_messages_list_item, parent, false);
 		
-		TextView nameView = (TextView) rowView.findViewById(R.id.listName);
-		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
-		
-		TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
-		TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
-		
 		ResponseMessageList responseMessages = new ResponseMessageList(context);
 		responseMessages.read();
-		Log.i("my log", "gets outside for loop" + 		values.get(position).getFirstName());
 		
-		boolean flag = false;
+		if(responseMessages.size()<=position)
+		{ 
+			TextView nameView = (TextView) rowView.findViewById(R.id.listName);
+			nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+
+			TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
+			TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
+			
+			timeStampView.setVisibility(View.GONE);
+			messageView.setText("No messages received");
+			messageView.setGravity(Gravity.CENTER_HORIZONTAL);
 		
-		for(int i = 0; i < responseMessages.size(); i++)
+		}
+		else
 		{
-			if(responseMessages.getResponseMessage(i).getPhoneNumber().equals(values.get(position).getPhoneNumber()))
+		
+			for(int i = 0; i < values.size(); i++)
 			{
-				timeStampView.setText(responseMessages.getResponseMessage(i).getFormattedMessageSentTimeStamp());
-				messageView.setText(responseMessages.getResponseMessage(i).getTextMessageContents());
-				flag = true;
+				if(responseMessages.getResponseMessage(position).getPhoneNumber().equals(values.get(i).getPhoneNumber()))
+				{
+				    TextView nameView = (TextView) rowView.findViewById(R.id.listName);
+					nameView.setText(values.get(i).getFirstName() +" "+ values.get(i).getLastName());
+					
+					TextView timeStampView = (TextView) rowView.findViewById(R.id.listTimeStamp);
+					TextView messageView = (TextView) rowView.findViewById(R.id.listMessageContent);
+					
+					timeStampView.setText(responseMessages.getResponseMessage(position).getFormattedMessageSentTimeStamp());
+					messageView.setText(responseMessages.getResponseMessage(position).getTextMessageContents());
+				    break;
+				}
 			}
 		}
 		
-		if(values.get(position).getMessageSentTimeStamp() != 0L)
-		{
-			if(!flag)
-			{
-				timeStampView.setVisibility(View.GONE);
-				messageView.setText("No messages received");
-				messageView.setGravity(Gravity.CENTER_HORIZONTAL);
-			}
-		} 
-		else if(!flag)
-		{
-			rowView.setVisibility(View.INVISIBLE);
-		}
+
 
 		return rowView;
 	}

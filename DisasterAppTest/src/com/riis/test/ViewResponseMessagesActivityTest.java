@@ -2,6 +2,7 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -11,6 +12,7 @@ import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 
 
 public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>
@@ -44,6 +46,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
+		contact.setMessageSentTimeStamp(50);
 	}
 	
 	public void testListViewPopulates() 
@@ -98,4 +101,70 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 	{
 		assertNotNull(returnToMainScreenButton);
 	}
+	
+	public void testSortingByTimeStamp()
+	{
+		Contact secondContact = new Contact(context);
+		secondContact.setFirstName("Mike");
+		secondContact.setLastName("Richardson");
+		secondContact.setEmailAddress("MJ@example.com");
+		secondContact.setPhoneNumber("1235550066");
+		secondContact.setMessageSentTimeStamp(1000);
+		
+		Contact thirdContact = new Contact(context);
+		thirdContact.setFirstName("Darrell");
+		thirdContact.setLastName("Wills");
+		thirdContact.setEmailAddress("DW@example.com");
+		thirdContact.setPhoneNumber("9995556666");
+		thirdContact.setMessageSentTimeStamp(700);
+		
+		thirdContact.create();  //700L timeStamp
+		contact.create();       //50L   timeStamp
+		secondContact.create(); //1000L timeStamp
+		
+		ContactList contactList = new ContactList(context);
+		contactList.readByTimeStamp();
+		
+		contact.delete();
+		secondContact.delete();
+		thirdContact.delete();
+//		Log.i("contacts ", "contact timeStampindex 0: "+ contactList.getContact(0).getMessageSentTimeStamp());
+//		Log.i("contacts ", "contact name index 0: : "+ contactList.getContact(0).getFirstName());
+//		Log.i("contacts ", "contact timeStamp index 2: "+ contactList.getContact(2).getMessageSentTimeStamp());
+		assertEquals(50L,contactList.getContact(0).getMessageSentTimeStamp());
+		assertEquals(700L,contactList.getContact(1).getMessageSentTimeStamp());
+		assertEquals(1000L,contactList.getContact(2).getMessageSentTimeStamp());
+		
+	}
+	
+	
+	public void testReceivingANewMessageAltersOrder() 
+	{
+		ResponseMessage response = new ResponseMessage(context);
+    	response.setPhoneNumber("5555555555");
+    	response.setTextMessageContents("This is a test");
+    	response.setTimeStamp(40);
+    	response.create();
+    	
+    	ResponseMessage secondResponse = new ResponseMessage(context);
+    	secondResponse.setPhoneNumber("1115550011");
+    	secondResponse.setTextMessageContents("This is another test");
+    	secondResponse.setTimeStamp(1000);
+    	secondResponse.create();
+    	
+    	
+    	ResponseMessageList responseMessages = new ResponseMessageList(context);
+    	responseMessages.read();
+    	response.delete();
+		secondResponse.delete();
+		
+		assertTrue(responseMessages.getResponseMessage(0).getTimeStamp()>responseMessages.getResponseMessage(1).getTimeStamp());    
+		
+	
+		
+//		Log.i("debugging", "index zero timeStamp: "+ responseMessages.getResponseMessage(0).getTimeStamp());
+//		Log.i("debugging", "index one timeStamp: "+ responseMessages.getResponseMessage(1).getTimeStamp());
+
+	}
+	
 }

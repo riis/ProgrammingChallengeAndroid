@@ -35,10 +35,8 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 				.getTargetContext().getApplicationContext();
 		viewResponseMessagesActivity = getActivity();
 		
-		returnToMainScreenButton = (Button) viewResponseMessagesActivity
-				.findViewById(R.id.returnToMainScreenButton);
-		responseMessagesListView = (ListView) viewResponseMessagesActivity
-				.findViewById(R.id.responseMessagesListView);
+		returnToMainScreenButton = (Button) viewResponseMessagesActivity.findViewById(R.id.returnToMainScreenButton);
+		responseMessagesListView = (ListView) viewResponseMessagesActivity.findViewById(R.id.responseMessagesListView);
 		
 		contact = new Contact(context);
 		contact.setFirstName("Robert");
@@ -104,15 +102,15 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 	public void testSortingByTimeStamp()
 	{
 		Contact secondContact = new Contact(context);
-		secondContact.setFirstName("Mike");
-		secondContact.setLastName("Richardson");
-		secondContact.setEmailAddress("MJ@example.com");
-		secondContact.setPhoneNumber("1235550066");
+		secondContact.setFirstName("Frank");
+		secondContact.setLastName("Benjonmin");
+		secondContact.setEmailAddress("FB@example.com");
+		secondContact.setPhoneNumber("9315550066");
 		secondContact.setMessageSentTimeStamp(1000);
 		
 		Contact thirdContact = new Contact(context);
 		thirdContact.setFirstName("Darrell");
-		thirdContact.setLastName("Wills");
+		thirdContact.setLastName("Willis");
 		thirdContact.setEmailAddress("DW@example.com");
 		thirdContact.setPhoneNumber("9995556666");
 		thirdContact.setMessageSentTimeStamp(700);
@@ -131,9 +129,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertEquals(50L,contactList.getContact(0).getMessageSentTimeStamp());
 		assertEquals(700L,contactList.getContact(1).getMessageSentTimeStamp());
 		assertEquals(1000L,contactList.getContact(2).getMessageSentTimeStamp());
-		
 	}
-	
 	
 	public void testReceivingANewMessageAltersOrder() 
 	{
@@ -148,7 +144,6 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
     	secondResponse.setTextMessageContents("This is another test");
     	secondResponse.setTimeStamp(1000);
     	secondResponse.create();
-    	
     	
     	ResponseMessageList responseMessages = new ResponseMessageList(context);
     	responseMessages.read();

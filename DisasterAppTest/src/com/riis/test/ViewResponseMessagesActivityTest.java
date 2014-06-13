@@ -2,7 +2,6 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,7 +12,6 @@ import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
-
 
 public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTestCase2<ViewResponseMessagesActivity>
 {
@@ -212,18 +210,16 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertEquals(output.getTextMessageContents(), newMessage.getTextMessageContents());
 		assertEquals(output.getTimeStamp(), newMessage.getTimeStamp());
 		assertEquals(output.getPhoneNumber(), newMessage.getPhoneNumber());
-
-		
 	}
 	
-	public void testReadMessage()
+	public void testReadResponseMessage()
 	{
 		ResponseMessage newMessage = new ResponseMessage(context);
 		newMessage.setPhoneNumber("5550009090");
 		newMessage.setTextMessageContents("random contents");
 		newMessage.setTimeStamp(50L);
 		
-		boolean didCreate = newMessage.create();
+		newMessage.create();
 		
 		ResponseMessage output = new ResponseMessage(context);
 		output.setPhoneNumber("5550009090");

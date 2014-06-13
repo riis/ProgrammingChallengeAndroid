@@ -98,7 +98,6 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		
 		newContact.create();
 		
-		
 		Contact output = new Contact(context);
 		output.setEmailAddress("bjones@example.com");
 		

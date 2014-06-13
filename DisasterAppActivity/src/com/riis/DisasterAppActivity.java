@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.DisasterAppActivityClickListener;
+import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.controllers.MessageIndicatorAdapter;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
@@ -32,10 +32,8 @@ public class DisasterAppActivity extends Activity
         
         listView = (ListView) findViewById(R.id.contactIndicatorListView);        
         listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
-        DisasterAppActivityClickListener listListener = new DisasterAppActivityClickListener();
-        listListener.callOnClickListener(listView);
+        listView.setOnItemClickListener(new MessageIndicatorItemClickListener());
     }
-	
 	
 	@Override
 	protected void onResume() 
@@ -61,6 +59,4 @@ public class DisasterAppActivity extends Activity
 		Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
 		startActivity(intent);
 	}
-	
-	
 }

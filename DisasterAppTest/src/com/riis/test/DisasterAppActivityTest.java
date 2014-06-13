@@ -9,7 +9,6 @@ import android.test.TouchUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
@@ -181,7 +180,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		{
 			e.printStackTrace();
 		}
-		
 		assertTrue(contactIndicatorListView.getCount() > 0);	
 		contact.read();
 		contact.delete();
@@ -200,10 +198,10 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
 		
-		int visible = View.VISIBLE;
+		int visiblility = View.VISIBLE;
 		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
 		
-		assertEquals(expandedLayout, visible);
+		assertEquals(expandedLayout, visiblility);
 	}
 	
 	public void testListItemCollapses()
@@ -230,10 +228,10 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
 		
-		int visible = View.INVISIBLE;
+		int visiblility = View.INVISIBLE;
 		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
 		
-		assertEquals(expandedLayout, visible);
+		assertEquals(expandedLayout, visiblility);
 	}
 
 	public void testAscendingOrderOfContacts()

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class ResponseMessage extends BasePersistentModel
 {
@@ -16,6 +17,7 @@ public class ResponseMessage extends BasePersistentModel
 	public ResponseMessage(Context context) 
 	{
 		super(context);
+		this.id = -1;
 		this.phoneNumber = "";
 		this.timeStamp = 0L;
 		this.textMessageContents = "";
@@ -120,15 +122,17 @@ public class ResponseMessage extends BasePersistentModel
 		if (isClassEmpty())
 		{
 			return false;
+			
 		}
-		
 		String selection = buildWhereClause();
+
 		
 		open();
 		Cursor cursor = database.query("responseMessage", null, selection.toString(), null, null, null, null);		
 		boolean result = readRecordFromCursor(cursor);
 		cursor.close();
 		close();
+		Log.i("my log", "goes past isClassEmpty  "+ result);
 		return result;
 	}
 

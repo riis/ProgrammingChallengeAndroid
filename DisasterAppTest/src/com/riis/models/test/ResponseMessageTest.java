@@ -3,12 +3,15 @@ package com.riis.models.test;
 import java.util.Calendar;
 
 import junit.framework.TestCase;
+import android.content.Context;
 
+import com.riis.models.Contact;
 import com.riis.models.ResponseMessage;
 
 public class ResponseMessageTest extends TestCase{
 	
 	private ResponseMessage responseMessage;
+
 
 	public ResponseMessageTest(String name) {
 		super(name);
@@ -47,4 +50,6 @@ public class ResponseMessageTest extends TestCase{
 	public void testInitialTextMessageContents() {
 		assertNotNull(responseMessage.getTextMessageContents());
 	}
+	
+
 }

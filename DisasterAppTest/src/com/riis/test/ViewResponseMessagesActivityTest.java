@@ -2,7 +2,6 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -66,8 +65,8 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 				
 				ContactList contactList = new ContactList(context);
 				contactList.read();
-				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.getApplicationContext(),
-						contactList.getContacts()));
+				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.
+						getApplicationContext(), contactList.getContacts()));
 			}
 		});
 		try 
@@ -118,9 +117,9 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		thirdContact.setPhoneNumber("9995556666");
 		thirdContact.setMessageSentTimeStamp(700);
 		
-		thirdContact.create();  //700L timeStamp
-		contact.create();       //50L   timeStamp
-		secondContact.create(); //1000L timeStamp
+		thirdContact.create();
+		contact.create();
+		secondContact.create();
 		
 		ContactList contactList = new ContactList(context);
 		contactList.readByTimeStamp();
@@ -128,9 +127,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		contact.delete();
 		secondContact.delete();
 		thirdContact.delete();
-//		Log.i("contacts ", "contact timeStampindex 0: "+ contactList.getContact(0).getMessageSentTimeStamp());
-//		Log.i("contacts ", "contact name index 0: : "+ contactList.getContact(0).getFirstName());
-//		Log.i("contacts ", "contact timeStamp index 2: "+ contactList.getContact(2).getMessageSentTimeStamp());
+		
 		assertEquals(50L,contactList.getContact(0).getMessageSentTimeStamp());
 		assertEquals(700L,contactList.getContact(1).getMessageSentTimeStamp());
 		assertEquals(1000L,contactList.getContact(2).getMessageSentTimeStamp());
@@ -158,13 +155,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
     	response.delete();
 		secondResponse.delete();
 		
-		assertTrue(responseMessages.getResponseMessage(0).getTimeStamp()>responseMessages.getResponseMessage(1).getTimeStamp());    
-		
-	
-		
-//		Log.i("debugging", "index zero timeStamp: "+ responseMessages.getResponseMessage(0).getTimeStamp());
-//		Log.i("debugging", "index one timeStamp: "+ responseMessages.getResponseMessage(1).getTimeStamp());
-
+		assertTrue(responseMessages.getResponseMessage(0).getTimeStamp() >
+			responseMessages.getResponseMessage(1).getTimeStamp());    
 	}
-	
 }

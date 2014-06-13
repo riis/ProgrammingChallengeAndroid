@@ -1,5 +1,6 @@
 package com.riis.test;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -7,11 +8,16 @@ import android.widget.TextView;
 
 import com.riis.NewContactActivity;
 import com.riis.R;
+import com.riis.models.Contact;
+import com.riis.models.ContactList;
 
-public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<NewContactActivity>{
-	
+public class NewContactActivityTest extends ActivityInstrumentationTestCase2<NewContactActivity>
+{
 	private Button cancelButton;
 	private Button saveButton;
+	
+	private Context context;
+	
 	private TextView firstNameText;
 	private TextView lastNameText;
 	private TextView emailText;
@@ -21,25 +27,52 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 	private EditText emailEditField;
 	private EditText phoneEditField;
 	private NewContactActivity newContactActivity;
-		
 	
-	public DisasterAppNewContactTest() {
+	public NewContactActivityTest()
+	{
 		super(NewContactActivity.class);
 	}
 	
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		super.setUp();
 		newContactActivity = getActivity();
+		context = this.getInstrumentation().getTargetContext().getApplicationContext();
+		
 		cancelButton = (Button) newContactActivity.findViewById(R.id.Cancel_button);
 		saveButton = (Button) newContactActivity.findViewById(R.id.Save_button);
+		
 		firstNameText = (TextView)newContactActivity.findViewById(R.id.First_Name);
 		lastNameText = (TextView) newContactActivity.findViewById(R.id.Last_Name);
 		emailText = (TextView) newContactActivity.findViewById(R.id.Email_Address);
 		phoneText = (TextView) newContactActivity.findViewById(R.id.Phone_Number);
+		
 		firstNameEditField = (EditText) newContactActivity.findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.last_name_editText);
 		emailEditField = (EditText) newContactActivity.findViewById(R.id.email_address_editText);
 		phoneEditField = (EditText) newContactActivity.findViewById(R.id.phone_number_editText);
+	}
+	
+	public void testCreateContact() 
+	{
+		Contact newContact = new Contact(context);
+		newContact.setFirstName("Bob");
+		newContact.setLastName("Jones");
+		newContact.setEmailAddress("bjones@example.com");
+		newContact.setPhoneNumber("5555555555");
+		
+		newContact.create();
+		
+		ContactList contactList = new ContactList(context);
+		contactList.read();
+		Contact output = contactList.getContact(contactList.size() - 1);
+
+		newContact.delete();
+		
+		assertEquals(output.getFirstName(), newContact.getFirstName());
+		assertEquals(output.getLastName(), newContact.getLastName());
+		assertEquals(output.getEmailAddress(), newContact.getEmailAddress());
+		assertEquals(output.getPhoneNumber(), newContact.getPhoneNumber());
 	}
 		
 	public void testCancelButtonExists() 
@@ -80,16 +113,19 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			public void run() 
 			{
 			firstNameEditField.setText("Bob", TextView.BufferType.EDITABLE);
-		}
+			}
+		});
 		
-	});
-	try {
-		Thread.sleep(500);
-	} catch (InterruptedException e) {
-		e.printStackTrace();
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Bob", firstNameEditField.getText().toString());
 	}
-	assertEquals("Bob", firstNameEditField.getText().toString());
-}
 	
 	public void testLastNameChangeTextField()
 	{
@@ -100,11 +136,14 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			{
 			lastNameEditField.setText("Wszedybyl", TextView.BufferType.EDITABLE);
 			}
-			
 		});
-		try {
+		
+		try
+		{
 			Thread.sleep(500);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e)
+		{
 			e.printStackTrace();
 		}
 		assertEquals("Wszedybyl", lastNameEditField.getText().toString());
@@ -117,13 +156,16 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			@Override
 			public void run() 
 			{
-			emailEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
+				emailEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
 			}
-			
 		});
-		try {
+		
+		try
+		{
 			Thread.sleep(500);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e)
+		{
 			e.printStackTrace();
 		}
 		assertEquals("bobby@yahoo.com", emailEditField.getText().toString());
@@ -136,13 +178,16 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 			@Override
 			public void run() 
 			{
-			phoneEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
+				phoneEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
 			}
-			
 		});
-		try {
+		
+		try
+		{
 			Thread.sleep(500);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e)
+		{
 			e.printStackTrace();
 		}
 		assertEquals("(586)000-1234", phoneEditField.getText().toString());
@@ -159,6 +204,7 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertTrue(newContactActivity.isFirstNameValid("stacy"));
 		assertTrue(newContactActivity.isFirstNameValid("Williams"));
 	}
+	
 	public void testValidLastName()
 	{
 		assertFalse(newContactActivity.isLastNameValid("alice@yahoo.com"));
@@ -171,7 +217,6 @@ public class DisasterAppNewContactTest extends ActivityInstrumentationTestCase2<
 		assertTrue(newContactActivity.isLastNameValid("Williams Berr"));
 	}
 
-	
 	public void testValidEmail()
 	{
 		assertTrue(newContactActivity.isEmailValid("alice@yahoo.com"));

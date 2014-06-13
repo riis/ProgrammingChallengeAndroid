@@ -26,52 +26,64 @@ public class Contact extends BasePersistentModel
 		this.messageSentTimeStamp = 0L;
 	}
 	
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName)
+	{
 		this.firstName = firstName;
 	}
 	
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName)
+	{
 		this.lastName = lastName;
 	}
 	
-	public void setEmailAddress(String emailAddress) {
+	public void setEmailAddress(String emailAddress)
+	{
 		this.emailAddress = emailAddress;
 	}
 	
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber)
+	{
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void setMessageSentTimeStamp(long messageSentTimeStamp) {
+	public void setMessageSentTimeStamp(long messageSentTimeStamp)
+	{
 		this.messageSentTimeStamp = messageSentTimeStamp;
 	}
 	
-	public void updateMessageSentTimeStamp() {
+	public void updateMessageSentTimeStamp()
+	{
 		Calendar cal = Calendar.getInstance();
 		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
-	public Long getId() {
+	public Long getId()
+	{
 		return id;
 	}
 	
-	public String getFirstName() {
+	public String getFirstName()
+	{
 		return firstName;
 	}
 	
-	public String getLastName() {
+	public String getLastName()
+	{
 		return lastName;
 	}
 	
-	public String getEmailAddress() {
+	public String getEmailAddress()
+	{
 		return emailAddress;
 	}
 	
-	public String getPhoneNumber() {
+	public String getPhoneNumber()
+	{
 		return phoneNumber;
 	}
 	
-	public long getMessageSentTimeStamp() {
+	public long getMessageSentTimeStamp()
+	{
 		return messageSentTimeStamp;
 	}
 

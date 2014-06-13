@@ -20,7 +20,6 @@ public class ViewResponseMessagesActivity extends Activity
         contactList.readByTimeStamp();
        
         ListView listView = (ListView) findViewById(R.id.responseMessagesListView);
-
         listView.setAdapter(new ResponseMessagesAdapter(this, contactList.getContacts()));
     }
 	

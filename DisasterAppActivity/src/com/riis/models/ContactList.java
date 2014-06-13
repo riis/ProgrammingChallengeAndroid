@@ -67,7 +67,7 @@ public class ContactList extends BasePersistentModel
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			Contact currentContact = new Contact(this.context);
+			Contact currentContact = new Contact(context);
 
 			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
@@ -78,10 +78,10 @@ public class ContactList extends BasePersistentModel
 			{
 				returnVal = false;
 			}
+			
 			cursor.moveToNext();
-			
-			
 		}
+		
 		cursor.close();
 		close();
 		return returnVal;
@@ -97,7 +97,7 @@ public class ContactList extends BasePersistentModel
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			Contact currentContact = new Contact(this.context);
+			Contact currentContact = new Contact(context);
 			
 			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
@@ -108,10 +108,10 @@ public class ContactList extends BasePersistentModel
 			{
 				returnVal = false;
 			}
+			
 			cursor.moveToNext();
-			
-			
 		}
+		
 		cursor.close();
 		close();
 		return returnVal;
@@ -120,8 +120,7 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean update() 
 	{
+		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
 }

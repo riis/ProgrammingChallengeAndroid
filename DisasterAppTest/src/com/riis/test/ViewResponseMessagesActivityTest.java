@@ -69,6 +69,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 						getApplicationContext(), contactList.getContacts()));
 			}
 		});
+		
 		try 
 		{
 			Thread.sleep(5000);
@@ -101,7 +102,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertNotNull(returnToMainScreenButton);
 	}
 	
-	public void testSortingByTimeStamp()
+	public void testSortingContactByTimeStamp()
 	{
 		Contact secondContact = new Contact(context);
 		secondContact.setFirstName("Mike");
@@ -131,11 +132,9 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertEquals(50L,contactList.getContact(0).getMessageSentTimeStamp());
 		assertEquals(700L,contactList.getContact(1).getMessageSentTimeStamp());
 		assertEquals(1000L,contactList.getContact(2).getMessageSentTimeStamp());
-		
 	}
 	
-	
-	public void testReceivingANewMessageAltersOrder() 
+	public void testSortingResponseMessageByTimeStamp() 
 	{
 		ResponseMessage response = new ResponseMessage(context);
     	response.setPhoneNumber("5555555555");
@@ -148,7 +147,6 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
     	secondResponse.setTextMessageContents("This is another test");
     	secondResponse.setTimeStamp(1000);
     	secondResponse.create();
-    	
     	
     	ResponseMessageList responseMessages = new ResponseMessageList(context);
     	responseMessages.read();

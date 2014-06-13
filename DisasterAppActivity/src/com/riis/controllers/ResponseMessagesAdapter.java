@@ -35,7 +35,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<Contact>
 		ResponseMessageList responseMessages = new ResponseMessageList(context);
 		responseMessages.read();
 		
-		if(responseMessages.size()<=position)
+		if(responseMessages.size() <= position)
 		{ 
 			TextView nameView = (TextView) rowView.findViewById(R.id.listName);
 			nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());

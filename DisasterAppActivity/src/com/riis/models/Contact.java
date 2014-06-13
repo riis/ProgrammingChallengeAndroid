@@ -144,6 +144,7 @@ public class Contact extends BasePersistentModel
 		close();
 		return result;
 	}
+	
 
 	public boolean read(long id) 
 	{

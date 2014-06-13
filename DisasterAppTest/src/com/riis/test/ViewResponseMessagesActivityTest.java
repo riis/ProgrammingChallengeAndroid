@@ -2,6 +2,7 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -182,5 +183,74 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		
 		assertTrue(responseMessages.getResponseMessage(0).getTimeStamp() >
 			responseMessages.getResponseMessage(1).getTimeStamp());    
+	}
+	
+	public void testDeleteResponseMessage()
+	{
+		ResponseMessage newMessage = new ResponseMessage(context);
+		newMessage.setPhoneNumber("5550009090");
+		newMessage.setTextMessageContents("random contents");
+		newMessage.setTimeStamp(500L);
+		newMessage.create();
+		
+		assertTrue(newMessage.delete());
+	}
+	
+	public void testCreateResponseMessage()
+	{
+		ResponseMessage newMessage = new ResponseMessage(context);
+		newMessage.setPhoneNumber("5550009090");
+		newMessage.setTextMessageContents("random contents");
+		newMessage.setTimeStamp(50L);
+		newMessage.create();
+		
+		ResponseMessageList messageList = new ResponseMessageList(context);
+		messageList.read();
+		ResponseMessage output = messageList.getResponseMessage(messageList.size() - 1);
+		newMessage.delete();
+		
+		assertEquals(output.getTextMessageContents(), newMessage.getTextMessageContents());
+		assertEquals(output.getTimeStamp(), newMessage.getTimeStamp());
+		assertEquals(output.getPhoneNumber(), newMessage.getPhoneNumber());
+
+		
+	}
+	
+	public void testReadMessage()
+	{
+		ResponseMessage newMessage = new ResponseMessage(context);
+		newMessage.setPhoneNumber("5550009090");
+		newMessage.setTextMessageContents("random contents");
+		newMessage.setTimeStamp(50L);
+		
+		boolean didCreate = newMessage.create();
+		
+		ResponseMessage output = new ResponseMessage(context);
+		output.setPhoneNumber("5550009090");
+
+		assertTrue(output.read());
+		
+		newMessage.delete();
+	}
+	
+	public void testUpdateContact()
+	{
+		ResponseMessage newMessage = new ResponseMessage(context);
+		newMessage.setPhoneNumber("5550009090");
+		newMessage.setTextMessageContents("random contents");
+		newMessage.setTimeStamp(50L);
+		
+		newMessage.create();
+		
+		newMessage.setTimeStamp(70L);
+		newMessage.update();
+		
+		ResponseMessage output = new ResponseMessage(context);
+		output.setPhoneNumber("5550009090");
+		output.read();
+		
+		newMessage.delete();
+		
+		assertEquals(newMessage.getTimeStamp(), output.getTimeStamp());
 	}
 }

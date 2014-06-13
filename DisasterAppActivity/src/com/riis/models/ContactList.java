@@ -52,8 +52,31 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean delete() 
 	{
-		// TODO Auto-generated method stub
-		return false;
+
+		String[] columns = {"_id"};
+		open();	
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
+
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			Contact currentContact = new Contact(context);
+			boolean success = currentContact.read(cursor.getInt(0)); 
+			if (success)
+			{
+				contacts.remove(currentContact);
+			}
+			else
+			{
+				returnVal = false;
+			}
+			
+			cursor.moveToNext();
+		}
+		cursor.close();
+		close();
+		return returnVal;
+
 	}
 
 	@Override
@@ -68,7 +91,6 @@ public class ContactList extends BasePersistentModel
 		while (!cursor.isAfterLast()) 
 		{
 			Contact currentContact = new Contact(context);
-
 			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
 			{

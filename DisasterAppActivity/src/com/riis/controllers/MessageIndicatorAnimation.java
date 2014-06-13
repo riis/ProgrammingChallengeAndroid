@@ -1,11 +1,11 @@
 package com.riis.controllers;
 
-import com.riis.R;
-
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.riis.R;
 
 public class MessageIndicatorAnimation extends Animation
 {

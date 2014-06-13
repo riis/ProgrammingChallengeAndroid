@@ -2,7 +2,6 @@ package com.riis.test;
 
 import java.util.Calendar;
 
-import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
@@ -176,7 +175,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 		}
 		catch (InterruptedException e)
 		{
@@ -192,29 +191,49 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 		}
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
 		
-		Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, false);
+		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
+		
+		int visible = View.VISIBLE;
+		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
+		
+		assertEquals(expandedLayout, visible);
+	}
+	
+	public void testListItemCollapses()
+	{
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
 		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
 		
-		monitor.waitForActivityWithTimeout(2000);
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
-		int visible = View.VISIBLE;
-		int emailVisibility = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorListEmail).getVisibility();
-		int phoneVisibility = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorListPhoneNumber).getVisibility();
+		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
 		
-		assertEquals(emailVisibility, visible);
-		assertEquals(phoneVisibility, visible);
-		contact.read();
-		contact.delete();
+		int visible = View.INVISIBLE;
+		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
 		
-		getInstrumentation().removeMonitor(monitor);
+		assertEquals(expandedLayout, visible);
 	}
 
 	public void testAscendingOrderOfContacts()

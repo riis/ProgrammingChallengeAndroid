@@ -67,7 +67,7 @@ public class ResponseMessageList extends BasePersistentModel
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
-			ResponseMessage next = new ResponseMessage(this.context);
+			ResponseMessage next = new ResponseMessage(context);
 			boolean success = next.read(cursor.getInt(0));
 			if (success)
 			{
@@ -90,5 +90,4 @@ public class ResponseMessageList extends BasePersistentModel
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 }

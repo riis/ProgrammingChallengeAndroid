@@ -90,6 +90,35 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		response.delete();		
 	}
 	
+	public void testDeleteContact()
+	{
+		ResponseMessage message = new ResponseMessage(context);
+		message.updateMessageSentTimeStamp();
+		message.setTextMessageContents("This is a test message.");
+		message.setPhoneNumber("5555555555");
+		
+		message.create();
+		
+		assertTrue(message.delete());
+	}
+	
+	public void testReadContact()
+	{
+		ResponseMessage message = new ResponseMessage(context);
+		message.updateMessageSentTimeStamp();
+		message.setTextMessageContents("This is a test message.");
+		message.setPhoneNumber("5555555555");
+		
+		message.create();
+		
+		ResponseMessage response = new ResponseMessage(context);
+		response.setPhoneNumber("5555555555");
+		
+		assertTrue(response.read());
+		
+		response.delete();
+	}
+	
 	public void testResponseMessagesListViewExists() 
 	{
 		assertNotNull(responseMessagesListView);
@@ -132,7 +161,6 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertEquals(1000L,contactList.getContact(2).getMessageSentTimeStamp());
 	}
 	
-
 	public void testSortingResponseMessageByTimeStamp() 
 	{
 		ResponseMessage response = new ResponseMessage(context);

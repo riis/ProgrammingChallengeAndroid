@@ -16,6 +16,7 @@ public class ResponseMessage extends BasePersistentModel
 	public ResponseMessage(Context context) 
 	{
 		super(context);
+		this.id = -1;
 		this.phoneNumber = "";
 		this.timeStamp = 0L;
 		this.textMessageContents = "";

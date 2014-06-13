@@ -74,8 +74,64 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		assertEquals(output.getEmailAddress(), newContact.getEmailAddress());
 		assertEquals(output.getPhoneNumber(), newContact.getPhoneNumber());
 	}
+	
+	public void testDeleteContact()
+	{
+		Contact newContact = new Contact(context);
+		newContact.setFirstName("Bob");
+		newContact.setLastName("Jones");
+		newContact.setEmailAddress("bjones@example.com");
+		newContact.setPhoneNumber("5555555555");
 		
-	public void testCancelButtonExists() 
+		newContact.create();
+		
+		assertTrue(newContact.delete());
+	}
+	
+	public void testReadContact()
+	{
+		Contact newContact = new Contact(context);
+		newContact.setFirstName("Bob");
+		newContact.setLastName("Jones");
+		newContact.setEmailAddress("bjones@example.com");
+		newContact.setPhoneNumber("5555555555");
+		
+		newContact.create();
+		
+		newContact.setLastName("Smith");
+		newContact.update();
+		
+		Contact output = new Contact(context);
+		output.setEmailAddress("bjones@example.com");
+		
+		assertTrue(output.read());
+		
+		newContact.delete();
+	}
+	
+	public void testUpdateContact()
+	{
+		Contact newContact = new Contact(context);
+		newContact.setFirstName("Bob");
+		newContact.setLastName("Jones");
+		newContact.setEmailAddress("bjones@example.com");
+		newContact.setPhoneNumber("5555555555");
+		
+		newContact.create();
+		
+		newContact.setLastName("Smith");
+		newContact.update();
+		
+		Contact output = new Contact(context);
+		output.setEmailAddress("bjones@example.com");
+		output.read();
+		
+		newContact.delete();
+		
+		assertEquals(newContact.getLastName(), output.getLastName());
+	}
+		
+ 	public void testCancelButtonExists() 
 	{
 		assertNotNull(cancelButton);
 	}

@@ -132,7 +132,6 @@ public class ResponseMessage extends BasePersistentModel
 		boolean result = readRecordFromCursor(cursor);
 		cursor.close();
 		close();
-		Log.i("my log", "goes past isClassEmpty  "+ result);
 		return result;
 	}
 

@@ -196,12 +196,10 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		newMessage.setTimeStamp(50L);
 		
 		boolean didCreate = newMessage.create();
-		Log.i("my log", "did it create? "+didCreate);
 		
 		ResponseMessage output = new ResponseMessage(context);
 		output.setPhoneNumber("5550009090");
 
-		Log.i("my log", "" +output.read() );
 		assertTrue(output.read());
 		
 		newMessage.delete();

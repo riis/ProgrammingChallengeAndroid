@@ -64,7 +64,7 @@ public class ContactList extends BasePersistentModel
 			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
 			{
-				contacts.remove(currentContact);
+				currentContact.delete();
 			}
 			else
 			{

@@ -19,6 +19,7 @@ public class DisasterAppActivity extends Activity
 {
 	private ListView listView;
 	@Inject ContactList contactList;
+	@Inject MessageIndicatorItemClickListener item;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -32,7 +33,7 @@ public class DisasterAppActivity extends Activity
         
         listView = (ListView) findViewById(R.id.contactIndicatorListView);        
         listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
-        listView.setOnItemClickListener(new MessageIndicatorItemClickListener());
+        listView.setOnItemClickListener(item);
     }
 	
 	@Override

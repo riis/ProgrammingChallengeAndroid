@@ -55,7 +55,7 @@ public class ContactList extends BasePersistentModel
 
 		String[] columns = {"_id"};
 		open();	
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
+		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 

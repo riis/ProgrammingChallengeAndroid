@@ -79,42 +79,23 @@ public class ContactList extends BasePersistentModel
 
 	}
 
-	@Override
-	public boolean read() 
+	
+	public boolean readByTimeStamp()
 	{
-		String[] columns = {"_id"};
-		
-		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
-
-		boolean returnVal = cursor.moveToFirst();
-		while (!cursor.isAfterLast()) 
-		{
-			Contact currentContact = new Contact(context);
-			boolean success = currentContact.read(cursor.getInt(0)); 
-			if (success)
-			{
-				contacts.add(currentContact);
-			}
-			else
-			{
-				returnVal = false;
-			}
-			
-			cursor.moveToNext();
-		}
-		
-		cursor.close();
-		close();
-		return returnVal;
+		return readByClause("messageSentTimeStamp ASC");
+	}
+	@Override
+	public boolean read()
+	{
+		return readByClause("lastName ASC");
 	}
 	
-	public boolean readByTimeStamp() 
+	private boolean readByClause(String clause) 
 	{
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "messageSentTimeStamp ASC");
+		Cursor cursor = database.query("contact", columns, null, null, null, null, clause);
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 

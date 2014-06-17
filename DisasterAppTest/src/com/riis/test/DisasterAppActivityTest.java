@@ -110,7 +110,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			}
 		});
 		
-		Thread.sleep(5000);
+		Thread.sleep(1000);
 		super.tearDown();
 	}
 	
@@ -140,7 +140,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		TouchUtils.clickView(this, createContactScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -152,7 +152,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -164,7 +164,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, viewMessageResponsesScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -174,7 +174,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -189,7 +189,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -208,7 +208,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -219,7 +219,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -238,7 +238,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();

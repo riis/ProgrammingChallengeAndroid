@@ -52,8 +52,8 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean delete() 
 	{
-
 		String[] columns = {"_id"};
+		
 		open();	
 		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
 
@@ -82,61 +82,12 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean read() 
 	{
-		String[] columns = {"_id"};
-		
-		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
-
-		boolean returnVal = cursor.moveToFirst();
-		while (!cursor.isAfterLast()) 
-		{
-			Contact currentContact = new Contact(context);
-			boolean success = currentContact.read(cursor.getInt(0)); 
-			if (success)
-			{
-				contacts.add(currentContact);
-			}
-			else
-			{
-				returnVal = false;
-			}
-			
-			cursor.moveToNext();
-		}
-		
-		cursor.close();
-		close();
-		return returnVal;
+		return readWithWhereClause("lastName ASC");
 	}
 	
 	public boolean readByTimeStamp() 
 	{
-		String[] columns = {"_id"};
-		
-		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "messageSentTimeStamp ASC");
-
-		boolean returnVal = cursor.moveToFirst();
-		while (!cursor.isAfterLast()) 
-		{
-			Contact currentContact = new Contact(context);
-			
-			boolean success = currentContact.read(cursor.getInt(0)); 
-			if (success)
-			{
-				contacts.add(currentContact);
-			}
-			else
-			{
-				returnVal = false;
-			}
-			
-			cursor.moveToNext();
-		}
-		
-		cursor.close();
-		close();
-		return returnVal;
+		return readWithWhereClause("messageSentTimeStamp ASC");
 	}
 
 	@Override
@@ -144,5 +95,35 @@ public class ContactList extends BasePersistentModel
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private boolean readWithWhereClause(String whereClause)
+	{
+		String[] columns = {"_id"};
+		
+		open();
+		Cursor cursor = database.query("contact", columns, null, null, null, null, whereClause);
+
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			Contact currentContact = new Contact(context);
+			boolean success = currentContact.read(cursor.getInt(0)); 
+			if (success)
+			{
+				contacts.add(currentContact);
+			}
+			else
+			{
+				returnVal = false;
+			}
+			
+			cursor.moveToNext();
+		}
+		
+		cursor.close();
+		close();
+		
+		return returnVal;
 	}
 }

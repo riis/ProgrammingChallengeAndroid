@@ -2,9 +2,9 @@ package com.riis.models.test;
 
 import junit.framework.TestCase;
 
+import com.riis.controllers.TextMessageSender;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-import com.riis.models.TextMessageSender;
 
 public class TextMessageSenderTest extends TestCase{
 	

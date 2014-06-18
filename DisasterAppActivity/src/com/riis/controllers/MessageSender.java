@@ -1,4 +1,6 @@
-package com.riis.models;
+package com.riis.controllers;
+
+import com.riis.models.ContactList;
 
 public interface MessageSender
 {

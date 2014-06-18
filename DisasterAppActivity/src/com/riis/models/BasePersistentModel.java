@@ -19,7 +19,8 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 			+ "lastName text not null, "
 			+ "emailAddress text not null, "
 			+ "phoneNumber integer not null, "
-			+ "messageSentTimeStamp integer not null);";
+			+ "messageSentTimeStamp integer not null, "
+			+ "pingCount integer not null);";
 	
 	private static final String RESPONSE_MESSAGE_TABLE_CREATE_STMT = "create table "
 			+ "responseMessage(_id integer primary key autoincrement, "

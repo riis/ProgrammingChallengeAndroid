@@ -64,6 +64,12 @@ public class ContactTest extends TestCase
 		assertNotNull(newContact.getFirstName());
 	}
 	
+	public void testSetPingCount()
+	{
+		newContact.setPingCount(1);
+		assertEquals(newContact.getPingCount(), 1);
+	}
+	
 	public void testInitialLastName()
 	{
 		assertNotNull(newContact.getLastName());
@@ -82,5 +88,10 @@ public class ContactTest extends TestCase
 	public void testInitialMessageSentTimeStamp()
 	{
 		assertNotNull(newContact.getMessageSentTimeStamp());
+	}
+	
+	public void testInitialPingCount()
+	{
+		assertEquals(newContact.getPingCount(), 0);
 	}
 }

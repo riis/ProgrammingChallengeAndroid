@@ -1,5 +1,5 @@
 digraph G1 {
   concentrate = true;
-  SendEmergencyMessageActivity -> ContactList;
   SendEmergencyMessageActivity -> TextMessageSender;
+  SendEmergencyMessageActivity -> ContactList;
 }

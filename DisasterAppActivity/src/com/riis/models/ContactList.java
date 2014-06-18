@@ -52,8 +52,8 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean delete() 
 	{
-
 		String[] columns = {"_id"};
+		
 		open();	
 		Cursor cursor = database.query("contact", columns, null, null, null, null, null);
 
@@ -87,21 +87,32 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean read()
 	{
-		return readByClause("lastName ASC");
+		return readWithWhereClause("lastName ASC");
 	}
 	
 	private boolean readByClause(String clause) 
 	{
+		return readWithWhereClause("messageSentTimeStamp ASC");
+	}
+
+	@Override
+	public boolean update() 
+	{
+		return false;
+	}
+	
+	private boolean readWithWhereClause(String whereClause)
+	{
 		String[] columns = {"_id"};
 		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, clause);
+
+		Cursor cursor = database.query("contact", columns, null, null, null, null, whereClause);
 
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{
 			Contact currentContact = new Contact(context);
-			
 			boolean success = currentContact.read(cursor.getInt(0)); 
 			if (success)
 			{
@@ -117,13 +128,7 @@ public class ContactList extends BasePersistentModel
 		
 		cursor.close();
 		close();
+		
 		return returnVal;
-	}
-
-	@Override
-	public boolean update() 
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

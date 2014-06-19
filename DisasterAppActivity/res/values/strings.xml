@@ -16,6 +16,10 @@
     <string name="lastNameHint">Example: Smith</string>
     <string name="emailAddressHint">Example: bsmith@disaster.com</string>
     <string name="phoneNumberHint">Example: 555&#8211;555&#8211;5555</string>
+    <string-array name="contactInfoOptions">
+        <item>Email Address</item>
+        <item>Phone Number</item>
+    </string-array>
     
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>

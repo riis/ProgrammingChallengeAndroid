@@ -1,9 +1,13 @@
 package com.riis.test;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.NewContactActivity;
@@ -20,12 +24,18 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	private TextView firstNameText;
 	private TextView lastNameText;
-	private TextView emailText;
-	private TextView phoneText;
+	private TextView firstFragmentText;
+	private TextView secondFragmentText;
+	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
-	private EditText emailEditField;
-	private EditText phoneEditField;
+	
+	private EditText firstFragmentEditField;
+	private EditText secondFragmentEditField;
+	
+	private Spinner firstFragmentSpinner;
+	private Spinner secondFragmentSpinner;
+	
 	private NewContactActivity newContactActivity;
 	
 	public NewContactActivityTest()
@@ -44,13 +54,25 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		
 		firstNameText = (TextView)newContactActivity.findViewById(R.id.First_Name);
 		lastNameText = (TextView) newContactActivity.findViewById(R.id.Last_Name);
-		emailText = (TextView) newContactActivity.findViewById(R.id.Email_Address);
-		phoneText = (TextView) newContactActivity.findViewById(R.id.Phone_Number);
 		
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+        		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        FragmentManager manager = newContactActivity.getFragmentManager();
+        
+        Fragment firstFragment = manager.findFragmentById(R.id.firstContactInfoFragment);
+        firstFragmentSpinner = (Spinner) firstFragment.getView().findViewById(R.id.contactInfoSelection);
+        firstFragmentText = (TextView) firstFragment.getView().findViewById(R.id.contactInfoLabel);
+        firstFragmentEditField = (EditText) firstFragment.getView().findViewById(R.id.contactInfoEditText);
+        
+        Fragment secondFragment = manager.findFragmentById(R.id.secondContactInfoFragment);
+        secondFragmentSpinner = (Spinner) secondFragment.getView().findViewById(R.id.contactInfoSelection);
+        secondFragmentText = (TextView) secondFragment.getView().findViewById(R.id.contactInfoLabel);
+        secondFragmentEditField = (EditText) secondFragment.getView().findViewById(R.id.contactInfoEditText);
+        
 		firstNameEditField = (EditText) newContactActivity.findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.last_name_editText);
-		emailEditField = (EditText) newContactActivity.findViewById(R.id.email_address_editText);
-		phoneEditField = (EditText) newContactActivity.findViewById(R.id.phone_number_editText);
 	}
 	
 	public void testCreateContact() 
@@ -138,24 +160,54 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		assertNotNull(saveButton);
 	}
 	
-	public void testFirstNameLabel()
+	public void testFirstNameLabelExists()
 	{
 		assertNotNull(firstNameText);
 	}
 	
-	public void testLastNameLabel()
+	public void testLastNameLabelExists()
     {
 		assertNotNull(lastNameText);
     }
 	
-	public void testEmailLabel()
+	public void testFirstNameEditTextExists()
 	{
-		assertNotNull(emailText);
+		assertNotNull(firstNameEditField);
 	}
 	
-	public void testPhoneLabel()
+	public void testLastNameEditTextExists()
 	{
-		assertNotNull(phoneText);
+		assertNotNull(lastNameEditField);
+	}
+	
+	public void testFirstFragmentSpinnerExists()
+	{
+		assertNotNull(firstFragmentSpinner);
+	}
+	
+	public void testSecondFragmentSpinnerExists()
+	{
+		assertNotNull(secondFragmentSpinner);
+	}
+	
+	public void testFirstFragmentLabelExists()
+	{
+		assertNotNull(firstFragmentText);
+	}
+	
+	public void testSecondFragmentLabelExists()
+	{
+		assertNotNull(secondFragmentText);
+	}
+	
+	public void testFirstFragmentEditTextExists()
+	{
+		assertNotNull(firstFragmentEditField);
+	}
+	
+	public void testSecondFragmentEditTextExists()
+	{
+		assertNotNull(secondFragmentEditField);
 	}
 	
 	public void testFirstNameChangeTextField()
@@ -202,14 +254,14 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		assertEquals("Wszedybyl", lastNameEditField.getText().toString());
 	}
 	
-	public void testEmailChangeTextField()
+	public void testEmailChangeEditTextField()
 	{
 		newContactActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
-				emailEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
+				firstFragmentEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -221,17 +273,17 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		{
 			e.printStackTrace();
 		}
-		assertEquals("bobby@yahoo.com", emailEditField.getText().toString());
+		assertEquals("bobby@yahoo.com", firstFragmentEditField.getText().toString());
 	}
 	
-	public void testPhoneChangeTextField()
+	public void testPhoneChangeEditTextField()
 	{
 		newContactActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
-				phoneEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
+				secondFragmentEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -243,7 +295,74 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		{
 			e.printStackTrace();
 		}
-		assertEquals("(586)000-1234", phoneEditField.getText().toString());
+		assertEquals("(586)000-1234", secondFragmentEditField.getText().toString());
+	}
+	
+	public void testFirstFragmentSpinnerChange()
+	{
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				firstFragmentSpinner.setSelection(1);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Phone Number", firstFragmentSpinner.getSelectedItem().toString());
+	}
+	
+	public void testSecondFragmentSpinnerChange()
+	{
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				firstFragmentSpinner.setSelection(0);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Email Address", firstFragmentSpinner.getSelectedItem().toString());
+	}
+	
+	public void testSpinnerChangeWhenSpinnersSelectSameValue()
+	{
+		newContactActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				firstFragmentSpinner.setSelection(1);
+				saveButton.performClick();
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Email Address", secondFragmentSpinner.getSelectedItem().toString());
 	}
 	
 	public void testValidFirstName()

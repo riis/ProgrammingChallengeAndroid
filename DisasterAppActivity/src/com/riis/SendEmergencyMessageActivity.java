@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.riis.controllers.EmergencyMessageTextWatcher;
+import com.riis.controllers.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-import com.riis.models.EmergencyMessageTextWatcher;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
-import com.riis.models.TextMessageSender;
 
 import dagger.ObjectGraph;
 

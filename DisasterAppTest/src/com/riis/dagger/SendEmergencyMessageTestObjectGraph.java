@@ -3,8 +3,8 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.SendEmergencyMessageActivity;
+import com.riis.controllers.TextMessageSender;
 import com.riis.models.ContactList;
-import com.riis.models.TextMessageSender;
 
 import dagger.Module;
 import dagger.Provides;

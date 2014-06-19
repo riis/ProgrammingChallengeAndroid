@@ -1,10 +1,19 @@
 package com.riis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
 
 public class NewContactActivity extends Activity
@@ -25,19 +34,48 @@ public class NewContactActivity extends Activity
 	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
-	private EditText emailEditField;
-	private EditText phoneEditField;
+	private EditText firstFragmentEditField;
+	private EditText secondFragmentEditField;
+	private Spinner firstFragmentSpinner;
+	private Spinner secondFragmentSpinner;
+
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.newcontact);
+        setContentView(R.layout.create_contact_screen);
+        
+        
+        
         
         firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);
-		emailEditField = (EditText) findViewById(R.id.email_address_editText);
-		phoneEditField = (EditText) findViewById(R.id.phone_number_editText);
+		
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        FragmentManager manager = getFragmentManager();
+        
+        Fragment firstFragment = manager.findFragmentById(R.id.firstContactInfoFragment);
+        firstFragmentSpinner = (Spinner) firstFragment.getView().findViewById(R.id.contactInfoSelection);
+        TextView text = (TextView) firstFragment.getView().findViewById(R.id.contactInfoLabel);
+        firstFragmentEditField = (EditText) firstFragment.getView().findViewById(R.id.contactInfoEditText);
+        
+        firstFragmentSpinner.setAdapter(adapter);
+        firstFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(text, firstFragmentEditField));
+        firstFragmentSpinner.setSelection(0);
+        
+        Fragment secondFragment = manager.findFragmentById(R.id.secondContactInfoFragment);
+        secondFragmentSpinner = (Spinner) secondFragment.getView().findViewById(R.id.contactInfoSelection);
+        TextView textView = (TextView) secondFragment.getView().findViewById(R.id.contactInfoLabel);
+        secondFragmentEditField = (EditText) secondFragment.getView().findViewById(R.id.contactInfoEditText);
+        
+        secondFragmentSpinner.setAdapter(adapter);
+        secondFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(textView, secondFragmentEditField));
+        secondFragmentSpinner.setSelection(1);
     }
 	
 	public void cancelCreateContact(View view) 
@@ -49,28 +87,62 @@ public class NewContactActivity extends Activity
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
-		emailEditField.setError(null);
-		phoneEditField.setError(null);
+		
+		EditText emailAddressEditField;
+		EditText phoneNumberEditField;
+		
+		if(firstFragmentSpinner.getSelectedItemPosition() == secondFragmentSpinner.getSelectedItemPosition())
+		{
+			secondFragmentSpinner.setSelection(1 - firstFragmentSpinner.getSelectedItemPosition());
+		}
+		
+		if(firstFragmentSpinner.getSelectedItemPosition() == 0)
+		{
+			emailAddressEditField = firstFragmentEditField;
+			phoneNumberEditField = secondFragmentEditField;
+		}
+		else
+		{
+			emailAddressEditField = secondFragmentEditField;
+			phoneNumberEditField = firstFragmentEditField;
+		}
 		
 		if (!isFirstNameValid(firstNameEditField.getText().toString())) 
 			firstNameEditField.setError(FIRST_NAME_ERROR);
 		else if (!isLastNameValid(lastNameEditField.getText().toString())) 
 			lastNameEditField.setError(LAST_NAME_ERROR);
-		else if (!isEmailValid(emailEditField.getText().toString())) 
-			emailEditField.setError(EMAIL_ADDRESS_ERROR);
-		else if (!isPhoneValid(phoneEditField.getText().toString())) 
-			phoneEditField.setError(PHONE_NUMBER_ERROR);
+		else if (!isEmailValid(emailAddressEditField.getText().toString())) 
+			firstFragmentEditField.setError(EMAIL_ADDRESS_ERROR);
+		else if (!isPhoneValid(phoneNumberEditField.getText().toString())) 
+			secondFragmentEditField.setError(PHONE_NUMBER_ERROR);
 		else 
 		{	        
 	        Contact newContact = new Contact(this);
 	        
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
-			newContact.setEmailAddress(emailEditField.getText().toString());
-			newContact.setPhoneNumber(phoneEditField.getText().toString());
+			newContact.setEmailAddress(emailAddressEditField.getText().toString());
+			newContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 	        newContact.create();
+	        
+	        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
+
+	        alertDialogBuilder.setTitle("Contact Saved");
+	        alertDialogBuilder.setMessage("Your contact has been saved")
+	        		   .setCancelable(false)
+	        		   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	   					public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, close
+							// current activity
+							finish();
+						}
+					  });
+	        AlertDialog alertDialog = alertDialogBuilder.create();
+	        
+	        // Set the Icon for the Dialog
+	        alertDialog.show();
 			
-			finish();
+			//finish();
 		}
 	}
 

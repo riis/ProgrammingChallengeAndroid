@@ -1,4 +1,4 @@
-package com.riis.models;
+package com.riis.controllers;
 
 import android.text.Editable;
 import android.text.TextWatcher;

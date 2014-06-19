@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/First_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_name_label" />
+    <EditText
+        android:id="@+id/first_name_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/firstNameHint"
+        android:inputType="textCapWords"
+         />
+    
+    <TextView
+        android:id="@+id/Last_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_name_label" />
+    <EditText
+        android:id="@+id/last_name_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/lastNameHint"
+        android:inputType="textCapWords" />
+    
+    <fragment
+        android:name="com.riis.fragments.ContactInfoFragment"
+        android:id="@+id/firstContactInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <fragment
+        android:name="com.riis.fragments.ContactInfoFragment"
+        android:id="@+id/secondContactInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+     
+	<TableRow
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"  
+		android:layout_gravity="center_horizontal">
+	
+		<Button
+			android:id="@+id/Cancel_button"
+			android:layout_height="wrap_content"
+			android:text="@string/cancel_button"
+			android:onClick="cancelCreateContact" />
+		
+		<Button
+			android:id="@+id/Save_button"
+			android:layout_height="wrap_content"
+			android:text="@string/save_button" 
+			android:onClick="saveCreateContact" 
+			android:layout_marginRight="10dp"/>
+	</TableRow>
+</LinearLayout>

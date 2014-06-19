@@ -14,6 +14,7 @@ public class Contact extends BasePersistentModel
 	private String emailAddress;
 	private String phoneNumber;
 	private long messageSentTimeStamp;
+	private int pingCount;
 	
 	public Contact(Context context) 
 	{
@@ -24,6 +25,7 @@ public class Contact extends BasePersistentModel
 		this.emailAddress = "";
 		this.phoneNumber = "";
 		this.messageSentTimeStamp = 0L;
+		this.pingCount = 0;
 	}
 	
 	public void setFirstName(String firstName)
@@ -57,6 +59,11 @@ public class Contact extends BasePersistentModel
 		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
+	public void setPingCount(int pingCount)
+	{
+		this.pingCount = pingCount;
+	}
+	
 	public Long getId()
 	{
 		return id;
@@ -86,6 +93,11 @@ public class Contact extends BasePersistentModel
 	{
 		return messageSentTimeStamp;
 	}
+	
+	public int getPingCount()
+	{
+		return pingCount;
+	}
 
 	@Override
 	public boolean create() 
@@ -101,6 +113,7 @@ public class Contact extends BasePersistentModel
 		values.put("emailAddress", getEmailAddress());
 		values.put("phoneNumber", getPhoneNumber());
 		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
+		values.put("pingCount", getPingCount());
 		
 		id = database.insert("contact", null, values);
 		close();
@@ -171,6 +184,7 @@ public class Contact extends BasePersistentModel
 			setEmailAddress(cursor.getString(3));
 			setPhoneNumber(cursor.getString(4));
 			setMessageSentTimeStamp(cursor.getLong(5));
+			setPingCount(cursor.getInt(6));
 			return true;
 		}
 		return false;
@@ -190,6 +204,7 @@ public class Contact extends BasePersistentModel
 		values.put("emailAddress", getEmailAddress());
 		values.put("phoneNumber", getPhoneNumber());
 		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
+		values.put("pingCount", getPingCount());
 		long updateId = database.update("contact", values, "_id = "+ id, null);
 		close();
 			

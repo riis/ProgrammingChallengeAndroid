@@ -27,6 +27,15 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 			+ "phoneNumber text not null, "
 			+ "timeStamp integer not null, "
 			+ "textMessageContents text not null);";
+	
+	private static final String CONTACT_LIST_TABLE_CREATE_STMT = "create table "
+			+ "contactList(_id integer primary key autoincrement, "
+			+ "name text not null);";
+	
+	private static final String CONTACT_LIST_MEMBERS_TABLE_CREATE_STMT = "create table"
+			+ "contactListMembers(_id integer primary key autoincrement, "
+			+ "contactListId integer not null, "
+			+ "contactId integer not null);";
 
 	public BasePersistentModel(Context context) 
 	{
@@ -38,6 +47,8 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 	{
 		database.execSQL(CONTACT_TABLE_CREATE_STMT);
 		database.execSQL(RESPONSE_MESSAGE_TABLE_CREATE_STMT);
+		database.execSQL(CONTACT_LIST_TABLE_CREATE_STMT);
+		database.execSQL(CONTACT_LIST_MEMBERS_TABLE_CREATE_STMT);
 	}
 
 	@Override
@@ -45,6 +56,8 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 	{
 		database.execSQL("DROP TABLE IF EXISTS contact");
 		database.execSQL("DROP TABLE IF EXISTS responseMessage");
+		database.execSQL("DROP TABLE IF EXISTS contactList");
+		database.execSQL("DROP TABLE IF EXISTS contactListMembers");
 		onCreate(database);
 	}
 	

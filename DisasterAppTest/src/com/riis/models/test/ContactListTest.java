@@ -38,4 +38,10 @@ public class ContactListTest extends TestCase
 		contactList.addContact(contact);
 		assertEquals(contact, contactList.getContact(0));
 	}
+	
+	public void testSetContactListName()
+	{
+		contactList.setName("Test List");
+		assertEquals("Test List", contactList.getName());
+	}
 }

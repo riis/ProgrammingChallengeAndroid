@@ -117,8 +117,13 @@ public class ContactList extends BasePersistentModel
 		return true;
 	}
 
+	
+	public boolean readByTimeStamp()
+	{
+		return readByClause("messageSentTimeStamp ASC");
+	}
 	@Override
-	public boolean read() 
+	public boolean read()
 	{
 		if (getName().equals(""))
 		{
@@ -150,7 +155,7 @@ public class ContactList extends BasePersistentModel
 		return true;
 	}
 	
-	public boolean readByTimeStamp() 
+	private boolean readByClause(String clause) 
 	{
 		return readWithOrderByClause("messageSentTimeStamp ASC");
 	}
@@ -271,6 +276,7 @@ public class ContactList extends BasePersistentModel
 			id = (cursor.getLong(0));
 			return true;
 		}
+
 		return false;
 	}
 	

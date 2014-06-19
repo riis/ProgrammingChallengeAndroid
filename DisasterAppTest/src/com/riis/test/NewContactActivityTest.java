@@ -104,9 +104,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContact.setLastName("Jones");
 		newContact.setEmailAddress("bjones@example.com");
 		newContact.setPhoneNumber("5555555555");
-		
 		newContact.create();
-		
 		assertTrue(newContact.delete());
 	}
 	

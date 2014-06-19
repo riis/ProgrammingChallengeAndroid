@@ -75,4 +75,5 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 	abstract public boolean delete();
 	abstract public boolean read();
 	abstract public boolean update();
+
 }

@@ -9,6 +9,8 @@ import android.test.TouchUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.riis.ContactListsActivity;
 import com.riis.DisasterAppActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
@@ -29,6 +31,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private Button createContactScreenButton;
 	private Button createEmergencyMessageScreenButton;
 	private Button viewMessageResponsesScreenButton;
+	private Button createContactListsScreenButton;
 	private ListView contactIndicatorListView;
 	private Context context;
 	private Contact contact;
@@ -52,11 +55,9 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		myapp.setDisasterAppObjectGraph(objectGraph);
 		
 		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
-		createEmergencyMessageScreenButton = (Button) disasterAppActivity.
-				findViewById(R.id.createEmergencyMessageScreenButton);
-		viewMessageResponsesScreenButton = (Button) disasterAppActivity.
-				findViewById(R.id.viewMessageResponsesScreenButton);
-
+		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
+		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
+		createContactListsScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewContactListsScreenButton);
 		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
 
 		contact = new Contact(context);
@@ -110,7 +111,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			}
 		});
 		
-		Thread.sleep(5000);
+		Thread.sleep(1000);
 		super.tearDown();
 	}
 	
@@ -140,7 +141,19 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		TouchUtils.clickView(this, createContactScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
+	
+	public void testCreateContactListButtonIntent()
+	{
+		ActivityMonitor monitor = getInstrumentation().addMonitor(ContactListsActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, createContactListsScreenButton);
+		
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -152,7 +165,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -164,7 +177,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 
 		TouchUtils.clickView(this, viewMessageResponsesScreenButton);
 		
-		monitor.waitForActivityWithTimeout(2000);
+		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -174,7 +187,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -189,7 +202,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -208,7 +221,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -219,7 +232,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 		catch (InterruptedException e)
 		{
@@ -238,7 +251,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();

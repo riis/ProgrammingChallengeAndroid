@@ -1,8 +1,10 @@
 package com.riis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,7 +37,9 @@ public class NewContactActivity extends Activity
 	private EditText secondFragmentEditField;
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
+
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
@@ -116,8 +120,25 @@ public class NewContactActivity extends Activity
 			newContact.setEmailAddress(emailAddressEditField.getText().toString());
 			newContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 	        newContact.create();
+	        
+	        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
+
+	        alertDialogBuilder.setTitle("Contact Saved");
+	        alertDialogBuilder.setMessage("Your contact has been saved")
+	        		   .setCancelable(false)
+	        		   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	   					public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, close
+							// current activity
+							finish();
+						}
+					  });
+	        AlertDialog alertDialog = alertDialogBuilder.create();
+	        
+	        // Set the Icon for the Dialog
+	        alertDialog.show();
 			
-			finish();
+			//finish();
 		}
 	}
 

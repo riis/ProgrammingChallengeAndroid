@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.controllers.MessageIndicatorAdapter;
+import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
 
@@ -58,6 +58,12 @@ public class DisasterAppActivity extends Activity
 	public void viewMessageResponsesScreen(View view) 
 	{
 		Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
+		startActivity(intent);
+	}
+	
+	public void viewCreateContactListScreen(View view) 
+	{
+		Intent intent = new Intent(this, ContactListsActivity.class);
 		startActivity(intent);
 	}
 }

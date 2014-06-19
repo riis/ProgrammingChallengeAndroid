@@ -16,7 +16,6 @@ import dagger.ObjectGraph;
 
 public class ContactListsActivity extends Activity
 {
-	
 	private ListView listView;
 	private EditText contactListNameField;
 	

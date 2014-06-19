@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -81,24 +82,16 @@ public class ContactList extends BasePersistentModel
 			return false;			
 		}
 		
+		boolean returnVal = false;
 		if(size() > 0)
 		{
 			for(int i = 0; i < size(); i++)
 			{
-				ContentValues refValues = new ContentValues();
-				refValues.put("contactListId", getId());
-				refValues.put("contactId", getContact(i).getId());
-				
-				long refId = database.insert("contactListMembers", null, refValues);
-				
-				if(refId == -1)
-				{
-					return false;
-				}
+				returnVal = insertMemberIntoContactList(getContact(i));
 			}
 		}
 		
-		return true;
+		return returnVal;
 	}
 
 	@Override
@@ -116,12 +109,12 @@ public class ContactList extends BasePersistentModel
 		}
 		return true;
 	}
-
 	
 	public boolean readByTimeStamp()
 	{
 		return readByClause("messageSentTimeStamp ASC");
 	}
+	
 	@Override
 	public boolean read()
 	{
@@ -133,6 +126,7 @@ public class ContactList extends BasePersistentModel
 		open();
 		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null, null);		
 		boolean result = readContactListFromCursor(cursor);
+		Log.i("result", cursor.getCount()+ "");
 		cursor.close();
 		close();
 		
@@ -142,7 +136,7 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		open();
-		Cursor refCursor = database.query("contactListMember", null, "contactListId = "+ getId(), null, null, null, null);
+		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
 
 		if(refCursor.moveToFirst())
 		{
@@ -180,14 +174,14 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		open();
-		Cursor refCursor = database.query("contactListMember", null, "contactListId = "+ getId(), null, null, null, null);
+		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
 		
 		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
 		
 		refCursor.close();
 		close();
 		
-		boolean returnVal = true;
+		boolean returnVal = false;
 		if(size() > 0 && storedContacts.size() > 0)
 		{
 			for(int i = 0; i < size(); i++)
@@ -255,7 +249,7 @@ public class ContactList extends BasePersistentModel
 		while (!cursor.isAfterLast()) 
 		{
 			Contact currentContact = new Contact(context);
-			boolean success = currentContact.read(cursor.getInt(3)); 
+			boolean success = currentContact.read(cursor.getInt(2)); 
 			
 			if (success)
 			{

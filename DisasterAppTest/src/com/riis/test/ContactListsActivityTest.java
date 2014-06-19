@@ -2,13 +2,14 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.ContactListsActivity;
 import com.riis.R;
+import com.riis.models.Contact;
+import com.riis.models.ContactList;
 
 public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<ContactListsActivity> 
 {
@@ -21,41 +22,116 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 	public ContactListsActivityTest()
 	{
 		super(ContactListsActivity.class);
-		Log.e("my logging", "contructor ");
-
 	}
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		Log.e("my logging", "basic ");
-		context = this.getInstrumentation()
-				.getTargetContext().getApplicationContext();
+		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 
 		contactListsActivity = getActivity();
 		
 		contactListTextView = (TextView) contactListsActivity.findViewById(R.id.Contact_Lists_Label);
 		listName = (EditText) contactListsActivity.findViewById(R.id.contactListText);
 		contactslistView = (ListView) contactListsActivity.findViewById(R.id.contactListsView);
-	 // Log.e("my logging", "textview = " + contactListTextView.getText().toString());
 	}
 
 	public void testEditTextExists()
 	{
-		Log.e("my logging", "inside editText test ");
 		assertNotNull(listName);
 	}
 	
 	public void testTextViewExists()
 	{
-		Log.e("my logging", "inside textView test ");
 		assertNotNull(contactslistView);
 	}
 	
 	public void testListViewExists()
 	{
-		Log.e("my logging", "inside ListView test ");
 		assertNotNull(contactListTextView);
 	}
 	
+	public void testCreateContactList()
+	{
+		ContactList list = new ContactList(context);
+		list.setName("Test List");
+		
+		Contact contact = new Contact(context);
+		contact.setFirstName("Bob");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("1234567890");
+		contact.create();
+		
+		list.addContact(contact);
+		assertTrue(list.create());
+		
+		list.delete();
+		contact.delete();
+	}
+	
+	public void testReadContactList()
+	{
+		ContactList list = new ContactList(context);
+		list.setName("Test List");
+		
+		Contact contact = new Contact(context);
+		contact.setFirstName("Bob");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("1234567890");
+		contact.create();
+		
+		list.addContact(contact);
+		list.create();
+		
+		ContactList testList = new ContactList(context);
+		testList.setName("Test List");
+		
+		assertTrue(testList.read());
+		
+		list.delete();
+		contact.delete();
+	}
+	
+	public void testUpdateContactList()
+	{
+		ContactList list = new ContactList(context);
+		list.setName("Test List");
+		list.create();
+		
+		Contact contact = new Contact(context);
+		contact.setFirstName("Bob");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("1234567890");
+		contact.create();
+		
+		list.addContact(contact);
+		
+		assertTrue(list.update());
+		
+		list.delete();
+		contact.delete();
+	}
+	
+	public void testDeleteContactList()
+	{
+		ContactList list = new ContactList(context);
+		list.setName("Test List");
+		
+		Contact contact = new Contact(context);
+		contact.setFirstName("Bob");
+		contact.setLastName("Jones");
+		contact.setEmailAddress("bjones@example.com");
+		contact.setPhoneNumber("1234567890");
+		contact.create();
+		
+		list.addContact(contact);
+		list.create();
+		
+		assertTrue(list.delete());
+		
+		contact.delete();
+	}
 }

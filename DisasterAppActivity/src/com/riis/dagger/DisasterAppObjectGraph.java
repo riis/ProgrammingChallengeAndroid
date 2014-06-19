@@ -3,13 +3,16 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.DisasterAppActivity;
+import com.riis.ContactListsActivity;
 import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.models.ContactList;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects=DisasterAppActivity.class)
+@Module(injects={DisasterAppActivity.class,
+			     ContactListsActivity.class})
+
 public class DisasterAppObjectGraph 
 {
 	Context context;

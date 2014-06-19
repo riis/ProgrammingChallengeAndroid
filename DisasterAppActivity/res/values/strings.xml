@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">DisasterAppActivity</string>
     <string name="createContactScreenButtonLabel">Create Contact</string>
+    <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contact_info">contact info</string>
     
     <!--NewContactActivity strings -->
@@ -20,6 +21,9 @@
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
+    
+     <string name="list_name_Label">List Name</string>
+     <string name="contacts_Label">Contacts</string>
     
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
     <string name="returnToMainScreenButtonLabel">Home</string>

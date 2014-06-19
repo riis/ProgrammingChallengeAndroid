@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.riis.controllers.MessageIndicatorItemClickListener;
@@ -20,6 +22,7 @@ public class DisasterAppActivity extends Activity
 	private ListView listView;
 	@Inject ContactList contactList;
 	@Inject MessageIndicatorItemClickListener item;
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -45,6 +48,7 @@ public class DisasterAppActivity extends Activity
 	 
 	public void createContactScreen(View view) 
 	{
+
 		Intent intent = new Intent(this, NewContactActivity.class);
 		startActivity(intent);
 	}
@@ -58,6 +62,12 @@ public class DisasterAppActivity extends Activity
 	public void viewMessageResponsesScreen(View view) 
 	{
 		Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
+		startActivity(intent);
+	}
+	
+	public void viewCreateContactListScreen(View view) 
+	{
+		Intent intent = new Intent(this, ContactListsActivity.class);
 		startActivity(intent);
 	}
 }

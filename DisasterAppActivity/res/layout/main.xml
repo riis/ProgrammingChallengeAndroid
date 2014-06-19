@@ -33,6 +33,16 @@
         android:layout_centerHorizontal="true"
         />
     
+     <Button 
+        android:id="@+id/viewContactListsScreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewMessageResponsesScreenButton"
+        android:onClick="viewCreateContactListScreen"
+        android:text="@string/createContactListScreenButtonLabel" 
+        android:layout_centerHorizontal="true"
+        />
+    
     <!-- <ExpandableListView
         android:id="@+id/contactTestView"
         android:layout_below="@id/viewMessageResponsesScreenButton"
@@ -44,7 +54,7 @@
     
     <ListView
         android:id="@+id/contactIndicatorListView"
-        android:layout_below="@id/viewMessageResponsesScreenButton"
+        android:layout_below="@id/viewContactListsScreenButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         android:layout_centerHorizontal="true"

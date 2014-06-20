@@ -29,11 +29,13 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 	public ContactListsActivityTest()
 	{
 		super(ContactListsActivity.class);
+
 	}
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 
 		contactListsActivity = getActivity();
@@ -150,6 +152,7 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 	public void testTextViewExists()
 	{
 		assertNotNull(contactsListView);
+
 	}
 	
 	public void testListViewExists()

@@ -3,6 +3,7 @@ package com.riis;
 import javax.inject.Inject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.riis.controllers.ContactSelectionAdapter;
 import com.riis.controllers.ContactSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
+import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
@@ -20,6 +22,7 @@ public class ContactListsActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
+	private ContactImporter importer;
 	
 	@Inject ContactList contactList;
 
@@ -30,7 +33,14 @@ public class ContactListsActivity extends Activity
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
 		objectGraph.inject(this);
 		
-        setContentView(R.layout.create_contact_list_screen);
+
+ 	   	 setContentView(R.layout.create_contact_list_screen);
+		 contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+        
+//        ContentResolver contentResolver = getContentResolver();
+//        importer.fetchContacts(contentResolver);
+        
+
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
@@ -79,3 +89,5 @@ public class ContactListsActivity extends Activity
 		finish();
 	}
 }
+	
+

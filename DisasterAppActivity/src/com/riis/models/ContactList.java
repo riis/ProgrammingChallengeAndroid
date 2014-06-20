@@ -100,6 +100,8 @@ public class ContactList extends BasePersistentModel
 		return returnVal;
 	}
 
+	
+	
 	@Override
 	public boolean delete() 
 	{

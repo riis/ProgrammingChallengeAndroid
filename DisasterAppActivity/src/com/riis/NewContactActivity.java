@@ -18,7 +18,7 @@ import com.riis.models.ContactList;
 
 public class NewContactActivity extends Activity
 {
-	private static final String FIRST_NAME_PATTERN = "[A-Za-z]([a-z]+)";
+	private static final String FIRST_NAME_PATTERN =           "[A-Za-z]([a-z]+)";
 	private static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Za-z]+('[A-Za-z]+)";
 	private static final String LAST_NAME_HYPHEN_PATTERN =     "^[A-Za-z]+(-[A-Za-z]+)*";
 	private static final String LAST_NAME_SPACES_PATTERN =     "^[A-Za-z]+(\\s[A-Za-z]+)*";
@@ -126,27 +126,35 @@ public class NewContactActivity extends Activity
 	        
 	        list.addContact(newContact);
 	        list.update();
-	        
-	        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
 
-	        alertDialogBuilder.setTitle("Contact Saved");
-	        alertDialogBuilder.setMessage("Your contact has been saved")
-	        		   .setCancelable(false)
-	        		   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	   					public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, close
-							// current activity
-							finish();
-						}
-					  });
-	        AlertDialog alertDialog = alertDialogBuilder.create();
-	        
-	        // Set the Icon for the Dialog
-	        alertDialog.show();
-			
-//			finish();
+	        callAlertDialog();
 		}
 	}
+	      
+	        
+
+
+	private void callAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
+
+		alertDialogBuilder.setTitle("Contact Saved");
+		alertDialogBuilder.setMessage("Your contact has been saved")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+
+	}
+
+	
 
 	public boolean isFirstNameValid(String name)
 	{

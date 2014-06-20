@@ -1,12 +1,19 @@
 package com.riis.models;
 
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
+import android.app.LoaderManager;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
 
-public class Contact extends BasePersistentModel
+public class Contact extends BasePersistentModel 
 {	
 	private long id;
 	private String firstName;
@@ -15,6 +22,7 @@ public class Contact extends BasePersistentModel
 	private String phoneNumber;
 	private long messageSentTimeStamp;
 	private int pingCount;
+	
 	
 	public Contact(Context context) 
 	{
@@ -124,6 +132,7 @@ public class Contact extends BasePersistentModel
 		}
 		return true;
 	}
+	
 
 	@Override
 	public boolean delete() 
@@ -262,4 +271,13 @@ public class Contact extends BasePersistentModel
 		}
 		return false;
 	}
+	
+	public void parseName(String name)
+	{
+		StringTokenizer tokens = new StringTokenizer(name, " ");
+		setFirstName(tokens.nextToken());
+		setLastName(tokens.nextToken());
+	}
+
+
 }

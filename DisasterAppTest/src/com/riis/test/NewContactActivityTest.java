@@ -1,9 +1,13 @@
 package com.riis.test;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,6 +119,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContact.setLastName("Jones");
 		newContact.setEmailAddress("bjones@example.com");
 		newContact.setPhoneNumber("5555555555");
+		newContact.setPingCount(2);
 		
 		newContact.create();
 		
@@ -133,7 +138,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContact.setLastName("Jones");
 		newContact.setEmailAddress("bjones@example.com");
 		newContact.setPhoneNumber("5555555555");
-		
+		newContact.setPingCount(2);
 		newContact.create();
 		
 		newContact.setLastName("Smith");
@@ -408,14 +413,14 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
 	}
 
-	public void testSaveButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+	public void testSaveButtonDialogMessage() {
+//    	ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
 //		monitor.waitForActivityWithTimeout(1000);
 //
 //		TouchUtils.clickView(this, saveButton);
 //		
-//		monitor.waitForActivityWithTimeout(1000);
-//		assertEquals(1, monitor.getHits());
+//		NewContactActivity newContactActivity = (NewContactActivity) monitor.waitForActivityWithTimeout(1000);
+//		assertNotNull(newContactActivity);
 //		
 //		getInstrumentation().removeMonitor(monitor);
 	}

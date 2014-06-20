@@ -111,7 +111,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			}
 		});
 		
-		Thread.sleep(1000);
+		Thread.sleep(90);
 		super.tearDown();
 	}
 	

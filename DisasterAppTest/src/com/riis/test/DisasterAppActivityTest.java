@@ -84,7 +84,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				secondContact.create();
 				
 				contactList = new ContactList(context);
-				contactList.read();
+				contactList.readAllContacts();
 				contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,
 						contactList.getContacts()));
 			}
@@ -202,7 +202,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(500);
+			Thread.sleep(2000);
 		}
 		catch (InterruptedException e)
 		{

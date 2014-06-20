@@ -4,10 +4,13 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.riis.controllers.MessageIndicatorAdapter;
+import com.riis.controllers.ContactSelectionAdapter;
+import com.riis.controllers.ContactSelectionItemClickListener;
 import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
@@ -29,13 +32,52 @@ public class ContactListsActivity extends Activity
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
 		objectGraph.inject(this);
 		
-        setContentView(R.layout.contact_list_screen);
-        contactListNameField = (EditText) findViewById(R.id.contactListText);
+        setContentView(R.layout.create_contact_list_screen);
+        contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
-        contactList.read();
+        contactList.readAllContacts();
         
-        listView = (ListView) findViewById(R.id.contactListsView);        
-        listView.setAdapter(new MessageIndicatorAdapter(this, contactList.getContacts()));
-        listView.setOnItemClickListener(item);
+        listView = (ListView) findViewById(R.id.createContactListsView);        
+        listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts()));
+        listView.setOnItemClickListener(new ContactSelectionItemClickListener());
     }
+	
+	public void saveContactList(View view)
+	{
+		if(contactListNameField.getText().toString().equals(""))
+		{
+			contactListNameField.setError("Please enter a name for the contact list!");
+		}
+		else
+		{
+			ContactList list = new ContactList(this);
+			list.setName(contactListNameField.getText().toString());
+			
+			boolean success = list.create();
+			if(!success)
+			{
+				contactListNameField.setError("Please choose a different name!");
+			}
+			else
+			{
+				for(int i = 0; i < listView.getCount(); i++)
+				{
+					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
+					if(checkBox.isSelected())
+					{
+						list.addContact(contactList.getContact(i));
+					}
+				}
+				
+				list.update();
+				
+				finish();
+			}
+		}
+	}
+	
+	public void cancelCreateContactList(View view)
+	{
+		finish();
+	}
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -70,10 +69,17 @@ public class ContactList extends BasePersistentModel
 		{
 			return false;
 		}
-		open();			
+				
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
 		
+		boolean exists = read();
+		if(exists)
+		{
+			return false;
+		}
+		
+		open();	
 		id = database.insert("contactList", null, values);
 		close();
 
@@ -82,7 +88,7 @@ public class ContactList extends BasePersistentModel
 			return false;			
 		}
 		
-		boolean returnVal = false;
+		boolean returnVal = true;
 		if(size() > 0)
 		{
 			for(int i = 0; i < size(); i++)
@@ -112,7 +118,12 @@ public class ContactList extends BasePersistentModel
 	
 	public boolean readByTimeStamp()
 	{
-		return readByClause("messageSentTimeStamp ASC");
+		return readWithOrderByClause("messageSentTimeStamp ASC");
+	}
+	
+	public boolean readAllContacts()
+	{
+		return readWithOrderByClause("lastName ASC");
 	}
 	
 	@Override
@@ -124,9 +135,9 @@ public class ContactList extends BasePersistentModel
 		}		
 		
 		open();
-		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null, null);		
+		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
+				null);		
 		boolean result = readContactListFromCursor(cursor);
-		Log.i("result", cursor.getCount()+ "");
 		cursor.close();
 		close();
 		
@@ -136,7 +147,8 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		open();
-		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
+		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
+				null);
 
 		if(refCursor.moveToFirst())
 		{
@@ -149,11 +161,6 @@ public class ContactList extends BasePersistentModel
 		return true;
 	}
 	
-	private boolean readByClause(String clause) 
-	{
-		return readWithOrderByClause("messageSentTimeStamp ASC");
-	}
-
 	@Override
 	public boolean update() 
 	{
@@ -184,14 +191,6 @@ public class ContactList extends BasePersistentModel
 		boolean returnVal = false;
 		if(size() > 0 && storedContacts.size() > 0)
 		{
-			for(int i = 0; i < size(); i++)
-			{
-				if(!storedContacts.contains(getContact(i)))
-				{
-					returnVal = insertMemberIntoContactList(getContact(i));
-				}
-			}
-			
 			for(int i = 0; i < storedContacts.size(); i++)
 			{
 				if(!contacts.contains(storedContacts.get(i)))
@@ -204,6 +203,14 @@ public class ContactList extends BasePersistentModel
 					{
 						return false;
 					}
+				}
+			}
+			
+			for(int i = 0; i < size(); i++)
+			{
+				if(!storedContacts.contains(getContact(i)))
+				{
+					returnVal = insertMemberIntoContactList(getContact(i));
 				}
 			}
 		}
@@ -280,7 +287,7 @@ public class ContactList extends BasePersistentModel
 		
 		open();
 		Cursor cursor = database.query("contact", columns, null, null, null, null, orderBy);
-
+		
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{

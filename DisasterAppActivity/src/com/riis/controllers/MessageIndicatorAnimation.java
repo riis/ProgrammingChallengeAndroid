@@ -5,8 +5,6 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.riis.R;
-
 public class MessageIndicatorAnimation extends Animation
 {
 	private int marginStart;
@@ -30,18 +28,16 @@ public class MessageIndicatorAnimation extends Animation
 		marginEnd = (marginStart == 0 ? (0 - view.getHeight()) : 0);
 		
 		view.setVisibility(View.VISIBLE);
-		view.findViewById(R.id.indicatorListEmail).setVisibility(View.VISIBLE);
 	}
 	
 	@Override
 	protected void applyTransformation(float interpolatedTime, Transformation t)
 	{
 		super.applyTransformation(interpolatedTime, t);
-		
+
 		if (interpolatedTime < 1.0f)
 		{
             layoutParams.bottomMargin = marginStart + (int) ((marginEnd - marginStart) * interpolatedTime);
-            view.findViewById(R.id.indicatorListEmail).setVisibility(View.VISIBLE);
             view.requestLayout();
         } 
 		else if (!wasEndedAlready)

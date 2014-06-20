@@ -125,7 +125,6 @@ public class Contact extends BasePersistentModel
 		return true;
 	}
 
-
 	@Override
 	public boolean delete() 
 	{

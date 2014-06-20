@@ -27,12 +27,12 @@ public class ContactSpinnerItemClickListener implements OnItemSelectedListener
 		switch(pos)
 		{
 		case 0:
-			textView.setText(R.string.email_address_label);
+			textView.setText(R.string.emailAddressLabel);
 			editText.setHint(R.string.emailAddressHint);
 			editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 			break;
 		case 1:
-			textView.setText(R.string.phone_number_label);
+			textView.setText(R.string.phoneNumberLabel);
 			editText.setHint(R.string.phoneNumberHint);
 			editText.setInputType(InputType.TYPE_CLASS_PHONE);
 			break;

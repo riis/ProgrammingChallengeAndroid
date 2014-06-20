@@ -49,6 +49,7 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 		database.execSQL(RESPONSE_MESSAGE_TABLE_CREATE_STMT);
 		database.execSQL(CONTACT_LIST_TABLE_CREATE_STMT);
 		database.execSQL(CONTACT_LIST_MEMBERS_TABLE_CREATE_STMT);
+		database.execSQL("insert into contactList (name) values ('Everyone')");
 	}
 
 	@Override

@@ -3,15 +3,14 @@
     <string name="app_name">DisasterAppActivity</string>
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
-    <string name="contact_info">contact info</string>
+    <string name="contactInfo">Contact info</string>
     
-    <!--NewContactActivity strings -->
-    <string name="first_name_label">First Name</string>
-    <string name="last_name_label">Last Name</string>
-    <string name="email_address_label">Email Address</string>
-    <string name="phone_number_label">Phone Number</string>
-    <string name="save_button">Save</string>
-    <string name="cancel_button">Cancel</string>
+    <string name="firstNameLabel">First Name</string>
+    <string name="lastNameLabel">Last Name</string>
+    <string name="emailAddressLabel">Email Address</string>
+    <string name="phoneNumberLabel">Phone Number</string>
+    <string name="saveButtonLabel">Save</string>
+    <string name="cancelButtonLabel">Cancel</string>
     <string name="empty_field">Field cannot be blank</string>
     <string name="firstNameHint">Example: Bob</string>
     <string name="lastNameHint">Example: Smith</string>
@@ -21,15 +20,15 @@
         <item>Email Address</item>
         <item>Phone Number</item>
     </string-array>
-     <string name="contact_saved_title">Contact Saved</string>
-      <string name="contact_saved_message">Your contact has been saved</string>
+     <string name="contactSavedTitle">Contact Saved</string>
+      <string name="contactSavedMessage">Your contact has been saved</string>
     
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
     
-     <string name="list_name_Label">List Name</string>
-     <string name="contacts_Label">Contacts</string>
+     <string name="listNameLabel">List Name</string>
+     <string name="contactsLabel">Contacts</string>
     
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
     <string name="returnToMainScreenButtonLabel">Home</string>

@@ -4,48 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <Button
-        android:id="@+id/createContactScreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="createContactScreen"
-        android:text="@string/createContactScreenButtonLabel"
-        android:layout_centerHorizontal="true"
-       />
-    
-    <Button
-        android:id="@+id/createEmergencyMessageScreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/createContactScreenButton"
-        android:onClick="createEmergencyMessageScreen"
-        android:text="@string/createEmergencyMessageScreenButtonLabel"
-        android:layout_centerHorizontal="true"
-         />
-    
-    <Button 
-        android:id="@+id/viewMessageResponsesScreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/createEmergencyMessageScreenButton"
-        android:onClick="viewMessageResponsesScreen"
-        android:text="@string/viewResponseMessagesScreenButtonLabel" 
-        android:layout_centerHorizontal="true"
-        />
-    
-     <Button 
-        android:id="@+id/viewContactListsScreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/viewMessageResponsesScreenButton"
-        android:onClick="viewCreateContactListScreen"
-        android:text="@string/createContactListScreenButtonLabel" 
-        android:layout_centerHorizontal="true"
-        />
-    
     <ListView
         android:id="@+id/contactIndicatorListView"
-        android:layout_below="@id/viewContactListsScreenButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         android:layout_centerHorizontal="true" />

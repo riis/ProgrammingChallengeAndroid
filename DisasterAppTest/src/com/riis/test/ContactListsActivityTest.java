@@ -21,14 +21,12 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 	public ContactListsActivityTest()
 	{
 		super(ContactListsActivity.class);
-		Log.e("my logging", "contructor ");
 
 	}
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		Log.e("my logging", "basic ");
 		context = this.getInstrumentation()
 				.getTargetContext().getApplicationContext();
 
@@ -37,24 +35,20 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 		contactListTextView = (TextView) contactListsActivity.findViewById(R.id.Contact_Lists_Label);
 		listName = (EditText) contactListsActivity.findViewById(R.id.contactListText);
 		contactslistView = (ListView) contactListsActivity.findViewById(R.id.contactListsView);
-	 // Log.e("my logging", "textview = " + contactListTextView.getText().toString());
 	}
 
 	public void testEditTextExists()
 	{
-		Log.e("my logging", "inside editText test ");
 		assertNotNull(listName);
 	}
 	
 	public void testTextViewExists()
 	{
-		Log.e("my logging", "inside textView test ");
 		assertNotNull(contactslistView);
 	}
 	
 	public void testListViewExists()
 	{
-		Log.e("my logging", "inside ListView test ");
 		assertNotNull(contactListTextView);
 	}
 	

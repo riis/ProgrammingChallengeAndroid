@@ -32,7 +32,7 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 			+ "contactList(_id integer primary key autoincrement, "
 			+ "name text not null);";
 	
-	private static final String CONTACT_LIST_MEMBERS_TABLE_CREATE_STMT = "create table"
+	private static final String CONTACT_LIST_MEMBERS_TABLE_CREATE_STMT = "create table "
 			+ "contactListMembers(_id integer primary key autoincrement, "
 			+ "contactListId integer not null, "
 			+ "contactId integer not null);";

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.riis.R;
 import com.riis.models.Contact;
+import com.riis.models.ContactList;
 import com.riis.models.ResponseMessageList;
 
 public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
@@ -32,16 +33,20 @@ public class MessageIndicatorAdapter extends ArrayAdapter<Contact>
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.message_indicator_list_item, parent, false);
 		
-		TextView nameView = (TextView) rowView.findViewById(R.id.indicatorListName);
+		TextView contactListView = (TextView) rowView.findViewById(R.id.contactListValue);
+		
+		
+		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorValue);
+		
+		TextView nameView = (TextView) rowView.findViewById(R.id.contactName);
 		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
-
-		TextView emailView = (TextView) rowView.findViewById(R.id.indicatorListEmail);
-		emailView.setText(values.get(position).getEmailAddress());
 		
-		TextView phoneView = (TextView) rowView.findViewById(R.id.indicatorListPhoneNumber);
-		phoneView.setText(values.get(position).getPhoneNumber());
+		TextView timeStampView = (TextView) rowView.findViewById(R.id.lastResponseTimeStamp);
 		
-		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorListValue);
+	
+		//timeStampView.setText(values.get(position);
+		
+		
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read();

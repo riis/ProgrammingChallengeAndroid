@@ -48,8 +48,7 @@
         android:layout_below="@id/viewContactListsScreenButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
     

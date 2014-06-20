@@ -34,13 +34,12 @@ public class ContactListsActivity extends Activity
 		objectGraph.inject(this);
 		
 
- 	   	 setContentView(R.layout.create_contact_list_screen);
-		 contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+		setContentView(R.layout.create_contact_list_screen);
+		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
 //        ContentResolver contentResolver = getContentResolver();
 //        importer.fetchContacts(contentResolver);
         
-
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
@@ -89,5 +88,3 @@ public class ContactListsActivity extends Activity
 		finish();
 	}
 }
-	
-

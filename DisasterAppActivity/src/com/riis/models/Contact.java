@@ -134,7 +134,6 @@ public class Contact extends BasePersistentModel
 	}
 	
 
-
 	@Override
 	public boolean delete() 
 	{

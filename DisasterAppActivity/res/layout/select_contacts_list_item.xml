@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants" >
+    
+    <CheckBox
+        android:id="@+id/selectContactCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20sp"
+        android:checked="false" />
     
     <LinearLayout
+        android:layout_toLeftOf="@id/selectContactCheckBox"
         android:layout_alignParentLeft="true"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         
-
-    <TextView
-	        android:id="@+id/contactListValue"
+    	<TextView
+	        android:id="@+id/selectContactListName"
 			android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:textSize="18sp" />
 		
         <LinearLayout
-            android:id="@+id/indicatorExpandableLayout"
+            android:id="@+id/selectContactListExpandableLayout"
             android:layout_marginBottom="-36sp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone" >
-            
             <TextView
-				android:id="@+id/indicatorValue"
-		        android:gravity="left|center_vertical"
-		        android:layout_width="wrap_content"
-		        android:layout_height="fill_parent"
-		        android:textSize="18sp"
-		        android:paddingLeft="5sp" 
-		        android:paddingRight="5sp" />
-            
-            <TextView
-		        android:id="@+id/contactName"
+		        android:id="@+id/selectContactListEmail"
 				android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:textSize="18sp" />
 			
 			<TextView
-		        android:id="@+id/lastResponseTimeStamp"
+		        android:id="@+id/selectContactListPhoneNumber"
 				android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:textSize="18sp" />

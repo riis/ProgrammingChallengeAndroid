@@ -7,7 +7,7 @@
         android:id="@+id/First_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/first_name_label" />
+        android:text="@string/firstNameLabel" />
     <EditText
         android:id="@+id/first_name_editText"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         android:id="@+id/Last_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/last_name_label" />
+        android:text="@string/lastNameLabel" />
     <EditText
         android:id="@+id/last_name_editText"
         android:layout_width="match_parent"
@@ -42,22 +42,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
      
-	<TableRow
-		android:layout_width="wrap_content"
+	<LinearLayout
+        android:id="@+id/buttonRow"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"  
-		android:layout_gravity="center_horizontal">
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal" >
 	
 		<Button
-			android:id="@+id/Cancel_button"
+			android:id="@+id/cancelCreateContactButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/cancel_button"
+			android:text="@string/cancelButtonLabel"
 			android:onClick="cancelCreateContact" />
 		
 		<Button
-			android:id="@+id/Save_button"
+			android:id="@+id/saveContactButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/save_button" 
-			android:onClick="saveCreateContact" 
-			android:layout_marginRight="10dp"/>
-	</TableRow>
+			android:text="@string/saveButtonLabel" 
+			android:onClick="saveCreateContact" />
+	</LinearLayout>
 </LinearLayout>

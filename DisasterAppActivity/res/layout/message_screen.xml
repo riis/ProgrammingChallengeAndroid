@@ -30,7 +30,7 @@
 	        android:id="@+id/cancelEmergencyMessageButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/cancel_button"
+	        android:text="@string/cancelButtonLabel"
 	        android:onClick="cancelSendEmergencyMessage"
 	         />
         <Button

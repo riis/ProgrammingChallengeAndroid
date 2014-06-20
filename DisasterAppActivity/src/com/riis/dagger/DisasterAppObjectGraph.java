@@ -10,9 +10,7 @@ import com.riis.models.ContactList;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects=DisasterAppActivity.class)
-//ContactListsActivity.class
-
+@Module(injects={DisasterAppActivity.class, ContactListsActivity.class})
 public class DisasterAppObjectGraph 
 {
 	Context context;

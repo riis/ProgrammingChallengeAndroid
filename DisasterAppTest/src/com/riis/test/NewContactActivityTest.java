@@ -53,8 +53,8 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContactActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-		cancelButton = (Button) newContactActivity.findViewById(R.id.Cancel_button);
-		saveButton = (Button) newContactActivity.findViewById(R.id.Save_button);
+		cancelButton = (Button) newContactActivity.findViewById(R.id.cancelCreateContactButton);
+		saveButton = (Button) newContactActivity.findViewById(R.id.saveContactButton);
 		
 		firstNameText = (TextView)newContactActivity.findViewById(R.id.First_Name);
 		lastNameText = (TextView) newContactActivity.findViewById(R.id.Last_Name);
@@ -90,7 +90,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContact.create();
 		
 		ContactList contactList = new ContactList(context);
-		contactList.read();
+		contactList.readAllContacts();
 		Contact output = contactList.getContact(contactList.size() - 1);
 
 		newContact.delete();

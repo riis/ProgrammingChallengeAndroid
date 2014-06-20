@@ -61,7 +61,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 				contact.create();
 				
 				ContactList contactList = new ContactList(context);
-				contactList.read();
+				contactList.readAllContacts();
 				responseMessagesListView.setAdapter(new ResponseMessagesAdapter(viewResponseMessagesActivity.
 						getApplicationContext(), contactList.getContacts()));
 			}
@@ -99,22 +99,6 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		message.create();
 		
 		assertTrue(message.delete());
-	}
-	
-	public void testReadContact()
-	{
-		ResponseMessage message = new ResponseMessage(context);
-		message.updateMessageSentTimeStamp();
-		message.setTextMessageContents("This is a test message.");
-		message.setPhoneNumber("5555555555");
-		message.create();
-		
-		ResponseMessage response = new ResponseMessage(context);
-		response.setPhoneNumber("5555555555");
-		
-		assertTrue(response.read());
-		
-		response.delete();
 	}
 	
 	public void testResponseMessagesListViewExists() 

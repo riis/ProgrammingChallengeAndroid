@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
+import com.riis.models.ContactList;
 
 public class NewContactActivity extends Activity
 {
@@ -37,8 +38,6 @@ public class NewContactActivity extends Activity
 	private EditText secondFragmentEditField;
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
-
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -121,11 +120,22 @@ public class NewContactActivity extends Activity
 			newContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 	        newContact.create();
 	        
+	        ContactList list = new ContactList(this);
+	        list.setName("Everyone");
+	        list.read();
+	        
+	        list.addContact(newContact);
+	        list.update();
+
 	        callAlertDialog();
 		}
 	}
+	      
+	        
 
-	private void callAlertDialog() {
+
+	private void callAlertDialog()
+	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
 
 		alertDialogBuilder.setTitle("Contact Saved");
@@ -137,9 +147,11 @@ public class NewContactActivity extends Activity
 						{
 							finish();
 						}
+
 				   });
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
+
 	}
 
 	

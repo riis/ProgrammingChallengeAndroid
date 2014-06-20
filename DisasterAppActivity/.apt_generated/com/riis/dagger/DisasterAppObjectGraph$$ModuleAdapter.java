@@ -11,7 +11,7 @@ import javax.inject.Provider;
  * instance provision of types served by {@code @Provides} methods.
  */
 public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<DisasterAppObjectGraph> {
-  private static final String[] INJECTS = { "members/com.riis.DisasterAppActivity", };
+  private static final String[] INJECTS = { "members/com.riis.DisasterAppActivity", "members/com.riis.ContactListsActivity", };
   private static final Class<?>[] STATIC_INJECTIONS = { };
   private static final Class<?>[] INCLUDES = { };
 

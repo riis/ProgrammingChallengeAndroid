@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/contactListNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/listNameLabel" />
+    
+    <EditText
+        android:id="@+id/contactListNameText"
+        android:layout_below="@id/contactListNameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords" />
+    
+    <TextView
+        android:id="@+id/contactsLabel"
+        android:layout_below="@id/contactListNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contactsLabel" />
+    
+    <LinearLayout
+        android:id="@+id/buttonRow"
+        android:layout_alignParentBottom="true"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal" >
+		<Button
+	         android:id="@+id/cancelCreateContactListButton"
+	         android:layout_weight="1"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:onClick="cancelCreateContactList"
+	         android:text="@string/cancelButtonLabel" />
+		
+		<Button
+	         android:id="@+id/saveCreateContactListSaveButton"
+	         android:layout_weight="1"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:onClick="saveContactList"
+	         android:text="@string/saveButtonLabel" />
+	</LinearLayout>
+    
+	<ListView
+		android:id="@+id/createContactListsView"
+		android:layout_above="@id/buttonRow"
+		android:layout_below="@id/contactsLabel"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:focusable="false" />
+</RelativeLayout>

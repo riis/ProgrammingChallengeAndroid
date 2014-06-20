@@ -6,8 +6,8 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.riis.ContactListsActivity;
@@ -28,10 +28,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 {
 	private DisasterAppActivity disasterAppActivity;
 	
-	private Button createContactScreenButton;
-	private Button createEmergencyMessageScreenButton;
-	private Button viewMessageResponsesScreenButton;
-	private Button createContactListsScreenButton;
 	private ListView contactIndicatorListView;
 	private Context context;
 	private Contact contact;
@@ -54,10 +50,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				getTargetContext().getApplicationContext();
 		myapp.setDisasterAppObjectGraph(objectGraph);
 		
-		createContactScreenButton = (Button) disasterAppActivity.findViewById(R.id.createContactScreenButton);
-		createEmergencyMessageScreenButton = (Button) disasterAppActivity.findViewById(R.id.createEmergencyMessageScreenButton);
-		viewMessageResponsesScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewMessageResponsesScreenButton);
-		createContactListsScreenButton = (Button) disasterAppActivity.findViewById(R.id.viewContactListsScreenButton);
 		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
 
 		contact = new Contact(context);
@@ -111,7 +103,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			}
 		});
 		
-		Thread.sleep(90);
+		Thread.sleep(1000);
 		super.tearDown();
 	}
 	
@@ -120,26 +112,12 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		assertNotNull(contactIndicatorListView);
 	}
 	
-	public void testCreateContactScreenButtonExists()
-	{
-		assertNotNull(createContactScreenButton);
-	}
-	
-	public void testEmergencyMessageScreenButtonExists()
-	{
-		assertNotNull(createEmergencyMessageScreenButton);
-	}
-	
-	public void testViewMessageResponsesScreenButtonExists()
-	{
-		assertNotNull(viewMessageResponsesScreenButton);
-	}
-	
 	public void testCreateContactButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
 		
-		TouchUtils.clickView(this, createContactScreenButton);
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactItem, 0);
 		
 		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
@@ -151,7 +129,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ContactListsActivity.class.getName(), null, true);
 		
-		TouchUtils.clickView(this, createContactListsScreenButton);
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
 		
 		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
@@ -163,7 +142,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
 
-		TouchUtils.clickView(this, createEmergencyMessageScreenButton);
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createEmergencyMessageItem, 0);
 		
 		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
@@ -175,7 +155,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);
 
-		TouchUtils.clickView(this, viewMessageResponsesScreenButton);
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.viewResponseMessagesItem, 0);
 		
 		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());
@@ -251,7 +232,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();

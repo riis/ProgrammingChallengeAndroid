@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/createContactItem"
+        android:title="@string/createContactScreenButtonLabel"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/createContactListItem"
+        android:title="@string/createContactListScreenButtonLabel"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/createEmergencyMessageItem"
+        android:title="@string/createEmergencyMessageScreenButtonLabel"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/viewResponseMessagesItem"
+        android:title="@string/viewResponseMessagesScreenButtonLabel"
+        android:showAsAction="never" />
+</menu>

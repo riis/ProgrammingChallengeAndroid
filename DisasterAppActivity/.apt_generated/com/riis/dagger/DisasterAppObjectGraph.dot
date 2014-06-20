@@ -4,4 +4,5 @@ digraph G1 {
   ContactListsActivity -> ContactList;
   DisasterAppActivity -> MessageIndicatorItemClickListener;
   DisasterAppActivity -> ContactList;
+  DisasterAppActivity -> ListOfContactLists;
 }

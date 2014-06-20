@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+   
     
     <LinearLayout
         android:layout_alignParentLeft="true"
-        android:layout_width="0dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         
@@ -14,24 +15,24 @@
 	        android:id="@+id/contactListValue"
 			android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:textSize="18sp" />
+	        android:textSize="18sp"
+	        android:textColor="@android:color/white" />
 		
-        <LinearLayout
+         <LinearLayout
             android:id="@+id/indicatorExpandableLayout"
-            android:layout_marginBottom="-36sp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="visible" >
             
-            <TextView
+           <!--  <TextView
 				android:id="@+id/indicatorValue"
 		        android:gravity="left|center_vertical"
 		        android:layout_width="wrap_content"
 		        android:layout_height="fill_parent"
 		        android:textSize="18sp"
 		        android:paddingLeft="5sp" 
-		        android:paddingRight="5sp" />
+		        android:paddingRight="5sp" /> -->
             
             <TextView
 		        android:id="@+id/contactName"
@@ -39,11 +40,11 @@
 		        android:layout_height="wrap_content"
 		        android:textSize="18sp" />
 			
-			<TextView
+			<!-- <TextView
 		        android:id="@+id/lastResponseTimeStamp"
 				android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:textSize="18sp" />
-        </LinearLayout>
+		        android:textSize="18sp" /> -->
+        </LinearLayout> 
     </LinearLayout>
 </RelativeLayout>

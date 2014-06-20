@@ -163,6 +163,20 @@ public class ContactList extends BasePersistentModel
 		return true;
 	}
 	
+	public boolean read(long id) 
+	{
+		if (id == -1)
+		{
+			return false;
+		}		
+		open();
+		Cursor cursor = database.query("contactList", null, "_id =" +id, null, null, null, null);		
+		boolean result = readContactListFromCursor(cursor);
+		cursor.close();
+		close();
+		return result;
+	}
+	
 	@Override
 	public boolean update() 
 	{

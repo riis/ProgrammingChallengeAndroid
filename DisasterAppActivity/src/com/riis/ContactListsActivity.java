@@ -34,10 +34,8 @@ public class ContactListsActivity extends Activity
         super.onCreate(savedInstanceState);
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
 		objectGraph.inject(this);
-		
-
- 	   	 setContentView(R.layout.create_contact_list_screen);
-		 contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+ 	   	setContentView(R.layout.create_contact_list_screen);
+		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
 //        ContentResolver contentResolver = getContentResolver();
 //        importer.fetchContacts(contentResolver);

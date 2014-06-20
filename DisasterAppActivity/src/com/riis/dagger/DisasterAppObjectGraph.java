@@ -6,6 +6,7 @@ import com.riis.DisasterAppActivity;
 import com.riis.ContactListsActivity;
 import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.models.ContactList;
+import com.riis.models.ListOfContactLists;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +24,11 @@ public class DisasterAppObjectGraph
 	@Provides ContactList provideContactList() 
 	{
 		return new ContactList(context);
+	}
+	
+	@Provides ListOfContactLists provideListOfContactLists() 
+	{
+		return new ListOfContactLists(context);
 	}
 	
 	@Provides MessageIndicatorItemClickListener provideMessageIndicatorItemClickListener() 

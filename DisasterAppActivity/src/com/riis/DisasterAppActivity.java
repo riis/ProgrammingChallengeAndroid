@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.riis.controllers.MessageIndicatorAdapter;
@@ -43,33 +45,40 @@ public class DisasterAppActivity extends Activity
     }
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.disaster_app_menu, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent i = new Intent();
+	    switch (item.getItemId()) {
+	        case R.id.createContactItem:
+	        	i = new Intent(this, NewContactActivity.class);
+	            startActivity(i);
+	            return true;
+	        case R.id.createContactListItem:
+	        	i = new Intent(this, ContactListsActivity.class);
+	            startActivity(i);
+	            return true;
+	        case R.id.createEmergencyMessageItem:
+	        	i = new Intent(this, SendEmergencyMessageActivity.class);
+	            startActivity(i);
+	            return true;
+	        case R.id.viewResponseMessagesItem:
+	        	i = new Intent(this, ViewResponseMessagesActivity.class);
+	        	startActivity(i);
+	        	return true;
+	    }
+	    
+	    return false;
+	}
+	
+	@Override
 	protected void onResume() 
 	{
 	   super.onResume();
 	   onCreate(null);
-	}
-	 
-	public void createContactScreen(View view) 
-	{
-		Intent intent = new Intent(this, NewContactActivity.class);
-		startActivity(intent);
-	}
-    
-	public void createEmergencyMessageScreen(View view)
-	{
-		Intent intent = new Intent(this, SendEmergencyMessageActivity.class);
-		startActivity(intent);
-	}
-
-	public void viewMessageResponsesScreen(View view) 
-	{
-		Intent intent = new Intent(this, ViewResponseMessagesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void viewCreateContactListScreen(View view) 
-	{
-		Intent intent = new Intent(this, ContactListsActivity.class);
-		startActivity(intent);
 	}
 }

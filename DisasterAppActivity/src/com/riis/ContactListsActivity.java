@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import com.riis.controllers.ContactSelectionAdapter;
 import com.riis.controllers.ContactSelectionItemClickListener;
-import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
@@ -26,7 +25,6 @@ public class ContactListsActivity extends Activity
 	private ContactImporter importer;
 	
 	@Inject ContactList contactList;
-	@Inject MessageIndicatorItemClickListener item;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -34,13 +32,13 @@ public class ContactListsActivity extends Activity
         super.onCreate(savedInstanceState);
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
 		objectGraph.inject(this);
- 	   	setContentView(R.layout.create_contact_list_screen);
+
+		setContentView(R.layout.create_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
 //        ContentResolver contentResolver = getContentResolver();
 //        importer.fetchContacts(contentResolver);
         
-
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
@@ -89,5 +87,3 @@ public class ContactListsActivity extends Activity
 		finish();
 	}
 }
-	
-

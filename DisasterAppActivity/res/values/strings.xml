@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DisasterAppActivity</string>
+    <string name="actionSettings">Settings</string>
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contactInfo">Contact info</string>

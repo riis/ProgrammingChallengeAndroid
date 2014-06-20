@@ -1,13 +1,9 @@
 package com.riis.test;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;

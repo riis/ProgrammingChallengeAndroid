@@ -197,19 +197,6 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 		list.delete();
 	}
 	
-	public void testUpdateContactList()
-	{
-		ContactList list = new ContactList(context);
-		list.setName("Test List");
-		list.create();
-		
-		list.addContact(contact);
-		
-		assertTrue(list.update());
-		
-		list.delete();
-	}
-	
 	public void testDeleteContactList()
 	{
 		ContactList list = new ContactList(context);

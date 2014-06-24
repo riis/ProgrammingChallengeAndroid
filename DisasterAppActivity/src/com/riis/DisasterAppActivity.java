@@ -10,9 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.riis.controllers.ContactListDisplayAdapter;
-import com.riis.controllers.ContactListDisplayItemClickListener;
+import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
+import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
 import com.riis.dagger.DaggerApplication;
+import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
 import dagger.ObjectGraph;
@@ -20,22 +21,21 @@ import dagger.ObjectGraph;
 public class DisasterAppActivity extends Activity
 {
 	private ListView listView;
-	private ListOfContactLists listOfContactLists;
+	@Inject ContactList contactList;
+	@Inject ListOfContactLists listOfContactLists;
 	@Inject ContactListDisplayItemClickListener item;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
-		
         super.onCreate(savedInstanceState);
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
 		objectGraph.inject(this);
         setContentView(R.layout.main);
         
 
-
-        listOfContactLists = new ListOfContactLists(getApplicationContext());
-        listOfContactLists.read();     
+        listOfContactLists.read();
+        
         listView = (ListView) findViewById(R.id.contactListDisplay);        
         listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists()));
 
@@ -57,7 +57,7 @@ public class DisasterAppActivity extends Activity
 	            startActivity(i);
 	            return true;
 	        case R.id.createContactListItem:
-	        	i = new Intent(this, ContactListsActivity.class);
+	        	i = new Intent(this, CreateContactListsActivity.class);
 	            startActivity(i);
 	            return true;
 	        case R.id.createEmergencyMessageItem:

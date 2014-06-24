@@ -2,6 +2,8 @@ package com.riis.test;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
@@ -10,16 +12,22 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.ContactListsActivity;
+import com.riis.CreateContactListsActivity;
 import com.riis.DisasterAppActivity;
+import com.riis.EditContactListMembersActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ContactListDisplayAdapter;
+import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
+import com.riis.dagger.DaggerApplication;
+import com.riis.dagger.DisasterAppTestObjectGraph;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ListOfContactLists;
 import com.riis.models.ResponseMessage;
+
+import dagger.ObjectGraph;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
 {
@@ -28,7 +36,9 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	private ListView contactListDisplay;
 	private Context context;
 	private Contact contact;
-	private ContactList contactList;
+	
+	@Inject ContactList contactList;
+	@Inject ListOfContactLists listOfLists;
 	
 	public DisasterAppActivityTest()
 	{
@@ -42,10 +52,9 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		disasterAppActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-//		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
-//		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().
-//				getTargetContext().getApplicationContext();
-//		myapp.setDisasterAppObjectGraph(objectGraph);
+		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
+		DaggerApplication myapp = (DaggerApplication) context;
+		myapp.setDisasterAppObjectGraph(objectGraph);
 		
 		contactListDisplay = (ListView) disasterAppActivity.findViewById(R.id.contactListDisplay);
 
@@ -70,8 +79,8 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				secondContact.create();
 				
 				contactList = new ContactList(context);
-				contactList.setName("Everyone");
-				contactList.read();
+				contactList.setName("Test");
+				contactList.create();
 				contactList.addContact(contact);
 				contactList.addContact(secondContact);
 				contactList.update();
@@ -99,6 +108,13 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			@Override
 			public void run()
 			{
+				contact = new Contact(context);
+				contact.setFirstName("Robert");
+				contact.setLastName("Jones");
+				contact.setEmailAddress("bjones@example.com");
+				contact.setPhoneNumber("5555555555");
+				contact.read();
+				
 				Contact secondContact = new Contact(context);
 				secondContact.setFirstName("Mike");
 				secondContact.setLastName("Richardson");
@@ -117,7 +133,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				contactList.getContacts().get(1).delete();
 				contactList.getContacts().get(0).delete();
 				contactList.update();
-				contact.read();
 				contact.delete();
 				secondContact.delete();
 			}
@@ -127,14 +142,36 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		super.tearDown();
 	}
 	
-	public void testIndicatorListViewExists()
+	public void testContactListViewExists()
 	{
 		assertNotNull(contactListDisplay);
 	}
 	
+	public void testEditListButtonExists()
+	{
+		assertNotNull(contactListDisplay.getChildAt(0).findViewById(R.id.editContactListButton));
+	}
+	
+	public void testSendMessageToListButtonExists()
+	{
+		assertNotNull(contactListDisplay.getChildAt(0).findViewById(R.id.sendMessageContactListButton));
+	}
+	
+	public void testEditContactListButtonIntent()
+	{
+		ActivityMonitor monitor = getInstrumentation().addMonitor(EditContactListMembersActivity.class.getName(), null, false);
+		
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.editContactListButton));
+		
+		monitor.waitForActivityWithTimeout(500);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
+	
 	public void testCreateContactButtonIntent()
 	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
+		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, false);
 		
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactItem, 0);
@@ -147,7 +184,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	public void testCreateContactListButtonIntent()
 	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(ContactListsActivity.class.getName(), null, true);
+		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
 		
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);

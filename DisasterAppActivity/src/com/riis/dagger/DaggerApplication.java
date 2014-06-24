@@ -7,6 +7,7 @@ import dagger.ObjectGraph;
 public class DaggerApplication extends Application
 {
 	private ObjectGraph disasterAppObjectGraph;
+	private ObjectGraph editContactListMembersObjectGraph;
 	private ObjectGraph newContactObjectGraph;
 	private ObjectGraph sendEmergencyMessageObjectGraph;
 	
@@ -16,6 +17,7 @@ public class DaggerApplication extends Application
 		super.onCreate();
 		Context context = getApplicationContext();
 		disasterAppObjectGraph = ObjectGraph.create(new DisasterAppObjectGraph(context));
+		editContactListMembersObjectGraph = ObjectGraph.create(new EditContactListMembersObjectGraph(context));
 		newContactObjectGraph = ObjectGraph.create(new NewContactObjectGraph(context));
 		sendEmergencyMessageObjectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph(context));
 	}
@@ -28,6 +30,16 @@ public class DaggerApplication extends Application
 	public void setDisasterAppObjectGraph(ObjectGraph disasterAppObjectGraph)
 	{
 		this.disasterAppObjectGraph = disasterAppObjectGraph;
+	}
+	
+	public ObjectGraph getEditContactListMembersObjectGraph()
+	{
+		return editContactListMembersObjectGraph;
+	}
+
+	public void setEditContactListMembersObjectGraph(ObjectGraph editContactListMembersObjectGraph)
+	{
+		this.editContactListMembersObjectGraph = editContactListMembersObjectGraph;
 	}
 	
 	public ObjectGraph getNewContactObjectGraph()

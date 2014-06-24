@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 public class Contact extends BasePersistentModel 
 {	
-	private long id;
+	protected long id;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;

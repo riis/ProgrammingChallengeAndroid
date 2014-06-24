@@ -2,17 +2,18 @@ package com.riis.dagger;
 
 import android.content.Context;
 
-import com.riis.ContactListsActivity;
+import com.riis.CreateContactListsActivity;
 import com.riis.DisasterAppActivity;
 import com.riis.ImportContactsActivity;
-import com.riis.controllers.ContactListDisplayItemClickListener;
+import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
 import com.riis.models.ContactList;
+import com.riis.models.ListOfContactLists;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects={DisasterAppActivity.class, ContactListsActivity.class, ImportContactsActivity.class})
-public class DisasterAppObjectGraph 
+@Module(injects={DisasterAppActivity.class, CreateContactListsActivity.class, ImportContactsActivity.class})
+public class DisasterAppObjectGraph
 {
 	Context context;
 	
@@ -26,10 +27,10 @@ public class DisasterAppObjectGraph
 		return new ContactList(context);
 	}
 	
-//	@Provides ListOfContactLists provideListOfContactLists() 
-//	{
-//		return new ListOfContactLists(context);
-//	}
+	@Provides ListOfContactLists provideListOfContactLists() 
+	{
+		return new ListOfContactLists(context);
+	}
 	
 	@Provides ContactListDisplayItemClickListener provideMessageIndicatorItemClickListener() 
 	{

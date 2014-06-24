@@ -1,12 +1,14 @@
-package com.riis.controllers;
+package com.riis.controllers.contactListDisplay;
 
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessageList;
@@ -52,6 +55,18 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.sendMessageToContactList = (Button) row.findViewById(R.id.sendMessageContactListButton);
 			holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 			
+			holder.editContactListButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View view) {
+					View parent = (View) view.getParent();
+					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
+					Intent intent = new Intent(context, EditContactListMembersActivity.class);
+					intent.putExtra("CONTACT_LIST_NAME", name);
+					context.startActivity(intent);
+				}
+			});
+			
 			row.setTag(holder);
 		}
 		else
@@ -59,9 +74,9 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder = (ViewHolder) row.getTag();
 		}
 		
+		holder.listLayout.removeAllViews();
+		
 		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
-		holder.editContactListButton = (Button) row.findViewById(R.id.editContactListButton);
-		holder.sendMessageToContactList = (Button) row.findViewById(R.id.sendMessageContactListButton);
 		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 		
 		ContactList currentContactList = CLvalues.get(position);
@@ -69,15 +84,34 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		
 		holder.listLabel.setText(currentContactList.getName());
 		
+		if(currentContactList.getName().equals("Everyone"))
+		{
+			holder.editContactListButton.setVisibility(View.INVISIBLE);
+		}
+		else
+		{
+			holder.editContactListButton.setVisibility(View.VISIBLE);
+		}
+		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read(currentContactList.getId());
 		
-		holder.listLayout.removeAllViews();
+		if(currentContactList.size() == 0)
+		{
+			TextView display = new TextView(context);
+			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			display.setGravity(Gravity.CENTER);
+			holder.sendMessageToContactList.setVisibility(View.INVISIBLE);
+			display.setText("There are no contacts in this list! Please add a contact!");
+			holder.listLayout.addView(display);
+		}
 		
 		for(int i = 0; i < currentContactList.size(); i++)
 		{
-			TextView display = new TextView(context);
 			StringBuilder builder = new StringBuilder();
+			TextView display = new TextView(context);
+			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			display.setGravity(Gravity.CENTER);
 
 			for(int j = 0; j < responseMessageList.size(); j++)
 			{
@@ -114,8 +148,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			}
 			
 			display.setText(builder.toString());
-			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			display.setGravity(Gravity.CENTER);
 			holder.listLayout.addView(display);
 		}
 		

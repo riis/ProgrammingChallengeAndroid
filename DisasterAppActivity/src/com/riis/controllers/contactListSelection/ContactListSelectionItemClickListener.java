@@ -1,4 +1,4 @@
-package com.riis.controllers;
+package com.riis.controllers.contactListSelection;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import com.riis.R;
+import com.riis.controllers.DropDownListAnimation;
 
 public class ContactListSelectionItemClickListener implements OnItemClickListener
 {

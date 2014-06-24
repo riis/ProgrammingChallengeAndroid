@@ -1,7 +1,5 @@
 digraph G1 {
   concentrate = true;
   ContactListsActivity -> ContactList;
-  DisasterAppActivity -> MessageIndicatorItemClickListener;
-  DisasterAppActivity -> ContactList;
-  DisasterAppActivity -> ListOfContactLists;
+  DisasterAppActivity -> ContactListDisplayItemClickListener;
 }

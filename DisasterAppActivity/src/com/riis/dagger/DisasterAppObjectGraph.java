@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.riis.DisasterAppActivity;
 import com.riis.ContactListsActivity;
-import com.riis.controllers.MessageIndicatorItemClickListener;
+import com.riis.controllers.ContactListDisplayItemClickListener;
 import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
@@ -26,13 +26,13 @@ public class DisasterAppObjectGraph
 		return new ContactList(context);
 	}
 	
-	@Provides ListOfContactLists provideListOfContactLists() 
-	{
-		return new ListOfContactLists(context);
-	}
+//	@Provides ListOfContactLists provideListOfContactLists() 
+//	{
+//		return new ListOfContactLists(context);
+//	}
 	
-	@Provides MessageIndicatorItemClickListener provideMessageIndicatorItemClickListener() 
+	@Provides ContactListDisplayItemClickListener provideMessageIndicatorItemClickListener() 
 	{
-		return new MessageIndicatorItemClickListener();
+		return new ContactListDisplayItemClickListener();
 	}
 }

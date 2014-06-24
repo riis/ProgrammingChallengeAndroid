@@ -1,17 +1,10 @@
 package com.riis.models;
 
-import java.util.Calendar;
 import java.util.StringTokenizer;
 
-import android.app.LoaderManager;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 
 public class Contact extends BasePersistentModel 
 {	
@@ -20,7 +13,6 @@ public class Contact extends BasePersistentModel
 	private String lastName;
 	private String emailAddress;
 	private String phoneNumber;
-	private long messageSentTimeStamp;
 	private int pingCount;
 	
 	
@@ -32,7 +24,6 @@ public class Contact extends BasePersistentModel
 		this.lastName = "";
 		this.emailAddress = "";
 		this.phoneNumber = "";
-		this.messageSentTimeStamp = 0L;
 		this.pingCount = 0;
 	}
 	
@@ -54,17 +45,6 @@ public class Contact extends BasePersistentModel
 	public void setPhoneNumber(String phoneNumber)
 	{
 		this.phoneNumber = phoneNumber;
-	}
-	
-	public void setMessageSentTimeStamp(long messageSentTimeStamp)
-	{
-		this.messageSentTimeStamp = messageSentTimeStamp;
-	}
-	
-	public void updateMessageSentTimeStamp()
-	{
-		Calendar cal = Calendar.getInstance();
-		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
 	public void setPingCount(int pingCount)
@@ -97,11 +77,6 @@ public class Contact extends BasePersistentModel
 		return phoneNumber;
 	}
 	
-	public long getMessageSentTimeStamp()
-	{
-		return messageSentTimeStamp;
-	}
-	
 	public int getPingCount()
 	{
 		return pingCount;
@@ -120,7 +95,6 @@ public class Contact extends BasePersistentModel
 		values.put("lastName", getLastName());
 		values.put("emailAddress", getEmailAddress());
 		values.put("phoneNumber", getPhoneNumber());
-		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		values.put("pingCount", getPingCount());
 		
 		id = database.insert("contact", null, values);
@@ -191,8 +165,7 @@ public class Contact extends BasePersistentModel
 			setLastName(cursor.getString(2));
 			setEmailAddress(cursor.getString(3));
 			setPhoneNumber(cursor.getString(4));
-			setMessageSentTimeStamp(cursor.getLong(5));
-			setPingCount(cursor.getInt(6));
+			setPingCount(cursor.getInt(5));
 			return true;
 		}
 		return false;
@@ -211,7 +184,6 @@ public class Contact extends BasePersistentModel
 		values.put("lastName", getLastName());
 		values.put("emailAddress", getEmailAddress());
 		values.put("phoneNumber", getPhoneNumber());
-		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		values.put("pingCount", getPingCount());
 		long updateId = database.update("contact", values, "_id = "+ id, null);
 		close();

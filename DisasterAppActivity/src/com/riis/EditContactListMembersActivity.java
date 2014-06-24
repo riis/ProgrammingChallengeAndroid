@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactSelectionAdapter;
-import com.riis.controllers.ContactSelectionItemClickListener;
+import com.riis.controllers.ContactListSelectionItemClickListener;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
@@ -43,7 +43,7 @@ public class EditContactListMembersActivity extends Activity
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts()));
-        listView.setOnItemClickListener(new ContactSelectionItemClickListener());
+        listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
         
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);
         updateButton.setText("Update");

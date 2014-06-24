@@ -2,8 +2,6 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;

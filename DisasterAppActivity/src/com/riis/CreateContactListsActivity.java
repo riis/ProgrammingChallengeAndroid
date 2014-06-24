@@ -4,26 +4,23 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.riis.controllers.ContactListSelectionItemClickListener;
-import com.riis.controllers.ContactSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
+import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
 import com.riis.dagger.DaggerApplication;
-import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
 
-public class ContactListsActivity extends Activity
+public class CreateContactListsActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
-	private ContactImporter importer;
 	
 	@Inject ContactList contactList;
 
@@ -37,15 +34,12 @@ public class ContactListsActivity extends Activity
 		setContentView(R.layout.create_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
-//        ContentResolver contentResolver = getContentResolver();
-//        importer.fetchContacts(contentResolver);
-        
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
-        listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts()));
+        listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
         listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
     }
 	

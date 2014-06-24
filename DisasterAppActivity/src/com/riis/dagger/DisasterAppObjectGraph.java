@@ -3,15 +3,15 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.DisasterAppActivity;
-import com.riis.ContactListsActivity;
-import com.riis.controllers.ContactListDisplayItemClickListener;
+import com.riis.CreateContactListsActivity;
+import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
 import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects={DisasterAppActivity.class, ContactListsActivity.class})
+@Module(injects={DisasterAppActivity.class, CreateContactListsActivity.class})
 public class DisasterAppObjectGraph 
 {
 	Context context;
@@ -26,10 +26,10 @@ public class DisasterAppObjectGraph
 		return new ContactList(context);
 	}
 	
-//	@Provides ListOfContactLists provideListOfContactLists() 
-//	{
-//		return new ListOfContactLists(context);
-//	}
+	@Provides ListOfContactLists provideListOfContactLists() 
+	{
+		return new ListOfContactLists(context);
+	}
 	
 	@Provides ContactListDisplayItemClickListener provideMessageIndicatorItemClickListener() 
 	{

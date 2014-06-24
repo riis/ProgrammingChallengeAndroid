@@ -3,7 +3,9 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.DisasterAppActivity;
-import com.riis.controllers.ContactListDisplayItemClickListener;
+import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
+import com.riis.models.ContactList;
+import com.riis.models.ListOfContactLists;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,10 +20,15 @@ public class DisasterAppTestObjectGraph
 		this.context = context;
 	}
 	
-//	@Provides ContactList provideContactList() 
-//	{
-//		return new MockContactList(context);
-//	}
+	@Provides ContactList provideContactList() 
+	{
+		return new ContactList(context);
+	}
+	
+	@Provides ListOfContactLists provideListOfContactLists() 
+	{
+		return new ListOfContactLists(context);
+	}
 	
 	@Provides ContactListDisplayItemClickListener provideMessageIndicatorItemClickListener() 
 	{

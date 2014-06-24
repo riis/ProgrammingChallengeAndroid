@@ -9,15 +9,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.ContactListsActivity;
+import com.riis.CreateContactListsActivity;
 import com.riis.R;
-import com.riis.controllers.ContactSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
-public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<ContactListsActivity> 
+public class CreateContactListsActivityTest extends ActivityInstrumentationTestCase2<CreateContactListsActivity> 
 {
-	private ContactListsActivity contactListsActivity;
+	private CreateContactListsActivity contactListsActivity;
 	private Button saveCreateContactListSaveButton;
 	private Button cancelCreateContactListButton;
 	private ListView contactsListView;
@@ -26,10 +26,9 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 	private Context context;
 	private Contact contact;
 	
-	public ContactListsActivityTest()
+	public CreateContactListsActivityTest()
 	{
-		super(ContactListsActivity.class);
-
+		super(CreateContactListsActivity.class);
 	}
 	
 	protected void setUp() throws Exception
@@ -62,7 +61,7 @@ public class ContactListsActivityTest extends ActivityInstrumentationTestCase2<C
 				ContactList contactList = new ContactList(context);
 				contactList.readAllContacts();
 				contactsListView.setAdapter(new ContactSelectionAdapter(context,
-						contactList.getContacts()));
+						contactList.getContacts(), "", contactListsActivity.getApplication()));
 			}
 		});
 	}

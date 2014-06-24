@@ -13,36 +13,52 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.controllers.ContactSelectionAdapter;
-import com.riis.controllers.ContactListSelectionItemClickListener;
+import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
+import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
+import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
+
+import dagger.ObjectGraph;
 
 public class EditContactListMembersActivity extends Activity
 {
 	private ListView listView;
 	private Button updateButton;
+	private Button cancelButton;
 	private TextView listName;
 	
 	@Inject ContactList contactList;
-	@Inject ContactList updatedList;
+	@Inject ContactList list;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-		
         setContentView(R.layout.create_contact_list_screen);
         
+        ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getEditContactListMembersObjectGraph();
+		objectGraph.inject(this);
+        
+        Bundle extras = getIntent().getExtras();
+        String contactListName = extras.getString("CONTACT_LIST_NAME");
+        
         listName = (TextView) findViewById(R.id.contactListNameLabel);
+        listName.setText("Contact List: "+ contactListName);
+        listName.setTextSize(18);
+        listName.setPadding(0, 0, 0, 5);
         
         EditText contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         contactListNameField.setVisibility(View.GONE);
         
-        contactList.readAllContacts();
+        contactList.setName(contactListName);
+        contactList.read();
+        
+        list.readAllContacts();
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
-        listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts()));
+        listView.setAdapter(new ContactSelectionAdapter(this, list.getContacts(), contactListName, getApplication()));
         listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
         
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);
@@ -51,34 +67,42 @@ public class EditContactListMembersActivity extends Activity
 			
 			@Override
 			public void onClick(View v) {
-				updatedList.setName(listName.getText().toString());
-				updatedList.read();
+				contactList.setContactList(new ArrayList<Contact>());
 				
-				updatedList.setContactList(new ArrayList<Contact>());
-				
-				for(int i = 0; i < listView.getCount(); i++)
+				for(int i = 0; i < list.size(); i++)
 				{
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-					if(checkBox.isSelected())
+					if(checkBox.isChecked())
 					{
-						updatedList.addContact(contactList.getContact(i));
+						contactList.addContact(list.getContact(i));
+						ResponseMessage response = new ResponseMessage(getApplicationContext());
+				        response.setTextMessageContents(" Are you OK?");
+				        response.setPhoneNumber(list.getContact(i).getPhoneNumber());
+				        response.setContactListId(contactList.getId());
+				        if(response.read())
+				        {
+				        	response.update();
+				        }
+				        else
+				        {
+				        	response.create();
+				        }
 					}
 				}
 				
-				updatedList.update();
+				contactList.update();
 				
 				finish();
 			}
 		});
+        
+        cancelButton = (Button) findViewById(R.id.cancelCreateContactListButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
     }
-	
-	public void updateContactList(View view)
-	{
-		
-	}
-	
-	public void cancelUpdateContactList(View view)
-	{
-		finish();
-	}
 }

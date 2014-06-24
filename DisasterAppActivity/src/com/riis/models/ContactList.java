@@ -1,6 +1,7 @@
 package com.riis.models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,6 +13,7 @@ public class ContactList extends BasePersistentModel
 	private Context context;
 	private long id;
 	private String name;
+	private long messageSentTimeStamp;
 	
 	public ContactList(Context context) 
 	{
@@ -19,7 +21,24 @@ public class ContactList extends BasePersistentModel
 		this.context = context;
 		this.id = -1;
 		this.name = "";
+		this.messageSentTimeStamp = 0L;
 		contacts = new ArrayList<Contact>();
+	}
+	
+	public long getMessageSentTimeStamp()
+	{
+		return messageSentTimeStamp;
+	}
+	
+	public void setMessageSentTimeStamp(long messageSentTimeStamp)
+	{
+		this.messageSentTimeStamp = messageSentTimeStamp;
+	}
+	
+	public void updateMessageSentTimeStamp()
+	{
+		Calendar cal = Calendar.getInstance();
+		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
 	public Long getId()
@@ -72,6 +91,7 @@ public class ContactList extends BasePersistentModel
 				
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
+		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		
 		boolean exists = read();
 		if(exists)
@@ -100,8 +120,6 @@ public class ContactList extends BasePersistentModel
 		return returnVal;
 	}
 
-	
-	
 	@Override
 	public boolean delete() 
 	{
@@ -120,7 +138,35 @@ public class ContactList extends BasePersistentModel
 	
 	public boolean readByTimeStamp()
 	{
-		return readWithOrderByClause("messageSentTimeStamp ASC");
+		if (getName().equals(""))
+		{
+			return false;
+		}		
+		
+		open();
+		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
+				"messageSentTimeStamp ASC");		
+		boolean result = readContactListFromCursor(cursor);
+		cursor.close();
+		close();
+		
+		if(!result)
+		{
+			return false;
+		}
+		
+		open();
+		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
+				null);
+		if(refCursor.moveToFirst())
+		{
+			contacts = readContactListMembersFromCursor(refCursor);
+		}
+		
+		refCursor.close();
+		close();
+		
+		return true;
 	}
 	
 	public boolean readAllContacts()
@@ -151,7 +197,6 @@ public class ContactList extends BasePersistentModel
 		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
 				null);
-
 		if(refCursor.moveToFirst())
 		{
 			contacts = readContactListMembersFromCursor(refCursor);
@@ -188,6 +233,7 @@ public class ContactList extends BasePersistentModel
 		open();			
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
+		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		long updateId = database.update("contactList", values, "_id = "+ getId(), null);
 		close();
 			
@@ -290,7 +336,8 @@ public class ContactList extends BasePersistentModel
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
-			id = (cursor.getLong(0));
+			id = cursor.getLong(0);
+			messageSentTimeStamp = cursor.getLong(2);
 			return true;
 		}
 

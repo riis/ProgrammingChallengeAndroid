@@ -9,6 +9,7 @@ import android.database.Cursor;
 public class ResponseMessage extends BasePersistentModel
 {
 	private long id;
+	private long contactListId;
 	private String phoneNumber;
 	private long timeStamp;
 	private String textMessageContents;
@@ -17,6 +18,7 @@ public class ResponseMessage extends BasePersistentModel
 	{
 		super(context);
 		this.id = -1;
+		this.contactListId = -1;
 		this.phoneNumber = "";
 		this.timeStamp = 0L;
 		this.textMessageContents = "";
@@ -48,6 +50,11 @@ public class ResponseMessage extends BasePersistentModel
 		this.timeStamp = cal.getTimeInMillis();
 	}
 	
+	public void setContactListId(long contactListId)
+	{
+		this.contactListId = contactListId;
+	}
+	
 	public void setTextMessageContents(String textMessageContents) 
 	{
 		this.textMessageContents = textMessageContents;
@@ -61,6 +68,11 @@ public class ResponseMessage extends BasePersistentModel
 	public void setPhoneNumber(String phoneNumber) 
 	{
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public long getContactListId()
+	{
+		return contactListId;
 	}
 	
 	public String getPhoneNumber() 
@@ -87,6 +99,7 @@ public class ResponseMessage extends BasePersistentModel
 		}
 		open();			
 		ContentValues values = new ContentValues();
+		values.put("contactListId", getContactListId());
 		values.put("phoneNumber", getPhoneNumber());
 		values.put("timeStamp", getTimeStamp());
 		values.put("textMessageContents", getTextMessageContents());
@@ -151,10 +164,11 @@ public class ResponseMessage extends BasePersistentModel
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
-			id = (cursor.getLong(0));
-			setPhoneNumber(cursor.getString(1));
-			setTimeStamp(cursor.getLong(2));
-			setTextMessageContents(cursor.getString(3));
+			id = cursor.getLong(0);
+			setContactListId(cursor.getLong(1));
+			setPhoneNumber(cursor.getString(2));
+			setTimeStamp(cursor.getLong(3));
+			setTextMessageContents(cursor.getString(4));
 			return true;			
 		}
 		return false;
@@ -169,6 +183,7 @@ public class ResponseMessage extends BasePersistentModel
 		}
 		open();			
 		ContentValues values = new ContentValues();
+		values.put("contactListId", getContactListId());
 		values.put("phoneNumber", getPhoneNumber());
 		values.put("timeStamp", getTimeStamp());
 		values.put("textMessageContents", getTextMessageContents());
@@ -186,8 +201,14 @@ public class ResponseMessage extends BasePersistentModel
 	{
 		StringBuilder selection = new StringBuilder();
 		String  and = "";
+		if (contactListId != -1)
+		{
+			selection.append("contactListId=").append(contactListId);
+			and = " AND ";
+		}
 		if (!phoneNumber.isEmpty())
 		{
+			selection.append(and);
 			selection.append("phoneNumber='").append(phoneNumber).append("'");
 			and = " AND ";
 		}

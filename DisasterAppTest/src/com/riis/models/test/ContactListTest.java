@@ -1,5 +1,7 @@
 package com.riis.models.test;
 
+import java.util.Calendar;
+
 import junit.framework.TestCase;
 
 import com.riis.models.Contact;
@@ -43,5 +45,24 @@ public class ContactListTest extends TestCase
 	{
 		contactList.setName("Test List");
 		assertEquals("Test List", contactList.getName());
+	}
+	
+	public void testNewMessageSentTimeStamp()
+	{
+		Calendar cal = Calendar.getInstance();
+		long time = cal.getTimeInMillis();
+		contactList.setMessageSentTimeStamp(time);
+		assertEquals(contactList.getMessageSentTimeStamp(), time);
+	}
+	
+	public void testUpdateMessageSentTimeStamp()
+	{
+		contactList.updateMessageSentTimeStamp();
+		assertTrue(contactList.getMessageSentTimeStamp() > 0);
+	}
+	
+	public void testInitialMessageSentTimeStamp()
+	{
+		assertNotNull(contactList.getMessageSentTimeStamp());
 	}
 }

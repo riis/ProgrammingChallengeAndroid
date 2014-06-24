@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import com.riis.R;
 
-public class ContactSelectionItemClickListener implements OnItemClickListener
+public class ContactListSelectionItemClickListener implements OnItemClickListener
 {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -16,18 +16,11 @@ public class ContactSelectionItemClickListener implements OnItemClickListener
 		{
 			View expand = parent.getChildAt(i).findViewById(R.id.selectContactListExpandableLayout);
 
-			CheckBox checkBox = (CheckBox) parent.getChildAt(i).findViewById(R.id.selectedContactCheckBox);
-			if(checkBox.isChecked())
-			{
-				checkBox.setChecked(false);
-			}else{
-				checkBox.setChecked(true);
-			}
 			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) expand.getLayoutParams();
 			
 			if(params.bottomMargin == 0)
 			{
-				MessageIndicatorAnimation animation = new MessageIndicatorAnimation(expand, 500);
+				DropDownListAnimation animation = new DropDownListAnimation(expand, 500);
 				
 				expand.startAnimation(animation);
 			}
@@ -35,7 +28,7 @@ public class ContactSelectionItemClickListener implements OnItemClickListener
 		
 		View expand = view.findViewById(R.id.selectContactListExpandableLayout);
 		
-		MessageIndicatorAnimation animation = new MessageIndicatorAnimation(expand, 500);
+		DropDownListAnimation animation = new DropDownListAnimation(expand, 500);
 		
 		expand.startAnimation(animation);
 	}

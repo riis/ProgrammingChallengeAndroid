@@ -83,6 +83,34 @@ public class ResponseMessageList extends BasePersistentModel
 		close();
 		return returnVal;
 	}
+	
+	public boolean read(long contactListId)
+	{
+		String[] columns = {"_id"};
+		
+		open();
+		Cursor cursor = database.query("responseMessage", columns, "contactListId = "+ contactListId,
+				null, null, null, "timeStamp DESC");
+
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			ResponseMessage next = new ResponseMessage(context);
+			boolean success = next.read(cursor.getLong(0));
+			if (success)
+			{
+				responseMessage.add(next);
+			}
+			else
+			{
+				returnVal = false;
+			}
+			cursor.moveToNext();
+		}
+		cursor.close();
+		close();
+		return returnVal;
+	}
 
 	@Override
 	public boolean update() 

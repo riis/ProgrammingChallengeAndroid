@@ -15,15 +15,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
-import com.riis.controllers.ContactSelectionAdapter;
-import com.riis.controllers.ContactSelectionItemClickListener;
+import com.riis.controllers.ContactListDisplayItemClickListener;
+import com.riis.controllers.ContactListSelectionItemClickListener;
 import com.riis.controllers.ImportedContactsAdapter;
-import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
-import com.riis.models.ListOfContactLists;
+import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
 
@@ -31,7 +30,8 @@ public class ImportContactsActivity  extends Activity
 {
 	private ContactImporter importer;
 	private ListView listView;
-	@Inject MessageIndicatorItemClickListener item;
+	
+	@Inject ContactListDisplayItemClickListener item;
 	@Inject ContactList contactList;
 	private ArrayList<Contact> contacts;
 	@Inject ContactList everyoneList;
@@ -53,11 +53,11 @@ public class ImportContactsActivity  extends Activity
 
         contactList.readAllContacts();
         everyoneList.setName("Everyone");
+        everyoneList.read();
         
-	    Log.i("check read list", "read list "+everyoneList.read());
 	    listView = (ListView) findViewById(R.id.importedContactsListView);        
         listView.setAdapter(new ImportedContactsAdapter(this, contacts));
-        listView.setOnItemClickListener(new ContactSelectionItemClickListener());
+        listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
 		
 	}
 	
@@ -70,31 +70,41 @@ public class ImportContactsActivity  extends Activity
 	{
 		for(int i=0; i <contacts.size(); i++)
 		{
-		CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectedContactCheckBox);
-		
-		Log.i("check size", " "+ everyoneList.size());
-			for(int j=0; j<everyoneList.size();j++)
-			{	
-				Log.i("compare first names", "first guy "+ contacts.get(i).getFirstName() + " vs. " + everyoneList.getContact(j).getFirstName());
-			    if( /*checkBox.isChecked() &&*/ contacts.get(i).getFirstName()==everyoneList.getContact(j).getFirstName() 
-					&& contacts.get(i).getLastName()==everyoneList.getContact(j).getLastName())
-				{
-					contactExists=true;
-					break;
-				}else{
-					contactExists =false;
+			everyoneList.read();
+			CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectedContactCheckBox);
+
+			if(checkBox.isChecked())
+			{
+				for(int j=0; j<everyoneList.size();j++)
+				{	
 					
+					    if(contacts.get(i).getFirstName().equals(everyoneList.getContact(j).getFirstName()) 
+							&& contacts.get(i).getLastName().equals(everyoneList.getContact(j).getLastName()))
+					    {
+							contactExists=true;
+							break;
+						}else{
+							contactExists =false;
+						}
+				}
+				Log.e("check checkbox", " checked?"+ checkBox.isChecked() + " exists?"+ contactExists);
+				
+				if(contactExists==false)
+				{
+				contacts.get(i).create();
+	
+				everyoneList.addContact(contacts.get(i));
+				everyoneList.update();
+				
+				ResponseMessage response = new ResponseMessage(this);
+		        response.setTextMessageContents(" Are you OK?");
+		        response.setPhoneNumber(contacts.get(i).getPhoneNumber());
+		        response.setContactListId(1);
+		        response.create();
+				
 				}
 			}
-
-			Log.i("check contact exists", " "+ contactExists);
-			if(contactExists==false)
-			{
-			Log.i("contact name"," this person get added:"+contacts.get(i).getFirstName());
-			contacts.get(i).create();
-			}
 		}
-			
 		finish();
 	}
 	
@@ -128,7 +138,6 @@ public class ImportContactsActivity  extends Activity
 				Contact newContact = new Contact(this);
 				String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
 				String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-				
 				newContact.parseName(name);
 				
 					Cursor emailCursor = getContentResolver().query(EmailCONTENT_URI, null, EmailCONTACT_ID+ " = ?", new String[] { contact_id }, null); 
@@ -151,19 +160,10 @@ public class ImportContactsActivity  extends Activity
 		        if(!newContact.getFirstName().isEmpty() && !newContact.getLastName().isEmpty() 
 		   		 && !newContact.getEmailAddress().isEmpty() && !newContact.getPhoneNumber().isEmpty())
 		   			{
-		  
-		        	Log.i("contact info"," FN:"+newContact.getFirstName() +"\n LN:"+ newContact.getLastName() +"\n Email:"+ newContact.getEmailAddress()+"\n PhoneNumber:"+ newContact.getPhoneNumber());
-					Log.i(" ","\n ");
-					
 					contacts.add(j, newContact);
-					
 					j++;
-					Log.i("adding contact", "contact name 0: "+ contacts.get(0).getFirstName());
-					Log.i("adding contact", "contact name: "+ j+ " "+contacts.get(j-1).getFirstName());
 		   			}	
-					    
-					    
-					    
+					     
 				cursor.moveToNext();
 			}
 		}cursor.close();

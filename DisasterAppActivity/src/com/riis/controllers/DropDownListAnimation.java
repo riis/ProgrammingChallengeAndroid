@@ -5,7 +5,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout.LayoutParams;
 
-public class MessageIndicatorAnimation extends Animation
+public class DropDownListAnimation extends Animation
 {
 	private int marginStart;
 	private int marginEnd;
@@ -16,14 +16,13 @@ public class MessageIndicatorAnimation extends Animation
 	
 	private LayoutParams layoutParams;
 	
-	public MessageIndicatorAnimation(View view, int duration)
+	public DropDownListAnimation(View view, int duration)
 	{
 		setDuration(duration);
 		this.view = view;
 		layoutParams = (LayoutParams) view.getLayoutParams();
 		
 		isVisibleAfter = (view.getVisibility() == View.VISIBLE);
-		
 		marginStart = layoutParams.bottomMargin;
 		marginEnd = (marginStart == 0 ? (0 - view.getHeight()) : 0);
 		
@@ -43,7 +42,6 @@ public class MessageIndicatorAnimation extends Animation
 		else if (!wasEndedAlready)
 		{
             layoutParams.bottomMargin = marginEnd;
-            
             view.requestLayout();
             
             if (isVisibleAfter)

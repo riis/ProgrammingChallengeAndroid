@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.riis.controllers.EmergencyMessageTextWatcher;
 import com.riis.controllers.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
-import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
@@ -51,25 +50,31 @@ public class SendEmergencyMessageActivity extends Activity {
 	{
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString()))
 		{
+			contactList.setName("Everyone");
 			contactList.read();
+			contactList.updateMessageSentTimeStamp();
+			contactList.update();
 			
-			for(int i = 0; i < contactList.size(); i++)
-			{
-				Contact contact = contactList.getContact(i);
-				contact.updateMessageSentTimeStamp();
-				contact.update();
-			}
+//			for(int i = 0; i < contactList.size(); i++)
+//			{
+//				Contact contact = contactList.getContact(i);
+//				contact.updateMessageSentTimeStamp();
+//				contact.update();
+//			}
 			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
 			ResponseMessageList responseMessageList = new ResponseMessageList(this);
-			responseMessageList.read();
+			responseMessageList.read(1);
 			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 			
 			for(int i = 0; i < responses.size(); i++) 
 			{
 				ResponseMessage response = responses.get(i);
-				response.delete();
+				response.read();
+				response.setTextMessageContents("Are you OK?");
+				response.setTimeStamp(0);
+				response.update();
 			}
 
 			finish();

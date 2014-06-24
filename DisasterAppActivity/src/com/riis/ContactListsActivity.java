@@ -3,18 +3,19 @@ package com.riis;
 import javax.inject.Inject;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.riis.controllers.ContactListSelectionItemClickListener;
 import com.riis.controllers.ContactSelectionAdapter;
-import com.riis.controllers.ContactSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
 
@@ -42,7 +43,7 @@ public class ContactListsActivity extends Activity
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts()));
-        listView.setOnItemClickListener(new ContactSelectionItemClickListener());
+        listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
     }
 	
 	public void saveContactList(View view)
@@ -66,9 +67,14 @@ public class ContactListsActivity extends Activity
 				for(int i = 0; i < listView.getCount(); i++)
 				{
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-					if(checkBox.isSelected())
+					if(checkBox.isChecked())
 					{
 						list.addContact(contactList.getContact(i));
+						ResponseMessage response = new ResponseMessage(this);
+				        response.setTextMessageContents(" Are you OK?");
+				        response.setPhoneNumber(contactList.getContact(i).getPhoneNumber());
+				        response.setContactListId(list.getId());
+				        response.create();
 					}
 				}
 				

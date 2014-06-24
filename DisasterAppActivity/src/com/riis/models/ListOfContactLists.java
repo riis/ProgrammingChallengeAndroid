@@ -2,7 +2,6 @@ package com.riis.models;
 
 import java.util.ArrayList;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -10,7 +9,6 @@ public class ListOfContactLists extends BasePersistentModel
 {
 	private ArrayList<ContactList> contactLists;
 	private Context context;
-	private String name;
 	
 	public ListOfContactLists(Context context) 
 	{
@@ -63,17 +61,10 @@ public class ListOfContactLists extends BasePersistentModel
 		open();
 		Cursor cursor = database.query("contactList", null, null, null, null, null,
 				"name ASC");		
-		//boolean result = readListOfContactListsFromCursor(cursor);
 		contactLists = readListOfContactListsMembersFromCursor(cursor);
 		
 		cursor.close();
 		close();
-		
-//		if(!result)
-//		{
-//			return false;
-//		}
-		
 		
 		return true;
 	}
@@ -84,23 +75,6 @@ public class ListOfContactLists extends BasePersistentModel
 		return false;
 	}
 	
-	private boolean insertMemberIntoListOfContactLists(ContactList contactList)
-	{
-		ContentValues refValues = new ContentValues();
-		refValues.put("contactListId", contactList.getId());
-		
-		open();
-		long refId = database.insert("listofContactListsMembers", null, refValues);
-		close();
-		
-		if(refId == -1)
-		{
-			return false;
-		}
-		
-		return true;
-	}
-	
 	private ArrayList<ContactList> readListOfContactListsMembersFromCursor(Cursor cursor)
 	{
 		ArrayList<ContactList> storedContactLists = new ArrayList<ContactList>();
@@ -109,26 +83,14 @@ public class ListOfContactLists extends BasePersistentModel
 		{
 			ContactList currentContactList = new ContactList(context);
 			currentContactList.setName(cursor.getString(1));
-			currentContactList.read(); 
+
+			currentContactList.setMessageSentTimeStamp(cursor.getLong(2));
+			currentContactList.readByTimeStamp(); 
 			
 			storedContactLists.add(currentContactList);
-			
 			cursor.moveToNext();
 		}
 		
 		return storedContactLists;
 	}
-	
-	private boolean readListOfContactListsFromCursor(Cursor cursor)
-	{
-		if (cursor.getCount() > 0)
-		{
-			cursor.moveToFirst();
-			return true;
-		}
-
-		return false;
-	}
-
-
 }

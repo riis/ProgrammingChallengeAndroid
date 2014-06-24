@@ -5,10 +5,11 @@
     android:orientation="vertical" >
     
     <ListView
-        android:id="@+id/contactIndicatorListView"
+        android:id="@+id/contactListDisplay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:divider="@android:color/white" />
 </RelativeLayout>
 
     

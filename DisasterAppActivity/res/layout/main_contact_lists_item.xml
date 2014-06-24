@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-   
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants" >
     
-    <LinearLayout
-        android:layout_alignParentLeft="true"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/editContactListButton"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        
+        android:text="@string/editContactListInfo" />
+    
+    <Button
+        android:id="@+id/sendMessageContactListButton"
+        android:layout_toLeftOf="@id/editContactListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sendMessageToContactList" />
+    
     <TextView
-	        android:id="@+id/contactListValue"
-			android:layout_width="match_parent"
+        android:id="@+id/contactListNameValue"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/sendMessageContactListButton"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/white" />
+   
+    <LinearLayout
+        android:layout_below="@id/sendMessageContactListButton"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <LinearLayout
+	        android:id="@+id/contactListMemberLayout"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:textSize="18sp"
-	        android:textColor="@android:color/white" />
-		
-         <LinearLayout
-            android:id="@+id/indicatorExpandableLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible" >
-            
-             <TextView
-				android:id="@+id/indicatorValue"
-		        android:gravity="left|center_vertical"
-		        android:layout_width="wrap_content"
-		        android:layout_height="fill_parent"
-		        android:textSize="18sp"
-		        android:paddingLeft="5sp" 
-		        android:paddingRight="5sp" /> 
-            
-            <TextView
-		        android:id="@+id/contactName"
-				android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:textSize="18sp" />
-			
-			<!-- <TextView
-		        android:id="@+id/lastResponseTimeStamp"
-				android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:textSize="18sp" /> -->
-        </LinearLayout> 
+	        android:orientation="vertical"
+	        android:visibility="gone" >
+    	</LinearLayout>
     </LinearLayout>
+    
 </RelativeLayout>

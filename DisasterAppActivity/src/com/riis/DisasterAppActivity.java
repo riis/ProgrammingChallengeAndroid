@@ -1,7 +1,5 @@
 package com.riis;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 import android.app.Activity;
@@ -12,10 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.riis.controllers.MessageIndicatorAdapter;
-import com.riis.controllers.MessageIndicatorItemClickListener;
+import com.riis.controllers.ContactListDisplayAdapter;
+import com.riis.controllers.ContactListDisplayItemClickListener;
 import com.riis.dagger.DaggerApplication;
-import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
 import dagger.ObjectGraph;
@@ -23,9 +20,8 @@ import dagger.ObjectGraph;
 public class DisasterAppActivity extends Activity
 {
 	private ListView listView;
-	@Inject ListOfContactLists listOfContactLists;
-	@Inject ContactList contactList;
-	@Inject MessageIndicatorItemClickListener item;
+	private ListOfContactLists listOfContactLists;
+	@Inject ContactListDisplayItemClickListener item;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -36,10 +32,13 @@ public class DisasterAppActivity extends Activity
 		objectGraph.inject(this);
         setContentView(R.layout.main);
         
-        listOfContactLists.read();
-        
-        listView = (ListView) findViewById(R.id.contactIndicatorListView);        
-        listView.setAdapter(new MessageIndicatorAdapter(this, listOfContactLists.getContactLists()));
+
+
+        listOfContactLists = new ListOfContactLists(getApplicationContext());
+        listOfContactLists.read();     
+        listView = (ListView) findViewById(R.id.contactListDisplay);        
+        listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists()));
+
         listView.setOnItemClickListener(item);
     }
 	

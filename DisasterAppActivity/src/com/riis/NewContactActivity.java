@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
 
 public class NewContactActivity extends Activity
 {
@@ -126,14 +127,17 @@ public class NewContactActivity extends Activity
 	        
 	        list.addContact(newContact);
 	        list.update();
+	        
+	        ResponseMessage response = new ResponseMessage(this);
+	        response.setTextMessageContents(" Are you OK?");
+	        response.setPhoneNumber(newContact.getPhoneNumber());
+	        response.setContactListId(1);
+	        response.create();
 
 	        callAlertDialog();
 		}
 	}
-	      
-	        
-
-
+	
 	private void callAlertDialog()
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
@@ -147,14 +151,10 @@ public class NewContactActivity extends Activity
 						{
 							finish();
 						}
-
 				   });
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-
 	}
-
-	
 
 	public boolean isFirstNameValid(String name)
 	{

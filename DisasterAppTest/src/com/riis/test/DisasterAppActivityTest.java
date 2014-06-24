@@ -1,6 +1,6 @@
 package com.riis.test;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
@@ -16,19 +16,16 @@ import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.MessageIndicatorAdapter;
-import com.riis.dagger.DaggerApplication;
-import com.riis.dagger.DisasterAppTestObjectGraph;
+import com.riis.controllers.ContactListDisplayAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
-
-import dagger.ObjectGraph;
+import com.riis.models.ResponseMessage;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
 {
 	private DisasterAppActivity disasterAppActivity;
 	
-	private ListView contactIndicatorListView;
+	private ListView contactListDisplay;
 	private Context context;
 	private Contact contact;
 	private ContactList contactList;
@@ -45,21 +42,18 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		disasterAppActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
-		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().
-				getTargetContext().getApplicationContext();
-		myapp.setDisasterAppObjectGraph(objectGraph);
+//		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
+//		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().
+//				getTargetContext().getApplicationContext();
+//		myapp.setDisasterAppObjectGraph(objectGraph);
 		
-		contactIndicatorListView = (ListView) disasterAppActivity.findViewById(R.id.contactIndicatorListView);
+		contactListDisplay = (ListView) disasterAppActivity.findViewById(R.id.contactListDisplay);
 
 		contact = new Contact(context);
 		contact.setFirstName("Robert");
 		contact.setLastName("Jones");
 		contact.setEmailAddress("bjones@example.com");
 		contact.setPhoneNumber("5555555555");
-		
-		Calendar cal = Calendar.getInstance();
-		contact.setMessageSentTimeStamp(cal.getTimeInMillis());
 		
 		disasterAppActivity.runOnUiThread(new Runnable() 
 		{	
@@ -76,10 +70,26 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				secondContact.create();
 				
 				contactList = new ContactList(context);
-				contactList.readAllContacts();
-				//contactIndicatorListView.setAdapter(new MessageIndicatorAdapter(context,contactList.getContacts()));
+				contactList.setName("Everyone");
+				contactList.read();
+				contactList.addContact(contact);
+				contactList.addContact(secondContact);
+				contactList.update();
+				
+				ResponseMessage message = new ResponseMessage(context);
+				message.setPhoneNumber(contact.getPhoneNumber());
+				message.setTextMessageContents("Yes");
+				message.setContactListId(contactList.getId());
+				message.create();
+				
+				ArrayList<ContactList> list = new ArrayList<ContactList>();
+				list.add(contactList);
+				contactListDisplay.setAdapter(new ContactListDisplayAdapter(context,
+						list));
 			}
 		});
+		
+		Thread.sleep(3000);
 	}
 	
 	protected void tearDown() throws Exception
@@ -88,7 +98,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		{	
 			@Override
 			public void run()
-			{	
+			{
 				Contact secondContact = new Contact(context);
 				secondContact.setFirstName("Mike");
 				secondContact.setLastName("Richardson");
@@ -97,18 +107,29 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				
 				secondContact.read();
 				
+				ResponseMessage message = new ResponseMessage(context);
+				message.setPhoneNumber(contact.getPhoneNumber());
+				message.setTextMessageContents("Yes");
+				message.setContactListId(contactList.getId());
+				message.read();
+				message.delete();
+				
+				contactList.getContacts().get(1).delete();
+				contactList.getContacts().get(0).delete();
+				contactList.update();
+				contact.read();
 				contact.delete();
 				secondContact.delete();
 			}
 		});
 		
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		super.tearDown();
 	}
 	
 	public void testIndicatorListViewExists()
 	{
-		assertNotNull(contactIndicatorListView);
+		assertNotNull(contactListDisplay);
 	}
 	
 	public void testCreateContactButtonIntent()
@@ -157,7 +178,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.viewResponseMessagesItem, 0);
 		
-		monitor.waitForActivityWithTimeout(500);
+		monitor.waitForActivityWithTimeout(1000);
 		assertEquals(1, monitor.getHits());
 		
 		getInstrumentation().removeMonitor(monitor);
@@ -167,32 +188,39 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	{
 		try
 		{
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		}
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
-		assertTrue(contactIndicatorListView.getCount() > 0);	
-		contact.read();
-		contact.delete();
+		assertTrue(contactListDisplay.getCount() > 0);	
 	}
 	
 	public void testListItemExpands()
 	{
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
 		
-		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
+		
+		try
+		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
 		int visiblility = View.VISIBLE;
-		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
+		int expandedLayout = contactListDisplay.getChildAt(0).findViewById(R.id.contactListMemberLayout).getVisibility();
 		
 		assertEquals(expandedLayout, visiblility);
 	}
@@ -208,7 +236,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			e.printStackTrace();
 		}
 		
-		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
 		
 		try
 		{
@@ -219,10 +247,10 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			e.printStackTrace();
 		}
 		
-		TouchUtils.clickView(this, contactIndicatorListView.getChildAt(0));
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
 		
-		int visiblility = View.INVISIBLE;
-		int expandedLayout = contactIndicatorListView.getChildAt(0).findViewById(R.id.indicatorExpandableLayout).getVisibility();
+		int visiblility = View.GONE;
+		int expandedLayout = contactListDisplay.getChildAt(0).findViewById(R.id.contactListMemberLayout).getVisibility();
 		
 		assertEquals(expandedLayout, visiblility);
 	}

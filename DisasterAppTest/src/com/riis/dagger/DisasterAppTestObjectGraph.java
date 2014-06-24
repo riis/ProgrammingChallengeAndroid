@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.riis.ContactListsActivity;
 import com.riis.DisasterAppActivity;
-import com.riis.controllers.MessageIndicatorItemClickListener;
-import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
 import dagger.Module;
@@ -21,19 +19,16 @@ public class DisasterAppTestObjectGraph
 		this.context = context;
 	}
 	
-	@Provides ContactList provideContactList() 
-	{
-		return new MockContactList(context);
-	}
+//	@Provides ContactList provideContactList() 
+//	{
+//		return new MockContactList(context);
+//	}
 	
 	@Provides ListOfContactLists provideListOfContactLists() 
 	{
 		return new MockListOfContactLists(context);
 	}
 	
-	@Provides MessageIndicatorItemClickListener provideMessageIndicatorItemClickListener() 
-	{
-		return new MessageIndicatorItemClickListener();
-	}
+	
 	
 }

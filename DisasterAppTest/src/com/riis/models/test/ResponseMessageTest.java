@@ -45,6 +45,12 @@ public class ResponseMessageTest extends TestCase{
 		assertEquals("This is a test response.", responseMessage.getTextMessageContents());
 	}
 	
+	public void testNewContactListId()
+	{
+		responseMessage.setContactListId(1);
+		assertEquals(1, responseMessage.getContactListId());
+	}
+	
 	public void testInitialPhoneNumber()
 	{
 		assertNotNull(responseMessage.getPhoneNumber());
@@ -55,5 +61,8 @@ public class ResponseMessageTest extends TestCase{
 		assertNotNull(responseMessage.getTextMessageContents());
 	}
 	
-
+	public void testInitialContactListId()
+	{
+		assertEquals(-1, responseMessage.getContactListId());
+	}
 }

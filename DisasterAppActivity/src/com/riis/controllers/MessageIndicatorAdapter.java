@@ -39,7 +39,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<ContactList>
 		contactListView.setText(CLvalues.get(position).getName());
 		
 		
-//		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorValue);
+		TextView indicatorView = (TextView) rowView.findViewById(R.id.indicatorValue);
 		
 		if(CLvalues.get(position).size() != 0)
 		{
@@ -47,13 +47,11 @@ public class MessageIndicatorAdapter extends ArrayAdapter<ContactList>
 			nameView.setText(CLvalues.get(position).getContact(0).getFirstName() +" "+ CLvalues.get(position).getContact(0).getLastName());
 		}
 		
+	
+		ResponseMessageList responseMessageList = new ResponseMessageList(context);
+		responseMessageList.read();
 //		TextView timeStampView = (TextView) rowView.findViewById(R.id.lastResponseTimeStamp);
-		
-		
-//		ResponseMessageList responseMessageList = new ResponseMessageList(context);
-//		responseMessageList.read();
-//		
-//		timeStampView.setText(responseMessageList.getResponseMessage(position).getFormattedMessageSentTimeStamp());
+		//timeStampView.setText(responseMessageList.getResponseMessage(position).getFormattedMessageSentTimeStamp());
 	
 //		boolean flag = false;
 //		for(int i = 0; i < responseMessageList.size(); i++)
@@ -67,8 +65,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<ContactList>
 //					flag = true;
 //				}
 //			}
-//		}
-		
+//		}		
 //		if(values.get(position).getMessageSentTimeStamp() != 0L)
 //		{
 //			if(!flag)
@@ -81,7 +78,7 @@ public class MessageIndicatorAdapter extends ArrayAdapter<ContactList>
 //		{
 //			indicatorView.setVisibility(View.INVISIBLE);
 //		}
-
+//
 		return rowView;
 	}
 }

@@ -109,7 +109,7 @@ public class ListOfContactLists extends BasePersistentModel
 		{
 			ContactList currentContactList = new ContactList(context);
 			currentContactList.setName(cursor.getString(1));
-			currentContactList.read(1); 
+			currentContactList.read(); 
 			
 			storedContactLists.add(currentContactList);
 			

@@ -22,8 +22,6 @@ public class ContactListsActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
-	private ContactImporter importer;
-	
 	@Inject ContactList contactList;
 
 	@Override
@@ -36,8 +34,7 @@ public class ContactListsActivity extends Activity
 		setContentView(R.layout.create_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
-//        ContentResolver contentResolver = getContentResolver();
-//        importer.fetchContacts(contentResolver);
+     
         
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        

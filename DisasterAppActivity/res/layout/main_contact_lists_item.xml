@@ -24,14 +24,14 @@
             android:orientation="vertical"
             android:visibility="visible" >
             
-           <!--  <TextView
+             <TextView
 				android:id="@+id/indicatorValue"
 		        android:gravity="left|center_vertical"
 		        android:layout_width="wrap_content"
 		        android:layout_height="fill_parent"
 		        android:textSize="18sp"
 		        android:paddingLeft="5sp" 
-		        android:paddingRight="5sp" /> -->
+		        android:paddingRight="5sp" /> 
             
             <TextView
 		        android:id="@+id/contactName"

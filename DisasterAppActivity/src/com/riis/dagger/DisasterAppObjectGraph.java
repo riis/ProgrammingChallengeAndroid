@@ -2,8 +2,9 @@ package com.riis.dagger;
 
 import android.content.Context;
 
-import com.riis.DisasterAppActivity;
 import com.riis.ContactListsActivity;
+import com.riis.DisasterAppActivity;
+import com.riis.ImportContactsActivity;
 import com.riis.controllers.MessageIndicatorItemClickListener;
 import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
@@ -11,7 +12,7 @@ import com.riis.models.ListOfContactLists;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects={DisasterAppActivity.class, ContactListsActivity.class})
+@Module(injects={DisasterAppActivity.class, ContactListsActivity.class, ImportContactsActivity.class})
 public class DisasterAppObjectGraph 
 {
 	Context context;

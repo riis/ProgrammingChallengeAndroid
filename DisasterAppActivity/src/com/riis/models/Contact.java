@@ -3,15 +3,10 @@ package com.riis.models;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-import android.app.LoaderManager;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.text.TextUtils;
 
 public class Contact extends BasePersistentModel 
 {	
@@ -274,9 +269,13 @@ public class Contact extends BasePersistentModel
 	
 	public void parseName(String name)
 	{
-		StringTokenizer tokens = new StringTokenizer(name, " ");
-		setFirstName(tokens.nextToken());
-		setLastName(tokens.nextToken());
+		String[] strings = TextUtils.split(name, " ");
+		setFirstName(strings[0]);
+		
+		if(strings.length>1)
+		{
+		setLastName(strings[1]);
+		}
 	}
 
 

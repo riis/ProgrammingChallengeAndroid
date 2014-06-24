@@ -36,12 +36,11 @@ public class DisasterAppActivity extends Activity
 		objectGraph.inject(this);
         setContentView(R.layout.main);
         
-  //      contactList.readAllContacts();
         listOfContactLists.read();
         
         listView = (ListView) findViewById(R.id.contactIndicatorListView);        
         listView.setAdapter(new MessageIndicatorAdapter(this, listOfContactLists.getContactLists()));
-       // listView.setOnItemClickListener(item);
+        listView.setOnItemClickListener(item);
     }
 	
 	@Override
@@ -64,6 +63,10 @@ public class DisasterAppActivity extends Activity
 	            return true;
 	        case R.id.createEmergencyMessageItem:
 	        	i = new Intent(this, SendEmergencyMessageActivity.class);
+	            startActivity(i);
+	            return true;
+	        case R.id.importContactsItem:
+	        	i = new Intent(this, ImportContactsActivity.class);
 	            startActivity(i);
 	            return true;
 	        case R.id.viewResponseMessagesItem:

@@ -38,6 +38,9 @@
         <activity android:name="ContactListsActivity"
             	  android:label="@string/app_name">
         </activity>
+         <activity android:name="ImportContactsActivity"
+            	  android:label="@string/app_name">
+        </activity>
         <receiver android:name=".controllers.TextMessageReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

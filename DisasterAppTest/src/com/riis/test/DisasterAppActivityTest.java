@@ -19,6 +19,7 @@ import com.riis.ViewResponseMessagesActivity;
 import com.riis.controllers.ContactListDisplayAdapter;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
 
 public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
 {
@@ -75,6 +76,12 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				contactList.addContact(secondContact);
 				contactList.update();
 				
+				ResponseMessage message = new ResponseMessage(context);
+				message.setPhoneNumber(contact.getPhoneNumber());
+				message.setTextMessageContents("Yes");
+				message.setContactListId(contactList.getId());
+				message.create();
+				
 				ArrayList<ContactList> list = new ArrayList<ContactList>();
 				list.add(contactList);
 				contactListDisplay.setAdapter(new ContactListDisplayAdapter(context,
@@ -99,6 +106,14 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 				secondContact.setPhoneNumber("1235550066");
 				
 				secondContact.read();
+				
+				ResponseMessage message = new ResponseMessage(context);
+				message.setPhoneNumber(contact.getPhoneNumber());
+				message.setTextMessageContents("Yes");
+				message.setContactListId(contactList.getId());
+				message.read();
+				message.delete();
+				
 				contactList.getContacts().get(1).delete();
 				contactList.getContacts().get(0).delete();
 				contactList.update();
@@ -184,30 +199,30 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	public void testListItemExpands()
 	{
-//		try
-//		{
-//			Thread.sleep(1000);
-//		}
-//		catch (InterruptedException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		TouchUtils.clickView(this, contactListDisplay.getChildAt(0));
-//		
-//		try
-//		{
-//			Thread.sleep(1000);
-//		}
-//		catch (InterruptedException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		int visiblility = View.VISIBLE;
-//		int expandedLayout = contactListDisplay.getChildAt(0).findViewById(R.id.contactListMemberLayout).getVisibility();
-//		
-//		assertEquals(expandedLayout, visiblility);
+		try
+		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
+		
+		try
+		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		int visiblility = View.VISIBLE;
+		int expandedLayout = contactListDisplay.getChildAt(0).findViewById(R.id.contactListMemberLayout).getVisibility();
+		
+		assertEquals(expandedLayout, visiblility);
 	}
 	
 	public void testListItemCollapses()
@@ -221,7 +236,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			e.printStackTrace();
 		}
 		
-		TouchUtils.clickView(this, contactListDisplay.getChildAt(0));
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
 		
 		try
 		{
@@ -232,7 +247,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 			e.printStackTrace();
 		}
 		
-		TouchUtils.clickView(this, contactListDisplay.getChildAt(0));
+		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.contactListNameValue));
 		
 		int visiblility = View.GONE;
 		int expandedLayout = contactListDisplay.getChildAt(0).findViewById(R.id.contactListMemberLayout).getVisibility();

@@ -83,6 +83,7 @@ public class ListOfContactLists extends BasePersistentModel
 		{
 			ContactList currentContactList = new ContactList(context);
 			currentContactList.setName(cursor.getString(1));
+
 			currentContactList.setMessageSentTimeStamp(cursor.getLong(2));
 			currentContactList.readByTimeStamp(); 
 			

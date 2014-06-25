@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.riis.NewContactActivity;
 import com.riis.R;
-import com.riis.models.Contact;
-import com.riis.models.ContactList;
 
 public class NewContactActivityTest extends ActivityInstrumentationTestCase2<NewContactActivity>
 {

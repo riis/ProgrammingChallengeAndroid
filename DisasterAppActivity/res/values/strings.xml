@@ -31,6 +31,9 @@
     
      <string name="listNameLabel">List Name</string>
      <string name="contactsLabel">Contacts</string>
+     <string name="importLabel">Import</string>
+     
+    <string name="importContactsScreenButtonLabel">Import Contacts</string>
     
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
     <string name="returnToMainScreenButtonLabel">Home</string>

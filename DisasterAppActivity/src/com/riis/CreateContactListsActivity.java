@@ -21,7 +21,7 @@ public class CreateContactListsActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
-	
+
 	@Inject ContactList contactList;
 	@Inject ContactListSelectionItemClickListener item;
 
@@ -34,7 +34,6 @@ public class CreateContactListsActivity extends Activity
 
 		setContentView(R.layout.create_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-        
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();

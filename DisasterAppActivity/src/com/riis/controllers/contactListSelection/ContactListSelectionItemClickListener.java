@@ -15,6 +15,7 @@ public class ContactListSelectionItemClickListener implements OnItemClickListene
 		for(int i = 0; i < parent.getCount(); i++)
 		{
 			View expand = parent.getChildAt(i).findViewById(R.id.selectContactListExpandableLayout);
+
 			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) expand.getLayoutParams();
 			
 			if(params.bottomMargin == 0)

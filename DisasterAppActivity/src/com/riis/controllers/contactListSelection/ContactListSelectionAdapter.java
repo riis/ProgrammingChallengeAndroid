@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +20,20 @@ import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
 
-public class ContactSelectionAdapter extends ArrayAdapter<Contact>
+public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 {
 	private Context context;
 	private String name;
 	private ArrayList<Contact> values;
 	@Inject ContactList list;
 	
-	private static class ViewHolder {
 		TextView nameView;
 		TextView emailView;
 		TextView phoneView;
 		CheckBox selectContactCheckBox;
-	}
 	
-	public ContactSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
+	
+	public ContactListSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
 	{
 		super(context, R.layout.select_contacts_list_item, values);
 		
@@ -50,30 +48,37 @@ public class ContactSelectionAdapter extends ArrayAdapter<Contact>
 	@Override
 	public View getView(int position, View row, ViewGroup parent)
 	{
-		ViewHolder holder = null;
+		//ViewHolder holder = null;
 		if(row == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
-			holder = new ViewHolder();
+			//holder = new ViewHolder();
 			
-			holder.nameView = (TextView) row.findViewById(R.id.selectContactListName);
-			holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-			holder.phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-			holder.selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+			nameView = (TextView) row.findViewById(R.id.selectContactListName);
+			emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+			phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+			selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
 		}
 		else
 		{
-			holder = (ViewHolder) row.getTag();
+			//holder = (ViewHolder) row.getTag();
 		}
 		
-		holder.nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+		nameView = (TextView) row.findViewById(R.id.selectContactListName);
+		emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+		phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+		selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+	
+		
+		
+		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 
-		holder.emailView.setText(values.get(position).getEmailAddress());
+		emailView.setText(values.get(position).getEmailAddress());
 		
-		holder.phoneView.setText(values.get(position).getPhoneNumber());
+		phoneView.setText(values.get(position).getPhoneNumber());
 		
-		holder.selectContactCheckBox.setChecked(false);
+		selectContactCheckBox.setChecked(false);
 		
 		if(!name.equals(""))
 		{
@@ -82,10 +87,9 @@ public class ContactSelectionAdapter extends ArrayAdapter<Contact>
 			
 			for(int i = 0; i < list.size(); i++)
 			{
-				Log.i("id", list.getContact(i).getId() +"");
 				if(values.get(position).getId() == list.getContact(i).getId())
 				{
-					holder.selectContactCheckBox.setChecked(true);
+					selectContactCheckBox.setChecked(true);
 				}
 			}
 		}

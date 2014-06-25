@@ -1,4 +1,4 @@
-package com.riis.dagger;
+package com.riis.dagger.mock;
 
 import android.content.Context;
 

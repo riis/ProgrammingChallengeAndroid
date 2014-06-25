@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.riis.NewContactActivity;
 import com.riis.R;
-import com.riis.models.Contact;
-import com.riis.models.ContactList;
 
 public class NewContactActivityTest extends ActivityInstrumentationTestCase2<NewContactActivity>
 {
@@ -75,79 +73,79 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.last_name_editText);
 	}
 	
-	public void testCreateContact() 
-	{
-		Contact newContact = new Contact(context);
-		newContact.setFirstName("Bob");
-		newContact.setLastName("Jones");
-		newContact.setEmailAddress("bjones@example.com");
-		newContact.setPhoneNumber("5555555555");
-		
-		newContact.create();
-		
-		ContactList contactList = new ContactList(context);
-		contactList.readAllContacts();
-		Contact output = contactList.getContact(contactList.size() - 1);
-
-		newContact.delete();
-		
-		assertEquals(output.getFirstName(), newContact.getFirstName());
-		assertEquals(output.getLastName(), newContact.getLastName());
-		assertEquals(output.getEmailAddress(), newContact.getEmailAddress());
-		assertEquals(output.getPhoneNumber(), newContact.getPhoneNumber());
-	}
-	
-	public void testDeleteContact()
-	{
-		Contact newContact = new Contact(context);
-		newContact.setFirstName("Bob");
-		newContact.setLastName("Jones");
-		newContact.setEmailAddress("bjones@example.com");
-		newContact.setPhoneNumber("5555555555");
-		newContact.create();
-		assertTrue(newContact.delete());
-	}
-	
-	public void testReadContact()
-	{
-		Contact newContact = new Contact(context);
-		newContact.setFirstName("Bob");
-		newContact.setLastName("Jones");
-		newContact.setEmailAddress("bjones@example.com");
-		newContact.setPhoneNumber("5555555555");
-		newContact.setPingCount(2);
-		
-		newContact.create();
-		
-		Contact output = new Contact(context);
-		output.setEmailAddress("bjones@example.com");
-		
-		assertTrue(output.read());
-		
-		newContact.delete();
-	}
-	
-	public void testUpdateContact()
-	{
-		Contact newContact = new Contact(context);
-		newContact.setFirstName("Bob");
-		newContact.setLastName("Jones");
-		newContact.setEmailAddress("bjones@example.com");
-		newContact.setPhoneNumber("5555555555");
-		newContact.setPingCount(2);
-		newContact.create();
-		
-		newContact.setLastName("Smith");
-		newContact.update();
-		
-		Contact output = new Contact(context);
-		output.setEmailAddress("bjones@example.com");
-		output.read();
-		
-		newContact.delete();
-		
-		assertEquals(newContact.getLastName(), output.getLastName());
-	}
+//	public void testCreateContact() 
+//	{
+//		Contact newContact = new Contact(context);
+//		newContact.setFirstName("Bob");
+//		newContact.setLastName("Jones");
+//		newContact.setEmailAddress("bjones@example.com");
+//		newContact.setPhoneNumber("5555555555");
+//		
+//		newContact.create();
+//		
+//		ContactList contactList = new ContactList(context);
+//		contactList.readAllContacts();
+//		Contact output = contactList.getContact(contactList.size() - 1);
+//
+//		newContact.delete();
+//		
+//		assertEquals(output.getFirstName(), newContact.getFirstName());
+//		assertEquals(output.getLastName(), newContact.getLastName());
+//		assertEquals(output.getEmailAddress(), newContact.getEmailAddress());
+//		assertEquals(output.getPhoneNumber(), newContact.getPhoneNumber());
+//	}
+//	
+//	public void testDeleteContact()
+//	{
+//		Contact newContact = new Contact(context);
+//		newContact.setFirstName("Bob");
+//		newContact.setLastName("Jones");
+//		newContact.setEmailAddress("bjones@example.com");
+//		newContact.setPhoneNumber("5555555555");
+//		newContact.create();
+//		assertTrue(newContact.delete());
+//	}
+//	
+//	public void testReadContact()
+//	{
+//		Contact newContact = new Contact(context);
+//		newContact.setFirstName("Bob");
+//		newContact.setLastName("Jones");
+//		newContact.setEmailAddress("bjones@example.com");
+//		newContact.setPhoneNumber("5555555555");
+//		newContact.setPingCount(2);
+//		
+//		newContact.create();
+//		
+//		Contact output = new Contact(context);
+//		output.setEmailAddress("bjones@example.com");
+//		
+//		assertTrue(output.read());
+//		
+//		newContact.delete();
+//	}
+//	
+//	public void testUpdateContact()
+//	{
+//		Contact newContact = new Contact(context);
+//		newContact.setFirstName("Bob");
+//		newContact.setLastName("Jones");
+//		newContact.setEmailAddress("bjones@example.com");
+//		newContact.setPhoneNumber("5555555555");
+//		newContact.setPingCount(2);
+//		newContact.create();
+//		
+//		newContact.setLastName("Smith");
+//		newContact.update();
+//		
+//		Contact output = new Contact(context);
+//		output.setEmailAddress("bjones@example.com");
+//		output.read();
+//		
+//		newContact.delete();
+//		
+//		assertEquals(newContact.getLastName(), output.getLastName());
+//	}
 		
  	public void testCancelButtonExists() 
 	{
@@ -407,28 +405,5 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		assertFalse(newContactActivity.isPhoneValid("alice"));
 		assertFalse(newContactActivity.isPhoneValid("123"));
 		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
-	}
-
-	public void testSaveButtonDialogMessage() {
-//    	ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
-//		monitor.waitForActivityWithTimeout(1000);
-//
-//		TouchUtils.clickView(this, saveButton);
-//		
-//		NewContactActivity newContactActivity = (NewContactActivity) monitor.waitForActivityWithTimeout(1000);
-//		assertNotNull(newContactActivity);
-//		
-//		getInstrumentation().removeMonitor(monitor);
-	}
-	
-	public void testCreateContactButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-//		
-//		TouchUtils.clickView(this, cancelButton);
-//		
-//		monitor.waitForActivityWithTimeout(5000);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
 	}
 }

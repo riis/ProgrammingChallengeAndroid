@@ -1,7 +1,5 @@
 package com.riis.models;
 
-import java.util.StringTokenizer;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +13,6 @@ public class Contact extends BasePersistentModel
 	private String emailAddress;
 	private String phoneNumber;
 	private int pingCount;
-	
 	
 	public Contact(Context context) 
 	{
@@ -250,11 +247,9 @@ public class Contact extends BasePersistentModel
 		String[] strings = TextUtils.split(name, " ");
 		setFirstName(strings[0]);
 		
-		if(strings.length>1)
+		if(strings.length > 1)
 		{
-		setLastName(strings[1]);
+			setLastName(strings[1]);
 		}
 	}
-
-
 }

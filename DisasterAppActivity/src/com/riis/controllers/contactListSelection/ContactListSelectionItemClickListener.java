@@ -3,7 +3,6 @@ package com.riis.controllers.contactListSelection;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import com.riis.R;

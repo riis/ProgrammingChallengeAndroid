@@ -38,33 +38,34 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		myapp.setSendEmergencyMessageObjectGraph(objectGraph);
 		
 		sendEmergencyMessageActivity = getActivity();
-		cancelEmergencyMessageButton = (Button) sendEmergencyMessageActivity
-				.findViewById(R.id.cancelEmergencyMessageButton);
-		sendEmergencyMessageButton = (Button) sendEmergencyMessageActivity
-				.findViewById(R.id.sendEmergencyMessageButton);
-		emergencyMessageField = (EditText) sendEmergencyMessageActivity
-				.findViewById(R.id.emergencyMessageField);
-		characterCountLabel = (TextView) sendEmergencyMessageActivity
-				.findViewById(R.id.characterCountLabel);
+		cancelEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.cancelEmergencyMessageButton);
+		sendEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.sendEmergencyMessageButton);
+		emergencyMessageField = (EditText) sendEmergencyMessageActivity.findViewById(R.id.emergencyMessageField);
+		characterCountLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.characterCountLabel);
 	}
 	
-	public void testCancelEmergencyMessageButtonExists() {
+	public void testCancelEmergencyMessageButtonExists()
+	{
 		assertNotNull(cancelEmergencyMessageButton);
 	}
 	
-	public void testSendEmergencyMessageButtonExists() {
+	public void testSendEmergencyMessageButtonExists()
+	{
 		assertNotNull(sendEmergencyMessageButton);
 	}
 	
-	public void testEmergencyMessageFieldExists() {
+	public void testEmergencyMessageFieldExists()
+	{
 		assertNotNull(emergencyMessageField);
 	}
 	
-	public void testCharacterCountLabelExists() {
+	public void testCharacterCountLabelExists()
+	{
 		assertNotNull(characterCountLabel);
 	}
 	
-	public void testChangeCharacterCountLabel() {
+	public void testChangeCharacterCountLabel()
+	{
 		sendEmergencyMessageActivity.runOnUiThread(new Runnable() 
 		{
 			@Override
@@ -74,23 +75,14 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 			}
 		});
 		
-		try {
+		try
+		{
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
+		} catch (InterruptedException e)
+		{
 			e.printStackTrace();
 		}
 		
 		assertEquals(98, Integer.parseInt(characterCountLabel.getText().toString()));
-	}
-	
-	public void testCancelEmergencyMessageButtonIntent() {
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
-//		
-//		TouchUtils.clickView(this, cancelEmergencyMessageButton);
-//		
-//		monitor.waitForActivityWithTimeout(5000);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
 	}
 }

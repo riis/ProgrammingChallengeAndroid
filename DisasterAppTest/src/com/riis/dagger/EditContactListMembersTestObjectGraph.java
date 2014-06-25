@@ -3,13 +3,14 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.EditContactListMembersActivity;
-import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
+import com.riis.dagger.mock.MockContactList;
 import com.riis.models.ContactList;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects={EditContactListMembersActivity.class, ContactSelectionAdapter.class})
+@Module(injects={EditContactListMembersActivity.class, ContactListSelectionAdapter.class})
 public class EditContactListMembersTestObjectGraph
 {
 	Context context;

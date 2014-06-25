@@ -1,4 +1,4 @@
-package com.riis.dagger;
+package com.riis.dagger.mock;
 
 import com.riis.controllers.TextMessageSender;
 import com.riis.models.ContactList;

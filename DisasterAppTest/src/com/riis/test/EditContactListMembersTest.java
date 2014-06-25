@@ -14,6 +14,7 @@ import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.dagger.DaggerApplication;
 import com.riis.dagger.EditContactListMembersTestObjectGraph;
+import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
 

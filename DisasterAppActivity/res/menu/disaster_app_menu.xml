@@ -13,11 +13,11 @@
         android:title="@string/createEmergencyMessageScreenButtonLabel"
         android:showAsAction="never" />
     <item
-        android:id="@+id/viewResponseMessagesItem"
-        android:title="@string/viewResponseMessagesScreenButtonLabel"
-        android:showAsAction="never" />
-    <item
         android:id="@+id/importContactsItem"
         android:title="@string/importContactsScreenButtonLabel"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/viewResponseMessagesItem"
+        android:title="@string/viewResponseMessagesScreenButtonLabel"
         android:showAsAction="never" />
 </menu>

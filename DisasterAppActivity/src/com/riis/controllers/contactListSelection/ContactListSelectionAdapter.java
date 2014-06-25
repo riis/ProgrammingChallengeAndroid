@@ -27,11 +27,14 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	private ArrayList<Contact> values;
 	@Inject ContactList list;
 	
+
+	private static class ViewHolder
+	{
 		TextView nameView;
 		TextView emailView;
 		TextView phoneView;
 		CheckBox selectContactCheckBox;
-	
+	}
 	
 	public ContactListSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
 	{
@@ -55,23 +58,24 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 			//holder = new ViewHolder();
 			
-			nameView = (TextView) row.findViewById(R.id.selectContactListName);
-			emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-			phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-			selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+
+//			TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
+//			TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+//			TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+//			CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+
 		}
 		else
 		{
 			//holder = (ViewHolder) row.getTag();
 		}
 		
-		nameView = (TextView) row.findViewById(R.id.selectContactListName);
-		emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-		phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-		selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
-	
-		
-		
+
+		TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
+		TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+		TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+		CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+
 		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 
 		emailView.setText(values.get(position).getEmailAddress());

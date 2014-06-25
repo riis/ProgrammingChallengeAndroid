@@ -28,6 +28,7 @@
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
+    <string name="recepiantsLabel">Recepiants:</string>
     
      <string name="listNameLabel">List Name</string>
      <string name="contactsLabel">Contacts</string>

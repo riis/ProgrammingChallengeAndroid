@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
-import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -58,7 +58,7 @@ public class EditContactListMembersActivity extends Activity
         list.readAllContacts();
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
-        listView.setAdapter(new ContactSelectionAdapter(this, list.getContacts(), contactListName, getApplication()));
+        listView.setAdapter(new ContactListSelectionAdapter(this, list.getContacts(), contactListName, getApplication()));
         listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
         
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);

@@ -2,6 +2,9 @@ package com.riis.controllers.contactListDisplay;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,13 +21,20 @@ import android.widget.TextView;
 
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
+import com.riis.dagger.DaggerApplication;
+import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
+
+import dagger.ObjectGraph;
 
 public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 {
 	private Context context;
-	private ArrayList<ContactList> CLvalues;
+	private ArrayList<ContactList> values;
+	@Inject ContactList currentContactList;
+	@Inject ResponseMessageList responseMessageList;
 
 	private static class ViewHolder {
 		TextView listLabel;
@@ -33,17 +43,20 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		LinearLayout listLayout;
 	}
 	
-	public ContactListDisplayAdapter(Context context, ArrayList<ContactList> CLvalues)
+	public ContactListDisplayAdapter(Context context, ArrayList<ContactList> values, Application app)
 	{
-		super(context, R.layout.main_contact_lists_item, CLvalues);
+		super(context, R.layout.main_contact_lists_item, values);
+		
+		ObjectGraph objectGraph = ((DaggerApplication) app).getDisasterAppObjectGraph();
+		objectGraph.inject(this);
+		
 		this.context = context;
-		this.CLvalues = CLvalues;
+		this.values = values;
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
+	public View getView(int position, View row, ViewGroup parent)
 	{
-		View row = convertView;
 		ViewHolder holder = null;
 		if(row == null)
 		{
@@ -79,7 +92,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
 		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 		
-		ContactList currentContactList = CLvalues.get(position);
+		currentContactList = values.get(position);
 		currentContactList.read();
 		
 		holder.listLabel.setText(currentContactList.getName());
@@ -93,7 +106,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.editContactListButton.setVisibility(View.VISIBLE);
 		}
 		
-		ResponseMessageList responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read(currentContactList.getId());
 		
 		if(currentContactList.size() == 0)
@@ -120,27 +132,18 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					if(currentContactList.getMessageSentTimeStamp() != 0L
 							&& responseMessageList.getResponseMessage(j).getTimeStamp() != 0L)
 					{
-						builder.append(responseMessageList.getResponseMessage(j).getTextMessageContents());
-						builder.append("("+ currentContactList.getContact(i).getPingCount() +" pings) - ");
-						builder.append(currentContactList.getContact(i).getFirstName() 
-								+" "+ currentContactList.getContact(i).getLastName());
-						builder.append(" - last response: ");
-						builder.append(responseMessageList.getResponseMessage(j).getFormattedMessageSentTimeStamp());
+						builder = buildRespondedText(responseMessageList.getResponseMessage(j),
+								currentContactList.getContact(i));
 						display.setTextColor(Color.GREEN);
 					}
 					else if(currentContactList.getMessageSentTimeStamp() != 0)
 					{
-						builder.append("Unknown ("+ currentContactList.getContact(i).getPingCount() +" pings) - ");
-						builder.append(currentContactList.getContact(i).getFirstName() 
-								+" "+ currentContactList.getContact(i).getLastName());
-//						builder.append(" - last response: ");
-//						builder.append(responseMessageList.getResponseMessage(j).getFormattedMessageSentTimeStamp());
+						builder = buildUnrespondedText(currentContactList.getContact(i));
 						display.setTextColor(Color.RED);
 					}
 					else
 					{
-						builder.append(currentContactList.getContact(i).getFirstName() 
-								+" "+ currentContactList.getContact(i).getLastName());
+						builder = buildNoMessageText(currentContactList.getContact(i));
 					}
 					
 					break;
@@ -152,5 +155,31 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		}
 		
 		return row;
+	}
+	
+	private StringBuilder buildRespondedText(ResponseMessage message, Contact contact)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append(message.getTextMessageContents());
+		builder.append("("+ contact.getPingCount() +" pings) - ");
+		builder.append(contact.getFirstName()+" "+ contact.getLastName());
+		builder.append(" - last response: ");
+		builder.append(message.getFormattedMessageSentTimeStamp());
+		return builder;
+	}
+	
+	private StringBuilder buildUnrespondedText(Contact contact)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("Unknown ("+ contact.getPingCount() +" pings) - ");
+		builder.append(contact.getFirstName() +" "+ contact.getLastName());
+		return builder;
+	}
+	
+	private StringBuilder buildNoMessageText(Contact contact)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append(contact.getFirstName() +" "+ contact.getLastName());
+		return builder;
 	}
 }

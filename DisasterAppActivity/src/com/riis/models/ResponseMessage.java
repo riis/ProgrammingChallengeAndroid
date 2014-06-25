@@ -8,7 +8,7 @@ import android.database.Cursor;
 
 public class ResponseMessage extends BasePersistentModel
 {
-	private long id;
+	protected long id;
 	private long contactListId;
 	private String phoneNumber;
 	private long timeStamp;

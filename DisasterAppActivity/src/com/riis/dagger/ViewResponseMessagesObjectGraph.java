@@ -2,9 +2,9 @@ package com.riis.dagger;
 
 import android.content.Context;
 
-import com.riis.DisasterAppActivity;
-import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
-import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
+import com.riis.ViewResponseMessagesActivity;
+import com.riis.controllers.ResponseMessageItemClickListener;
+import com.riis.controllers.ResponseMessagesAdapter;
 import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 import com.riis.models.ResponseMessageList;
@@ -12,12 +12,12 @@ import com.riis.models.ResponseMessageList;
 import dagger.Module;
 import dagger.Provides;
 
-@Module (injects={DisasterAppActivity.class, ContactListDisplayAdapter.class})
-public class DisasterAppObjectGraph 
+@Module(injects={ViewResponseMessagesActivity.class, ResponseMessagesAdapter.class})
+public class ViewResponseMessagesObjectGraph
 {
 	Context context;
 	
-	public DisasterAppObjectGraph(Context context)
+	public ViewResponseMessagesObjectGraph(Context context)
 	{
 		this.context = context;
 	}
@@ -37,8 +37,8 @@ public class DisasterAppObjectGraph
 		return new ResponseMessageList(context);
 	}
 	
-	@Provides ContactListDisplayItemClickListener provideMessageIndicatorItemClickListener() 
+	@Provides ResponseMessageItemClickListener provideResponseMessageItemClickListener()
 	{
-		return new ContactListDisplayItemClickListener();
+		return new ResponseMessageItemClickListener();
 	}
 }

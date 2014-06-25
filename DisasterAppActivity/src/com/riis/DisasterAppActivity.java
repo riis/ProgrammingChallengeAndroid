@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
 import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
 import com.riis.dagger.DaggerApplication;
-import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 
 import dagger.ObjectGraph;
@@ -21,7 +20,6 @@ import dagger.ObjectGraph;
 public class DisasterAppActivity extends Activity
 {
 	private ListView listView;
-	@Inject ContactList contactList;
 	@Inject ListOfContactLists listOfContactLists;
 	@Inject ContactListDisplayItemClickListener item;
 	
@@ -36,7 +34,7 @@ public class DisasterAppActivity extends Activity
         listOfContactLists.read();
         
         listView = (ListView) findViewById(R.id.contactListDisplay);        
-        listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists()));
+        listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists(), getApplication()));
         listView.setOnItemClickListener(item);
     }
 	

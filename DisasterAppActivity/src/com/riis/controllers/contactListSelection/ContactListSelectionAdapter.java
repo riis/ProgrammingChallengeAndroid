@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
 
-public class ContactSelectionAdapter extends ArrayAdapter<Contact>
+public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 {
 	private Context context;
 	private String name;
@@ -35,7 +34,7 @@ public class ContactSelectionAdapter extends ArrayAdapter<Contact>
 		CheckBox selectContactCheckBox;
 	}
 	
-	public ContactSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
+	public ContactListSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
 	{
 		super(context, R.layout.select_contacts_list_item, values);
 		
@@ -82,7 +81,6 @@ public class ContactSelectionAdapter extends ArrayAdapter<Contact>
 			
 			for(int i = 0; i < list.size(); i++)
 			{
-				Log.i("id", list.getContact(i).getId() +"");
 				if(values.get(position).getId() == list.getContact(i).getId())
 				{
 					holder.selectContactCheckBox.setChecked(true);

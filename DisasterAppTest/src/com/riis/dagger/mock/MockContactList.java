@@ -1,4 +1,4 @@
-package com.riis.dagger;
+package com.riis.dagger.mock;
 
 import java.util.ArrayList;
 
@@ -106,6 +106,11 @@ public class MockContactList extends ContactList
 		if(readAllCall)
 		{
 			return fullContactList.getContacts();
+		}
+		
+		if(readCall)
+		{
+			return shortContactList.getContacts();
 		}
 		
 		return null;

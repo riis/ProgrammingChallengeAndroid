@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
-import com.riis.controllers.contactListSelection.ContactSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
@@ -23,12 +23,13 @@ public class CreateContactListsActivity extends Activity
 	private EditText contactListNameField;
 	
 	@Inject ContactList contactList;
+	@Inject ContactListSelectionItemClickListener item;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getDisasterAppObjectGraph();
+        ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getCreateContactListsObjectGraph();
 		objectGraph.inject(this);
 
 		setContentView(R.layout.create_contact_list_screen);
@@ -39,8 +40,8 @@ public class CreateContactListsActivity extends Activity
         contactList.readAllContacts();
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
-        listView.setAdapter(new ContactSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
-        listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
+        listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
+        listView.setOnItemClickListener(item);
     }
 	
 	public void saveContactList(View view)

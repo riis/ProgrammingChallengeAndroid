@@ -78,10 +78,6 @@ public class DisasterAppActivity extends Activity
 	        	i = new Intent(this, CreateContactListsActivity.class);
 	            startActivity(i);
 	            return true;
-	        case R.id.createEmergencyMessageItem:
-	        	i = new Intent(this, SendEmergencyMessageActivity.class);
-	            startActivity(i);
-	            return true;
 	        case R.id.importContactsItem:
 	        	i = new Intent(this, ImportContactsActivity.class);
 	            startActivity(i);

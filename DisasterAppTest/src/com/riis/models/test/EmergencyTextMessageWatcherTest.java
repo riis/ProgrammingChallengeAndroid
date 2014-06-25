@@ -1,5 +1,7 @@
 package com.riis.models.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +21,11 @@ public class EmergencyTextMessageWatcherTest extends ActivityInstrumentationTest
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		Context context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
+		Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
+		intent.putExtra("CONTACT_LIST_NAME", "Test");
+		setActivityIntent(intent);
 		sendEmergencyMessageActivity = getActivity();
 		
 		emergencyMessageField = (EditText) sendEmergencyMessageActivity

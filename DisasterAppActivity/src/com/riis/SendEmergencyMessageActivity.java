@@ -8,9 +8,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.controllers.EmergencyMessageTextWatcher;
+import com.riis.controllers.MessageRecepiantsListAdapter;
 import com.riis.controllers.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
@@ -23,6 +25,7 @@ public class SendEmergencyMessageActivity extends Activity {
 	
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
+	private ListView recepiantsList;
 	@Inject ContactList contactList;
 	@Inject TextMessageSender textMessageSender;
 	
@@ -34,11 +37,20 @@ public class SendEmergencyMessageActivity extends Activity {
 		objectGraph.inject(this);
 		setContentView(R.layout.message_screen);
 		
+		Bundle extras = getIntent().getExtras();
+        String contactListName = extras.getString("CONTACT_LIST_NAME");
+        
+        contactList.setName(contactListName);
+        contactList.read();
+        
 		characterCountLabel = (TextView) findViewById(R.id.characterCountLabel);
 		characterCountLabel.setText(""+ 120);
 		emergencyMessageField = (EditText) findViewById(R.id.emergencyMessageField);
 		
 		emergencyMessageField.addTextChangedListener(new EmergencyMessageTextWatcher(characterCountLabel));
+		
+		recepiantsList = (ListView) findViewById(R.id.messageReceipiants);
+		recepiantsList.setAdapter(new MessageRecepiantsListAdapter(this, contactList.getContacts()));
 	}
 	
 	public void cancelSendEmergencyMessage(View view)
@@ -50,22 +62,14 @@ public class SendEmergencyMessageActivity extends Activity {
 	{
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString()))
 		{
-			contactList.setName("Everyone");
 			contactList.read();
 			contactList.updateMessageSentTimeStamp();
 			contactList.update();
 			
-//			for(int i = 0; i < contactList.size(); i++)
-//			{
-//				Contact contact = contactList.getContact(i);
-//				contact.updateMessageSentTimeStamp();
-//				contact.update();
-//			}
-			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
 			ResponseMessageList responseMessageList = new ResponseMessageList(this);
-			responseMessageList.read(1);
+			responseMessageList.read(contactList.getId());
 			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 			
 			for(int i = 0; i < responses.size(); i++) 

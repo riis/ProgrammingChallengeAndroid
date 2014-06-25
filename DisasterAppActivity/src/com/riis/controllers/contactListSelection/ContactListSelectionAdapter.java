@@ -27,7 +27,8 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	private ArrayList<Contact> values;
 	@Inject ContactList list;
 	
-	private static class ViewHolder {
+	private static class ViewHolder
+	{
 		TextView nameView;
 		TextView emailView;
 		TextView phoneView;
@@ -56,23 +57,28 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 			holder = new ViewHolder();
 			
-			holder.nameView = (TextView) row.findViewById(R.id.selectContactListName);
-			holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-			holder.phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-			holder.selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+//			TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
+//			TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+//			TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+//			CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
 		}
 		else
 		{
 			holder = (ViewHolder) row.getTag();
 		}
 		
-		holder.nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+		TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
+		TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+		TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+		CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+		
+		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 
-		holder.emailView.setText(values.get(position).getEmailAddress());
+		emailView.setText(values.get(position).getEmailAddress());
 		
-		holder.phoneView.setText(values.get(position).getPhoneNumber());
+		phoneView.setText(values.get(position).getPhoneNumber());
 		
-		holder.selectContactCheckBox.setChecked(false);
+		selectContactCheckBox.setChecked(false);
 		
 		if(!name.equals(""))
 		{
@@ -83,7 +89,7 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 			{
 				if(values.get(position).getId() == list.getContact(i).getId())
 				{
-					holder.selectContactCheckBox.setChecked(true);
+					selectContactCheckBox.setChecked(true);
 				}
 			}
 		}

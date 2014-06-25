@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.util.Log;
 
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -53,26 +52,23 @@ public class TextMessageReceiver extends BroadcastReceiver
 			{
 				if(current.getContact(j).getId() == contact.getId())
 				{
-					candidates.add(list.getContactList(i));
+					candidates.add(current);
 				}
 			}
 		}
 		
 		for(int i = 0; i < candidates.size(); i++)
 		{
-		   if(candidates.get(i).getContact(i).getPhoneNumber().equals(phoneNumber)
-					&& candidates.get(i).getMessageSentTimeStamp() != 0L)	
+		   if(candidates.get(i).getMessageSentTimeStamp() != 0L)	
 			{
 				ResponseMessage response = new ResponseMessage(context);
 				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
+				response.setContactListId(candidates.get(i).getId());
 				
 				boolean exists = response.read();
-				
 				if(exists)
 				{
-					response.setContactListId(candidates.get(i).getId());
-					boolean success = response.read();
-					Log.i("success", success+"");
+					response.read();
 					response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 					response.updateMessageSentTimeStamp();
 					response.update();
@@ -80,7 +76,6 @@ public class TextMessageReceiver extends BroadcastReceiver
 				else
 				{
 					response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
-					response.setContactListId(candidates.get(i).getId());
 					response.updateMessageSentTimeStamp();
 					response.create();
 				}

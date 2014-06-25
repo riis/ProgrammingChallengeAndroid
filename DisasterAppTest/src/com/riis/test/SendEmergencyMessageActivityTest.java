@@ -1,6 +1,7 @@
 package com.riis.test;
 
 import android.content.Context;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,11 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().getTargetContext().getApplicationContext();
 		myapp.setSendEmergencyMessageObjectGraph(objectGraph);
 		
+		Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
+		intent.putExtra("CONTACT_LIST_NAME", "Test");
+		setActivityIntent(intent);
 		sendEmergencyMessageActivity = getActivity();
+		
 		cancelEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.cancelEmergencyMessageButton);
 		sendEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.sendEmergencyMessageButton);
 		emergencyMessageField = (EditText) sendEmergencyMessageActivity.findViewById(R.id.emergencyMessageField);

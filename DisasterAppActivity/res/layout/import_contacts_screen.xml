@@ -6,10 +6,11 @@
     
     <LinearLayout
         android:id="@+id/buttonRow"
+        android:layout_alignParentBottom="true"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"  
 		android:layout_gravity="center_horizontal"
-		android:orientation="vertical" >
+		android:orientation="horizontal" >
 	
 		<Button
 			android:id="@+id/returnButton"
@@ -33,9 +34,11 @@
     
     <ListView
         android:id="@+id/importedContactsListView"
-        android:layout_below="@id/buttonRow"
+        android:layout_above="@id/buttonRow"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:divider="@android:color/white"
+        android:dividerHeight="1px" />
 </RelativeLayout>
 

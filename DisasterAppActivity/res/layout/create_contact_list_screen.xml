@@ -55,5 +55,7 @@
 		android:layout_below="@id/contactsLabel"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:focusable="false" />
+		android:focusable="false"
+		android:divider="@android:color/white"
+		android:dividerHeight="1px" />
 </RelativeLayout>

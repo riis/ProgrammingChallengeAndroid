@@ -8,6 +8,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
+import com.riis.SendEmergencyMessageActivity;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -80,6 +82,18 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				}
 			});
 			
+			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View view) {
+					View parent = (View) view.getParent();
+					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
+					Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
+					intent.putExtra("CONTACT_LIST_NAME", name);
+					context.startActivity(intent);
+				}
+			});
+			
 			row.setTag(holder);
 		}
 		else
@@ -106,6 +120,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.editContactListButton.setVisibility(View.VISIBLE);
 		}
 		
+		responseMessageList = new ResponseMessageList(context);
 		responseMessageList.read(currentContactList.getId());
 		
 		if(currentContactList.size() == 0)
@@ -129,8 +144,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			{
 				if(responseMessageList.getResponseMessage(j).getPhoneNumber().equals(currentContactList.getContact(i).getPhoneNumber()))
 				{
-					if(currentContactList.getMessageSentTimeStamp() != 0L
-							&& responseMessageList.getResponseMessage(j).getTimeStamp() != 0L)
+					if(responseMessageList.getResponseMessage(j).getTimeStamp() != 0L)
 					{
 						builder = buildRespondedText(responseMessageList.getResponseMessage(j),
 								currentContactList.getContact(i));

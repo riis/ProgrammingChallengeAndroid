@@ -2,6 +2,7 @@ package com.riis.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -100,24 +101,37 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		open();	
-		id = database.insert("contactList", null, values);
-		close();
-
-		if (id == -1)
+		database.beginTransaction();
+		try
 		{
-			return false;			
-		}
-		
-		boolean returnVal = true;
-		if(size() > 0)
-		{
-			for(int i = 0; i < size(); i++)
+			id = database.insert("contactList", null, values);
+			
+			if(id == -1)
 			{
-				returnVal = insertMemberIntoContactList(getContact(i));
+				throw new MemberDatabaseException();
 			}
+			
+			if(size() > 0)
+			{
+				for(int i = 0; i < size(); i++)
+				{
+					insertMemberIntoContactList(getContact(i));
+				}
+			}
+			
+			database.setTransactionSuccessful();
+		}
+		catch (MemberDatabaseException e)
+		{
+			return false;
+		}
+		finally
+		{
+			database.endTransaction();
+			close();
 		}
 		
-		return returnVal;
+		return true;
 	}
 
 	@Override
@@ -230,17 +244,9 @@ public class ContactList extends BasePersistentModel
 			return false;
 		}
 		
-		open();			
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
 		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
-		long updateId = database.update("contactList", values, "_id = "+ getId(), null);
-		close();
-			
-		if (updateId != 1)
-		{
-			return false;			
-		}
 		
 		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
@@ -248,67 +254,83 @@ public class ContactList extends BasePersistentModel
 		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
 		
 		refCursor.close();
-		close();
 		
-		boolean returnVal = false;
-		if(size() > 0 && storedContacts.size() > 0)
+		database.beginTransaction();
+		try
 		{
-			for(int i = 0; i < storedContacts.size(); i++)
+			long updateId = database.update("contactList", values, "_id = "+ getId(), null);
+			
+			if (updateId != 1)
 			{
-				if(!contacts.contains(storedContacts.get(i)))
+				throw new MemberDatabaseException();			
+			}
+			
+			deleteRemovedContacts(storedContacts);
+			
+			addSelectedContacts(storedContacts);
+			
+			database.setTransactionSuccessful();
+		}
+		catch(MemberDatabaseException e)
+		{
+			return false;
+		}
+		finally
+		{
+			database.endTransaction();
+			close();
+		}
+			
+		return true;
+	}
+
+	private void addSelectedContacts(ArrayList<Contact> storedContacts)
+			throws MemberDatabaseException {
+		for(Contact c : contacts)
+		{
+			if(!storedContacts.contains(c))
+			{
+				insertMemberIntoContactList(c);
+			}
+		}
+	}
+
+	private void deleteRemovedContacts(ArrayList<Contact> storedContacts)
+			throws MemberDatabaseException {
+		if(storedContacts.size() > 0)
+		{
+			for(Contact c : storedContacts)
+			{
+				if(!contacts.contains(c))
 				{
-					open();
 					int delete = database.delete("contactListMembers", "contactListId = "+ getId() 
-							+" AND contactId = "+ storedContacts.get(i).getId(), null);
-					close();
+							+" AND contactId = "+ c.getId(), null);
 					if(delete != 1)
 					{
-						return false;
+						throw new MemberDatabaseException();
 					}
 				}
 			}
-			
-			for(int i = 0; i < size(); i++)
-			{
-				if(!storedContacts.contains(getContact(i)))
-				{
-					returnVal = insertMemberIntoContactList(getContact(i));
-				}
-			}
 		}
-		else if(size() == 0 && storedContacts.size() > 0)
-		{
-			open();
-			database.delete("contactListMembers", "contactListId = "+ getId(), null);
-			close();
-		}
-		else if(size() > 0 && storedContacts.size() == 0)
-		{
-			for(int i = 0; i < size(); i++)
-			{
-				returnVal = insertMemberIntoContactList(getContact(i));
-			}
-		}
-		
-		return returnVal;
 	}
 	
-	private boolean insertMemberIntoContactList(Contact contact)
+	private void insertMemberIntoContactList(Contact contact) throws MemberDatabaseException
 	{
+		if(!database.inTransaction())
+		{
+			throw new MemberDatabaseException();
+		}
+		
 		ContentValues refValues = new ContentValues();
 		refValues.put("contactListId", getId());
 		refValues.put("contactId", contact.getId());
 		
-		open();
 		long refId = database.insert("contactListMembers", null, refValues);
-		close();
 		
 		if(refId == -1)
 		{
-			return false;
+			throw new MemberDatabaseException();
 		}
-		
-		return true;
 	}
 	
 	private ArrayList<Contact> readContactListMembersFromCursor(Cursor cursor)

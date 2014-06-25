@@ -1,7 +1,5 @@
 package com.riis.test;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -11,11 +9,8 @@ import com.riis.ImportContactsActivity;
 import com.riis.R;
 import com.riis.dagger.DaggerApplication;
 import com.riis.dagger.ImportContactsTestObjectGraph;
-import com.riis.models.Contact;
-import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
-
 
 public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2<ImportContactsActivity>
 {

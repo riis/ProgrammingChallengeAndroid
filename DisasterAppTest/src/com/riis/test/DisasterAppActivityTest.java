@@ -69,7 +69,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testEditContactListButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(EditContactListMembersActivity.class.getName(), null, true);
-		
 		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.editContactListButton));
 		
 		monitor.waitForActivityWithTimeout(500);
@@ -81,7 +80,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testCreateContactButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
-		
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactItem, 0);
 		
@@ -107,7 +105,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testCreateEmergencyMessageButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
-
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createEmergencyMessageItem, 0);
 		
@@ -120,7 +117,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testViewMessageResponsesScreenButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);
-
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.viewResponseMessagesItem, 0);
 		

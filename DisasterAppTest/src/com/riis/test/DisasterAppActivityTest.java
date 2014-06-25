@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.CreateContactListsActivity;
 import com.riis.DisasterAppActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.NewContactActivity;
@@ -69,7 +68,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testEditContactListButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(EditContactListMembersActivity.class.getName(), null, true);
-		
 		TouchUtils.clickView(this, contactListDisplay.getChildAt(0).findViewById(R.id.editContactListButton));
 		
 		monitor.waitForActivityWithTimeout(500);
@@ -81,7 +79,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	public void testCreateContactButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
-		
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactItem, 0);
 		
@@ -91,23 +88,23 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		getInstrumentation().removeMonitor(monitor);
 	}
 	
-	public void testCreateContactListButtonIntent()
-	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
-		
-		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
-		
-		monitor.waitForActivityWithTimeout(500);
-		assertEquals(1, monitor.getHits());
-		
-		getInstrumentation().removeMonitor(monitor);
-	}
+//	public void testCreateContactListButtonIntent()
+//	{
+//		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
+//		
+//		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+//		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
+//		
+//		monitor.waitForActivityWithTimeout(500);
+//		assertEquals(1, monitor.getHits());
+//		
+//		getInstrumentation().removeMonitor(monitor);
+//	}
 	
+
 	public void testViewMessageResponsesScreenButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);
-
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.viewResponseMessagesItem, 0);
 		

@@ -27,8 +27,6 @@ public class ImportContactsActivity  extends Activity
 	private boolean contactExists;
 	private ListView listView;
 	private ArrayList<Contact> contacts;
-	
-	@Inject ContactList contactList;
 	@Inject ContactList everyoneList;
 	@Inject ContactListSelectionItemClickListener item;
 	
@@ -45,7 +43,6 @@ public class ImportContactsActivity  extends Activity
 		  
 	    fetchContacts();
 
-        contactList.readAllContacts();
         everyoneList.setName("Everyone");
         everyoneList.read();
         

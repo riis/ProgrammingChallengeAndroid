@@ -48,11 +48,12 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 		}
 		
+
 		TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
 		TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
 		TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
 		CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
-		
+
 		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 
 		emailView.setText(values.get(position).getEmailAddress());

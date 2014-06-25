@@ -25,6 +25,7 @@ public class Contact extends BasePersistentModel
 		this.pingCount = 0;
 	}
 	
+
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;

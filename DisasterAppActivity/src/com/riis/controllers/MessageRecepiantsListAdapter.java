@@ -18,7 +18,7 @@ public class MessageRecepiantsListAdapter extends ArrayAdapter<Contact>
 	private ArrayList<Contact> values;
 	
 	public MessageRecepiantsListAdapter(Context context, ArrayList<Contact> values) {
-		super(context, R.layout.message_recepiants_list_item, values);
+		super(context, R.layout.send_emergency_message_recepiants_list_item, values);
 		this.context = context;
 		this.values = values;
 	}
@@ -29,7 +29,7 @@ public class MessageRecepiantsListAdapter extends ArrayAdapter<Contact>
 		if(row == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = inflater.inflate(R.layout.message_recepiants_list_item, parent, false);
+			row = inflater.inflate(R.layout.send_emergency_message_recepiants_list_item, parent, false);
 		}
 		
 		TextView name = (TextView) row.findViewById(R.id.recepiantNameLabel);

@@ -32,7 +32,7 @@ public class CreateContactListsActivity extends Activity
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getCreateContactListsObjectGraph();
 		objectGraph.inject(this);
 
-		setContentView(R.layout.create_contact_list_screen);
+		setContentView(R.layout.crud_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        

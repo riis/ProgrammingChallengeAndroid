@@ -27,15 +27,6 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	private ArrayList<Contact> values;
 	@Inject ContactList list;
 	
-
-	private static class ViewHolder
-	{
-		TextView nameView;
-		TextView emailView;
-		TextView phoneView;
-		CheckBox selectContactCheckBox;
-	}
-	
 	public ContactListSelectionAdapter(Context context, ArrayList<Contact> values, String name, Application app)
 	{
 		super(context, R.layout.select_contacts_list_item, values);
@@ -51,23 +42,10 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	@Override
 	public View getView(int position, View row, ViewGroup parent)
 	{
-		//ViewHolder holder = null;
 		if(row == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
-			//holder = new ViewHolder();
-			
-
-//			TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
-//			TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-//			TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-//			CheckBox selectContactCheckBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
-
-		}
-		else
-		{
-			//holder = (ViewHolder) row.getTag();
 		}
 		
 

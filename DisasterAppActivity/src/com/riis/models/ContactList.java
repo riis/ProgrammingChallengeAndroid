@@ -2,6 +2,7 @@ package com.riis.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -101,24 +102,25 @@ public class ContactList extends BasePersistentModel
 		
 		open();	
 		database.beginTransaction();
-		try 
+		try
 		{
-		id = database.insert("contactList", null, values);
-		if(id ==-1)
-		{
-			throw new MemberDatabaseException();
-		}
-		
-		if(size() > 0)
+			id = database.insert("contactList", null, values);
+			
+			if(id == -1)
+			{
+				throw new MemberDatabaseException();
+			}
+			
+			if(size() > 0)
 			{
 				for(int i = 0; i < size(); i++)
 				{
 					insertMemberIntoContactList(getContact(i));
-				} 
+				}
 			}
 			database.setTransactionSuccessful();
 		}
-		catch (MemberDatabaseException e) 
+		catch (MemberDatabaseException e)
 		{
 			return false;
 		}
@@ -128,13 +130,7 @@ public class ContactList extends BasePersistentModel
 			close();
 		}
 		
-		//close();
-
-		
-		boolean returnVal = true;
-		
-		
-		return returnVal;
+		return true;
 	}
 
 	@Override
@@ -246,6 +242,7 @@ public class ContactList extends BasePersistentModel
 		{
 			return false;
 		}
+
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
 		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
@@ -254,15 +251,16 @@ public class ContactList extends BasePersistentModel
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
 		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
 		refCursor.close();
-	
 		database.beginTransaction();
 		try
 		{
 			long updateId = database.update("contactList", values, "_id = "+ getId(), null);
+			
 			if (updateId != 1)
 			{
-				return false;			
+				throw new MemberDatabaseException();			
 			}
+			
 			deleteRemovedContacts(storedContacts);
 			
 			addSelectedContacts(storedContacts);
@@ -278,38 +276,32 @@ public class ContactList extends BasePersistentModel
 			database.endTransaction();
 			close();
 		}
-		
-		
-		
-		boolean returnVal = false;
-		
-		
-		return returnVal;
+			
+		return true;
 	}
 
 	private void addSelectedContacts(ArrayList<Contact> storedContacts)
 			throws MemberDatabaseException {
-		for(Contact c : storedContacts)
+		for(Contact c : contacts)
 		{
 			if(!storedContacts.contains(c))
 			{
-				 insertMemberIntoContactList(c);
+				insertMemberIntoContactList(c);
 			}
 		}
 	}
 
 	private void deleteRemovedContacts(ArrayList<Contact> storedContacts)
 			throws MemberDatabaseException {
-		if(size() > 0 && storedContacts.size() > 0)
+		if(storedContacts.size() > 0)
 		{
 			for(Contact c : storedContacts)
 			{
 				if(!contacts.contains(c))
 				{
-					open();
+
 					int delete = database.delete("contactListMembers", "contactListId = "+ getId() 
 							+" AND contactId = "+ c.getId(), null);
-					close();
 					if(delete != 1)
 					{
 						throw new MemberDatabaseException();
@@ -331,7 +323,7 @@ public class ContactList extends BasePersistentModel
 		refValues.put("contactId", contact.getId());
 		
 		long refId = database.insert("contactListMembers", null, refValues);
-		
+
 		
 		if(refId == -1)
 		{

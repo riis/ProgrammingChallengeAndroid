@@ -52,7 +52,7 @@
     </LinearLayout>
     
     <ListView
-        android:id="@+id/messageReceipiants"
+        android:id="@+id/messageRecepiantsList"
         android:layout_above="@id/buttonRow"
         android:layout_below="@id/receipiantsLabel"
         android:layout_width="match_parent"

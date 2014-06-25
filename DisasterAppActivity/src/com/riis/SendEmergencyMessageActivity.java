@@ -35,7 +35,7 @@ public class SendEmergencyMessageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getSendEmergencyMessageObjectGraph();
 		objectGraph.inject(this);
-		setContentView(R.layout.message_screen);
+		setContentView(R.layout.send_emergency_message_screen);
 		
 		Bundle extras = getIntent().getExtras();
         String contactListName = extras.getString("CONTACT_LIST_NAME");
@@ -49,7 +49,7 @@ public class SendEmergencyMessageActivity extends Activity {
 		
 		emergencyMessageField.addTextChangedListener(new EmergencyMessageTextWatcher(characterCountLabel));
 		
-		recepiantsList = (ListView) findViewById(R.id.messageReceipiants);
+		recepiantsList = (ListView) findViewById(R.id.messageRecepiantsList);
 		recepiantsList.setAdapter(new MessageRecepiantsListAdapter(this, contactList.getContacts()));
 	}
 	

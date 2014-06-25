@@ -13,6 +13,6 @@ public class ContactInfoFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.contact_info_fragment, container, false);
+		return inflater.inflate(R.layout.new_contact_screen_fragment, container, false);
 	}
 }

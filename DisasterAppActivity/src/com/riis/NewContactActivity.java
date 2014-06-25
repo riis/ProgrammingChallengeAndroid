@@ -44,7 +44,7 @@ public class NewContactActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_contact_screen);
+        setContentView(R.layout.new_contact_screen);
         
         firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
 		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);

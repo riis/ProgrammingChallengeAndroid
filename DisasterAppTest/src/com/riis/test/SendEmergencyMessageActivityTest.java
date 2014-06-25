@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.R;
@@ -21,7 +22,9 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button cancelEmergencyMessageButton;
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
+	private ListView recepiantList;
 	private TextView characterCountLabel;
+	private TextView recepiantLabel;
 	private Context context;
 	
 	public SendEmergencyMessageActivityTest()
@@ -47,6 +50,18 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		sendEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.sendEmergencyMessageButton);
 		emergencyMessageField = (EditText) sendEmergencyMessageActivity.findViewById(R.id.emergencyMessageField);
 		characterCountLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.characterCountLabel);
+		recepiantLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.receipiantsLabel);
+		recepiantList = (ListView) sendEmergencyMessageActivity.findViewById(R.id.messageRecepiantsList);
+	}
+	
+	public void testRecepiantListExists()
+	{
+		assertNotNull(recepiantList);
+	}
+	
+	public void testRecepiantLabelExists()
+	{
+		assertNotNull(recepiantLabel);
 	}
 	
 	public void testCancelEmergencyMessageButtonExists()
@@ -67,6 +82,11 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	public void testCharacterCountLabelExists()
 	{
 		assertNotNull(characterCountLabel);
+	}
+	
+	public void testRecepiantListPopulates()
+	{
+		assertTrue(recepiantList.getCount() > 0);
 	}
 	
 	public void testChangeCharacterCountLabel()

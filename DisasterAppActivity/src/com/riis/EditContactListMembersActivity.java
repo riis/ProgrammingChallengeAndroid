@@ -36,7 +36,7 @@ public class EditContactListMembersActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_contact_list_screen);
+        setContentView(R.layout.crud_contact_list_screen);
         
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getEditContactListMembersObjectGraph();
 		objectGraph.inject(this);

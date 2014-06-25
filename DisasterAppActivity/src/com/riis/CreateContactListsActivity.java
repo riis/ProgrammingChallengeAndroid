@@ -73,7 +73,6 @@ public class CreateContactListsActivity extends Activity
 				        response.create();
 					}
 				}
-				
 				list.update();
 				
 				finish();

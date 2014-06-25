@@ -70,4 +70,7 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 	
 	
 	
+	
+	
+	
 }

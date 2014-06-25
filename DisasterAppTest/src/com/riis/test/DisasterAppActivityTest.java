@@ -182,18 +182,18 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		getInstrumentation().removeMonitor(monitor);
 	}
 	
-	public void testCreateContactListButtonIntent()
-	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
-		
-		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
-		
-		monitor.waitForActivityWithTimeout(500);
-		assertEquals(1, monitor.getHits());
-		
-		getInstrumentation().removeMonitor(monitor);
-	}
+//	public void testCreateContactListButtonIntent()
+//	{
+//		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
+//		
+//		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+//		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
+//		
+//		monitor.waitForActivityWithTimeout(500);
+//		assertEquals(1, monitor.getHits());
+//		
+//		getInstrumentation().removeMonitor(monitor);
+//	}
 	
 	public void testCreateEmergencyMessageButtonIntent()
 	{

@@ -14,7 +14,6 @@ import com.riis.DisasterAppActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.NewContactActivity;
 import com.riis.R;
-import com.riis.SendEmergencyMessageActivity;
 import com.riis.ViewResponseMessagesActivity;
 import com.riis.dagger.DaggerApplication;
 import com.riis.dagger.DisasterAppTestObjectGraph;
@@ -98,19 +97,6 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
-		
-		monitor.waitForActivityWithTimeout(500);
-		assertEquals(1, monitor.getHits());
-		
-		getInstrumentation().removeMonitor(monitor);
-	}
-	
-	public void testCreateEmergencyMessageButtonIntent()
-	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(SendEmergencyMessageActivity.class.getName(), null, true);
-
-		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createEmergencyMessageItem, 0);
 		
 		monitor.waitForActivityWithTimeout(500);
 		assertEquals(1, monitor.getHits());

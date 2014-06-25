@@ -9,10 +9,6 @@
         android:title="@string/createContactListScreenButtonLabel"
         android:showAsAction="never" />
     <item
-        android:id="@+id/createEmergencyMessageItem"
-        android:title="@string/createEmergencyMessageScreenButtonLabel"
-        android:showAsAction="never" />
-    <item
         android:id="@+id/importContactsItem"
         android:title="@string/importContactsScreenButtonLabel"
         android:showAsAction="never" />

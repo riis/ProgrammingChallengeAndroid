@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
@@ -45,6 +46,7 @@ public class ContactImporter
 				{
 					email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
 					newContact.setEmailAddress(email);
+					
 				}
 			    emailCursor.close();
 			
@@ -96,15 +98,17 @@ public class ContactImporter
 				if(!contactExists)
 				{
 					contacts.get(i).create();
-		
+					
 					everyoneList.addContact(contacts.get(i));
 					everyoneList.update();
+				
 					
 					ResponseMessage response = new ResponseMessage(context);
 			        response.setTextMessageContents(" Are you OK?");
 			        response.setPhoneNumber(contacts.get(i).getPhoneNumber());
 			        response.setContactListId(1);
 			        response.create();
+			        
 				}
 			}
 		}

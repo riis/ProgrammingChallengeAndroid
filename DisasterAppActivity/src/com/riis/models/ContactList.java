@@ -6,6 +6,7 @@ import java.util.Calendar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -206,9 +207,7 @@ public class ContactList extends BasePersistentModel
 		{
 			return false;
 		}		
-		
 		open();
-		
 		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
 				null);		
 		try
@@ -272,6 +271,7 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean update() 
 	{
+		Log.e("check id",  " "+id);
 		if(id == -1 || getName().equals(""))
 		{
 			return false;
@@ -387,10 +387,6 @@ public class ContactList extends BasePersistentModel
 	
 	private void readContactListFromCursor(Cursor cursor) throws MemberDatabaseException
 	{
-		if(!database.inTransaction())
-		{
-			throw new MemberDatabaseException();
-		}
 		
 		if (cursor.getCount() == 1)
 		{

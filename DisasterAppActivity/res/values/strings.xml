@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DisasterAppActivity</string>
+    <string name="home_title">Contact Lists</string>
+    <string name="create_contact_title">Create Contact</string>
+    <string name="create_contact_list_title">Create Contact List</string>
+    <string name="import_contacts_title">Import Contacts</string>
+    <string name="view_response_messages_title">View Response Messages</string>
+    <string name="send_emergency_message_title">Send Message</string>
+    <string name="contact_list_members_title">List Members</string>
+    
+    
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contactInfo">Contact info</string>

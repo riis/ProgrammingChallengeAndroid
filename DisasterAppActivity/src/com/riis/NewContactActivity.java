@@ -140,7 +140,7 @@ public class NewContactActivity extends Activity
 	
 	private void callAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);// part of new pop up message
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);
 
 		alertDialogBuilder.setTitle("Contact Saved");
 		alertDialogBuilder.setMessage("Your contact has been saved")

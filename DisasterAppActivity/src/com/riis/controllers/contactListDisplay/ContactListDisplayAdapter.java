@@ -37,7 +37,8 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	@Inject ContactList currentContactList;
 	@Inject ResponseMessageList responseMessageList;
 
-	private static class ViewHolder {
+	private static class ViewHolder
+	{
 		TextView listLabel;
 		Button editContactListButton;
 		Button sendMessageToContactList;
@@ -70,7 +71,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 			
 			holder.editContactListButton.setOnClickListener(new OnClickListener() {
-				
 				@Override
 				public void onClick(View view) {
 					View parent = (View) view.getParent();
@@ -82,7 +82,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			});
 			
 			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() {
-				
 				@Override
 				public void onClick(View view) {
 					View parent = (View) view.getParent();
@@ -119,9 +118,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.editContactListButton.setVisibility(View.VISIBLE);
 		}
 		
-		responseMessageList = new ResponseMessageList(context);
-		responseMessageList.read(currentContactList.getId());
-		
 		if(currentContactList.size() == 0)
 		{
 			TextView display = new TextView(context);
@@ -131,32 +127,36 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			display.setText("There are no contacts in this list! Please add a contact!");
 			holder.listLayout.addView(display);
 		}
+		else
+		{
+			responseMessageList = new ResponseMessageList(context);
+			responseMessageList.read(currentContactList.getId());
+		}
 		
-		for(int i = 0; i < currentContactList.size(); i++)
+		for(Contact c : currentContactList.getContacts())
 		{
 			StringBuilder builder = new StringBuilder();
 			TextView display = new TextView(context);
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
-
-			for(int j = 0; j < responseMessageList.size(); j++)
+			
+			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
-				if(responseMessageList.getResponseMessage(j).getPhoneNumber().equals(currentContactList.getContact(i).getPhoneNumber()))
+				if(m.getPhoneNumber().equals(c.getPhoneNumber()))
 				{
-					if(responseMessageList.getResponseMessage(j).getTimeStamp() != 0L)
+					if(m.getTimeStamp() != 0L)
 					{
-						builder = buildRespondedText(responseMessageList.getResponseMessage(j),
-								currentContactList.getContact(i));
+						builder = buildRespondedText(m, c);
 						display.setTextColor(Color.GREEN);
 					}
 					else if(currentContactList.getMessageSentTimeStamp() != 0)
 					{
-						builder = buildUnrespondedText(currentContactList.getContact(i));
+						builder = buildUnrespondedText(c);
 						display.setTextColor(Color.RED);
 					}
 					else
 					{
-						builder = buildNoMessageText(currentContactList.getContact(i));
+						builder = buildNoMessageText(c);
 					}
 					
 					break;

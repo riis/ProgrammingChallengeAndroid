@@ -57,15 +57,11 @@ public class ListOfContactLists extends BasePersistentModel
 	@Override
 	public boolean read()
 	{	
-		
 		open();
-		Cursor cursor = database.query("contactList", null, null, null, null, null,
-				"name ASC");		
+		Cursor cursor = database.query("contactList", null, null, null, null, null,"name ASC");		
 		contactLists = readListOfContactListsMembersFromCursor(cursor);
-		
 		cursor.close();
 		close();
-		
 		return true;
 	}
 

@@ -29,7 +29,7 @@ public class ImportContactsActivity  extends Activity
 	private ArrayList<Contact> contacts;
 	@Inject ContactList everyoneList;
 	@Inject ContactListSelectionItemClickListener item;
-	ContactImporter importer;
+	@Inject ContactImporter importer;
 	
 	
 	@Override

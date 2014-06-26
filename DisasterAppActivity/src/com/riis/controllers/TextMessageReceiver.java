@@ -68,7 +68,6 @@ public class TextMessageReceiver extends BroadcastReceiver
 				boolean exists = response.read();
 				if(exists)
 				{
-					response.read();
 					response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
 					response.updateMessageSentTimeStamp();
 					response.update();

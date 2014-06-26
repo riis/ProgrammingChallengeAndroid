@@ -9,7 +9,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.riis.controllers.ImportedContactsAdapter;
@@ -18,13 +17,11 @@ import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactImporter;
 import com.riis.models.ContactList;
-import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
 
 public class ImportContactsActivity  extends Activity
 {
-	private boolean contactExists;
 	private ListView listView;
 	private ArrayList<Contact> contacts;
 	@Inject ContactList everyoneList;
@@ -40,7 +37,6 @@ public class ImportContactsActivity  extends Activity
 		objectGraph.inject(this);
 		
 		contacts = new ArrayList<Contact>();
-		contactExists=false;
         setContentView(R.layout.import_contacts_screen);
         Context context = getBaseContext();
 		importer = new ContactImporter(context);

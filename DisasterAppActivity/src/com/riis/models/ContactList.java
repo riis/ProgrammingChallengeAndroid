@@ -2,7 +2,6 @@ package com.riis.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -158,17 +157,21 @@ public class ContactList extends BasePersistentModel
 		
 		open();
 		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
-				"messageSentTimeStamp ASC");		
-		boolean result = readContactListFromCursor(cursor);
-		cursor.close();
-		close();
-		
-		if(!result)
+				"messageSentTimeStamp ASC");
+		try
 		{
+			readContactListFromCursor(cursor);
+		}
+		catch(MemberDatabaseException e)
+		{
+			close();
 			return false;
 		}
+		finally
+		{
+			cursor.close();
+		}
 		
-		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
 				null);
 		if(refCursor.moveToFirst())
@@ -177,14 +180,23 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		refCursor.close();
-		close();
 		
 		return true;
 	}
 	
 	public boolean readAllContacts()
 	{
-		return readWithOrderByClause("lastName ASC");
+		String[] columns = {"_id"};
+		
+		open();
+		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
+		
+		contacts = readContactListMembersFromCursor(cursor);
+		cursor.moveToFirst();
+		cursor.close();
+		close();
+		
+		return true;
 	}
 	
 	@Override
@@ -196,20 +208,26 @@ public class ContactList extends BasePersistentModel
 		}		
 		
 		open();
+		
 		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
 				null);		
-		boolean result = readContactListFromCursor(cursor);
-		cursor.close();
-		close();
-		
-		if(!result)
+		try
 		{
+			readContactListFromCursor(cursor);
+		}
+		catch (MemberDatabaseException e1)
+		{
+			close();
 			return false;
 		}
+		finally
+		{
+			cursor.close();
+		}
 		
-		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
 				null);
+		
 		if(refCursor.moveToFirst())
 		{
 			contacts = readContactListMembersFromCursor(refCursor);
@@ -226,13 +244,29 @@ public class ContactList extends BasePersistentModel
 		if (id == -1)
 		{
 			return false;
-		}		
+		}
+		
 		open();
-		Cursor cursor = database.query("contactList", null, "_id =" +id, null, null, null, null);		
-		boolean result = readContactListFromCursor(cursor);
-		cursor.close();
+		database.beginTransaction();
+		try
+		{
+			Cursor cursor = database.query("contactList", null, "_id =" +id, null, null, null, null);
+			readContactListFromCursor(cursor);
+			cursor.close();
+			
+			database.setTransactionSuccessful();
+		}
+		catch (MemberDatabaseException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+		
 		close();
-		return result;
+		return true;
 	}
 	
 	@Override
@@ -351,46 +385,22 @@ public class ContactList extends BasePersistentModel
 		return storedContacts;
 	}
 	
-	private boolean readContactListFromCursor(Cursor cursor)
+	private void readContactListFromCursor(Cursor cursor) throws MemberDatabaseException
 	{
+		if(!database.inTransaction())
+		{
+			throw new MemberDatabaseException();
+		}
+		
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
 			id = cursor.getLong(0);
 			messageSentTimeStamp = cursor.getLong(2);
-			return true;
 		}
-
-		return false;
-	}
-	
-	private boolean readWithOrderByClause(String orderBy)
-	{
-		String[] columns = {"_id"};
-		
-		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, orderBy);
-		
-		boolean returnVal = cursor.moveToFirst();
-		while (!cursor.isAfterLast()) 
+		else
 		{
-			Contact currentContact = new Contact(context);
-			boolean success = currentContact.read(cursor.getInt(0)); 
-			if (success)
-			{
-				contacts.add(currentContact);
-			}
-			else
-			{
-				returnVal = false;
-			}
-			
-			cursor.moveToNext();
+			throw new MemberDatabaseException();
 		}
-		
-		cursor.close();
-		close();
-		
-		return returnVal;
 	}
 }

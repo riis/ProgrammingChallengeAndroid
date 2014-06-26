@@ -61,13 +61,15 @@ public class DisasterAppActivity extends Activity
     }
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.disaster_app_menu, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
 		Intent i = new Intent();
 	    switch (item.getItemId()) {
 	        case R.id.createContactItem:

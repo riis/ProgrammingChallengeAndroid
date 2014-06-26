@@ -117,7 +117,6 @@ public class ContactList extends BasePersistentModel
 					insertMemberIntoContactList(getContact(i));
 				}
 			}
-			
 			database.setTransactionSuccessful();
 		}
 		catch (MemberDatabaseException e)
@@ -277,18 +276,15 @@ public class ContactList extends BasePersistentModel
 		{
 			return false;
 		}
-		
+
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
 		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		
 		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
-		
 		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
-		
 		refCursor.close();
-		
 		database.beginTransaction();
 		try
 		{
@@ -337,6 +333,7 @@ public class ContactList extends BasePersistentModel
 			{
 				if(!contacts.contains(c))
 				{
+
 					int delete = database.delete("contactListMembers", "contactListId = "+ getId() 
 							+" AND contactId = "+ c.getId(), null);
 					if(delete != 1)
@@ -360,6 +357,7 @@ public class ContactList extends BasePersistentModel
 		refValues.put("contactId", contact.getId());
 		
 		long refId = database.insert("contactListMembers", null, refValues);
+
 		
 		if(refId == -1)
 		{

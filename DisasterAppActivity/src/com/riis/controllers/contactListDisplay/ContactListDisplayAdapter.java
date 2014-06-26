@@ -166,7 +166,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			display.setText(builder.toString());
 			holder.listLayout.addView(display);
 		}
-		
 		return row;
 	}
 	

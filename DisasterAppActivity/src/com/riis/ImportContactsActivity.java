@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class ImportContactsActivity  extends Activity
 	private ArrayList<Contact> contacts;
 	@Inject ContactList everyoneList;
 	@Inject ContactListSelectionItemClickListener item;
-	ContactImporter importer;
+	@Inject ContactImporter importer;
 	
 	
 	@Override
@@ -38,12 +39,10 @@ public class ImportContactsActivity  extends Activity
 		
 		contacts = new ArrayList<Contact>();
         setContentView(R.layout.import_contacts_screen);
-        Context context = getBaseContext();
-		importer = new ContactImporter(context);
+        
         ContentResolver contentResolver = getContentResolver();
-	    
         contacts = importer.fetchContacts(contentResolver, contacts);
-	    
+        
         everyoneList.setName("Everyone");
         everyoneList.read();
         
@@ -59,7 +58,9 @@ public class ImportContactsActivity  extends Activity
 	
 	public void importContacts(View view)
 	{
+		everyoneList.read();
 		importer.importContacts(contacts, everyoneList, listView);
+		
 		finish();
 	}
 }

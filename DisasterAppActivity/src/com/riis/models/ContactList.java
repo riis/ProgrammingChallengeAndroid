@@ -189,11 +189,12 @@ public class ContactList extends BasePersistentModel
 	{
 		String[] columns = {"_id"};
 		
+		
 		open();
 		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
 		
-		contacts = readContactListMembersFromCursor(cursor);
 		cursor.moveToFirst();
+		contacts = readContactListMembersFromCursor(cursor);
 		cursor.close();
 		close();
 		

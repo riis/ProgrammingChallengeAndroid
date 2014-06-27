@@ -1,0 +1,50 @@
+query("linearLayout id:'firstContactInfoFragment *'")
+query("linearLayout id:'firstContactInfoFragment EditText'")
+query("linearLayout id:'firstContactInfoFragment linearLayout'")
+query("linearLayout id:'firstContactInfoFragment EditText id:contactInfoEditText'")
+query("linearLayout id:'firstContactInfoFragment' EditText id:'contactInfoEditText'")
+query("EditText id:'lastNameEditText'")
+query("*")
+exit
+start_test_server_in_background
+query("*")
+query("TextView id:firstNameLabel")
+query("TextView id:'firstNameLabel'")
+query("EditText id:'firstNameEditText'")
+query("EditText id:'lastNameEditText'")
+query(@@create_contact_first_name_edit_text, {:setText => 'Tom'})
+query("EditText id:'firstNameEditText'", {:setText => 'Tom'})
+query("EditText id:'lastNameEditText'", {:setText => 'Tom'})
+query("*")
+query("Button id:'button1'")
+touch(query("Button id:'button1'"))
+start_test_server_in_background
+query("EditText id:'firstnameEditText'", {:setText => 'Bob'})
+start_test_server_in_background
+query("*")
+query("*")
+query("*")
+query("*")
+query("* text:'Your contact's first name may only contain characters and spaces'")
+query("* text:'Your contact's first name may only contain characters and spaces'")
+query("TextView text:'Your contact's first name may only contain characters and spaces'")
+query("* text:'Your contact's first name may only contain characters and spaces'")
+query("* TextView")
+query("* TextView")
+query("* text:'Your contact\'s first name may only contain characters and spaces'")
+query("* text:'Your contact''s first name may only contain characters and spaces'")
+query("* text:"Your contact's first name may only contain characters and spaces"")
+'
+"
+)
+"
+(
+)
+)
+query("* text:'Your contact'\s first name may only contain characters and spaces'")
+query("* text:'Your contact\'s first name may only contain characters and spaces'")
+query("* text:'Your contact/'s first name may only contain characters and spaces'")
+query("* text:'Your contact'/s first name may only contain characters and spaces'")
+query("* text:'Your contact''s first name may only contain characters and spaces'")
+query("* text:'Your contact\\'s first name may only contain characters and spaces'")
+exit

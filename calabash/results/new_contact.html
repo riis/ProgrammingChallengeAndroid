@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <link href='stylesheets/style.css' type='text/css' rel='stylesheet' />
+    <meta charset="utf-8">
+    <title>Feature Results</title>
+  </head>
+
+  <body>
+    
+    <div style="clear: both; width: 100%; background-color: #F6F6F6;">
+      <a href="index.html" style="color=#0071BC;">&lt; Back</a>
+    </div>
+
+    <div style="float:left; clear:both;">
+      <div class="header_logo">
+        <img src="images/logo.png" width="200" />
+      </div>
+      <div class="header_description" >
+          <h2 class="results">Feature Results:  NewContactActivity</h2>
+<br />
+
+
+        <table class="run_stats">
+          <tr>
+            <td>started:</td>
+            <td>duration:</td>
+          </tr>
+          <tr>
+            <td>Friday June 27, 2014 at 11:15:05</td>
+            <td>0m23.884s</td>
+          </tr>
+        </table>  
+          <pre class="description run_stats">Story<br/>In order to properly alert the right people
+As a user
+I want to create a contact</pre>
+      </div>
+    </div>
+
+    <div class="summary_body">
+        <table class="StatTable">
+         <tr>
+          <th>Summary</th>
+          <th>Executed</th>
+	  <th class="passed"><img src="images/table_passed.png" alt="passed" title="passed"> Passed</th>
+          <th class="failed"><img src="images/table_failed.png" alt="failed" title="failed"> Failed</th>
+          <th class="skipped"><img src="images/table_skipped.png" alt="skipped" title="skipped"> Skipped</th>
+          <th class="undefined"><img src="images/table_undefined.png" alt="undefined" title="undefined"> Undefined</th>
+          <th class="pending" ><img src="images/table_pending.png" alt="pending" title="pending"> Pending</th>
+          <th>Average Duration</th>
+        </tr>
+
+        <tr class="summary_row_header">
+          <td>Scenarios</td>
+          <td>1</td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>1 <span class="percentage">(100.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0m23.883s</td>
+        </tr>
+        <tr class="summary_row_header">
+          <td>Steps</td>
+          <td>3</td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>1 <span class="percentage">(33.3%)</span></td>
+          <td>2 <span class="percentage">(66.7%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0m3.035s</td>
+        </tr>
+
+
+      </table>
+	</div>
+
+    <div class="feature_background">
+	    <div class="scenario_list">
+	      <table cellspacing="0" cellpadding="7" border="0" width="100%">
+	      </table>
+	      <br />
+	      <h2 class="scenarios">Scenarios:</h2>
+	      <br />
+	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
+	      <tr >
+		  <th colspan="2" class="failed">As a user I want to return to the main screen</th>
+		</tr>
+		  <tr class="borderSeparator">
+		  <td class="image_tag"> <img src="images/failed.png" alt="failed" title="failed"></td>
+		  <td class="">
+   
+		  Given  I am on the Create Contact screen
+	<table>
+		<tr class="error">
+			<td class="message">
+				<strong><pre>Timeout waiting for elements: TextView text:&#39;Create Contact&#39; (Calabash::Android::WaitHelpers::WaitError) (RuntimeError)</pre></strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<pre class="ruby"><strong>./features/support/pages/new_contact_page.rb
+</strong><code><span class="linenum">8</span>
+<span class="linenum">9</span>	<span class="keyword">def </span><span class="method">await</span><span class="punct">(</span><span class="ident">opts</span><span class="punct">={})</span>
+<span class="offending"><span class="linenum">10</span>		<span class="ident">wait_for_elements_exist</span><span class="punct">([</span><span class="ident">trait</span><span class="punct">],</span> <span class="symbol">:timeout</span> <span class="punct">=&gt;</span> <span class="number">5</span><span class="punct">)</span></span>
+<span class="linenum">11</span>		<span class="constant">self</span>
+<span class="linenum">12</span>	<span class="keyword">end</span></code></pre>
+			</td>
+		</tr>
+		<tr >
+			<td class="detail">
+					<pre>./features/support/pages/new_contact_page.rb:10:in `await&#39;
+./features/step_definitions/calabash_steps.rb:57:in `/^I am on the Create Contact screen$/&#39;
+features/new_contact.feature:8:in `Given I am on the Create Contact screen&#39;</pre>
+			</td>
+		</tr>
+	</table>
+
+		  </td>
+		  </tr>
+		  <tr class="borderSeparator">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
+   
+		  When  I click the cancel button
+
+		  </td>
+		  </tr>
+		  <tr class="borderSeparator">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
+   
+		  Then  I will go to the main screen
+
+		  </td>
+		  </tr>
+	      </table>
+	    
+        <div class="img_container">
+		        <a href='' onclick="img=document.getElementById('img_1'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false">screenshot_1.png</a><br />
+		        <img id='img_1' style='display: none' src='images/screenshot_1.png'/>
+	        <br /><br />
+	      </div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="footer">
+      Generated by PrettyFace
+    </div>
+  </body>
+</html>

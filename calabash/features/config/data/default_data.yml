@@ -1,0 +1,7 @@
+required_fields:
+	firstNameEditText: ~first_name
+	lastNameEditText: ~last_name
+
+required_fragments:
+	firstContactInfoFragment: ~email_address
+	secondContactInfoFragment: ~phone_number

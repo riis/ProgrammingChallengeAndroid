@@ -3,7 +3,7 @@ require 'calabash-android/abase'
 class MainLanding < Calabash::ABase
 
 	def trait
-		"* contentDescription:'More options'"
+		"TextView text:'Contact Lists'"
 	end
 
 	def await(opts={})
@@ -42,19 +42,7 @@ class MainLanding < Calabash::ABase
 		touch(query(@@view_response_message))
 	end
 
-	def assert_contact_page
-		wait_for_elements_exist([@@create_contact_page], :timeout =>9)
-	end
-
-	def assert_contact_list_page
-		wait_for_elements_exist([@@create_contact_list_page], :timeout =>9)
-	end
-
-	def assert_import_contact_page
-		wait_for_elements_exist([@@import_contacts_page], :timeout =>9)
-	end
-
-	def assert_view_response_page
-		wait_for_elements_exist([@@view_response_message_page], :timeout =>9)
+	def assert_main_page
+		touch(query(trait))
 	end
 end

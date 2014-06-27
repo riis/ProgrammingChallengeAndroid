@@ -1,4 +1,11 @@
 require 'calabash-android/calabash_steps'
+require 'pretty_face'
+
+###########################################
+####################                      #
+####################      Main Screen     #
+####################                      #
+###########################################
 
 Given(/^I am on the Main screen$/) do
   page(MainLanding).await
@@ -13,7 +20,7 @@ When(/^I select the Create Contact option$/) do
 end
 
 Then(/^I will go into the Create Contact screen$/) do
-  page(MainLanding).assert_contact_page
+  page(NewContact).assert_contact_page
 end
 
 When(/^I select the Create Contact List option$/) do
@@ -21,7 +28,7 @@ When(/^I select the Create Contact List option$/) do
 end
 
 Then(/^I will be taken to the Create Contact List screen$/) do
-	page(MainLanding).assert_contact_list_page
+	page(CreateContactList).assert_contact_list_page
 end
 
 When(/^I select the Import Contacts option$/) do
@@ -29,7 +36,7 @@ When(/^I select the Import Contacts option$/) do
 end
 
 Then(/^I will be taken to the Import Contacts screen$/) do
-	page(MainLanding).assert_import_contact_page
+	page(ImportContact).assert_import_contact_page
 end
 
 When(/^I select the View Response Messages option$/) do
@@ -37,5 +44,49 @@ When(/^I select the View Response Messages option$/) do
 end
 
 Then(/^I will be taken to the View Response Messages screen$/) do
-  page(MainLanding).assert_view_response_page
+  page(ViewResponseMessage).assert_view_response_page
+end
+
+###########################################
+####################                      #
+####################    Create Contact    #
+####################                      #
+###########################################
+
+#background
+Given(/^I am on the Create Contact page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact
+  page(NewContact).await
+end
+
+#Save Properly Scenario
+When(/^I complete the Create Contact form$/) do
+  page(NewContact).input_contact_value
+end
+
+#Improper First Name Scenario
+When(/^I enter an improper first name$/) do
+  page(NewContact).input_bad_first_name
+end
+
+Then(/^I will receive the first name error message$/) do
+  page(NewContact).view_first_name_error
+end
+
+And(/^I click the save button$/) do
+  page(NewContact).save_button
+end
+
+And(/^I click the OK button$/) do
+  page(NewContact).confirm_create
+end
+
+#Cancel Button Scenario
+When(/^I click the cancel button$/) do
+  page(NewContact).cancel_button
+end
+
+Then(/^I will go to the main screen$/) do
+  page(MainLanding).assert_main_page
 end

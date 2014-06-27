@@ -46,8 +46,8 @@ public class NewContactActivity extends Activity
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.new_contact_screen);
         
-        firstNameEditField = (EditText) findViewById(R.id.first_name_editText);
-		lastNameEditField = (EditText) findViewById(R.id.last_name_editText);
+        firstNameEditField = (EditText) findViewById(R.id.firstNameEditText);
+		lastNameEditField = (EditText) findViewById(R.id.lastNameEditText);
 		
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);

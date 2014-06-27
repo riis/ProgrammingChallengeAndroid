@@ -1,0 +1,33 @@
+Feature: DisasterAppActivity
+  In order to value
+  As a role
+  I want feature
+
+  Scenario: As a user I see the Everyone list[90m         # features/main.feature:6[0m
+    [33mGiven I am on the Main screen[90m                     # features/main.feature:7[0m[0m
+    [33mWhen I open the options menu list[90m                 # features/main.feature:8[0m[0m
+    [33mAnd I select the Create Contact option[90m            # features/main.feature:9[0m[0m
+    [33mThen I will be taken to the Create Contact screen[90m # features/main.feature:10[0m[0m
+
+1 scenario ([33m1 undefined[0m)
+4 steps ([33m4 undefined[0m)
+0m21.299s
+[33m[0m
+[33mYou can implement step definitions for undefined steps with these snippets:[0m
+[33m[0m
+[33mGiven(/^I am on the Main screen$/) do[0m
+[33m  pending # express the regexp above with the code you wish you had[0m
+[33mend[0m
+[33m[0m
+[33mWhen(/^I open the options menu list$/) do[0m
+[33m  pending # express the regexp above with the code you wish you had[0m
+[33mend[0m
+[33m[0m
+[33mWhen(/^I select the Create Contact option$/) do[0m
+[33m  pending # express the regexp above with the code you wish you had[0m
+[33mend[0m
+[33m[0m
+[33mThen(/^I will be taken to the Create Contact screen$/) do[0m
+[33m  pending # express the regexp above with the code you wish you had[0m
+[33mend[0m
+

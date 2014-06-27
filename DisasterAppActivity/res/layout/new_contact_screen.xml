@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <TextView
-        android:id="@+id/First_Name"
+        android:id="@+id/firstNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/firstNameLabel" />
     <EditText
-        android:id="@+id/first_name_editText"
+        android:id="@+id/firstNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,12 +18,12 @@
          />
     
     <TextView
-        android:id="@+id/Last_Name"
+        android:id="@+id/lastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lastNameLabel" />
     <EditText
-        android:id="@+id/last_name_editText"
+        android:id="@+id/lastNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -47,7 +47,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"  
 		android:layout_gravity="center_horizontal"
-		android:layout_alignParentBottom="true"
 		android:orientation="horizontal" >
 	
 		<Button

@@ -6,9 +6,7 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 

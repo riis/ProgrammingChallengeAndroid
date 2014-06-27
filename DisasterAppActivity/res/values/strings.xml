@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DisasterAppActivity</string>
-    <string name="home_title">Contact Lists</string>
-    <string name="create_contact_title">Create Contact</string>
-    <string name="create_contact_list_title">Create Contact List</string>
-    <string name="import_contacts_title">Import Contacts</string>
-    <string name="view_response_messages_title">View Response Messages</string>
-    <string name="send_emergency_message_title">Send Message</string>
-    <string name="contact_list_members_title">List Members</string>
+    <string name="appName">DisasterAppActivity</string>
+    <string name="homeTitle">Contact Lists</string>
+    <string name="createContactTitle">Create Contact</string>
+    <string name="createContactListTitle">Create Contact List</string>
+    <string name="importContactsTitle">Import Contacts</string>
+    <string name="viewResponseMessagesTitle">View Response Messages</string>
+    <string name="sendEmergencyMessageTitle">Send Message</string>
+    <string name="contactListMembersTitle">List Members</string>
     
     
     <string name="createContactScreenButtonLabel">Create Contact</string>
@@ -22,7 +22,7 @@
     <string name="phoneNumberLabel">Phone Number</string>
     <string name="saveButtonLabel">Save</string>
     <string name="cancelButtonLabel">Cancel</string>
-    <string name="empty_field">Field cannot be blank</string>
+    <string name="emptyField">Field cannot be blank</string>
     <string name="firstNameHint">Example: Bob</string>
     <string name="lastNameHint">Example: Smith</string>
     <string name="emailAddressHint">Example: bsmith@disaster.com</string>

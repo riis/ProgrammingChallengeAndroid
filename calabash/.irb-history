@@ -1,9 +1,3 @@
-query("linearLayout id:'firstContactInfoFragment *'")
-query("linearLayout id:'firstContactInfoFragment EditText'")
-query("linearLayout id:'firstContactInfoFragment linearLayout'")
-query("linearLayout id:'firstContactInfoFragment EditText id:contactInfoEditText'")
-query("linearLayout id:'firstContactInfoFragment' EditText id:'contactInfoEditText'")
-query("EditText id:'lastNameEditText'")
 query("*")
 exit
 start_test_server_in_background
@@ -47,4 +41,10 @@ query("* text:'Your contact/'s first name may only contain characters and spaces
 query("* text:'Your contact'/s first name may only contain characters and spaces'")
 query("* text:'Your contact''s first name may only contain characters and spaces'")
 query("* text:'Your contact\\'s first name may only contain characters and spaces'")
+exit
+start_test_server_in_background
+query("*")
+start_test_server_in_background
+query("*")
+start_test_server_in_background
 exit

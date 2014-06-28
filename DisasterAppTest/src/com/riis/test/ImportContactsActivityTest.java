@@ -39,7 +39,7 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 		
 		importContactsActivity = getActivity();
 		
-		cancelButton = (Button) importContactsActivity.findViewById(R.id.returnButton);
+		cancelButton = (Button) importContactsActivity.findViewById(R.id.cancelImportContactsButton);
 		saveButton = (Button) importContactsActivity.findViewById(R.id.saveImportedContactsButton);
 		listView = (ListView) importContactsActivity.findViewById(R.id.importedContactsListView);
 		

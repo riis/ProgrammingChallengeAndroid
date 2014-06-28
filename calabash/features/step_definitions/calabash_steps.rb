@@ -1,11 +1,11 @@
 require 'calabash-android/calabash_steps'
 require 'pretty_face'
 
-###########################################
-####################                      #
-####################      Main Screen     #
-####################                      #
-###########################################
+############################################
+####################                       #
+####################       Main Screen     #
+####################                       #
+############################################
 
 Given(/^I am on the Main screen$/) do
   page(MainLanding).await
@@ -51,11 +51,11 @@ Then(/^I will go to the main screen$/) do
   page(MainLanding).assert_main_page
 end
 
-###########################################
-####################                      #
-####################    Create Contact    #
-####################                      #
-###########################################
+############################################
+####################                       #
+####################     Create Contact    #
+####################                       #
+############################################
 
 #background
 Given(/^I am on the Create Contact page$/) do
@@ -91,11 +91,11 @@ When(/^I click the cancel button$/) do
   page(NewContact).cancel_button
 end
 
-###########################################
-####################                      #
-#################### Create Contact List  #
-####################                      #
-###########################################
+############################################
+####################                       #
+####################  Create Contact List  #
+####################                       #
+############################################
 
 #background
 Given(/^I am on the Create Contact List page$/) do
@@ -125,4 +125,40 @@ end
 #Cancel Button Scenario
 When(/^I click the cancel list create button$/) do
   page(CreateContactList).cancel_button
+end
+
+############################################
+####################                       #
+####################    Import Contacts    #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the Import Contacts page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact_list
+  page(ImportContact).await
+end
+
+#Cancel Button Scenario
+When(/^I click the cancel import button$/) do
+  page(ImportContact).cancel_button
+end
+
+############################################
+####################                       #
+#################### View Response Message #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the View Response Messages page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact_list
+  page(ViewResponseMessage).await
+end
+
+#Cancel Button Scenario
+When(/^I click the home button$/) do
+  page(ViewResponseMessage).home_button
 end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="appName">DisasterAppActivity</string>
-    <string name="homeTitle">Contact Lists</string>
+    <string name="appName">Emergency Messaging</string>
     <string name="createContactTitle">Create Contact</string>
     <string name="createContactListTitle">Create Contact List</string>
     <string name="importContactsTitle">Import Contacts</string>

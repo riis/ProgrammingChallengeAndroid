@@ -50,8 +50,8 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		cancelButton = (Button) newContactActivity.findViewById(R.id.cancelCreateContactButton);
 		saveButton = (Button) newContactActivity.findViewById(R.id.saveContactButton);
 		
-		firstNameText = (TextView)newContactActivity.findViewById(R.id.First_Name);
-		lastNameText = (TextView) newContactActivity.findViewById(R.id.Last_Name);
+		firstNameText = (TextView)newContactActivity.findViewById(R.id.firstNameLabel);
+		lastNameText = (TextView) newContactActivity.findViewById(R.id.lastNameLabel);
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
@@ -69,8 +69,8 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
         secondFragmentText = (TextView) secondFragment.getView().findViewById(R.id.contactInfoLabel);
         secondFragmentEditField = (EditText) secondFragment.getView().findViewById(R.id.contactInfoEditText);
         
-		firstNameEditField = (EditText) newContactActivity.findViewById(R.id.first_name_editText);
-		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.last_name_editText);
+		firstNameEditField = (EditText) newContactActivity.findViewById(R.id.firstNameEditText);
+		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.lastNameEditText);
 	}
 	
 //	public void testCreateContact() 

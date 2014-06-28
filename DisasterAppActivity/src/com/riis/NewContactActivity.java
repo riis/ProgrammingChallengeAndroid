@@ -118,7 +118,7 @@ public class NewContactActivity extends Activity
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
 			newContact.setEmailAddress(emailAddressEditField.getText().toString());
-			newContact.setPhoneNumber(phoneNumberEditField.getText().toString());
+			newContact.setPhoneNumber(phoneNumberEditField.getText().toString().replaceAll("[^\\d.]", ""));
 	        newContact.create();
 	        
 	        ContactList list = new ContactList(this);

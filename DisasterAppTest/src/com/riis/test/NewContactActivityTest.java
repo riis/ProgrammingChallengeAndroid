@@ -51,7 +51,9 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		saveButton = (Button) newContactActivity.findViewById(R.id.saveContactButton);
 		
 		firstNameText = (TextView)newContactActivity.findViewById(R.id.firstNameLabel);
-		lastNameText = (TextView) newContactActivity.findViewById(R.id.lastName);
+
+		lastNameText = (TextView) newContactActivity.findViewById(R.id.lastNameLabel);
+
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);

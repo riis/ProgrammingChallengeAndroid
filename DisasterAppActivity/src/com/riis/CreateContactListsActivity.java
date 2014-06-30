@@ -38,6 +38,7 @@ public class CreateContactListsActivity extends Activity
        
         contactList.readAllContacts();
         
+        
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
         listView.setOnItemClickListener(item);

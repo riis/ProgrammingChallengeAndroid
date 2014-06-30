@@ -20,7 +20,7 @@
         android:theme="@android:style/Theme.Holo">
         
         <activity android:name="DisasterAppActivity"
-            android:label="@string/homeTitle">
+            android:label="@string/appName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,11 +1,11 @@
 require 'calabash-android/calabash_steps'
 require 'pretty_face'
 
-###########################################
-####################                      #
-####################      Main Screen     #
-####################                      #
-###########################################
+############################################
+####################                       #
+####################       Main Screen     #
+####################                       #
+############################################
 
 Given(/^I am on the Main screen$/) do
   page(MainLanding).await
@@ -47,11 +47,15 @@ Then(/^I will be taken to the View Response Messages screen$/) do
   page(ViewResponseMessage).assert_view_response_page
 end
 
-###########################################
-####################                      #
-####################    Create Contact    #
-####################                      #
-###########################################
+Then(/^I will go to the main screen$/) do
+  page(MainLanding).assert_main_page
+end
+
+############################################
+####################                       #
+####################     Create Contact    #
+####################                       #
+############################################
 
 #background
 Given(/^I am on the Create Contact page$/) do
@@ -87,6 +91,74 @@ When(/^I click the cancel button$/) do
   page(NewContact).cancel_button
 end
 
-Then(/^I will go to the main screen$/) do
-  page(MainLanding).assert_main_page
+############################################
+####################                       #
+####################  Create Contact List  #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the Create Contact List page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact_list
+  page(CreateContactList).await
+end
+
+#Save Properly Scenario
+When(/^I enter a valid list name$/) do
+  page(CreateContactList).input_empty_list
+end
+
+#Improper List Name Scenario
+When(/^I enter an improper list name$/) do
+  page(CreateContactList).input_bad_list_name
+end
+
+Then(/^I will receive the list name error message$/) do
+  page(CreateContactList).view_list_name_error
+end
+
+And(/^I click the save list button$/) do
+  page(CreateContactList).save_button
+end
+
+#Cancel Button Scenario
+When(/^I click the cancel list create button$/) do
+  page(CreateContactList).cancel_button
+end
+
+############################################
+####################                       #
+####################    Import Contacts    #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the Import Contacts page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact_list
+  page(ImportContact).await
+end
+
+#Cancel Button Scenario
+When(/^I click the cancel import button$/) do
+  page(ImportContact).cancel_button
+end
+
+############################################
+####################                       #
+#################### View Response Message #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the View Response Messages page$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact_list
+  page(ViewResponseMessage).await
+end
+
+#Cancel Button Scenario
+When(/^I click the home button$/) do
+  page(ViewResponseMessage).home_button
 end

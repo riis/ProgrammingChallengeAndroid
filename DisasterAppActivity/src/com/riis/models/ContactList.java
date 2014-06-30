@@ -191,7 +191,7 @@ public class ContactList extends BasePersistentModel
 		open();
 		
 		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
-		
+		//Log.e("checking", "columns:" + cursor.getColumnCount()+" and rows:"+cursor.getCount());
 		cursor.moveToFirst();
 		contacts = readContactListMembersFromCursor(cursor);
 		cursor.close();
@@ -372,17 +372,12 @@ public class ContactList extends BasePersistentModel
 		while (cursor.moveToNext()) 
 		{
 			Contact currentContact = new Contact(context);
-
 			boolean success = currentContact.read(cursor.getInt(2)); 
 			if (success)
 			{
 				storedContacts.add(currentContact);
-				
 			}
-			
-			//cursor.moveToNext();
 		}
-		
 		return storedContacts;
 	}
 	

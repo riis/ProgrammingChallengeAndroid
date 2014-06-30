@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;

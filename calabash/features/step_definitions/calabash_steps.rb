@@ -136,7 +136,7 @@ end
 #background
 Given(/^I am on the Import Contacts page$/) do
   page(MainLanding).menu_options
-  page(MainLanding).create_contact_list
+  page(MainLanding).import_contacts
   page(ImportContact).await
 end
 
@@ -154,7 +154,7 @@ end
 #background
 Given(/^I am on the View Response Messages page$/) do
   page(MainLanding).menu_options
-  page(MainLanding).create_contact_list
+  page(MainLanding).view_response_message
   page(ViewResponseMessage).await
 end
 

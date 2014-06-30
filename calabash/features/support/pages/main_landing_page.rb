@@ -3,7 +3,7 @@ require 'calabash-android/abase'
 class MainLanding < Calabash::ABase
 
 	def trait
-		"TextView text:'Contact Lists'"
+		"TextView text:'Emergency Messaging'"
 	end
 
 	def await(opts={})

@@ -70,9 +70,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.sendMessageToContactList = (Button) row.findViewById(R.id.sendMessageContactListButton);
 			holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 			
-			holder.editContactListButton.setOnClickListener(new OnClickListener() {
+			holder.editContactListButton.setOnClickListener(new OnClickListener() 
+			{
 				@Override
-				public void onClick(View view) {
+				public void onClick(View view) 
+				{
 					View parent = (View) view.getParent();
 					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
 					Intent intent = new Intent(context, EditContactListMembersActivity.class);
@@ -81,9 +83,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				}
 			});
 			
-			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() {
+			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() 
+			{
 				@Override
-				public void onClick(View view) {
+				public void onClick(View view) 
+				{
 					View parent = (View) view.getParent();
 					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
 					Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
@@ -158,13 +162,12 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					{
 						builder = buildNoMessageText(c);
 					}
-					
 					break;
 				}
 			}
-			
 			display.setText(builder.toString());
-			holder.listLayout.addView(display);
+			holder.listLayout.addView(display ); //+ button
+			
 		}
 		return row;
 	}

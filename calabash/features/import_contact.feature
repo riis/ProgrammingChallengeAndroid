@@ -1,5 +1,5 @@
-@importcontact
-Feature: ViewResponseMessagesActivity
+@importcontacts
+Feature: ImportContactActivity
 In order to use contacts already on my device
 As a user
 I want to import contacts

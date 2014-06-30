@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +34,8 @@ public class DisasterAppActivity extends Activity
         setContentView(R.layout.main);
         
         listOfContactLists.read();
+
+        Log.e("main act. size", "size:"+listOfContactLists.getContactList(0).size());
         
         for(int i = 0; i < listOfContactLists.size(); i++)
         {
@@ -71,7 +74,8 @@ public class DisasterAppActivity extends Activity
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 		Intent i = new Intent();
-	    switch (item.getItemId()) {
+	    switch (item.getItemId()) 
+	    {
 	        case R.id.createContactItem:
 	        	i = new Intent(this, NewContactActivity.class);
 	            startActivity(i);
@@ -86,6 +90,10 @@ public class DisasterAppActivity extends Activity
 	            return true;
 	        case R.id.viewResponseMessagesItem:
 	        	i = new Intent(this, ViewResponseMessagesActivity.class);
+	        	startActivity(i);
+	        	return true;
+	        case R.id.editContactItem:
+	        	i = new Intent(this, EditContactActivity.class);
 	        	startActivity(i);
 	        	return true;
 	    }

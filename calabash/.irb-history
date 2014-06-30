@@ -1,8 +1,3 @@
-query("*")
-exit
-start_test_server_in_background
-query("*")
-query("TextView id:firstNameLabel")
 query("TextView id:'firstNameLabel'")
 query("EditText id:'firstNameEditText'")
 query("EditText id:'lastNameEditText'")
@@ -47,4 +42,9 @@ query("*")
 start_test_server_in_background
 query("*")
 start_test_server_in_background
+exit
+start_test_server_in_background
+query("Button id:'cancelImportContactsButton'")
+query("*")
+query("* Button")
 exit

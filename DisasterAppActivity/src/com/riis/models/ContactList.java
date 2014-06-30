@@ -188,9 +188,8 @@ public class ContactList extends BasePersistentModel
 	public boolean readAllContacts()
 	{
 		String[] columns = {"_id"};
-		
-		
 		open();
+		
 		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
 		
 		cursor.moveToFirst();
@@ -370,17 +369,18 @@ public class ContactList extends BasePersistentModel
 	{
 		ArrayList<Contact> storedContacts = new ArrayList<Contact>();
 		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) 
+		while (cursor.moveToNext()) 
 		{
 			Contact currentContact = new Contact(context);
+
 			boolean success = currentContact.read(cursor.getInt(2)); 
-			
 			if (success)
 			{
 				storedContacts.add(currentContact);
+				
 			}
 			
-			cursor.moveToNext();
+			//cursor.moveToNext();
 		}
 		
 		return storedContacts;

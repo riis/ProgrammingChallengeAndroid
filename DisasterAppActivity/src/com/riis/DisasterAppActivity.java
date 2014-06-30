@@ -35,7 +35,7 @@ public class DisasterAppActivity extends Activity
         
         listOfContactLists.read();
 
-        Log.e("main act. size", "size:"+listOfContactLists.getContactList(0).size());
+        
         
         for(int i = 0; i < listOfContactLists.size(); i++)
         {
@@ -92,10 +92,7 @@ public class DisasterAppActivity extends Activity
 	        	i = new Intent(this, ViewResponseMessagesActivity.class);
 	        	startActivity(i);
 	        	return true;
-	        case R.id.editContactItem:
-	        	i = new Intent(this, EditContactActivity.class);
-	        	startActivity(i);
-	        	return true;
+
 	    }
 	    
 	    return false;

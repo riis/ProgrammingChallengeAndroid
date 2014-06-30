@@ -16,8 +16,5 @@
         android:id="@+id/viewResponseMessagesItem"
         android:title="@string/viewResponseMessagesScreenButtonLabel"
         android:showAsAction="never" />
-     <item
-        android:id="@+id/editContactItem"
-        android:title="@string/editContactScreenButtonLabel"
-        android:showAsAction="never" />
+
 </menu>

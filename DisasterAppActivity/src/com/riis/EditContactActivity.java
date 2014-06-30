@@ -1,9 +1,14 @@
 package com.riis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -11,6 +16,8 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
+import com.riis.models.ContactList;
+import com.riis.models.ResponseMessage;
 
 public class EditContactActivity extends Activity
 {
@@ -34,6 +41,11 @@ public class EditContactActivity extends Activity
 	private EditText secondFragmentEditField;
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
+	private boolean contactExists;
+	private Contact existingContact;
+	private EditText emailAddressEditField;
+	private EditText phoneNumberEditField;
+	private Context context;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -45,7 +57,7 @@ public class EditContactActivity extends Activity
 		lastNameEditField = (EditText) findViewById(R.id.lastNameEditText);
 		
 		
-
+		
 		
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
@@ -71,14 +83,134 @@ public class EditContactActivity extends Activity
         secondFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(textView, secondFragmentEditField));
         secondFragmentSpinner.setSelection(1);
         
-//      firstNameEditField.setText(contact.getFirstName());
-//		lastNameEditField.setText(contact.getLastName());
-//		firstFragmentEditField.setText(contact.getEmailAddress());
-//		secondFragmentEditField.setText(contact.getPhoneNumber());
+        Bundle extras = getIntent().getExtras();
+        Long id = extras.getLong("id");
+        if(id!=null  && id!=-1)
+        {
+        	existingContact = new Contact(getApplicationContext());
+        	existingContact.read(id);
+        }
         
+		firstNameEditField.setText(existingContact.getFirstName());
+		lastNameEditField.setText(existingContact.getLastName());
+		//need error checking
+		firstFragmentEditField.setText(existingContact.getEmailAddress());
+		secondFragmentEditField.setText(existingContact.getPhoneNumber());
+		
+		
+		
     }
 	
+	public void cancelCreateContact(View view) 
+	{
+		finish();
+	}
 	
+	public void saveCreateContact(View view) 
+	{
+		firstNameEditField.setError(null);
+		lastNameEditField.setError(null);
+		
+		
+		
+		if(firstFragmentSpinner.getSelectedItemPosition() == secondFragmentSpinner.getSelectedItemPosition())
+		{
+			secondFragmentSpinner.setSelection(1 - firstFragmentSpinner.getSelectedItemPosition());
+		}
+		
+		if(firstFragmentSpinner.getSelectedItemPosition() == 0)
+		{
+			emailAddressEditField = firstFragmentEditField;
+			phoneNumberEditField = secondFragmentEditField;
+		}
+		else
+		{
+			emailAddressEditField = secondFragmentEditField;
+			phoneNumberEditField = firstFragmentEditField;
+		}
+		
+		if (!isFirstNameValid(firstNameEditField.getText().toString())) 
+			firstNameEditField.setError(FIRST_NAME_ERROR);
+		else if (!isLastNameValid(lastNameEditField.getText().toString())) 
+			lastNameEditField.setError(LAST_NAME_ERROR);
+		else if (!isEmailValid(emailAddressEditField.getText().toString())) 
+			emailAddressEditField.setError(EMAIL_ADDRESS_ERROR);
+		else if (!isPhoneValid(phoneNumberEditField.getText().toString())) 
+			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
+		else 
+		{	
+			ContactList list = new ContactList(this);
+	        list.setName("Everyone");
+	        list.read();
+	        
+	        list.update();
+			
+			existingContact.setFirstName(firstNameEditField.getText().toString());
+			existingContact.setLastName(lastNameEditField.getText().toString());
+			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
+			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
+			existingContact.update();
+	        
+			
+	        
+	        ResponseMessage response = new ResponseMessage(this);
+	        response.setTextMessageContents(" Are you OK?");
+	        response.setPhoneNumber(existingContact.getPhoneNumber());
+	        response.setContactListId(1);
+	        response.create();
+	        
+	        callAlertDialog();
+		}
+	}
+	
+	private void callAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
+
+		alertDialogBuilder.setTitle("Changes Saved");
+		alertDialogBuilder.setMessage("Your contact has been editted and saved")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	public boolean isFirstNameValid(String name)
+	{
+		if( name.matches(FIRST_NAME_PATTERN))
+			return true;
+		 
+		return false;
+	}
+	
+	public boolean isLastNameValid(String name)
+	{
+		if(name.matches(LAST_NAME_APOSTROPHE_PATTERN) | name.matches(LAST_NAME_HYPHEN_PATTERN)
+				| name.matches(LAST_NAME_SPACES_PATTERN))
+			return true;
+		 
+		return false;
+	}
+	
+	public boolean isEmailValid(String email)
+	{
+		return email.matches(EMAIL_ADDRESS_PATTERN);
+	}
+	  
+	public boolean isPhoneValid(String phone)
+	{
+		if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
+				| phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
+			return true;
+		 
+		return false;
+    }
 	
 	
 	

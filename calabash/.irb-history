@@ -1,7 +1,3 @@
-query("TextView id:'firstNameLabel'")
-query("EditText id:'firstNameEditText'")
-query("EditText id:'lastNameEditText'")
-query(@@create_contact_first_name_edit_text, {:setText => 'Tom'})
 query("EditText id:'firstNameEditText'", {:setText => 'Tom'})
 query("EditText id:'lastNameEditText'", {:setText => 'Tom'})
 query("*")
@@ -45,6 +41,10 @@ start_test_server_in_background
 exit
 start_test_server_in_background
 query("Button id:'cancelImportContactsButton'")
+query("*")
+query("* Button")
+exit
+start_test_server_in_background
 query("*")
 query("* Button")
 exit

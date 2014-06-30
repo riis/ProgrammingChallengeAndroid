@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -80,6 +84,18 @@ public class SendEmergencyMessageActivity extends Activity {
 				response.setTimeStamp(0);
 				response.update();
 			}
+			
+			Intent intent = new Intent(SendEmergencyMessageActivity.this, DisasterAppService.class);
+			intent.putExtra("List name", contactList.getName());
+			intent.putExtra("Message contents", emergencyMessageField.getText().toString());
+			
+			PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+			PendingIntent secondIntent = PendingIntent.getService(getApplicationContext(), 1, intent, 0);
+			
+			getApplicationContext();
+			AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, pendingIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 600000, secondIntent);
 
 			finish();
 		}

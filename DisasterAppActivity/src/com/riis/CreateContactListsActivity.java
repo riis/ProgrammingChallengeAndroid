@@ -9,8 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;

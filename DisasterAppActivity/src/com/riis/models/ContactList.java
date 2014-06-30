@@ -187,13 +187,23 @@ public class ContactList extends BasePersistentModel
 	
 	public boolean readAllContacts()
 	{
-		String[] columns = {"_id"};
-		
 		open();
-		Cursor cursor = database.query("contact", columns, null, null, null, null, "lastName ASC");
+		Cursor cursor = database.query("contact", null, null, null, null, null, "lastName ASC");
 		
-		contacts = readContactListMembersFromCursor(cursor);
 		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			Contact currentContact = new Contact(context);
+			boolean success = currentContact.read(cursor.getLong(0)); 
+			
+			if (success)
+			{
+				contacts.add(currentContact);
+			}
+			
+			cursor.moveToNext();
+		}
+		
 		cursor.close();
 		close();
 		

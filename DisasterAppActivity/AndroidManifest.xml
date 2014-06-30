@@ -18,6 +18,8 @@
         android:allowBackup="false"
         android:name="com.riis.dagger.DaggerApplication" 
         android:theme="@android:style/Theme.Holo">
+        <service android:name="DisasterAppService"
+            android:enabled="true" />
         <activity android:name="DisasterAppActivity"
             android:label="@string/appName">
             <intent-filter>

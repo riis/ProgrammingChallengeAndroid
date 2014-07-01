@@ -19,6 +19,7 @@ import com.riis.R;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
@@ -87,30 +88,34 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 			holder.listLayout.addView(display);
 		}
 		
-		for(int i = 0; i < currentContactList.size(); i++)
+		for(Contact c : currentContactList.getContacts())
 		{
 			StringBuilder builder = new StringBuilder();
 			TextView display = new TextView(context);
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
+			
+			ContactReference ref = new ContactReference(context);
+			ref.setContactListId(currentContactList.getId());
+			ref.setContactId(c.getId());
+			ref.read();
 
-			for(int j = 0; j < responseMessageList.size(); j++)
+			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
-				if(responseMessageList.getResponseMessage(j).getPhoneNumber().equals(currentContactList.getContact(i).getPhoneNumber()))
+				if(ref.getId() == m.getReferenceId())
 				{
 					if(currentContactList.getMessageSentTimeStamp() != 0L
-							&& responseMessageList.getResponseMessage(j).getTimeStamp() != 0L)
+							&& m.getTimeStamp() != 0L)
 					{
-						builder = buildRespondedText(responseMessageList.getResponseMessage(j),
-								currentContactList.getContact(i));
+						builder = buildRespondedText(m, c);
 					}
 					else if(currentContactList.getMessageSentTimeStamp() != 0)
 					{
-						builder = buildUnrespondedText(currentContactList.getContact(i));
+						builder = buildUnrespondedText(c);
 					}
 					else
 					{
-						builder = buildNoMessageText(currentContactList.getContact(i));
+						builder = buildNoMessageText(c);
 					}
 					
 					break;

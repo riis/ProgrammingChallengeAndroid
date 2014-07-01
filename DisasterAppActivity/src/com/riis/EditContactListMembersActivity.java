@@ -1,7 +1,5 @@
 package com.riis;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 import android.app.Activity;
@@ -16,8 +14,8 @@ import android.widget.TextView;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
-import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
@@ -67,18 +65,34 @@ public class EditContactListMembersActivity extends Activity
 			
 			@Override
 			public void onClick(View v) {
-				contactList.setContactList(new ArrayList<Contact>());
+//				contactList.setContactList(new ArrayList<Contact>());
 				
 				for(int i = 0; i < list.size(); i++)
 				{
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
+					
+					ContactReference ref = new ContactReference(getApplicationContext());
+					ref.setContactListId(contactList.getId());
+					ref.setContactId(list.getContact(i).getId());
+					boolean exists = ref.read();
+					
 					if(checkBox.isChecked())
 					{
-						contactList.addContact(list.getContact(i));
+//						contactList.addContact(list.getContact(i));
+						
+						if(exists)
+						{
+							ref.update();
+						}
+						else
+						{
+							ref.create();
+						}
+						
 						ResponseMessage response = new ResponseMessage(getApplicationContext());
+						response.setReferenceId(ref.getId());
 				        response.setTextMessageContents(" Are you OK?");
-				        response.setPhoneNumber(list.getContact(i).getPhoneNumber());
-				        response.setContactListId(contactList.getId());
+
 				        if(response.read())
 				        {
 				        	response.update();
@@ -88,9 +102,25 @@ public class EditContactListMembersActivity extends Activity
 				        	response.create();
 				        }
 					}
+					else
+					{
+//						ContactReference ref = new ContactReference(getApplicationContext());
+//						ref.setContactListId(contactList.getId());
+//						ref.setContactId(list.getContact(i).getId());
+//						boolean exists = ref.read();
+						if(exists)
+						{
+							ResponseMessage response = new ResponseMessage(getApplicationContext());
+							response.setReferenceId(ref.getId());
+							response.read();
+							response.delete();
+							ref.delete();
+						}
+					}
+					
 				}
 				
-				contactList.update();
+//				contactList.update();
 				
 				finish();
 			}

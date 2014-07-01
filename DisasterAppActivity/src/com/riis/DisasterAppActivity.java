@@ -34,26 +34,26 @@ public class DisasterAppActivity extends Activity
         
         listOfContactLists.read();
         
-        for(int i = 0; i < listOfContactLists.size(); i++)
-        {
-        	boolean done = true;
-        	ResponseMessageList list = new ResponseMessageList(this);
-    		list.read(listOfContactLists.getContactList(i).getId());
-    		
-        	for(int j = 0; j < list.size(); j++)
-        	{
-        		if(list.getResponseMessage(j).getTimeStamp() == 0L)
-        		{
-        			done = false;
-        		}
-        	}
-        	
-        	if(done)
-        	{
-        		listOfContactLists.getContactList(i).setMessageSentTimeStamp(0L);
-        		listOfContactLists.getContactList(i).update();
-        	}
-        }
+//        for(int i = 0; i < listOfContactLists.size(); i++)
+//        {
+//        	boolean done = true;
+//        	ResponseMessageList list = new ResponseMessageList(this);
+//    		list.read(listOfContactLists.getContactList(i).getId());
+//    		
+//        	for(int j = 0; j < list.size(); j++)
+//        	{
+//        		if(list.getResponseMessage(j).getTimeStamp() == 0L)
+//        		{
+//        			done = false;
+//        		}
+//        	}
+//        	
+//        	if(done)
+//        	{
+//        		listOfContactLists.getContactList(i).setMessageSentTimeStamp(0L);
+//        		listOfContactLists.getContactList(i).update();
+//        	}
+//        }
         
         listView = (ListView) findViewById(R.id.contactListDisplay);        
         listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists(), getApplication()));

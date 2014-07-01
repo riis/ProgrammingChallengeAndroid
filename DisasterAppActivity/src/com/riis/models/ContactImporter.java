@@ -81,10 +81,10 @@ public class ContactImporter
 
 			if(checkBox.isChecked())
 			{
-				for(int j=0; j < everyoneList.size();j++)
+				for(Contact c : everyoneList.getContacts())
 				{	
-				    if(contacts.get(i).getFirstName().equals(everyoneList.getContact(j).getFirstName())
-				    		&& contacts.get(i).getLastName().equals(everyoneList.getContact(j).getLastName()))
+				    if(contacts.get(i).getFirstName().equals(c.getFirstName())
+				    		&& contacts.get(i).getLastName().equals(c.getLastName()))
 				    {
 						contactExists = true;
 						break;
@@ -99,13 +99,17 @@ public class ContactImporter
 				{
 					contacts.get(i).create();
 					
-					everyoneList.addContact(contacts.get(i));
-					everyoneList.update();
+//					everyoneList.addContact(contacts.get(i));
+//					everyoneList.update();
+					
+					ContactReference ref = new ContactReference(context);
+					ref.setContactListId(1);
+					ref.setContactId(contacts.get(i).getId());
+					ref.create();
 					
 					ResponseMessage response = new ResponseMessage(context);
+					response.setReferenceId(ref.getId());
 			        response.setTextMessageContents(" Are you OK?");
-			        response.setPhoneNumber(contacts.get(i).getPhoneNumber());
-			        response.setContactListId(1);
 			        response.create();
 				}
 			}

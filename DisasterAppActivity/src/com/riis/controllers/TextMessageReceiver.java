@@ -10,6 +10,7 @@ import android.telephony.SmsMessage;
 
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ListOfContactLists;
 import com.riis.models.ResponseMessage;
 
@@ -59,11 +60,15 @@ public class TextMessageReceiver extends BroadcastReceiver
 		
 		for(int i = 0; i < candidates.size(); i++)
 		{
-		   if(candidates.get(i).getMessageSentTimeStamp() != 0L)	
+			if(candidates.get(i).getMessageSentTimeStamp() != 0L)
 			{
+				ContactReference ref = new ContactReference(context);
+				ref.setContactListId(candidates.get(i).getId());
+				ref.setContactId(contact.getId());
+				ref.read();
+				
 				ResponseMessage response = new ResponseMessage(context);
-				response.setPhoneNumber(sms[sms.length - 1].getOriginatingAddress().substring(2));
-				response.setContactListId(candidates.get(i).getId());
+				response.setReferenceId(ref.getId());
 				
 				boolean exists = response.read();
 				if(exists)

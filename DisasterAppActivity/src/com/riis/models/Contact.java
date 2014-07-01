@@ -8,7 +8,6 @@ import android.text.TextUtils;
 public class Contact extends BasePersistentModel 
 {	
 	protected long id;
-//	private long referenceId;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -19,19 +18,12 @@ public class Contact extends BasePersistentModel
 	{
 		super(context);
 		this.id = -1;
-//		this.referenceId=-1;
 		this.firstName = "";
 		this.lastName = "";
 		this.emailAddress = "";
 		this.phoneNumber = "";
 		this.pingCount = 0;
 	}
-	
-
-//	public void setReferenceId(long referenceId)
-//	{
-//		this.referenceId = referenceId;
-//	}
 	
 	public void setFirstName(String firstName)
 	{
@@ -62,11 +54,6 @@ public class Contact extends BasePersistentModel
 	{
 		return id;
 	}
-	
-//	public long getReferenceId()
-//	{
-//		return referenceId;
-//	}
 	
 	public String getFirstName()
 	{
@@ -107,7 +94,6 @@ public class Contact extends BasePersistentModel
 		values.put("emailAddress", getEmailAddress());
 		values.put("phoneNumber", getPhoneNumber());
 		values.put("pingCount", getPingCount());
-//		values.put("referenceId", getReferenceId());
 		
 		id = database.insert("contact", null, values);
 		close();

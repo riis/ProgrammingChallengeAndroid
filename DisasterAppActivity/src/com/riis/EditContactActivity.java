@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
-import com.riis.models.ResponseMessage;
-import com.riis.models.ResponseMessageList;
 
 public class EditContactActivity extends Activity
 {
@@ -89,7 +87,6 @@ public class EditContactActivity extends Activity
 		lastNameEditField.setText(existingContact.getLastName());
 		firstFragmentEditField.setText(existingContact.getEmailAddress());
 		secondFragmentEditField.setText(existingContact.getPhoneNumber());
-
     }
 	
 	public void cancelCreateContact(View view) 
@@ -101,7 +98,6 @@ public class EditContactActivity extends Activity
 	{
 		existingContact.delete();
         callDeleteAlertDialog();
-		
 	}
 	
 	public void saveEditedContact(View view) 
@@ -134,22 +130,23 @@ public class EditContactActivity extends Activity
 		else if (!isPhoneValid(phoneNumberEditField.getText().toString())) 
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
-		{	
-			
-			ResponseMessageList messages = new ResponseMessageList(this);
-			messages.readByPhoneNumber(existingContact.getPhoneNumber());
-			for(ResponseMessage response : messages.getResponseMessage())
-			{
-				response.setPhoneNumber(phoneNumberEditField.getText().toString());
-				response.update();
-			}
+		{
+//			ContactReference ref = new ContactReference(this);
+//			ref.setContactId(existingContact.getId());
+//			
+//			ResponseMessageList messages = new ResponseMessageList(this);
+//			messages.readByPhoneNumber(existingContact.getPhoneNumber());
+//			for(ResponseMessage response : messages.getResponseMessage())
+//			{
+//				response.setPhoneNumber(phoneNumberEditField.getText().toString());
+//				response.update();
+//			}
 			
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());
 			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
 			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 			existingContact.update();
-	        
 	        
 	        callAlertDialog();
 		}

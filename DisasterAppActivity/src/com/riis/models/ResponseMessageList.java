@@ -86,12 +86,11 @@ public class ResponseMessageList extends BasePersistentModel
 	
 	public boolean read(long contactListId)
 	{
-		String[] columns = {"_id"};
-		
 		open();
-		Cursor cursor = database.query("responseMessage", columns, "contactListId = "+ contactListId,
-				null, null, null, "timeStamp DESC");
-
+		String t = "SELECT * FROM responseMessage r INNER JOIN contactListMembers c ON c._id=r.referenceId WHERE c.contactListId="
+				+ contactListId +" ORDER BY r.timeStamp DESC";
+		
+		Cursor cursor = database.rawQuery(t, null);
 		boolean returnVal = cursor.moveToFirst();
 		while (!cursor.isAfterLast()) 
 		{

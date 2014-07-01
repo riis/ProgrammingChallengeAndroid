@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.riis.controllers.EmailSender;
 import com.riis.controllers.EmergencyMessageTextWatcher;
 import com.riis.controllers.MessageRecepiantsListAdapter;
 import com.riis.controllers.TextMessageSender;
@@ -72,6 +73,9 @@ public class SendEmergencyMessageActivity extends Activity {
 			
 			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
 			
+			EmailSender task = new EmailSender(this, contactList, emergencyMessageField.getText().toString());
+			task.execute();
+			
 			ResponseMessageList responseMessageList = new ResponseMessageList(this);
 			responseMessageList.read(contactList.getId());
 			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
@@ -85,17 +89,17 @@ public class SendEmergencyMessageActivity extends Activity {
 				response.update();
 			}
 			
-			Intent intent = new Intent(SendEmergencyMessageActivity.this, DisasterAppService.class);
-			intent.putExtra("List name", contactList.getName());
-			intent.putExtra("Message contents", emergencyMessageField.getText().toString());
+			Intent i = new Intent(SendEmergencyMessageActivity.this, DisasterAppService.class);
+			i.putExtra("List name", contactList.getName());
+			i.putExtra("Message contents", emergencyMessageField.getText().toString());
 			
-			PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
-			PendingIntent secondIntent = PendingIntent.getService(getApplicationContext(), 1, intent, 0);
+			PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, i, 0);
+			PendingIntent secondIntent = PendingIntent.getService(getApplicationContext(), 1, i, 0);
 			
 			getApplicationContext();
 			AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, pendingIntent);
-			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 600000, secondIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 15000, pendingIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, secondIntent);
 
 			finish();
 		}

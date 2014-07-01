@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -40,12 +39,10 @@ public class EditContactActivity extends Activity
 	private EditText secondFragmentEditField;
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
-	private boolean contactExists;
 	private Contact existingContact;
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
-	private Context context;
-	private ResponseMessage oldResponse;
+
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -55,9 +52,6 @@ public class EditContactActivity extends Activity
         
         firstNameEditField = (EditText) findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) findViewById(R.id.lastNameEditText);
-		
-		
-		
 		
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
@@ -93,11 +87,9 @@ public class EditContactActivity extends Activity
         
 		firstNameEditField.setText(existingContact.getFirstName());
 		lastNameEditField.setText(existingContact.getLastName());
-		//need error checking
 		firstFragmentEditField.setText(existingContact.getEmailAddress());
 		secondFragmentEditField.setText(existingContact.getPhoneNumber());
-		 
-		
+
     }
 	
 	public void cancelCreateContact(View view) 
@@ -107,14 +99,7 @@ public class EditContactActivity extends Activity
 	
 	public void deleteContact(View view) 
 	{
-		
-//		ContactList list = new ContactList(this);
-//        list.setName("Everyone");
-//        list.read();
-		
 		existingContact.delete();
-		
-//		list.update();
         callDeleteAlertDialog();
 		
 	}
@@ -123,8 +108,6 @@ public class EditContactActivity extends Activity
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
-		
-		
 		
 		if(firstFragmentSpinner.getSelectedItemPosition() == secondFragmentSpinner.getSelectedItemPosition())
 		{
@@ -152,17 +135,6 @@ public class EditContactActivity extends Activity
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
 		{	
-//			ContactList list = new ContactList(this);
-//	        list.setName("Everyone");
-//	        list.read();
-//	        
-//	        list.update();
-	        
-//	        ListOfContactLists listOfContactLists = new ListOfContactLists(this);
-//	        for(int i=0;i<listOfContactLists.size();i++)
-//	        {
-//	        	listOfContactLists(i)
-//	        }
 			
 			ResponseMessageList messages = new ResponseMessageList(this);
 			messages.readByPhoneNumber(existingContact.getPhoneNumber());
@@ -177,9 +149,6 @@ public class EditContactActivity extends Activity
 			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
 			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 			existingContact.update();
-	        
-			 
-	        
 	        
 	        
 	        callAlertDialog();
@@ -252,19 +221,4 @@ public class EditContactActivity extends Activity
 		 
 		return false;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

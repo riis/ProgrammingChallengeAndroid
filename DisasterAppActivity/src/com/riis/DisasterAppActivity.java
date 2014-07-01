@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,8 +33,6 @@ public class DisasterAppActivity extends Activity
         setContentView(R.layout.main);
         
         listOfContactLists.read();
-
-        
         
         for(int i = 0; i < listOfContactLists.size(); i++)
         {

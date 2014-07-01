@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="In order to utilize all of Emergency Messaging's features, please enter a valid email address." />
+    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/emailAddressLabel" />
+    
+    <EditText
+        android:id="@+id/emailAddressInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/emailAddressHint" />
+    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Password:" />
+    
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password" />
+    
+    <LinearLayout
+        android:id="@+id/buttonRow"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal" >
+	
+		<Button
+			android:id="@+id/skipButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="Skip"
+			android:onClick="skipToMain" />
+		
+		<Button
+			android:id="@+id/selectButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="Select" 
+			android:onClick="submitEmailAndPassword" />
+	</LinearLayout>
+</LinearLayout>

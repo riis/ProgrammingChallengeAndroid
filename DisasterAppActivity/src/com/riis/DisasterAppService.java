@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
+import com.riis.controllers.EmailSender;
 import com.riis.controllers.TextMessageSender;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -54,6 +54,9 @@ public class DisasterAppService extends Service
 				textMessageSender.sendIndividualMessage(contact, message);
 			}
 		}
+		
+		EmailSender task = new EmailSender(this, contactList, message);
+		task.execute();
 		
 		return START_NOT_STICKY;
 	}

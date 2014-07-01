@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
-import com.riis.models.ResponseMessage;
-import com.riis.models.ResponseMessageList;
 
 public class EditContactActivity extends Activity
 {
@@ -76,9 +74,13 @@ public class EditContactActivity extends Activity
         secondFragmentSpinner.setAdapter(adapter);
         secondFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(textView, secondFragmentEditField));
         secondFragmentSpinner.setSelection(1);
-        
+        Long id=null;
         Bundle extras = getIntent().getExtras();
-        Long id = extras.getLong("id");
+        if(extras!=null)
+        {
+          id = extras.getLong("id");
+        
+        
         if(id!=null  && id!=-1)
         {
         	existingContact = new Contact(getApplicationContext());
@@ -89,7 +91,7 @@ public class EditContactActivity extends Activity
 		lastNameEditField.setText(existingContact.getLastName());
 		firstFragmentEditField.setText(existingContact.getEmailAddress());
 		secondFragmentEditField.setText(existingContact.getPhoneNumber());
-
+        }
     }
 	
 	public void cancelCreateContact(View view) 
@@ -99,9 +101,7 @@ public class EditContactActivity extends Activity
 	
 	public void deleteContact(View view) 
 	{
-		existingContact.delete();
         callDeleteAlertDialog();
-		
 	}
 	
 	public void saveEditedContact(View view) 
@@ -134,22 +134,13 @@ public class EditContactActivity extends Activity
 		else if (!isPhoneValid(phoneNumberEditField.getText().toString())) 
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
-		{	
-			
-			ResponseMessageList messages = new ResponseMessageList(this);
-			messages.readByPhoneNumber(existingContact.getPhoneNumber());
-			for(ResponseMessage response : messages.getResponseMessage())
-			{
-				response.setPhoneNumber(phoneNumberEditField.getText().toString());
-				response.update();
-			}
+		{
 			
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());
 			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
 			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 			existingContact.update();
-	        
 	        
 	        callAlertDialog();
 		}
@@ -177,14 +168,22 @@ public class EditContactActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
 
-		alertDialogBuilder.setTitle("Changes Deleted");
-		alertDialogBuilder.setMessage("Your contact has been deleted")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+		alertDialogBuilder.setTitle("Contact Deleted");
+		alertDialogBuilder.setMessage("Are you sure you want to delete this contact?")
+				   .setCancelable(true)
+				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
 				   {
 						public void onClick(DialogInterface dialog,int id) 
 						{
+							existingContact.delete();
 							finish();
+						}
+				   })
+				   .setNegativeButton("No", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							dialog.cancel();
 						}
 				   });
 		AlertDialog alertDialog = alertDialogBuilder.create();

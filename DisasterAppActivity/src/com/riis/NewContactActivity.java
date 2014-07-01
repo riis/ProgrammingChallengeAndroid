@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
-import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 
 public class NewContactActivity extends Activity
@@ -114,24 +114,27 @@ public class NewContactActivity extends Activity
 		else 
 		{	        
 	        Contact newContact = new Contact(this);
-	        
 			newContact.setFirstName(firstNameEditField.getText().toString());
 			newContact.setLastName(lastNameEditField.getText().toString());
 			newContact.setEmailAddress(emailAddressEditField.getText().toString());
 			newContact.setPhoneNumber(phoneNumberEditField.getText().toString().replaceAll("[^\\d.]", ""));
 	        newContact.create();
 	        
-	        ContactList list = new ContactList(this);
-	        list.setName("Everyone");
-	        list.read();
+//	        ContactList list = new ContactList(this);
+//	        list.setName("Everyone");
+//	        list.read();
+//	        
+//	        list.addContact(newContact);
+//	        list.update();
 	        
-	        list.addContact(newContact);
-	        list.update();
+	        ContactReference ref = new ContactReference(this);
+	        ref.setContactListId(1L);
+	        ref.setContactId(newContact.getId());
+	        ref.create();
 	        
 	        ResponseMessage response = new ResponseMessage(this);
+	        response.setReferenceId(ref.getId());
 	        response.setTextMessageContents(" Are you OK?");
-	        response.setPhoneNumber(newContact.getPhoneNumber());
-	        response.setContactListId(1);
 	        response.create();
 
 	        callAlertDialog();

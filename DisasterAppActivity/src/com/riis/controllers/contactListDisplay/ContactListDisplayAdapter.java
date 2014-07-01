@@ -28,6 +28,7 @@ import com.riis.SendEmergencyMessageActivity;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
@@ -116,9 +117,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		currentContactList.read();
 		
 		holder.listLabel.setText(currentContactList.getName());
+		Log.i("size", values.get(position).size()+"");
 		
 		if(currentContactList.getName().equals("Everyone"))
 		{
+			Log.i("everyone id", currentContactList.getId()+"");
 			holder.editContactListButton.setVisibility(View.INVISIBLE);
 		}
 		else
@@ -144,23 +147,26 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		for(Contact c : currentContactList.getContacts())
 		{
 			StringBuilder builder = new StringBuilder();
+			
 			TextView display = new TextView(context);
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
+			
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-
 			
+			ContactReference ref = new ContactReference(context);
+			ref.setContactListId(currentContactList.getId());
+			ref.setContactId(c.getId());
+			ref.read();
+			
+			builder = buildNoMessageText(c);
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
-				Log.e("check phone numbers","responsemessagePN:"+m.getPhoneNumber()+" vs contact PN:"+ c.getPhoneNumber());
-				if(m.getPhoneNumber().equals(c.getPhoneNumber()))
+				if(m.getReferenceId() == ref.getId())
 				{
-					Log.e("jump inside","change and create textfield: "+c.getFirstName());
-
 					editContact(c);
-					
 					
 					if(m.getTimeStamp() != 0L)
 					{
@@ -182,8 +188,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			display.setText(builder.toString());
 			holder.listLayout.addView(display ); 
 			holder.listLayout.addView(editContactButton);
-
-			
 		}
 		return row;
 	}
@@ -225,12 +229,8 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	
 	private StringBuilder buildNoMessageText(Contact contact)
 	{
-		
-
 		StringBuilder builder = new StringBuilder();
 		builder.append(contact.getFirstName() +" "+ contact.getLastName());
 		return builder;
 	}
-	
-	
 }

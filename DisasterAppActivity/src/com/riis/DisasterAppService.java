@@ -10,6 +10,7 @@ import com.riis.controllers.EmailSender;
 import com.riis.controllers.TextMessageSender;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
@@ -41,12 +42,15 @@ public class DisasterAppService extends Service
 		responseMessageList.read(contactList.getId());
 		ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 		
-		for(int i = 0; i < responses.size(); i++) 
+		for(ResponseMessage m : responses) 
 		{
-			if(responses.get(i).getTimeStamp() == 0)
+			if(m.getTimeStamp() == 0)
 			{
+				ContactReference ref = new ContactReference(this);
+				ref.read(m.getReferenceId());
+				
 				Contact contact = new Contact(this);
-				contact.setPhoneNumber(responses.get(i).getPhoneNumber());
+				contact.read(ref.getContactId());
 				contact.read();
 				contact.setPingCount(contact.getPingCount() + 1);
 				contact.update();

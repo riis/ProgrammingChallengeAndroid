@@ -6,7 +6,6 @@ import java.util.Calendar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -42,7 +41,7 @@ public class ContactList extends BasePersistentModel
 		this.messageSentTimeStamp = cal.getTimeInMillis();
 	}
 	
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
@@ -280,8 +279,7 @@ public class ContactList extends BasePersistentModel
 	@Override
 	public boolean update() 
 	{
-		Log.e("check id",  " "+id);
-		if(id == -1 || getName().equals(""))
+		if(id == -1)
 		{
 			return false;
 		}
@@ -292,7 +290,7 @@ public class ContactList extends BasePersistentModel
 		
 		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
-		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
+//		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
 		refCursor.close();
 		database.beginTransaction();
 		try
@@ -304,9 +302,9 @@ public class ContactList extends BasePersistentModel
 				throw new MemberDatabaseException();			
 			}
 			
-			deleteRemovedContacts(storedContacts);
-			
-			addSelectedContacts(storedContacts);
+//			deleteRemovedContacts(storedContacts);
+//			
+//			addSelectedContacts(storedContacts);
 			
 			database.setTransactionSuccessful();
 		}

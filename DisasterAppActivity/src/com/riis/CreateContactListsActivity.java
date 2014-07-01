@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,6 +13,7 @@ import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
@@ -38,7 +38,6 @@ public class CreateContactListsActivity extends Activity
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
-        Log.e("create contact list act.", "size:"+contactList.size());
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
@@ -68,15 +67,19 @@ public class CreateContactListsActivity extends Activity
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
 					if(checkBox.isChecked())
 					{
-						list.addContact(contactList.getContact(i));
+//						list.addContact(contactList.getContact(i));
+						ContactReference ref = new ContactReference(this);
+						ref.setContactListId(list.getId());
+						ref.setContactId(contactList.getContact(i).getId());
+						ref.create();
+						
 						ResponseMessage response = new ResponseMessage(this);
+						response.setReferenceId(ref.getId());
 				        response.setTextMessageContents(" Are you OK?");
-				        response.setPhoneNumber(contactList.getContact(i).getPhoneNumber());
-				        response.setContactListId(list.getId());
 				        response.create();
 					}
 				}
-				list.update();
+//				list.update();
 				
 				finish();
 			}

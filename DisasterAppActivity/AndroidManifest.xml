@@ -51,7 +51,6 @@
         <activity android:name="EditContactActivity"
             	  android:label="@string/editContactTitle">
         </activity>
-         
         <receiver android:name=".controllers.TextMessageReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

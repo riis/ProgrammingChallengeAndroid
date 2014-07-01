@@ -7,7 +7,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -16,8 +15,8 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
-import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 
 public class EditContactActivity extends Activity
 {
@@ -46,6 +45,7 @@ public class EditContactActivity extends Activity
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
 	private Context context;
+	private ResponseMessage oldResponse;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -96,8 +96,7 @@ public class EditContactActivity extends Activity
 		//need error checking
 		firstFragmentEditField.setText(existingContact.getEmailAddress());
 		secondFragmentEditField.setText(existingContact.getPhoneNumber());
-		
-		
+		 
 		
     }
 	
@@ -106,7 +105,21 @@ public class EditContactActivity extends Activity
 		finish();
 	}
 	
-	public void saveCreateContact(View view) 
+	public void deleteContact(View view) 
+	{
+		
+//		ContactList list = new ContactList(this);
+//        list.setName("Everyone");
+//        list.read();
+		
+		existingContact.delete();
+		
+//		list.update();
+        callDeleteAlertDialog();
+		
+	}
+	
+	public void saveEditedContact(View view) 
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
@@ -139,11 +152,25 @@ public class EditContactActivity extends Activity
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
 		{	
-			ContactList list = new ContactList(this);
-	        list.setName("Everyone");
-	        list.read();
+//			ContactList list = new ContactList(this);
+//	        list.setName("Everyone");
+//	        list.read();
+//	        
+//	        list.update();
 	        
-	        list.update();
+//	        ListOfContactLists listOfContactLists = new ListOfContactLists(this);
+//	        for(int i=0;i<listOfContactLists.size();i++)
+//	        {
+//	        	listOfContactLists(i)
+//	        }
+			
+			ResponseMessageList messages = new ResponseMessageList(this);
+			messages.readByPhoneNumber(existingContact.getPhoneNumber());
+			for(ResponseMessage response : messages.getResponseMessage())
+			{
+				response.setPhoneNumber(phoneNumberEditField.getText().toString());
+				response.update();
+			}
 			
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());
@@ -151,13 +178,9 @@ public class EditContactActivity extends Activity
 			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 			existingContact.update();
 	        
-			
+			 
 	        
-	        ResponseMessage response = new ResponseMessage(this);
-	        response.setTextMessageContents(" Are you OK?");
-	        response.setPhoneNumber(existingContact.getPhoneNumber());
-	        response.setContactListId(1);
-	        response.create();
+	        
 	        
 	        callAlertDialog();
 		}
@@ -169,6 +192,24 @@ public class EditContactActivity extends Activity
 
 		alertDialogBuilder.setTitle("Changes Saved");
 		alertDialogBuilder.setMessage("Your contact has been editted and saved")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	private void callDeleteAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
+
+		alertDialogBuilder.setTitle("Changes Deleted");
+		alertDialogBuilder.setMessage("Your contact has been deleted")
 				   .setCancelable(false)
 				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
 				   {

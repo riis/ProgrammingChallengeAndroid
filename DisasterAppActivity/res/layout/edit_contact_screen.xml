@@ -58,11 +58,19 @@
 			android:onClick="cancelCreateContact" />
 		
 		<Button
+			android:id="@+id/deleteContactButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/deleteButtonLabel" 
+			android:onClick="deleteContact" />
+		
+		<Button
 			android:id="@+id/saveContactButton"
 			android:layout_weight="1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/saveButtonLabel" 
-			android:onClick="saveCreateContact" />
+			android:onClick="saveEditedContact" />
 	</LinearLayout>
 </LinearLayout>

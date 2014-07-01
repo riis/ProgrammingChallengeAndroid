@@ -154,8 +154,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
+				Log.e("check phone numbers","responsemessagePN:"+m.getPhoneNumber()+" vs contact PN:"+ c.getPhoneNumber());
 				if(m.getPhoneNumber().equals(c.getPhoneNumber()))
 				{
+					Log.e("jump inside","change and create textfield: "+c.getFirstName());
+
 					editContact(c);
 					
 					

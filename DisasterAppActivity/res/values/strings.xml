@@ -22,6 +22,7 @@
     <string name="phoneNumberLabel">Phone Number</string>
     <string name="saveButtonLabel">Save</string>
     <string name="cancelButtonLabel">Cancel</string>
+    <string name="deleteButtonLabel">Delete</string>
     <string name="emptyField">Field cannot be blank</string>
     <string name="firstNameHint">Example: Bob</string>
     <string name="lastNameHint">Example: Smith</string>

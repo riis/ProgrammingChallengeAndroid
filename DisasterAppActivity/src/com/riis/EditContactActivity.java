@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
 import com.riis.models.Contact;
-import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
+import com.riis.models.ResponseMessageList;
 
 public class EditContactActivity extends Activity
 {
@@ -42,6 +42,7 @@ public class EditContactActivity extends Activity
 	private Contact existingContact;
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
+
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -88,6 +89,7 @@ public class EditContactActivity extends Activity
 		lastNameEditField.setText(existingContact.getLastName());
 		firstFragmentEditField.setText(existingContact.getEmailAddress());
 		secondFragmentEditField.setText(existingContact.getPhoneNumber());
+
     }
 	
 	public void cancelCreateContact(View view) 
@@ -95,7 +97,14 @@ public class EditContactActivity extends Activity
 		finish();
 	}
 	
-	public void saveCreateContact(View view) 
+	public void deleteContact(View view) 
+	{
+		existingContact.delete();
+        callDeleteAlertDialog();
+		
+	}
+	
+	public void saveEditedContact(View view) 
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
@@ -126,11 +135,14 @@ public class EditContactActivity extends Activity
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
 		{	
-			ContactList list = new ContactList(this);
-	        list.setName("Everyone");
-	        list.read();
-	        
-	        list.update();
+			
+			ResponseMessageList messages = new ResponseMessageList(this);
+			messages.readByPhoneNumber(existingContact.getPhoneNumber());
+			for(ResponseMessage response : messages.getResponseMessage())
+			{
+				response.setPhoneNumber(phoneNumberEditField.getText().toString());
+				response.update();
+			}
 			
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());
@@ -138,11 +150,6 @@ public class EditContactActivity extends Activity
 			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
 			existingContact.update();
 	        
-	        ResponseMessage response = new ResponseMessage(this);
-	        response.setTextMessageContents(" Are you OK?");
-	        response.setPhoneNumber(existingContact.getPhoneNumber());
-	        response.setContactListId(1);
-	        response.create();
 	        
 	        callAlertDialog();
 		}
@@ -154,6 +161,24 @@ public class EditContactActivity extends Activity
 
 		alertDialogBuilder.setTitle("Changes Saved");
 		alertDialogBuilder.setMessage("Your contact has been editted and saved")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	private void callDeleteAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
+
+		alertDialogBuilder.setTitle("Changes Deleted");
+		alertDialogBuilder.setMessage("Your contact has been deleted")
 				   .setCancelable(false)
 				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
 				   {

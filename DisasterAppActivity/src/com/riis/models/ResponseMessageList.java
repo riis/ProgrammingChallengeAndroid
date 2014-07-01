@@ -118,4 +118,44 @@ public class ResponseMessageList extends BasePersistentModel
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean readByPhoneNumber(String phoneNumber)
+	{
+		if (phoneNumber.equals(""))
+		{
+			return false;
+		}		
+		
+		open();
+		Cursor cursor = database.query("responseMessage", null, "phoneNumber = '"+ phoneNumber +"'", null, null, null, null);
+		cursor.moveToFirst();
+		try
+		{
+			while (!cursor.isAfterLast()) 
+			{
+				ResponseMessage next = new ResponseMessage(context);
+				boolean success = next.read(cursor.getLong(0));
+				if (success)
+				{
+					responseMessage.add(next);
+				}
+				else
+				{
+					throw new MemberDatabaseException();
+				}
+				cursor.moveToNext();
+			}
+		}
+		catch(MemberDatabaseException e)
+		{
+			close();
+			return false;
+		}
+		finally
+		{
+			cursor.close();
+		}
+		
+		return true;
+	}
 }

@@ -27,6 +27,10 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   public void getBindings(BindingsGroup bindings, DisasterAppObjectGraph module) {
     bindings.contributeProvidesBinding("com.riis.models.ResponseMessageList", new ProvideResponseMessageListProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ListOfContactLists", new ProvideListOfContactListsProvidesAdapter(module));
+<<<<<<< HEAD
+    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
+=======
+>>>>>>> e8a78858b3fffa08f848716d09063fc2dd18de56
     bindings.contributeProvidesBinding("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", new ProvideMessageIndicatorItemClickListenerProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
   }
@@ -86,6 +90,20 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   }
 
   /**
+<<<<<<< HEAD
+   * A {@code Binding<com.riis.models.ContactList>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   *
+   * Being a {@code Provider<com.riis.models.ContactList>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvideContactListProvidesAdapter extends ProvidesBinding<com.riis.models.ContactList>
+      implements Provider<com.riis.models.ContactList> {
+    private final DisasterAppObjectGraph module;
+
+    public ProvideContactListProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.models.ContactList", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideContactList");
+=======
    * A {@code Binding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    *
@@ -98,17 +116,26 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
 
     public ProvideMessageIndicatorItemClickListenerProvidesAdapter(DisasterAppObjectGraph module) {
       super("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideMessageIndicatorItemClickListener");
+>>>>>>> e8a78858b3fffa08f848716d09063fc2dd18de56
       this.module = module;
       setLibrary(false);
     }
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
+<<<<<<< HEAD
+     * {@code Provider<com.riis.models.ContactList>}.
+     */
+    @Override
+    public com.riis.models.ContactList get() {
+      return module.provideContactList();
+=======
      * {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>}.
      */
     @Override
     public com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener get() {
       return module.provideMessageIndicatorItemClickListener();
+>>>>>>> e8a78858b3fffa08f848716d09063fc2dd18de56
     }
   }
 

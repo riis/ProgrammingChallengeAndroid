@@ -195,15 +195,14 @@ public class ContactList extends BasePersistentModel
 		{
 			Contact currentContact = new Contact(context);
 			boolean success = currentContact.read(cursor.getLong(0)); 
-			
+
 			if (success)
 			{
 				contacts.add(currentContact);
 			}
-			
+	
 			cursor.moveToNext();
 		}
-		
 		cursor.close();
 		close();
 		
@@ -383,15 +382,12 @@ public class ContactList extends BasePersistentModel
 		{
 			Contact currentContact = new Contact(context);
 			boolean success = currentContact.read(cursor.getInt(2)); 
-			
 			if (success)
 			{
 				storedContacts.add(currentContact);
 			}
-			
 			cursor.moveToNext();
 		}
-		
 		return storedContacts;
 	}
 	

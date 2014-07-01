@@ -71,7 +71,8 @@ public class DisasterAppActivity extends Activity
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 		Intent i = new Intent();
-	    switch (item.getItemId()) {
+	    switch (item.getItemId()) 
+	    {
 	        case R.id.createContactItem:
 	        	i = new Intent(this, NewContactActivity.class);
 	            startActivity(i);
@@ -88,6 +89,7 @@ public class DisasterAppActivity extends Activity
 	        	i = new Intent(this, ViewResponseMessagesActivity.class);
 	        	startActivity(i);
 	        	return true;
+
 	    }
 	    
 	    return false;

@@ -16,4 +16,5 @@
         android:id="@+id/viewResponseMessagesItem"
         android:title="@string/viewResponseMessagesScreenButtonLabel"
         android:showAsAction="never" />
+
 </menu>

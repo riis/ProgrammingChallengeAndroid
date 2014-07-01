@@ -7,6 +7,7 @@
     <string name="viewResponseMessagesTitle">View Response Messages</string>
     <string name="sendEmergencyMessageTitle">Send Message</string>
     <string name="contactListMembersTitle">List Members</string>
+    <string name="editContactTitle">Edit Contact</string>
     
     
     <string name="createContactScreenButtonLabel">Create Contact</string>
@@ -43,7 +44,7 @@
      <string name="importLabel">Import</string>
      
     <string name="importContactsScreenButtonLabel">Import Contacts</string>
-    
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
+    <string name="editContactScreenButtonLabel">Edit Contact</string>
     <string name="returnToMainScreenButtonLabel">Home</string>
 </resources>

@@ -8,6 +8,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.riis.EditContactActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
@@ -34,6 +37,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 {
 	private Context context;
 	private ArrayList<ContactList> values;
+	private Button editContactButton;
 	@Inject ContactList currentContactList;
 	@Inject ResponseMessageList responseMessageList;
 
@@ -70,9 +74,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			holder.sendMessageToContactList = (Button) row.findViewById(R.id.sendMessageContactListButton);
 			holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 			
-			holder.editContactListButton.setOnClickListener(new OnClickListener() {
+			holder.editContactListButton.setOnClickListener(new OnClickListener() 
+			{
 				@Override
-				public void onClick(View view) {
+				public void onClick(View view) 
+				{
 					View parent = (View) view.getParent();
 					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
 					Intent intent = new Intent(context, EditContactListMembersActivity.class);
@@ -81,9 +87,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				}
 			});
 			
-			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() {
+			holder.sendMessageToContactList.setOnClickListener(new OnClickListener() 
+			{
 				@Override
-				public void onClick(View view) {
+				public void onClick(View view) 
+				{
 					View parent = (View) view.getParent();
 					String name = ((TextView) parent.findViewById(R.id.contactListNameValue)).getText().toString();
 					Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
@@ -139,11 +147,18 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			TextView display = new TextView(context);
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
+			editContactButton = new Button(context);
+			editContactButton.setText("Edit Contact");
+			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+
 			
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
 				if(m.getPhoneNumber().equals(c.getPhoneNumber()))
 				{
+					editContact(c);
+					
+					
 					if(m.getTimeStamp() != 0L)
 					{
 						builder = buildRespondedText(m, c);
@@ -158,15 +173,32 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					{
 						builder = buildNoMessageText(c);
 					}
-					
 					break;
 				}
 			}
-			
 			display.setText(builder.toString());
-			holder.listLayout.addView(display);
+			holder.listLayout.addView(display ); 
+			holder.listLayout.addView(editContactButton);
+
+			
 		}
 		return row;
+	}
+
+	private void editContact(final Contact c) 
+	{
+		editContactButton.setOnClickListener(new Button.OnClickListener()
+		{
+			public void onClick(View v)
+			{ 
+				Intent intent = new Intent(context, EditContactActivity.class);
+				
+				Bundle b = new Bundle();
+				b.putLong("id", c.getId());
+				intent.putExtras(b);
+				context.startActivity(intent);
+			}
+		});
 	}
 	
 	private StringBuilder buildRespondedText(ResponseMessage message, Contact contact)
@@ -190,8 +222,12 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	
 	private StringBuilder buildNoMessageText(Contact contact)
 	{
+		
+
 		StringBuilder builder = new StringBuilder();
 		builder.append(contact.getFirstName() +" "+ contact.getLastName());
 		return builder;
 	}
+	
+	
 }

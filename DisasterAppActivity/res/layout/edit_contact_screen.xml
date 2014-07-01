@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/firstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/firstNameLabel" />
+    <EditText
+        android:id="@+id/firstNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/firstNameHint"
+        android:inputType="textCapWords"
+         />
+    
+    <TextView
+        android:id="@+id/lastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lastNameLabel" />
+    <EditText
+        android:id="@+id/lastNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/lastNameHint"
+        android:inputType="textCapWords" />
+    
+    <fragment
+        android:name="com.riis.fragments.ContactInfoFragment"
+        android:id="@+id/firstContactInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <fragment
+        android:name="com.riis.fragments.ContactInfoFragment"
+        android:id="@+id/secondContactInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+     
+	<LinearLayout
+        android:id="@+id/buttonRow"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal" >
+	
+		<Button
+			android:id="@+id/cancelCreateContactButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/cancelButtonLabel"
+			android:onClick="cancelCreateContact" />
+		
+		<Button
+			android:id="@+id/saveContactButton"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/saveButtonLabel" 
+			android:onClick="saveCreateContact" />
+	</LinearLayout>
+</LinearLayout>

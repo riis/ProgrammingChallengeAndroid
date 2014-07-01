@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 		}
 		
-
+		
 		TextView nameView = (TextView) row.findViewById(R.id.selectContactListName);
 		TextView emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
 		TextView phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
@@ -59,6 +60,8 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 		emailView.setText(values.get(position).getEmailAddress());
 		
 		phoneView.setText(values.get(position).getPhoneNumber());
+		
+		Log.e("values", "text view:"+ values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 		
 		selectContactCheckBox.setChecked(false);
 		

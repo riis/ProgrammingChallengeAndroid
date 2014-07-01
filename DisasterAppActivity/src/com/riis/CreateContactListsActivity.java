@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class CreateContactListsActivity extends Activity
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
        
         contactList.readAllContacts();
+        Log.e("create contact list act.", "size:"+contactList.size());
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));

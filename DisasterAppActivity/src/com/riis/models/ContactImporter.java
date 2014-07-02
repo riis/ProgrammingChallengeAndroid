@@ -99,9 +99,6 @@ public class ContactImporter
 				{
 					contacts.get(i).create();
 					
-//					everyoneList.addContact(contacts.get(i));
-//					everyoneList.update();
-					
 					ContactReference ref = new ContactReference(context);
 					ref.setContactListId(1);
 					ref.setContactId(contacts.get(i).getId());

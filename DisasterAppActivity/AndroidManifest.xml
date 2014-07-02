@@ -16,8 +16,7 @@
     <application android:label="@string/appName" 
         android:icon="@drawable/ic_launcher"
         android:allowBackup="false"
-        android:name="com.riis.dagger.DaggerApplication" 
-        android:theme="@android:style/Theme.Holo">
+        android:name="com.riis.dagger.DaggerApplication" >
         <service android:name="DisasterAppService"
             android:enabled="true" />
         <activity android:name="EmailInputActivity"

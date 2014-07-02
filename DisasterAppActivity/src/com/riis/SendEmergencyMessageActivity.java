@@ -79,11 +79,6 @@ public class SendEmergencyMessageActivity extends Activity
 			contactList.updateMessageSentTimeStamp();
 			contactList.update();
 			
-//			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
-//			
-//			EmailSender task = new EmailSender(this, contactList, emergencyMessageField.getText().toString());
-//			task.execute();
-			
 			ResponseMessageList responseMessageList = new ResponseMessageList(this);
 			responseMessageList.read(contactList.getId());
 			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
@@ -110,8 +105,6 @@ public class SendEmergencyMessageActivity extends Activity
 			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, secondIntent);
 			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 600000, thirdIntent);
 			
-//			EmailReceiverHandler.getHandler(getApplicationContext());
-
 			finish();
 		}
 	}

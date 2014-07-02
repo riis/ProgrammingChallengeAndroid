@@ -27,6 +27,8 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
 	private Button saveButton;
+	private Button cancelButton;
+	private Button deleteButton;
 	
 	public EditContactActivityTest()
 	{
@@ -55,6 +57,9 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
         
 		firstNameEditField = (EditText) editContactActivity.findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) editContactActivity.findViewById(R.id.lastNameEditText);
+		saveButton = (Button) editContactActivity.findViewById(R.id.saveContactButton);
+		cancelButton = (Button) editContactActivity.findViewById(R.id.cancelEditContactButton);
+		deleteButton = (Button) editContactActivity.findViewById(R.id.deleteContactButton);
 	}
 	
 	protected void tearDown() throws Exception
@@ -110,6 +115,21 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	public void testSecondFragmentEditTextExists()
 	{
 		assertNotNull(secondFragmentEditField);
+	}
+	
+	public void testCancelButtonExists()
+	{
+		assertNotNull(cancelButton);
+	}
+	
+	public void testDeleteButtonExists()
+	{
+		assertNotNull(deleteButton);
+	}
+	
+	public void testSaveButtonExists()
+	{
+		assertNotNull(saveButton);
 	}
 	
 	public void testLastNameChangeTextField()

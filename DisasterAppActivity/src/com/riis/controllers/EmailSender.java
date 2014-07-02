@@ -28,7 +28,8 @@ public class EmailSender extends AsyncTask<Void, Void, Integer>
 	}
 	
 	@Override
-	protected Integer doInBackground(Void... arg0) {
+	protected Integer doInBackground(Void... arg0) 
+	{
 		SharedPreferences prefs = context.getSharedPreferences("emailData", 1);
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(context);

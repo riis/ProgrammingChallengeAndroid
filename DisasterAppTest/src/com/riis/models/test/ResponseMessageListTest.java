@@ -20,8 +20,7 @@ public class ResponseMessageListTest extends TestCase
 		super.setUp();
 		
 		responseMessage = new ResponseMessage(null);
-//		responseMessage.setPhoneNumber("5555555555");
-		responseMessage.setTextMessageContents("Are you OK?");
+		responseMessage.setMessageContents("Are you OK?");
 		responseMessage.updateMessageSentTimeStamp();
 		
 		responseMessageList = new ResponseMessageList(null);

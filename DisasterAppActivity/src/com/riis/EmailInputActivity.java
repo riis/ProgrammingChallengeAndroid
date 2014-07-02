@@ -1,6 +1,8 @@
 package com.riis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -47,8 +49,33 @@ public class EmailInputActivity extends Activity
 	
 	public void skipToMain(View view)
 	{
-		Intent i = new Intent(this, DisasterAppActivity.class);
-		startActivity(i);
+		callSkipAlertDialog();
+	}
+	
+	private void callSkipAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Skip Email Setup");
+		alertDialogBuilder.setMessage("Are you sure you do not want to enter an email address? Some features will be disabled!")
+				   .setCancelable(true)
+				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							Intent i = new Intent(getApplicationContext(), DisasterAppActivity.class);
+							startActivity(i);
+						}
+				   })
+				   .setNegativeButton("No", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							dialog.cancel();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 	
 	private boolean isEmailValid(String email)

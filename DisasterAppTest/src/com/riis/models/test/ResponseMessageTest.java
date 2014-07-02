@@ -33,36 +33,14 @@ public class ResponseMessageTest extends TestCase{
 		assertEquals(date, responseMessage.getFormattedMessageSentTimeStamp());
 	}
 	
-//	public void testNewPhoneNumber()
-//	{
-//		responseMessage.setPhoneNumber("5555555555");
-//		assertEquals("5555555555", responseMessage.getPhoneNumber());
-//	}
-	
 	public void testNewTextMessageContents()
 	{
-		responseMessage.setTextMessageContents("This is a test response.");
-		assertEquals("This is a test response.", responseMessage.getTextMessageContents());
+		responseMessage.setMessageContents("This is a test response.");
+		assertEquals("This is a test response.", responseMessage.getMessageContents());
 	}
-	
-//	public void testNewContactListId()
-//	{
-//		responseMessage.setContactListId(1);
-//		assertEquals(1, responseMessage.getContactListId());
-//	}
-//	
-//	public void testInitialPhoneNumber()
-//	{
-//		assertNotNull(responseMessage.getPhoneNumber());
-//	}
 	
 	public void testInitialTextMessageContents()
 	{
-		assertNotNull(responseMessage.getTextMessageContents());
+		assertNotNull(responseMessage.getMessageContents());
 	}
-	
-//	public void testInitialContactListId()
-//	{
-//		assertEquals(-1, responseMessage.getContactListId());
-//	}
 }

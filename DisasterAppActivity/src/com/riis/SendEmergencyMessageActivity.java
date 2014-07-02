@@ -87,7 +87,7 @@ public class SendEmergencyMessageActivity extends Activity
 			{
 				ResponseMessage response = responses.get(i);
 				response.read();
-				response.setTextMessageContents("Are you OK?");
+				response.setMessageContents("Are you OK?");
 				response.setTimeStamp(0);
 				response.update();
 			}

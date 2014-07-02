@@ -5,13 +5,17 @@
     android:orientation="vertical" >
     
     <TextView
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="In order to utilize all of Emergency Messaging's features, please enter a valid email address." />
+        android:layout_width="fill_parent"
+        android:paddingBottom="18sp"
+        android:textSize="18sp"
+        android:text="@string/userEmailInputLabel" />
     
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:textSize="18sp"
         android:text="@string/emailAddressLabel" />
     
     <EditText
@@ -24,14 +28,15 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Password:" />
+        android:textSize="18sp"
+        android:text="@string/userEmailPasswordInputLabel" />
     
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:hint="@string/passwordHint" />
     
     <LinearLayout
         android:id="@+id/buttonRow"
@@ -45,15 +50,15 @@
 			android:layout_weight="1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="Skip"
+			android:text="@string/skipToMainButton"
 			android:onClick="skipToMain" />
 		
 		<Button
-			android:id="@+id/selectButton"
+			android:id="@+id/submitEmailInfoButton"
 			android:layout_weight="1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="Select" 
+			android:text="@string/submitEmailInfoButton" 
 			android:onClick="submitEmailAndPassword" />
 	</LinearLayout>
 </LinearLayout>

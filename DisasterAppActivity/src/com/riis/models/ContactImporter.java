@@ -99,9 +99,6 @@ public class ContactImporter
 				{
 					contacts.get(i).create();
 					
-//					everyoneList.addContact(contacts.get(i));
-//					everyoneList.update();
-					
 					ContactReference ref = new ContactReference(context);
 					ref.setContactListId(1);
 					ref.setContactId(contacts.get(i).getId());
@@ -109,7 +106,7 @@ public class ContactImporter
 					
 					ResponseMessage response = new ResponseMessage(context);
 					response.setReferenceId(ref.getId());
-			        response.setTextMessageContents(" Are you OK?");
+			        response.setMessageContents(" Are you OK?");
 			        response.create();
 				}
 			}

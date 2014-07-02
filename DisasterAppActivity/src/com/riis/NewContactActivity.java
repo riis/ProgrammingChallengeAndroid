@@ -120,13 +120,6 @@ public class NewContactActivity extends Activity
 			newContact.setPhoneNumber(phoneNumberEditField.getText().toString().replaceAll("[^\\d.]", ""));
 	        newContact.create();
 	        
-//	        ContactList list = new ContactList(this);
-//	        list.setName("Everyone");
-//	        list.read();
-//	        
-//	        list.addContact(newContact);
-//	        list.update();
-	        
 	        ContactReference ref = new ContactReference(this);
 	        ref.setContactListId(1L);
 	        ref.setContactId(newContact.getId());
@@ -134,7 +127,7 @@ public class NewContactActivity extends Activity
 	        
 	        ResponseMessage response = new ResponseMessage(this);
 	        response.setReferenceId(ref.getId());
-	        response.setTextMessageContents(" Are you OK?");
+	        response.setMessageContents(" Are you OK?");
 	        response.create();
 
 	        callAlertDialog();
@@ -143,7 +136,7 @@ public class NewContactActivity extends Activity
 	
 	private void callAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewContactActivity.this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		alertDialogBuilder.setTitle("Contact Saved");
 		alertDialogBuilder.setMessage("Your contact has been saved")

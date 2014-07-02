@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/firstNameHint"
-        android:inputType="textCapWords"
-         />
+        android:inputType="textCapWords" />
     
     <TextView
         android:id="@+id/lastNameLabel"

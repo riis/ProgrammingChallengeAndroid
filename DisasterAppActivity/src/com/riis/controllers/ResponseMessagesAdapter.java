@@ -132,7 +132,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 	private StringBuilder buildRespondedText(ResponseMessage message, Contact contact)
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append(message.getTextMessageContents());
+		builder.append(message.getMessageContents());
 		builder.append("("+ contact.getPingCount() +" pings) - ");
 		builder.append(contact.getFirstName()+" "+ contact.getLastName());
 		builder.append(" - last response: ");

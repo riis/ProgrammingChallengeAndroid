@@ -73,13 +73,13 @@ public class TextMessageReceiver extends BroadcastReceiver
 				boolean exists = response.read();
 				if(exists)
 				{
-					response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
+					response.setMessageContents(sms[sms.length - 1].getMessageBody());
 					response.updateMessageSentTimeStamp();
 					response.update();
 				}
 				else
 				{
-					response.setTextMessageContents(sms[sms.length - 1].getMessageBody());
+					response.setMessageContents(sms[sms.length - 1].getMessageBody());
 					response.updateMessageSentTimeStamp();
 					response.create();
 				}

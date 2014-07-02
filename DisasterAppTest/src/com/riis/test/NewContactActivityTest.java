@@ -36,7 +36,6 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	private NewContactActivity newContactActivity;
 	
-	
 	public NewContactActivityTest()
 	{
 		super(NewContactActivity.class);
@@ -214,7 +213,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 			@Override
 			public void run() 
 			{
-			firstNameEditField.setText("Bob", TextView.BufferType.EDITABLE);
+				firstNameEditField.setText("Bob", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -236,7 +235,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 			@Override
 			public void run() 
 			{
-			lastNameEditField.setText("Wszedybyl", TextView.BufferType.EDITABLE);
+				lastNameEditField.setText("Wszedybyl", TextView.BufferType.EDITABLE);
 			}
 		});
 		

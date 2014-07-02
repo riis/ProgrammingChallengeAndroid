@@ -98,7 +98,7 @@ public class EditContactActivity extends Activity
         callDeleteAlertDialog();
 	}
 	
-	public void saveEditedContact(View view) 
+	public void updateContact(View view) 
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);

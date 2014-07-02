@@ -26,7 +26,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
-	private Button saveButton;
+	private Button updateButton;
 	private Button cancelButton;
 	private Button deleteButton;
 	
@@ -41,8 +41,8 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 		editContactActivity = getActivity();
 	
 		firstNameText = (TextView)editContactActivity.findViewById(R.id.firstNameLabel);
-
 		lastNameText = (TextView) editContactActivity.findViewById(R.id.lastNameLabel);
+		
 		FragmentManager manager = editContactActivity.getFragmentManager();
         
         Fragment firstFragment = manager.findFragmentById(R.id.firstContactInfoFragment);
@@ -57,7 +57,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
         
 		firstNameEditField = (EditText) editContactActivity.findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) editContactActivity.findViewById(R.id.lastNameEditText);
-		saveButton = (Button) editContactActivity.findViewById(R.id.saveContactButton);
+		updateButton = (Button) editContactActivity.findViewById(R.id.updateContactButton);
 		cancelButton = (Button) editContactActivity.findViewById(R.id.cancelEditContactButton);
 		deleteButton = (Button) editContactActivity.findViewById(R.id.deleteContactButton);
 	}
@@ -129,7 +129,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	
 	public void testSaveButtonExists()
 	{
-		assertNotNull(saveButton);
+		assertNotNull(updateButton);
 	}
 	
 	public void testLastNameChangeTextField()
@@ -250,7 +250,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 			public void run() 
 			{
 				firstFragmentSpinner.setSelection(1);
-				saveButton.performClick();
+				updateButton.performClick();
 			}
 		});
 		

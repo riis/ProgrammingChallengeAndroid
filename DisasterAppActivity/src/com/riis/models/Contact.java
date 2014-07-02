@@ -132,7 +132,7 @@ public class Contact extends BasePersistentModel
 		
 		open();
 		Cursor cursor = database.query("contact", null, selection.toString(), null, null, null, null);		
-		boolean result = readRecordFromCursor(cursor);
+			boolean result = readRecordFromCursor(cursor);
 		cursor.close();
 		close();
 		return result;

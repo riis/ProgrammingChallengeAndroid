@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.riis.controllers.EmailReceiver;
 import com.riis.controllers.EmailSender;
 import com.riis.controllers.TextMessageSender;
 import com.riis.models.Contact;
@@ -40,6 +41,7 @@ public class DisasterAppService extends Service
 		
 		ResponseMessageList responseMessageList = new ResponseMessageList(this);
 		responseMessageList.read(contactList.getId());
+		
 		ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 		
 		for(ResponseMessage m : responses) 
@@ -61,6 +63,8 @@ public class DisasterAppService extends Service
 		
 		EmailSender task = new EmailSender(this, contactList, message);
 		task.execute();
+		
+		new EmailReceiver(this, contactList.getId()).execute();
 		
 		return START_NOT_STICKY;
 	}

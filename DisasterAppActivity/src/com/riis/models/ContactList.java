@@ -214,33 +214,34 @@ public class ContactList extends BasePersistentModel
 		if (getName().equals(""))
 		{
 			return false;
-		}		
+		}
+		
 		open();
-		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
-				null);		
-		try
-		{
-			readContactListFromCursor(cursor);
-		}
-		catch (MemberDatabaseException e1)
-		{
-			close();
-			return false;
-		}
-		finally
-		{
-			cursor.close();
-		}
-		
-		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
-				null);
-		
-		if(refCursor.moveToFirst())
-		{
-			contacts = readContactListMembersFromCursor(refCursor);
-		}
-		
-		refCursor.close();
+			Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
+					null);		
+				try
+				{
+					readContactListFromCursor(cursor);
+				}
+				catch (MemberDatabaseException e1)
+				{
+					close();
+					return false;
+				}
+				finally
+				{
+					cursor.close();
+				}
+				
+			Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
+					null);
+				
+				if(refCursor.moveToFirst())
+				{
+					contacts = readContactListMembersFromCursor(refCursor);
+				}
+			
+			refCursor.close();
 		close();
 		
 		return true;
@@ -265,14 +266,14 @@ public class ContactList extends BasePersistentModel
 		}
 		catch (MemberDatabaseException e)
 		{
-			e.printStackTrace();
+			return false;
 		}
 		finally
 		{
+			database.endTransaction();
 			close();
 		}
 		
-		close();
 		return true;
 	}
 	
@@ -290,7 +291,6 @@ public class ContactList extends BasePersistentModel
 		
 		open();
 		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null, null);
-//		ArrayList<Contact> storedContacts = readContactListMembersFromCursor(refCursor);
 		refCursor.close();
 		database.beginTransaction();
 		try
@@ -301,10 +301,6 @@ public class ContactList extends BasePersistentModel
 			{
 				throw new MemberDatabaseException();			
 			}
-			
-//			deleteRemovedContacts(storedContacts);
-//			
-//			addSelectedContacts(storedContacts);
 			
 			database.setTransactionSuccessful();
 		}
@@ -319,37 +315,6 @@ public class ContactList extends BasePersistentModel
 		}
 			
 		return true;
-	}
-
-	private void addSelectedContacts(ArrayList<Contact> storedContacts)
-			throws MemberDatabaseException {
-		for(Contact c : contacts)
-		{
-			if(!storedContacts.contains(c))
-			{
-				insertMemberIntoContactList(c);
-			}
-		}
-	}
-
-	private void deleteRemovedContacts(ArrayList<Contact> storedContacts)
-			throws MemberDatabaseException {
-		if(storedContacts.size() > 0)
-		{
-			for(Contact c : storedContacts)
-			{
-				if(!contacts.contains(c))
-				{
-
-					int delete = database.delete("contactListMembers", "contactListId = "+ getId() 
-							+" AND contactId = "+ c.getId(), null);
-					if(delete != 1)
-					{
-						throw new MemberDatabaseException();
-					}
-				}
-			}
-		}
 	}
 	
 	private void insertMemberIntoContactList(Contact contact) throws MemberDatabaseException

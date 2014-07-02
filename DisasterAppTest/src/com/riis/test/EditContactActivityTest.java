@@ -2,7 +2,6 @@ package com.riis.test;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import com.riis.R;
 public class EditContactActivityTest extends ActivityInstrumentationTestCase2<EditContactActivity>
 {
 	private EditContactActivity editContactActivity;
-	private Context context;
 	private TextView firstNameText;
 	private TextView lastNameText;
 	private TextView firstFragmentText;
@@ -30,8 +28,6 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	private Spinner secondFragmentSpinner;
 	private Button saveButton;
 	
-	
-	
 	public EditContactActivityTest()
 	{
 		super(EditContactActivity.class);
@@ -41,7 +37,6 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 	{
 		super.setUp();
 		editContactActivity = getActivity();
-		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 	
 		firstNameText = (TextView)editContactActivity.findViewById(R.id.firstNameLabel);
 
@@ -60,10 +55,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
         
 		firstNameEditField = (EditText) editContactActivity.findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) editContactActivity.findViewById(R.id.lastNameEditText);
-	
 	}
-	
-	
 	
 	protected void tearDown() throws Exception
 	{
@@ -297,5 +289,4 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Ed
 		assertFalse(editContactActivity.isPhoneValid("123"));
 		assertFalse(editContactActivity.isPhoneValid("0001234567a"));
 	}
-	
 }

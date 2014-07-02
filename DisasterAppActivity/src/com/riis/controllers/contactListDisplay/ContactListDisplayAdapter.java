@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,11 +116,9 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		currentContactList.read();
 		
 		holder.listLabel.setText(currentContactList.getName());
-		Log.i("size", values.get(position).size()+"");
 		
 		if(currentContactList.getName().equals("Everyone"))
 		{
-			Log.i("everyone id", currentContactList.getId()+"");
 			holder.editContactListButton.setVisibility(View.INVISIBLE);
 		}
 		else

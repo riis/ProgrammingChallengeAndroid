@@ -100,7 +100,7 @@ public class ContactReference extends BasePersistentModel
 	public boolean read(long id)
 	{
 		open();
-		Cursor cursor = database.query("contactListMembers", null, "+id = "+ id, null, null, null, null);		
+		Cursor cursor = database.query("contactListMembers", null, "_id = "+ id, null, null, null, null);		
 		boolean result = readRecordFromCursor(cursor);
 		cursor.close();
 		close();

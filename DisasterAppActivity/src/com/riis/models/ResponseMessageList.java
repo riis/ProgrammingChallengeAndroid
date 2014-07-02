@@ -118,43 +118,41 @@ public class ResponseMessageList extends BasePersistentModel
 		return false;
 	}
 	
-	public boolean readByPhoneNumber(String phoneNumber)
+	public boolean allContactsResponded(long contactListId)
 	{
-		if (phoneNumber.equals(""))
-		{
-			return false;
-		}		
-		
 		open();
-		Cursor cursor = database.query("responseMessage", null, "phoneNumber = '"+ phoneNumber +"'", null, null, null, null);
+		String t = "SELECT * FROM responseMessage r INNER JOIN contactListMembers c ON c._id=r.referenceId WHERE c.contactListId="
+				+ contactListId +" ORDER BY r.timeStamp DESC";
+		
+		Cursor cursor = database.rawQuery(t, null);
 		cursor.moveToFirst();
-		try
+		boolean returnVal = false;
+		while (!cursor.isAfterLast()) 
 		{
-			while (!cursor.isAfterLast()) 
+			ResponseMessage next = new ResponseMessage(context);
+			boolean success = next.read(cursor.getLong(0));
+			
+			if (success)
 			{
-				ResponseMessage next = new ResponseMessage(context);
-				boolean success = next.read(cursor.getLong(0));
-				if (success)
+				if(next.getTimeStamp() != 0)
 				{
-					responseMessage.add(next);
+					returnVal = true;
 				}
 				else
 				{
-					throw new MemberDatabaseException();
+					cursor.close();
+					close();
+					return false;
 				}
-				cursor.moveToNext();
 			}
+			else
+			{
+				returnVal = false;
+			}
+			cursor.moveToNext();
 		}
-		catch(MemberDatabaseException e)
-		{
-			close();
-			return false;
-		}
-		finally
-		{
-			cursor.close();
-		}
-		
-		return true;
+		cursor.close();
+		close();
+		return returnVal;
 	}
 }

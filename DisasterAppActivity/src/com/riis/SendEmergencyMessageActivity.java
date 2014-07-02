@@ -15,19 +15,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.controllers.EmailSender;
 import com.riis.controllers.EmergencyMessageTextWatcher;
 import com.riis.controllers.MessageRecepiantsListAdapter;
 import com.riis.controllers.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
+import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
 import dagger.ObjectGraph;
 
-public class SendEmergencyMessageActivity extends Activity {
-	
+public class SendEmergencyMessageActivity extends Activity
+{
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
 	private ListView recepiantsList;
@@ -68,13 +68,21 @@ public class SendEmergencyMessageActivity extends Activity {
 		if(isValidEmergencyMessage(emergencyMessageField.getText().toString()))
 		{
 			contactList.read();
+			
+			for(Contact c : contactList.getContacts())
+			{
+				c.read();
+				c.setPingCount(0);
+				c.update();
+			}
+			
 			contactList.updateMessageSentTimeStamp();
 			contactList.update();
 			
-			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
-			
-			EmailSender task = new EmailSender(this, contactList, emergencyMessageField.getText().toString());
-			task.execute();
+//			textMessageSender.sendMessage(contactList, emergencyMessageField.getText().toString());
+//			
+//			EmailSender task = new EmailSender(this, contactList, emergencyMessageField.getText().toString());
+//			task.execute();
 			
 			ResponseMessageList responseMessageList = new ResponseMessageList(this);
 			responseMessageList.read(contactList.getId());
@@ -95,11 +103,14 @@ public class SendEmergencyMessageActivity extends Activity {
 			
 			PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, i, 0);
 			PendingIntent secondIntent = PendingIntent.getService(getApplicationContext(), 1, i, 0);
+			PendingIntent thirdIntent = PendingIntent.getService(getApplicationContext(), 2, i, 0);
 			
-			getApplicationContext();
 			AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 15000, pendingIntent);
-			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, secondIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1, pendingIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, secondIntent);
+			manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 600000, thirdIntent);
+			
+//			EmailReceiverHandler.getHandler(getApplicationContext());
 
 			finish();
 		}

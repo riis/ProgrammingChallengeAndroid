@@ -46,7 +46,8 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="Skip"
-			android:onClick="skipToMain" />
+			android:onClick="skipToMain" 
+			android:background="@drawable/standard_button"/>
 		
 		<Button
 			android:id="@+id/selectButton"
@@ -54,6 +55,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="Select" 
-			android:onClick="submitEmailAndPassword" />
+			android:onClick="submitEmailAndPassword" 
+			android:background="@drawable/standard_button"/>
 	</LinearLayout>
 </LinearLayout>

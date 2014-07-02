@@ -17,7 +17,7 @@
         android:icon="@drawable/ic_launcher"
         android:allowBackup="false"
         android:name="com.riis.dagger.DaggerApplication" 
-        android:theme="@android:style/Theme.Holo.Light" >
+        android:theme="@android:style/Theme.Holo" >
        
         <service android:name="DisasterAppService"
             android:enabled="true" />

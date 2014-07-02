@@ -46,7 +46,7 @@
         android:id="@+id/buttonRow"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"  
-		android:layout_gravity="center_horizontal"
+		android:layout_gravity="bottom"
 		android:orientation="horizontal" >
 	
 		<Button
@@ -55,7 +55,9 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/cancelButtonLabel"
-			android:onClick="cancelCreateContact" />
+			android:onClick="cancelCreateContact" 
+			android:background="@drawable/standard_button"
+			/>
 		
 		<Button
 			android:id="@+id/saveContactButton"
@@ -63,6 +65,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/saveButtonLabel" 
-			android:onClick="saveCreateContact" />
+			android:onClick="saveCreateContact"
+			android:background="@drawable/standard_button" />
 	</LinearLayout>
 </LinearLayout>

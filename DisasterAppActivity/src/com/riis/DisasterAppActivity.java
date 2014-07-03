@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
@@ -77,5 +78,28 @@ public class DisasterAppActivity extends Activity
 	{
 	   super.onResume();
 	   onCreate(null);
+	}
+	
+	public void createContact(View view)
+	{
+		Intent i = new Intent(this, NewContactActivity.class);
+		startActivity(i);
+	}
+	
+	public void createContactList(View view)
+	{
+		Intent i = new Intent(this, CreateContactListsActivity.class);
+		startActivity(i);
+	}
+	public void importContacts(View view)
+	{
+		Intent i = new Intent(this, ImportContactsActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewResponseMessages(View view)
+	{
+		Intent i = new Intent(this, ViewResponseMessagesActivity.class);
+		startActivity(i);
 	}
 }

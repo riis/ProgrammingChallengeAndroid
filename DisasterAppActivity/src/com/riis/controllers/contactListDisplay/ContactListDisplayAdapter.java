@@ -153,6 +153,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			editContactButton.setText("Edit Contact");
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			
+			
 			ContactReference ref = new ContactReference(context);
 			ref.setContactListId(currentContactList.getId());
 			ref.setContactId(c.getId());

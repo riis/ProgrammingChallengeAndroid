@@ -21,6 +21,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
@@ -115,6 +116,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
 		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 		
+		
 		currentContactList = values.get(position);
 		currentContactList.read();
 		
@@ -153,14 +155,16 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			Drawable img = getContext().getResources().getDrawable( R.drawable.patch_standard_button );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 50, 50, true));
+			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450, 150, true));
 
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
-			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			editContactButton.setGravity(Gravity.CENTER_HORIZONTAL);
-			
-			
+			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			editContactButton.setBackground(d);
+
+		   
+
+		    
 			ContactReference ref = new ContactReference(context);
 			ref.setContactListId(currentContactList.getId());
 			ref.setContactId(c.getId());
@@ -192,6 +196,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			}
 			display.setText(builder.toString());
 			holder.listLayout.addView(display ); 
+			holder.listLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			holder.listLayout.addView(editContactButton);
 		}
 		return row;

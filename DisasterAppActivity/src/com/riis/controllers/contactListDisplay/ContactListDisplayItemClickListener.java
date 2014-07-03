@@ -1,5 +1,6 @@
 package com.riis.controllers.contactListDisplay;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,6 +21,7 @@ public class ContactListDisplayItemClickListener implements OnItemClickListener
 				others.setVisibility(View.GONE);
 			}
 			expand.setVisibility(View.VISIBLE);
+			expand.setBackgroundColor(Color.GRAY);
 		}
 		else
 		{

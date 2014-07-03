@@ -41,7 +41,6 @@ public class EditContactActivity extends Activity
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
 
-
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -74,23 +73,18 @@ public class EditContactActivity extends Activity
         secondFragmentSpinner.setAdapter(adapter);
         secondFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(textView, secondFragmentEditField));
         secondFragmentSpinner.setSelection(1);
-        Long id=null;
+        
         Bundle extras = getIntent().getExtras();
-        if(extras!=null)
-        {
-          id = extras.getLong("id");
         
-        
-        if(id!=null  && id!=-1)
+        if(extras != null)
         {
         	existingContact = new Contact(getApplicationContext());
-        	existingContact.read(id);
-        }
-        
-		firstNameEditField.setText(existingContact.getFirstName());
-		lastNameEditField.setText(existingContact.getLastName());
-		firstFragmentEditField.setText(existingContact.getEmailAddress());
-		secondFragmentEditField.setText(existingContact.getPhoneNumber());
+        	existingContact.read(extras.getLong("id"));
+	        
+			firstNameEditField.setText(existingContact.getFirstName());
+			lastNameEditField.setText(existingContact.getLastName());
+			firstFragmentEditField.setText(existingContact.getEmailAddress());
+			secondFragmentEditField.setText(existingContact.getPhoneNumber());
         }
     }
 	
@@ -104,7 +98,7 @@ public class EditContactActivity extends Activity
         callDeleteAlertDialog();
 	}
 	
-	public void saveEditedContact(View view) 
+	public void updateContact(View view) 
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
@@ -135,7 +129,6 @@ public class EditContactActivity extends Activity
 			phoneNumberEditField.setError(PHONE_NUMBER_ERROR);
 		else 
 		{
-			
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());
 			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
@@ -150,8 +143,8 @@ public class EditContactActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
 
-		alertDialogBuilder.setTitle("Changes Saved");
-		alertDialogBuilder.setMessage("Your contact has been editted and saved")
+		alertDialogBuilder.setTitle("Contact Updated");
+		alertDialogBuilder.setMessage("Your contact has been updated")
 				   .setCancelable(false)
 				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
 				   {
@@ -215,7 +208,7 @@ public class EditContactActivity extends Activity
 	public boolean isPhoneValid(String phone)
 	{
 		if(phone.matches(HYPHEN_PHONE_NUMBER_PATTERN) | phone.matches(BASIC_PHONE_NUMBER_PATTERN) 
-				| phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN)  )
+				| phone.matches(PARENTHESES_PHONE_NUMBER_PATTERN))
 			return true;
 		 
 		return false;

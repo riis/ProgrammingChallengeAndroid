@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="userEmailInputLabel">
+        In order to utilize all of Emergency Messaging\'s features, please enter an email address of yours and that email\'s password.
+    </string>
+    <string name="userEmailPasswordInputLabel">Password:</string>
+    <string name="passwordHint">Password</string>
+    <string name="skipToMainButton">Skip</string>
+    <string name="submitEmailInfoButton">Submit</string>
+    
     <string name="appName">Emergency Messaging</string>
     <string name="createContactTitle">Create Contact</string>
     <string name="createContactListTitle">Create Contact List</string>
@@ -21,6 +29,7 @@
     <string name="emailAddressLabel">Email Address</string>
     <string name="phoneNumberLabel">Phone Number</string>
     <string name="saveButtonLabel">Save</string>
+    <string name="updateButtonLabel">Update</string>
     <string name="cancelButtonLabel">Cancel</string>
     <string name="deleteButtonLabel">Delete</string>
     <string name="emptyField">Field cannot be blank</string>

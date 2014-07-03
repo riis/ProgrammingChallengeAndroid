@@ -22,8 +22,7 @@ public class MockResponseMessageList extends ResponseMessageList
 		
 		MockResponseMessage message = new MockResponseMessage(context);
 		message.setReferenceId(1);
-//		message.setPhoneNumber("1234567890");
-		message.setTextMessageContents("Yes I am.");
+		message.setMessageContents("Yes I am.");
 		message.updateMessageSentTimeStamp();
 		
 		messages = new ResponseMessageList(context);

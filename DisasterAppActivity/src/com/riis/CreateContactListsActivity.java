@@ -3,6 +3,8 @@ package com.riis;
 import javax.inject.Inject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -67,7 +69,6 @@ public class CreateContactListsActivity extends Activity
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
 					if(checkBox.isChecked())
 					{
-//						list.addContact(contactList.getContact(i));
 						ContactReference ref = new ContactReference(this);
 						ref.setContactListId(list.getId());
 						ref.setContactId(contactList.getContact(i).getId());
@@ -75,13 +76,12 @@ public class CreateContactListsActivity extends Activity
 						
 						ResponseMessage response = new ResponseMessage(this);
 						response.setReferenceId(ref.getId());
-				        response.setTextMessageContents(" Are you OK?");
+				        response.setMessageContents(" Are you OK?");
 				        response.create();
 					}
 				}
-//				list.update();
 				
-				finish();
+				callAlertDialog();
 			}
 		}
 	}
@@ -89,5 +89,23 @@ public class CreateContactListsActivity extends Activity
 	public void cancelCreateContactList(View view)
 	{
 		finish();
+	}
+	
+	private void callAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Contact List Saved");
+		alertDialogBuilder.setMessage("Your contact list has been saved")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 }

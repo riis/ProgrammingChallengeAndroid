@@ -154,7 +154,7 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 						
 						if(response.getTimeStamp() == 0)
 						{
-							response.setTextMessageContents(body);
+							response.setMessageContents(body);
 							response.updateMessageSentTimeStamp();
 							response.update();
 						}

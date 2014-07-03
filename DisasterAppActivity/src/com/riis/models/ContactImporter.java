@@ -106,7 +106,7 @@ public class ContactImporter
 					
 					ResponseMessage response = new ResponseMessage(context);
 					response.setReferenceId(ref.getId());
-			        response.setTextMessageContents(" Are you OK?");
+			        response.setMessageContents(" Are you OK?");
 			        response.create();
 				}
 			}

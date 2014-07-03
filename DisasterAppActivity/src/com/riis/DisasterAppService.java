@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 
 import com.riis.controllers.EmailReceiver;
@@ -61,10 +62,15 @@ public class DisasterAppService extends Service
 			}
 		}
 		
-		EmailSender task = new EmailSender(this, contactList, message);
-		task.execute();
+		SharedPreferences pref = getSharedPreferences("emailData", 1);
 		
-		new EmailReceiver(this, contactList.getId()).execute();
+		if(!pref.getString("email", "").equals(""))
+		{
+			EmailSender task = new EmailSender(this, contactList, message);
+			task.execute();
+			
+			new EmailReceiver(this, contactList.getId()).execute();
+		}
 		
 		return START_NOT_STICKY;
 	}

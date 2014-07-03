@@ -1,14 +1,14 @@
-package com.riis.models;
+package com.riis.dagger.mock;
 
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
+import com.riis.models.BasePersistentModel;
 
-public abstract class BasePersistentModel extends SQLiteOpenHelper
+public abstract class MockDatabase extends BasePersistentModel
 {
-	private static final String DATABASE_NAME = "disasterApp.db";
+	private static final String DATABASE_NAME = "disasterAppTest.db";
 	private static final int DATABASE_VERSION = 1;
 
 	protected SQLiteDatabase database;
@@ -36,10 +36,10 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 			+ "contactListMembers(_id integer primary key autoincrement, "
 			+ "contactListId integer not null, "
 			+ "contactId integer not null);";
-
-	public BasePersistentModel(Context context) 
+	
+	public MockDatabase(Context context)
 	{
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context);
 	}
 
 	@Override
@@ -71,10 +71,9 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 	{
 		database.close();
 	}
-	
+
 	abstract public boolean create();
 	abstract public boolean delete();
 	abstract public boolean read();
 	abstract public boolean update();
-
 }

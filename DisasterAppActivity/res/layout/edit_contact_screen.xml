@@ -66,11 +66,11 @@
 			android:onClick="deleteContact" />
 		
 		<Button
-			android:id="@+id/saveContactButton"
+			android:id="@+id/updateContactButton"
 			android:layout_weight="1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/saveButtonLabel" 
-			android:onClick="saveEditedContact" />
+			android:text="@string/updateButtonLabel" 
+			android:onClick="updateContact" />
 	</LinearLayout>
 </LinearLayout>

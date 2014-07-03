@@ -5,13 +5,12 @@ import android.telephony.SmsManager;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
-public class TextMessageSender implements MessageSender
+public class TextMessageSender
 {
 	public TextMessageSender()
 	{
 	}
 
-	@Override
 	public boolean sendMessage(ContactList contactList, String message)
 	{
 		message = prepareMessageToSend(message);

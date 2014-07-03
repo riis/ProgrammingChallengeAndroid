@@ -11,7 +11,7 @@ public class ResponseMessage extends BasePersistentModel
 	protected long id;
 	private long referenceId;
 	private long timeStamp;
-	private String textMessageContents;
+	private String messageContents;
 	
 	public ResponseMessage(Context context) 
 	{
@@ -19,7 +19,7 @@ public class ResponseMessage extends BasePersistentModel
 		this.id = -1;
 		this.referenceId = -1;
 		this.timeStamp = 0L;
-		this.textMessageContents = "";
+		this.messageContents = "";
 	}
 	
 	public String getFormattedMessageSentTimeStamp() 
@@ -53,9 +53,9 @@ public class ResponseMessage extends BasePersistentModel
 		this.referenceId = referenceId;
 	}
 	
-	public void setTextMessageContents(String textMessageContents) 
+	public void setMessageContents(String messageContents) 
 	{
-		this.textMessageContents = textMessageContents;
+		this.messageContents = messageContents;
 	}
 	
 	public void setTimeStamp(long timeStamp) 
@@ -73,9 +73,9 @@ public class ResponseMessage extends BasePersistentModel
 		return timeStamp;
 	}
 	
-	public String getTextMessageContents() 
+	public String getMessageContents() 
 	{
-		return textMessageContents;
+		return messageContents;
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class ResponseMessage extends BasePersistentModel
 		ContentValues values = new ContentValues();
 		values.put("referenceId", getReferenceId());
 		values.put("timeStamp", getTimeStamp());
-		values.put("textMessageContents", getTextMessageContents());
+		values.put("messageContents", getMessageContents());
 		
 		id = database.insert("responseMessage", null, values);
 		close();
@@ -154,7 +154,7 @@ public class ResponseMessage extends BasePersistentModel
 			id = cursor.getLong(0);
 			setReferenceId(cursor.getLong(1));
 			setTimeStamp(cursor.getLong(2));
-			setTextMessageContents(cursor.getString(3));
+			setMessageContents(cursor.getString(3));
 			return true;			
 		}
 		return false;
@@ -171,7 +171,7 @@ public class ResponseMessage extends BasePersistentModel
 		ContentValues values = new ContentValues();
 		values.put("referenceId", getReferenceId());
 		values.put("timeStamp", getTimeStamp());
-		values.put("textMessageContents", getTextMessageContents());
+		values.put("messageContents", getMessageContents());
 		long updateId = database.update("responseMessage", values, "_id = "+ id, null);
 		close();
 			
@@ -191,17 +191,17 @@ public class ResponseMessage extends BasePersistentModel
 			selection.append("referenceId=").append(referenceId);
 			and = " AND ";
 		}
-		if (!textMessageContents.isEmpty())
+		if (!messageContents.isEmpty())
 		{
 			selection.append(and);
-			selection.append("textMessageContents='").append(textMessageContents).append("'");
+			selection.append("messageContents='").append(messageContents).append("'");
 		}
 		return selection.toString();
 	}
 	
 	private boolean isFieldEmpty() 
 	{
-		if(textMessageContents.isEmpty())
+		if(messageContents.isEmpty())
 		{
 			return true;
 		}
@@ -210,7 +210,7 @@ public class ResponseMessage extends BasePersistentModel
 
 	private boolean isClassEmpty() 
 	{
-		if(referenceId == -1 && timeStamp == 0 && textMessageContents.isEmpty())
+		if(referenceId == -1 && timeStamp == 0 && messageContents.isEmpty())
 		{
 			return true;
 		}

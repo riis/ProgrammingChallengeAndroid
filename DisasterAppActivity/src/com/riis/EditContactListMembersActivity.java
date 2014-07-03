@@ -3,6 +3,8 @@ package com.riis;
 import javax.inject.Inject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +26,6 @@ public class EditContactListMembersActivity extends Activity
 {
 	private ListView listView;
 	private Button updateButton;
-	private Button cancelButton;
 	private TextView listName;
 	
 	@Inject ContactList contactList;
@@ -61,78 +62,79 @@ public class EditContactListMembersActivity extends Activity
         
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);
         updateButton.setText("Update");
-        updateButton.setOnClickListener(new View.OnClickListener() {
+    }
+	
+	public void saveContactList(View view)
+	{
+		for(int i = 0; i < list.size(); i++)
+		{
+			CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
 			
-			@Override
-			public void onClick(View v) {
-//				contactList.setContactList(new ArrayList<Contact>());
-				
-				for(int i = 0; i < list.size(); i++)
+			ContactReference ref = new ContactReference(getApplicationContext());
+			ref.setContactListId(contactList.getId());
+			ref.setContactId(list.getContact(i).getId());
+			boolean exists = ref.read();
+			
+			if(checkBox.isChecked())
+			{
+				if(exists)
 				{
-					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-					
-					ContactReference ref = new ContactReference(getApplicationContext());
-					ref.setContactListId(contactList.getId());
-					ref.setContactId(list.getContact(i).getId());
-					boolean exists = ref.read();
-					
-					if(checkBox.isChecked())
-					{
-//						contactList.addContact(list.getContact(i));
-						
-						if(exists)
-						{
-							ref.update();
-						}
-						else
-						{
-							ref.create();
-						}
-						
-						ResponseMessage response = new ResponseMessage(getApplicationContext());
-						response.setReferenceId(ref.getId());
-				        response.setTextMessageContents(" Are you OK?");
-
-				        if(response.read())
-				        {
-				        	response.update();
-				        }
-				        else
-				        {
-				        	response.create();
-				        }
-					}
-					else
-					{
-//						ContactReference ref = new ContactReference(getApplicationContext());
-//						ref.setContactListId(contactList.getId());
-//						ref.setContactId(list.getContact(i).getId());
-//						boolean exists = ref.read();
-						if(exists)
-						{
-							ResponseMessage response = new ResponseMessage(getApplicationContext());
-							response.setReferenceId(ref.getId());
-							response.read();
-							response.delete();
-							ref.delete();
-						}
-					}
-					
+					ref.update();
+				}
+				else
+				{
+					ref.create();
 				}
 				
-//				contactList.update();
-				
-				finish();
+				ResponseMessage response = new ResponseMessage(getApplicationContext());
+				response.setReferenceId(ref.getId());
+		        response.setMessageContents(" Are you OK?");
+
+		        if(response.read())
+		        {
+		        	response.update();
+		        }
+		        else
+		        {
+		        	response.create();
+		        }
 			}
-		});
-        
-        cancelButton = (Button) findViewById(R.id.cancelCreateContactListButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				finish();
+			else
+			{
+				if(exists)
+				{
+					ResponseMessage response = new ResponseMessage(getApplicationContext());
+					response.setReferenceId(ref.getId());
+					response.read();
+					response.delete();
+					ref.delete();
+				}
 			}
-		});
-    }
+		}
+		
+		callAlertDialog();
+	}
+	
+	public void cancelCreateContactList(View view)
+	{
+		finish();
+	}
+	
+	private void callAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Contact List Updated");
+		alertDialogBuilder.setMessage("Your contact list has been updated")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							finish();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
 }

@@ -17,7 +17,7 @@ import com.riis.dagger.EditContactListMembersTestObjectGraph;
 
 import dagger.ObjectGraph;
 
-public class EditContactListMembersTest extends ActivityInstrumentationTestCase2<EditContactListMembersActivity>
+public class EditContactListMembersActivityTest extends ActivityInstrumentationTestCase2<EditContactListMembersActivity>
 {
 	private EditContactListMembersActivity editContactListMembersActivity;
 	private Button updateContactListButton;
@@ -27,7 +27,7 @@ public class EditContactListMembersTest extends ActivityInstrumentationTestCase2
 	
 	private Context context;
 	
-	public EditContactListMembersTest()
+	public EditContactListMembersActivityTest()
 	{
 		super(EditContactListMembersActivity.class);
 	}

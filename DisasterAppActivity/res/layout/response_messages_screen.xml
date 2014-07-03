@@ -6,19 +6,18 @@
     
     <Button 
         android:id="@+id/returnToMainScreenButton"
-        android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:onClick="returnToMainScreen"
-        android:text="@string/returnToMainScreenButtonLabel"/>
+        android:text="@string/returnToMainScreenButtonLabel"
+        android:background="@drawable/patch_standard_button"/>
     
 	<ListView
 	    android:id="@+id/responseMessagesListView"
 	    android:layout_above="@id/returnToMainScreenButton"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent" 
-		android:divider="@android:color/white"
-		android:dividerHeight="1px" />
+		android:dividerHeight="2dp" />
 	
 </RelativeLayout>

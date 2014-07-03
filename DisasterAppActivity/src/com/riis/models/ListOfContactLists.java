@@ -56,13 +56,46 @@ public class ListOfContactLists extends BasePersistentModel
 
 	@Override
 	public boolean read()
-	{	
+	{
 		open();
 		Cursor cursor = database.query("contactList", null, null, null, null, null,"name ASC");		
 		contactLists = readListOfContactListsMembersFromCursor(cursor);
 		cursor.close();
 		close();
 		return true;
+	}
+	
+	public boolean readByContact(Contact contact)
+	{
+		if(contact.getId() == -1)
+		{
+			return false;
+		}
+		
+		open();
+		String t = "SELECT * FROM contactList l INNER JOIN contactListMembers m ON m.contactListId = l._id "
+				+ "INNER JOIN contact c ON c._id=m.contactId WHERE m.contactId="
+				+ contact.getId() +" AND l.messageSentTimeStamp != 0 ORDER BY l.messageSentTimeStamp DESC";
+		
+		Cursor cursor = database.rawQuery(t, null);
+		boolean returnVal = cursor.moveToFirst();
+		while (!cursor.isAfterLast()) 
+		{
+			ContactList next = new ContactList(context);
+			boolean success = next.read(cursor.getLong(0));
+			if (success)
+			{
+				contactLists.add(next);
+			}
+			else
+			{
+				returnVal = false;
+			}
+			cursor.moveToNext();
+		}
+		cursor.close();
+		close();
+		return returnVal;
 	}
 
 	@Override

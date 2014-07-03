@@ -3,8 +3,6 @@ package com.riis.test;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,15 +48,10 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 		newContactActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-	
-		
 		cancelButton = (Button) newContactActivity.findViewById(R.id.cancelCreateContactButton);
 		saveButton = (Button) newContactActivity.findViewById(R.id.saveContactButton);
-		
 		firstNameText = (TextView)newContactActivity.findViewById(R.id.firstNameLabel);
-
 		lastNameText = (TextView) newContactActivity.findViewById(R.id.lastNameLabel);
-		
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);

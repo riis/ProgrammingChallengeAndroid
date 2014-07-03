@@ -24,11 +24,13 @@
         android:layout_height="wrap_content"
         android:text="@string/contactsLabel" />
     
+
+    
     <LinearLayout
         android:id="@+id/buttonRow"
         android:layout_alignParentBottom="true"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"  
+		android:layout_height="40dp"  
 		android:layout_gravity="center_horizontal"
 		android:orientation="horizontal" >
 		
@@ -38,7 +40,8 @@
 	         android:layout_width="fill_parent"
 	         android:layout_height="wrap_content"
 	         android:onClick="cancelCreateContactList"
-	         android:text="@string/cancelButtonLabel" />
+	         android:text="@string/cancelButtonLabel" 
+	         android:background="@drawable/patch_standard_button"/>
 		
 		<Button
 	         android:id="@+id/saveCreateContactListSaveButton"
@@ -46,16 +49,18 @@
 	         android:layout_width="fill_parent"
 	         android:layout_height="wrap_content"
 	         android:onClick="saveContactList"
-	         android:text="@string/saveButtonLabel" />
+	         android:text="@string/saveButtonLabel" 
+	         android:background="@drawable/patch_standard_button"/>
 	</LinearLayout>
-    
-	<ListView
+	
+        <ListView
 		android:id="@+id/createContactListsView"
 		android:layout_above="@id/buttonRow"
 		android:layout_below="@id/contactsLabel"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:focusable="false"
-		android:divider="@android:color/white"
-		android:dividerHeight="1px" />
+		android:dividerHeight="2dp" />
+    
+	
 </RelativeLayout>

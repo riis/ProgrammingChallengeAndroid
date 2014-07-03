@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.riis.controllers.contactListDisplay.ContactListDisplayAdapter;
 import com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ListOfContactLists;
-import com.riis.models.ResponseMessageList;
 
 import dagger.ObjectGraph;
 
@@ -33,26 +33,6 @@ public class DisasterAppActivity extends Activity
         setContentView(R.layout.main);
         
         listOfContactLists.read();
-        
-//        for(int i = 0; i < listOfContactLists.size(); i++)
-//        {
-//        	boolean done = true;
-//        	ResponseMessageList list = new ResponseMessageList(this);
-//    		list.read(listOfContactLists.getContactList(i).getId());
-//    		
-//        	for(int j = 0; j < list.size(); j++)
-//        	{
-//        		if(list.getResponseMessage(j).getTimeStamp() == 0L)
-//        		{
-//        			done = false;
-//        		}
-//        	}
-//        	if(done)
-//        	{
-//        		listOfContactLists.getContactList(i).setMessageSentTimeStamp(0L);
-//        		listOfContactLists.getContactList(i).update();
-//        	}
-//        }
         
         listView = (ListView) findViewById(R.id.contactListDisplay);        
         listView.setAdapter(new ContactListDisplayAdapter(this, listOfContactLists.getContactLists(), getApplication()));
@@ -88,7 +68,6 @@ public class DisasterAppActivity extends Activity
 	        	i = new Intent(this, ViewResponseMessagesActivity.class);
 	        	startActivity(i);
 	        	return true;
-
 	    }
 	    
 	    return false;
@@ -99,5 +78,28 @@ public class DisasterAppActivity extends Activity
 	{
 	   super.onResume();
 	   onCreate(null);
+	}
+	
+	public void createContact(View view)
+	{
+		Intent i = new Intent(this, NewContactActivity.class);
+		startActivity(i);
+	}
+	
+	public void createContactList(View view)
+	{
+		Intent i = new Intent(this, CreateContactListsActivity.class);
+		startActivity(i);
+	}
+	public void importContacts(View view)
+	{
+		Intent i = new Intent(this, ImportContactsActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewResponseMessages(View view)
+	{
+		Intent i = new Intent(this, ViewResponseMessagesActivity.class);
+		startActivity(i);
 	}
 }

@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ContactDetailsActivity extends Activity
+
 {
 	protected static final String FIRST_NAME_PATTERN =           "[A-Za-z]([a-z]+)";
 	protected static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Za-z]+('[A-Za-z]+)";
@@ -144,6 +145,7 @@ public class ContactDetailsActivity extends Activity
 				   });
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
+
 	}
 
 	

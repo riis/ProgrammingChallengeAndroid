@@ -1,4 +1,4 @@
-package com.riis.controllers;
+package com.riis.controllers.responseMessages;
 
 import android.view.View;
 import android.widget.AdapterView;

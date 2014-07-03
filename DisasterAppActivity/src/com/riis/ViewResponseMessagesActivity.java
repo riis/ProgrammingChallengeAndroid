@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.riis.controllers.ResponseMessageItemClickListener;
-import com.riis.controllers.ResponseMessagesAdapter;
+import com.riis.controllers.responseMessages.ResponseMessageItemClickListener;
+import com.riis.controllers.responseMessages.ResponseMessagesAdapter;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.ListOfContactLists;
 

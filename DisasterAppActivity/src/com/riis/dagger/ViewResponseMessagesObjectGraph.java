@@ -3,8 +3,8 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.ViewResponseMessagesActivity;
-import com.riis.controllers.ResponseMessageItemClickListener;
-import com.riis.controllers.ResponseMessagesAdapter;
+import com.riis.controllers.responseMessages.ResponseMessageItemClickListener;
+import com.riis.controllers.responseMessages.ResponseMessagesAdapter;
 import com.riis.models.ContactList;
 import com.riis.models.ListOfContactLists;
 import com.riis.models.ResponseMessageList;

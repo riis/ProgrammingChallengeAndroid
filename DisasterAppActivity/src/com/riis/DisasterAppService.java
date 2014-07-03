@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 
-import com.riis.controllers.EmailReceiver;
-import com.riis.controllers.EmailSender;
-import com.riis.controllers.TextMessageSender;
+import com.riis.controllers.emailMessage.EmailReceiver;
+import com.riis.controllers.emailMessage.EmailSender;
+import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 import com.riis.models.ContactReference;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.inject.Provider;
 
-import com.riis.controllers.TextMessageSender;
+import com.riis.controllers.textMessage.TextMessageSender;
 
 import dagger.MembersInjector;
 import dagger.internal.Binding;

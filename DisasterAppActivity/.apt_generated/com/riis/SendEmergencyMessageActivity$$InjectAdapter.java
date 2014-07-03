@@ -23,7 +23,7 @@ import javax.inject.Provider;
 public final class SendEmergencyMessageActivity$$InjectAdapter extends Binding<SendEmergencyMessageActivity>
     implements Provider<SendEmergencyMessageActivity>, MembersInjector<SendEmergencyMessageActivity> {
   private Binding<com.riis.models.ContactList> contactList;
-  private Binding<com.riis.controllers.TextMessageSender> textMessageSender;
+  private Binding<com.riis.controllers.textMessage.TextMessageSender> textMessageSender;
 
   public SendEmergencyMessageActivity$$InjectAdapter() {
     super("com.riis.SendEmergencyMessageActivity", "members/com.riis.SendEmergencyMessageActivity", NOT_SINGLETON, SendEmergencyMessageActivity.class);
@@ -37,7 +37,7 @@ public final class SendEmergencyMessageActivity$$InjectAdapter extends Binding<S
   @SuppressWarnings("unchecked")
   public void attach(Linker linker) {
     contactList = (Binding<com.riis.models.ContactList>) linker.requestBinding("com.riis.models.ContactList", SendEmergencyMessageActivity.class, getClass().getClassLoader());
-    textMessageSender = (Binding<com.riis.controllers.TextMessageSender>) linker.requestBinding("com.riis.controllers.TextMessageSender", SendEmergencyMessageActivity.class, getClass().getClassLoader());
+    textMessageSender = (Binding<com.riis.controllers.textMessage.TextMessageSender>) linker.requestBinding("com.riis.controllers.textMessage.TextMessageSender", SendEmergencyMessageActivity.class, getClass().getClassLoader());
   }
 
   /**

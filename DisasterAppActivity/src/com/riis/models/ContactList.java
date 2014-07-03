@@ -6,6 +6,7 @@ import java.util.Calendar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -80,7 +81,21 @@ public class ContactList extends BasePersistentModel
 	{
 		return contacts;
 	}
-
+	
+	public boolean contains(Contact contact)
+	{
+		Log.i("in contains", "contains");
+		for(Contact m : contacts)
+		{
+			Log.i("ids equal in contains", m.getId() +" "+ contact.getId());
+			if(m.getId() == contact.getId())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean create() 
 	{

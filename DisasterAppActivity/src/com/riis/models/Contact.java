@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class Contact extends BasePersistentModel 
 {	
@@ -78,6 +79,33 @@ public class Contact extends BasePersistentModel
 	public int getPingCount()
 	{
 		return pingCount;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		Log.i("Call equals", "equals");
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		Log.i("ids equal", (id == other.id) +"");
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		Log.i("Use hashcode", "hashcode");
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
 	}
 
 	@Override

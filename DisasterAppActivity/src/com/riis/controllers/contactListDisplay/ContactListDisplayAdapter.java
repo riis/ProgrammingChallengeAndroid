@@ -8,7 +8,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.riis.EditContactActivity;
@@ -151,8 +151,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
-			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			
 			
 			ContactReference ref = new ContactReference(context);
 			ref.setContactListId(currentContactList.getId());
@@ -183,24 +181,37 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					break;
 				}
 			}
+			RelativeLayout layout = new RelativeLayout(context);
+			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			
+			RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			buttonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			
+			editContactButton.setLayoutParams(buttonParams);
+			layout.addView(editContactButton);
+			
+			RelativeLayout.LayoutParams displayParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+			displayParams.addRule(RelativeLayout.LEFT_OF, editContactButton.getId());
 			display.setText(builder.toString());
-			holder.listLayout.addView(display ); 
-			holder.listLayout.addView(editContactButton);
+			display.setLayoutParams(displayParams);
+			display.setTextSize(18);
+			
+			layout.addView(display);
+			
+			holder.listLayout.addView(layout); 
 		}
 		return row;
 	}
 
 	private void editContact(final Contact c) 
 	{
+		editContactButton.setId(Integer.parseInt(""+ c.getId()));
 		editContactButton.setOnClickListener(new Button.OnClickListener()
 		{
 			public void onClick(View v)
 			{ 
 				Intent intent = new Intent(context, EditContactActivity.class);
-				
-				Bundle b = new Bundle();
-				b.putLong("id", c.getId());
-				intent.putExtras(b);
+				intent.putExtra("id", c.getId());
 				context.startActivity(intent);
 			}
 		});

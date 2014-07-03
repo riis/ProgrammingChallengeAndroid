@@ -52,6 +52,9 @@
          <activity android:name="ImportContactsActivity"
             	  android:label="@string/importContactsTitle">
         </activity>
+        <activity android:name="ContactDetailsActivity"
+            	  android:label="@string/contactDetailsTitle">
+        </activity>
         <activity android:name="EditContactActivity"
             	  android:label="@string/editContactTitle"
             	  android:windowSoftInputMode="stateHidden|adjustResize">

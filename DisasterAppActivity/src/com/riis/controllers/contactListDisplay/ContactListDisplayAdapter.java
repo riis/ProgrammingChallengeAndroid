@@ -7,7 +7,10 @@ import javax.inject.Inject;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.riis.EditContactActivity;
+import com.riis.ContactDetailsActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
@@ -144,11 +147,14 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		for(Contact c : currentContactList.getContacts())
 		{
 			StringBuilder builder = new StringBuilder();
-			
 			TextView display = new TextView(context);
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
+			Drawable img = getContext().getResources().getDrawable( R.drawable.patch_standard_button );
+			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
+			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 50, 50, true));
+
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
 			
@@ -210,7 +216,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		{
 			public void onClick(View v)
 			{ 
-				Intent intent = new Intent(context, EditContactActivity.class);
+				Intent intent = new Intent(context, ContactDetailsActivity.class);
 				intent.putExtra("id", c.getId());
 				context.startActivity(intent);
 			}

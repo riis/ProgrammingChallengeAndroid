@@ -60,6 +60,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:divider="@android:color/white"
-		android:dividerHeight="1px" />
+		android:dividerHeight="2px" />
 </RelativeLayout>

@@ -16,6 +16,8 @@
     <string name="sendEmergencyMessageTitle">Send Message</string>
     <string name="contactListMembersTitle">List Members</string>
     <string name="editContactTitle">Edit Contact</string>
+     <string name="contactDetailsTitle">Contact Details</string>
+    
     
     
     <string name="createContactScreenButtonLabel">Create Contact</string>
@@ -23,6 +25,8 @@
     <string name="contactInfo">Contact info</string>
     <string name="editContactListInfo">Edit List</string>
     <string name="sendMessageToContactList">Send Message</string>
+    
+    
     
     <string name="firstNameLabel">First Name</string>
     <string name="lastNameLabel">Last Name</string>

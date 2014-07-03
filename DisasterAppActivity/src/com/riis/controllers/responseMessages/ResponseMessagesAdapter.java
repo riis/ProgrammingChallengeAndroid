@@ -1,4 +1,4 @@
-package com.riis.controllers;
+package com.riis.controllers.responseMessages;
 
 import java.util.ArrayList;
 

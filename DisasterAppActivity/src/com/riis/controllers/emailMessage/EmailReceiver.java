@@ -1,4 +1,4 @@
-package com.riis.controllers;
+package com.riis.controllers.emailMessage;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -107,6 +107,7 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 			inbox.open(Folder.READ_ONLY);
 			Message[] test = inbox.getMessages();
 			result = test[test.length - 1];
+			result.getSentDate();
 			
 			if(result.getSubject().equals("Re: There has been an Emergency!"))
 			{
@@ -120,46 +121,7 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 				contact.setEmailAddress(email);
 				contact.read();
 				
-				lists = new ListOfContactLists(context);
-				lists.readByContact(contact);
-				
-				boolean exists = false;
-				for(ContactList l : lists.getContactLists())
-				{
-					if(l.getId() == id)
-					{
-						exists = true;
-					}
-				}
-				
-				if(exists)
-				{
-					for(ContactList l : lists.getContactLists())
-					{
-						String body = getBody(result);
-						body = body.split("\\r?\\n")[0];
-						if(body.length() > 255)
-						{
-							body = body.substring(0, 255);
-						}
-						
-						ContactReference ref = new ContactReference(context);
-						ref.setContactId(contact.getId());
-						ref.setContactListId(l.getId());
-						ref.read();
-						
-						ResponseMessage response = new ResponseMessage(context);
-						response.setReferenceId(ref.getId());
-						response.read();
-						
-						if(response.getTimeStamp() == 0)
-						{
-							response.setMessageContents(body);
-							response.updateMessageSentTimeStamp();
-							response.update();
-						}
-					}
-				}
+				storeEmailResponse(result, contact);
 			}
 			store.close();
 		}
@@ -174,6 +136,50 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+	}
+
+	private void storeEmailResponse(Message result, Contact contact) throws MessagingException, IOException
+	{
+		
+		lists = new ListOfContactLists(context);
+		lists.readByContact(contact);
+		boolean exists = false;
+		for(ContactList l : lists.getContactLists())
+		{
+			if(l.getId() == id)
+			{
+				exists = true;
+			}
+		}
+		
+		if(exists)
+		{
+			for(ContactList l : lists.getContactLists())
+			{
+				String body = getBody(result);
+				body = body.split("\\r?\\n")[0];
+				if(body.length() > 255)
+				{
+					body = body.substring(0, 255);
+				}
+				
+				ContactReference ref = new ContactReference(context);
+				ref.setContactId(contact.getId());
+				ref.setContactListId(l.getId());
+				ref.read();
+				
+				ResponseMessage response = new ResponseMessage(context);
+				response.setReferenceId(ref.getId());
+				response.read();
+				
+				if(response.getTimeStamp() == 0)
+				{
+					response.setMessageContents(body);
+					response.updateMessageSentTimeStamp();
+					response.update();
+				}
+			}
 		}
 	}
 	

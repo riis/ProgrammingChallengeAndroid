@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
+import com.riis.controllers.DialogSingleButtonClickListener;
 import com.riis.models.Contact;
 
 public class EditContactActivity extends Activity
@@ -141,46 +142,37 @@ public class EditContactActivity extends Activity
 	
 	private void callAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
-
-		alertDialogBuilder.setTitle("Contact Updated");
-		alertDialogBuilder.setMessage("Your contact has been updated")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							finish();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Contact Updated");
+		dialog.setMessage("Your contact has been updated");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
 	}
 	
 	private void callDeleteAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditContactActivity.this);
+		AlertDialog.Builder dialog = new AlertDialog.Builder(EditContactActivity.this);
 
-		alertDialogBuilder.setTitle("Contact Deleted");
-		alertDialogBuilder.setMessage("Are you sure you want to delete this contact?")
-				   .setCancelable(true)
-				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							existingContact.delete();
-							finish();
-						}
-				   })
-				   .setNegativeButton("No", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							dialog.cancel();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		dialog.setTitle("Contact Deleted");
+		dialog.setMessage("Are you sure you want to delete this contact?");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog,int id) 
+				{
+					existingContact.delete();
+					finish();
+				}
+			});
+		dialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog,int id) 
+				{
+					dialog.cancel();
+				}
+			});
+		dialog.show();
 	}
 	
 	public boolean isFirstNameValid(String name)

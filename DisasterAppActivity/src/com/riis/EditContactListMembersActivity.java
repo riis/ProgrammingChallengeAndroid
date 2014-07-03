@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.riis.controllers.DialogSingleButtonClickListener;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
@@ -122,19 +122,11 @@ public class EditContactListMembersActivity extends Activity
 	
 	private void callAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Contact List Updated");
-		alertDialogBuilder.setMessage("Your contact list has been updated")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							finish();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Contact List Updated");
+		dialog.setMessage("Your contact list has been updated!");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
 	}
 }

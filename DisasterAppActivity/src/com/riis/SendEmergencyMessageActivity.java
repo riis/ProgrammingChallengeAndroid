@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.riis.controllers.EmergencyMessageTextWatcher;
 import com.riis.controllers.MessageRecepiantsListAdapter;
-import com.riis.controllers.TextMessageSender;
+import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;

@@ -3,12 +3,13 @@ package com.riis;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.riis.controllers.DialogSingleButtonClickListener;
 
 public class EmailInputActivity extends Activity
 {
@@ -53,47 +54,29 @@ public class EmailInputActivity extends Activity
 	
 	private void callSkipAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Skip Email Setup");
-		alertDialogBuilder.setMessage("Are you sure you do not want to enter an email address? Some features will be disabled!")
-				   .setCancelable(true)
-				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							Intent i = new Intent(getApplicationContext(), DisasterAppActivity.class);
-							startActivity(i);
-						}
-				   })
-				   .setNegativeButton("No", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							dialog.cancel();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Skip Email Setup");
+		dialog.setMessage("Are you sure you do not want to enter an email address? Some features will be disabled!");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("Yes", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+		dialog.setNegativeButton("No", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog,int id) 
+				{
+					dialog.cancel();
+				}
+			});
+		dialog.show();
 	}
 	
 	private void callSubmitAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Email Credentials Saved");
-		alertDialogBuilder.setMessage("Your email credentials are saved!")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							Intent i = new Intent(getApplicationContext(), DisasterAppActivity.class);
-							startActivity(i);
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Email Credentials Saved");
+		dialog.setMessage("Your email credentials are saved!");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+		dialog.show();
 	}
 	
 	private boolean isEmailValid(String email)

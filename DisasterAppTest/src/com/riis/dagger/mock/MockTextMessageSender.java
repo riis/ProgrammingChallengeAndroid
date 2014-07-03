@@ -1,6 +1,6 @@
 package com.riis.dagger.mock;
 
-import com.riis.controllers.TextMessageSender;
+import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.models.ContactList;
 
 public class MockTextMessageSender extends TextMessageSender

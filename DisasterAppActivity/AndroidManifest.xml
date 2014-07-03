@@ -56,7 +56,7 @@
             	  android:label="@string/editContactTitle"
             	  android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
-        <receiver android:name=".controllers.TextMessageReceiver">
+        <receiver android:name="com.riis.controllers.textMessage.TextMessageReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>

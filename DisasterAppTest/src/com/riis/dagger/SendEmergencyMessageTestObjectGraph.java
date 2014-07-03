@@ -3,7 +3,7 @@ package com.riis.dagger;
 import android.content.Context;
 
 import com.riis.SendEmergencyMessageActivity;
-import com.riis.controllers.TextMessageSender;
+import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.dagger.mock.MockContactList;
 import com.riis.dagger.mock.MockTextMessageSender;
 import com.riis.models.ContactList;

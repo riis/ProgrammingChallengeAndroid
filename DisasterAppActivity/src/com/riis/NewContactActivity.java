@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
+import com.riis.controllers.DialogSingleButtonClickListener;
 import com.riis.models.Contact;
 import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
@@ -136,20 +136,12 @@ public class NewContactActivity extends Activity
 	
 	private void callAlertDialog()
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Contact Saved");
-		alertDialogBuilder.setMessage("Your contact has been saved")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							finish();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Contact List Updated");
+		dialog.setMessage("Your contact list has been updated!");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
 	}
 
 	public boolean isFirstNameValid(String name)

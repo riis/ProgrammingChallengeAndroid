@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.riis.NewContactActivity;
+import com.riis.ContactDetailsActivity;
 import com.riis.R;
 
-public class NewContactActivityTest extends ActivityInstrumentationTestCase2<NewContactActivity>
+public class NewContactActivityTest extends ActivityInstrumentationTestCase2<ContactDetailsActivity>
 {
 	private Button cancelButton;
 	private Button saveButton;
@@ -34,29 +34,29 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
 	
-	private NewContactActivity newContactActivity;
+	private ContactDetailsActivity contactDetailsActivity;
 	
 	public NewContactActivityTest()
 	{
-		super(NewContactActivity.class);
+		super(ContactDetailsActivity.class);
 	}
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		newContactActivity = getActivity();
+		contactDetailsActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-		cancelButton = (Button) newContactActivity.findViewById(R.id.cancelCreateContactButton);
-		saveButton = (Button) newContactActivity.findViewById(R.id.saveContactButton);
-		firstNameText = (TextView)newContactActivity.findViewById(R.id.firstNameLabel);
-		lastNameText = (TextView) newContactActivity.findViewById(R.id.lastNameLabel);
+		cancelButton = (Button) contactDetailsActivity.findViewById(R.id.cancelCreateContactButton);
+		saveButton = (Button) contactDetailsActivity.findViewById(R.id.saveContactButton);
+		firstNameText = (TextView)contactDetailsActivity.findViewById(R.id.firstNameLabel);
+		lastNameText = (TextView) contactDetailsActivity.findViewById(R.id.lastNameLabel);
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
         		R.array.contactInfoOptions, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
-        FragmentManager manager = newContactActivity.getFragmentManager();
+        FragmentManager manager = contactDetailsActivity.getFragmentManager();
         
         Fragment firstFragment = manager.findFragmentById(R.id.firstContactInfoFragment);
         firstFragmentSpinner = (Spinner) firstFragment.getView().findViewById(R.id.contactInfoSelection);
@@ -68,8 +68,8 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
         secondFragmentText = (TextView) secondFragment.getView().findViewById(R.id.contactInfoLabel);
         secondFragmentEditField = (EditText) secondFragment.getView().findViewById(R.id.contactInfoEditText);
         
-		firstNameEditField = (EditText) newContactActivity.findViewById(R.id.firstNameEditText);
-		lastNameEditField = (EditText) newContactActivity.findViewById(R.id.lastNameEditText);
+		firstNameEditField = (EditText) contactDetailsActivity.findViewById(R.id.firstNameEditText);
+		lastNameEditField = (EditText) contactDetailsActivity.findViewById(R.id.lastNameEditText);
 	}
 	
 //	public void testCreateContact() 
@@ -208,7 +208,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testFirstNameChangeTextField()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -230,7 +230,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testLastNameChangeTextField()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -252,7 +252,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testEmailChangeEditTextField()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -274,7 +274,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testPhoneChangeEditTextField()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -296,7 +296,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testFirstFragmentSpinnerChange()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -318,7 +318,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testSecondFragmentSpinnerChange()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -340,7 +340,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testSpinnerChangeWhenSpinnersSelectSameValue()
 	{
-		newContactActivity.runOnUiThread(new Runnable()
+		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -363,46 +363,46 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<New
 	
 	public void testValidFirstName()
 	{
-		assertFalse(newContactActivity.isFirstNameValid("alice@yahoo.com"));
-		assertFalse(newContactActivity.isFirstNameValid("1202"));
-		assertFalse(newContactActivity.isFirstNameValid("ghangis'khan"));
-		assertFalse(newContactActivity.isFirstNameValid("williams-Berr"));
-		assertFalse(newContactActivity.isFirstNameValid("ROBERT"));
-		assertTrue(newContactActivity.isFirstNameValid("Allie"));
-		assertTrue(newContactActivity.isFirstNameValid("stacy"));
-		assertTrue(newContactActivity.isFirstNameValid("Williams"));
+		assertFalse(contactDetailsActivity.isFirstNameValid("alice@yahoo.com"));
+		assertFalse(contactDetailsActivity.isFirstNameValid("1202"));
+		assertFalse(contactDetailsActivity.isFirstNameValid("ghangis'khan"));
+		assertFalse(contactDetailsActivity.isFirstNameValid("williams-Berr"));
+		assertFalse(contactDetailsActivity.isFirstNameValid("ROBERT"));
+		assertTrue(contactDetailsActivity.isFirstNameValid("Allie"));
+		assertTrue(contactDetailsActivity.isFirstNameValid("stacy"));
+		assertTrue(contactDetailsActivity.isFirstNameValid("Williams"));
 	}
 	
 	public void testValidLastName()
 	{
-		assertFalse(newContactActivity.isLastNameValid("alice@yahoo.com"));
-		assertFalse(newContactActivity.isLastNameValid("1202"));
-		assertTrue(newContactActivity.isLastNameValid("ROBERT"));
-		assertTrue(newContactActivity.isLastNameValid("Allie"));
-		assertTrue(newContactActivity.isLastNameValid("stacy"));
-		assertTrue(newContactActivity.isLastNameValid("ghangis'khan"));
-		assertTrue(newContactActivity.isLastNameValid("williams-Berr"));
-		assertTrue(newContactActivity.isLastNameValid("Williams Berr"));
+		assertFalse(contactDetailsActivity.isLastNameValid("alice@yahoo.com"));
+		assertFalse(contactDetailsActivity.isLastNameValid("1202"));
+		assertTrue(contactDetailsActivity.isLastNameValid("ROBERT"));
+		assertTrue(contactDetailsActivity.isLastNameValid("Allie"));
+		assertTrue(contactDetailsActivity.isLastNameValid("stacy"));
+		assertTrue(contactDetailsActivity.isLastNameValid("ghangis'khan"));
+		assertTrue(contactDetailsActivity.isLastNameValid("williams-Berr"));
+		assertTrue(contactDetailsActivity.isLastNameValid("Williams Berr"));
 	}
 
 	public void testValidEmail()
 	{
-		assertTrue(newContactActivity.isEmailValid("alice@yahoo.com"));
-		assertTrue(newContactActivity.isEmailValid("Robert24@gmail.edu"));
-		assertFalse(newContactActivity.isEmailValid("Robert24@jupiterjupiter"));
-		assertFalse(newContactActivity.isEmailValid("SussieQ!@yahoo.com"));
-		assertFalse(newContactActivity.isEmailValid("alice"));
-		assertFalse(newContactActivity.isEmailValid("@yahoo.com"));
+		assertTrue(contactDetailsActivity.isEmailValid("alice@yahoo.com"));
+		assertTrue(contactDetailsActivity.isEmailValid("Robert24@gmail.edu"));
+		assertFalse(contactDetailsActivity.isEmailValid("Robert24@jupiterjupiter"));
+		assertFalse(contactDetailsActivity.isEmailValid("SussieQ!@yahoo.com"));
+		assertFalse(contactDetailsActivity.isEmailValid("alice"));
+		assertFalse(contactDetailsActivity.isEmailValid("@yahoo.com"));
 	}
 	
 	public void testValidPhone()
 	{
-		assertTrue(newContactActivity.isPhoneValid("5550001234"));
-		assertTrue(newContactActivity.isPhoneValid("101-202-6789"));
-		assertTrue(newContactActivity.isPhoneValid("(586)202-6789"));
-		assertFalse(newContactActivity.isPhoneValid("101-202"));
-		assertFalse(newContactActivity.isPhoneValid("alice"));
-		assertFalse(newContactActivity.isPhoneValid("123"));
-		assertFalse(newContactActivity.isPhoneValid("0001234567a"));
+		assertTrue(contactDetailsActivity.isPhoneValid("5550001234"));
+		assertTrue(contactDetailsActivity.isPhoneValid("101-202-6789"));
+		assertTrue(contactDetailsActivity.isPhoneValid("(586)202-6789"));
+		assertFalse(contactDetailsActivity.isPhoneValid("101-202"));
+		assertFalse(contactDetailsActivity.isPhoneValid("alice"));
+		assertFalse(contactDetailsActivity.isPhoneValid("123"));
+		assertFalse(contactDetailsActivity.isPhoneValid("0001234567a"));
 	}
 }

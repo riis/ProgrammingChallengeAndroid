@@ -16,6 +16,7 @@ class CreateContactList < Calabash::ABase
 	@@contact_list_name_error = "TextView text:'Please enter a name for the contact list!'"
 	@@contact_list_save_button = "Button id:'saveCreateContactListSaveButton'"
 	@@contact_list_cancel_button = "Button id:'cancelCreateContactListButton'"
+	@@confirmation_button = "Button id:'button1'"
 
 	def assert_contact_list_page
 		wait_for_elements_exist([trait], :timeout => 9)
@@ -41,5 +42,10 @@ class CreateContactList < Calabash::ABase
 
 	def cancel_button
 		touch(query(@@contact_list_cancel_button))
+	end
+
+	def confirm_button
+		wait_for_elements_exist([@@confirmation_button], :timeout => 3)
+		touch(query(@@confirmation_button))
 	end
 end

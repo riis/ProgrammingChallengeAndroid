@@ -22,7 +22,7 @@ public class EmailInputActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.email_data_screen);
+		setContentView(R.layout.email_input_screen);
 		
 		emailField = (EditText) findViewById(R.id.emailAddressInput);
 		passwordField = (EditText) findViewById(R.id.passwordInput);
@@ -42,8 +42,7 @@ public class EmailInputActivity extends Activity
 			edit.putString("password", passwordField.getText().toString());
 			edit.commit();
 			
-			Intent i = new Intent(this, DisasterAppActivity.class);
-			startActivity(i);
+			callSubmitAlertDialog();
 		}
 	}
 	
@@ -72,6 +71,25 @@ public class EmailInputActivity extends Activity
 						public void onClick(DialogInterface dialog,int id) 
 						{
 							dialog.cancel();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	private void callSubmitAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Email Credentials Saved");
+		alertDialogBuilder.setMessage("Your email credentials are saved!")
+				   .setCancelable(false)
+				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							Intent i = new Intent(getApplicationContext(), DisasterAppActivity.class);
+							startActivity(i);
 						}
 				   });
 		AlertDialog alertDialog = alertDialogBuilder.create();

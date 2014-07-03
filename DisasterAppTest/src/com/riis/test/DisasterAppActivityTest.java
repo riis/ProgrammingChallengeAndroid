@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.riis.ContactDetailsActivity;
 import com.riis.DisasterAppActivity;
 import com.riis.EditContactListMembersActivity;
-import com.riis.NewContactActivity;
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
 import com.riis.dagger.DaggerApplication;
@@ -78,7 +78,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 	
 	public void testCreateContactButtonIntent()
 	{
-		ActivityMonitor monitor = getInstrumentation().addMonitor(NewContactActivity.class.getName(), null, true);
+		ActivityMonitor monitor = getInstrumentation().addMonitor(ContactDetailsActivity.class.getName(), null, true);
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactItem, 0);
 		

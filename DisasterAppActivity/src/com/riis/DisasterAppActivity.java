@@ -53,7 +53,7 @@ public class DisasterAppActivity extends Activity
 	    switch (item.getItemId()) 
 	    {
 	        case R.id.createContactItem:
-	        	i = new Intent(this, NewContactActivity.class);
+	        	i = new Intent(this, ContactDetailsActivity.class);
 	            startActivity(i);
 	            return true;
 	        case R.id.createContactListItem:
@@ -82,7 +82,7 @@ public class DisasterAppActivity extends Activity
 	
 	public void createContact(View view)
 	{
-		Intent i = new Intent(this, NewContactActivity.class);
+		Intent i = new Intent(this, ContactDetailsActivity.class);
 		startActivity(i);
 	}
 	

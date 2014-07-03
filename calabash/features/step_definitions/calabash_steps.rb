@@ -3,11 +3,65 @@ require 'pretty_face'
 
 ############################################
 ####################                       #
+####################       Email Input     #
+####################                       #
+############################################
+
+Given(/^I am on the Email Input screen$/) do
+  page(EmailInput).await
+end
+
+#skip scenario
+When(/^I click the Skip button$/) do
+  page(EmailInput).skip_button
+end
+
+And(/^I select the Yes option$/) do
+  page(EmailInput).confirm_skip
+end
+
+#invalid email
+When(/^I enter an invalid email address$/) do
+  page(EmailInput).input_bad_email_address
+end
+
+And(/^I select the Submit button$/) do
+  page(EmailInput).submit_button
+end
+
+Then(/^I will receive the invalid email error message$/) do
+  page(EmailInput).view_email_address_error
+end
+
+#invalid password
+When(/^I enter a valid email address$/) do
+  page(EmailInput).input_bad_password
+end
+
+Then(/^I will receive the invalid password message$/) do
+  page(EmailInput).view_password_error
+end
+
+#valid input credentials
+When(/^I enter a valid email and password$/) do
+  page(EmailInput).input_email_credentials
+end
+
+Then(/^I select the Submit OK button$/) do
+  page(EmailInput).confirm_submit
+end
+
+############################################
+####################                       #
 ####################       Main Screen     #
 ####################                       #
 ############################################
 
+#background
 Given(/^I am on the Main screen$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
   page(MainLanding).await
 end
 
@@ -59,6 +113,10 @@ end
 
 #background
 Given(/^I am on the Create Contact page$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
+  page(MainLanding).await
   page(MainLanding).menu_options
   page(MainLanding).create_contact
   page(NewContact).await
@@ -99,6 +157,10 @@ end
 
 #background
 Given(/^I am on the Create Contact List page$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
+  page(MainLanding).await
   page(MainLanding).menu_options
   page(MainLanding).create_contact_list
   page(CreateContactList).await
@@ -122,6 +184,10 @@ And(/^I click the save list button$/) do
   page(CreateContactList).save_button
 end
 
+And(/^I click the save list OK button$/) do
+  page(CreateContactList).confirm_button
+end
+
 #Cancel Button Scenario
 When(/^I click the cancel list create button$/) do
   page(CreateContactList).cancel_button
@@ -135,6 +201,10 @@ end
 
 #background
 Given(/^I am on the Import Contacts page$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
+  page(MainLanding).await
   page(MainLanding).menu_options
   page(MainLanding).import_contacts
   page(ImportContact).await
@@ -153,6 +223,10 @@ end
 
 #background
 Given(/^I am on the View Response Messages page$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
+  page(MainLanding).await
   page(MainLanding).menu_options
   page(MainLanding).view_response_message
   page(ViewResponseMessage).await

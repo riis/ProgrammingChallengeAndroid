@@ -22,7 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.riis.EditContactActivity;
+
+import com.riis.ContactDetailsActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.SendEmergencyMessageActivity;
@@ -202,7 +203,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		{
 			public void onClick(View v)
 			{ 
-				Intent intent = new Intent(context, EditContactActivity.class);
+				Intent intent = new Intent(context, ContactDetailsActivity.class);
 				
 				Bundle b = new Bundle();
 				b.putLong("id", c.getId());

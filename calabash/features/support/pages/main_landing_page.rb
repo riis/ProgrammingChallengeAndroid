@@ -43,6 +43,7 @@ class MainLanding < Calabash::ABase
 	end
 
 	def assert_main_page
-		touch(query(trait))
+		wait_for_elements_exist([trait], :timeout => 5)
+		query(trait)
 	end
 end

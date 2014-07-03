@@ -10,6 +10,7 @@ Background:
 Scenario: Complete Empty Contact List screen
     When I enter a valid list name
     And I click the save list button
+    And I click the save list OK button
     Then I will go to the main screen
 
 Scenario: List Name Error

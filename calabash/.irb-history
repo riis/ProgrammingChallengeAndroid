@@ -1,22 +1,3 @@
-query("EditText id:'firstNameEditText'", {:setText => 'Tom'})
-query("EditText id:'lastNameEditText'", {:setText => 'Tom'})
-query("*")
-query("Button id:'button1'")
-touch(query("Button id:'button1'"))
-start_test_server_in_background
-query("EditText id:'firstnameEditText'", {:setText => 'Bob'})
-start_test_server_in_background
-query("*")
-query("*")
-query("*")
-query("*")
-query("* text:'Your contact's first name may only contain characters and spaces'")
-query("* text:'Your contact's first name may only contain characters and spaces'")
-query("TextView text:'Your contact's first name may only contain characters and spaces'")
-query("* text:'Your contact's first name may only contain characters and spaces'")
-query("* TextView")
-query("* TextView")
-query("* text:'Your contact\'s first name may only contain characters and spaces'")
 query("* text:'Your contact''s first name may only contain characters and spaces'")
 query("* text:"Your contact's first name may only contain characters and spaces"")
 '
@@ -47,4 +28,23 @@ exit
 start_test_server_in_background
 query("*")
 query("* Button")
+exit
+start_test_server_in_background
+reinstall_apps
+start_test_server_in_background
+query("*")
+query("* Button")
+query("* TextView")
+query("Please enter a valid email address!")
+start_test_server_in_background
+query("* text:'Please enter a valid email address!'")
+query("* text:'Please enter your password!'")
+query("* text:'OK'")
+query("* Button")
+exit
+query("*")
+exit
+start_test_server_in_background
+reinstall_
+reinstall_apps
 exit

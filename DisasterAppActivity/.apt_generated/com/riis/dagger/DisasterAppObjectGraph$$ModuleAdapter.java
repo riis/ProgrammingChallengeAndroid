@@ -25,10 +25,37 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
    */
   @Override
   public void getBindings(BindingsGroup bindings, DisasterAppObjectGraph module) {
+    bindings.contributeProvidesBinding("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", new ProvideMessageIndicatorItemClickListenerProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ResponseMessageList", new ProvideResponseMessageListProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
-    bindings.contributeProvidesBinding("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", new ProvideMessageIndicatorItemClickListenerProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ListOfContactLists", new ProvideListOfContactListsProvidesAdapter(module));
+  }
+
+  /**
+   * A {@code Binding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   *
+   * Being a {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvideMessageIndicatorItemClickListenerProvidesAdapter extends ProvidesBinding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>
+      implements Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener> {
+    private final DisasterAppObjectGraph module;
+
+    public ProvideMessageIndicatorItemClickListenerProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideMessageIndicatorItemClickListener");
+      this.module = module;
+      setLibrary(false);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>}.
+     */
+    @Override
+    public com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener get() {
+      return module.provideMessageIndicatorItemClickListener();
+    }
   }
 
   /**
@@ -82,33 +109,6 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
     @Override
     public com.riis.models.ContactList get() {
       return module.provideContactList();
-    }
-  }
-
-  /**
-   * A {@code Binding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} implementation which satisfies
-   * Dagger's infrastructure requirements including:
-   *
-   * Being a {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} and handling creation and
-   * preparation of object instances.
-   */
-  public static final class ProvideMessageIndicatorItemClickListenerProvidesAdapter extends ProvidesBinding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>
-      implements Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener> {
-    private final DisasterAppObjectGraph module;
-
-    public ProvideMessageIndicatorItemClickListenerProvidesAdapter(DisasterAppObjectGraph module) {
-      super("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideMessageIndicatorItemClickListener");
-      this.module = module;
-      setLibrary(false);
-    }
-
-    /**
-     * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>}.
-     */
-    @Override
-    public com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener get() {
-      return module.provideMessageIndicatorItemClickListener();
     }
   }
 

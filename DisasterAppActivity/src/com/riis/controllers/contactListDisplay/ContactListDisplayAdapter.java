@@ -20,8 +20,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
@@ -42,7 +40,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	private Context context;
 	private ArrayList<ContactList> values;
 	private Button editContactButton;
-	private Spinner spinner;
 	@Inject ContactList currentContactList;
 	@Inject ResponseMessageList responseMessageList;
 
@@ -147,11 +144,11 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			responseMessageList.read(currentContactList.getId());
 		}
 		
-		for(Contact c : currentContactList.getContacts())
+		
+		for(ResponseMessage m : responseMessageList.getResponseMessage())
 		{
 			StringBuilder builder = new StringBuilder();
 			TextView display = new TextView(context);
-			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
 			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
@@ -164,80 +161,48 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
-			
 
 			ContactReference ref = new ContactReference(context);
-			ref.setContactListId(currentContactList.getId());
-			ref.setContactId(c.getId());
-			ref.read();
+			ref.read(m.getReferenceId());
+			
+			Contact c = new Contact(context);
+			c.read(ref.getContactId());
 			
 			builder = buildNoMessageText(c);
-			for(ResponseMessage m : responseMessageList.getResponseMessage())
+			
+			if(m.getReferenceId() == ref.getId())
 			{
-				spinner = new Spinner(context);
+				editContact(c);
 				
-				if(m.getReferenceId() == ref.getId())
+				if(m.getTimeStamp() != 0L)
 				{
-					editContact(c);
-					
-					if(m.getTimeStamp() != 0L)
-					{
-						builder = buildRespondedText(m, c);
-						display.setTextColor(Color.GREEN);
-						
-						spinner.setId((int) ref.getId());
-						spinner.setBackgroundColor(Color.WHITE);
-						
-						ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-				        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
-				        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				        
-				        spinner.setAdapter(adapter);
-				        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
-				        
-				        spinner.setSelection(ref.getNotes());
-					}
-					else if(currentContactList.getMessageSentTimeStamp() != 0)
-					{
-						builder = buildUnrespondedText(c);
-						display.setTextColor(Color.RED);
-					}
-					else
-					{
-						builder = buildNoMessageText(c);
-					}
-					break;
+					builder = buildRespondedText(m, c);
+					display.setTextColor(Color.GREEN);
+				}
+				else if(currentContactList.getMessageSentTimeStamp() != 0)
+				{
+					builder = buildUnrespondedText(c);
+					display.setTextColor(Color.RED);
+				}
+				else
+				{
+					builder = buildNoMessageText(c);
 				}
 			}
+			
 			LinearLayout layout = new LinearLayout(context);
 			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			layout.setOrientation(LinearLayout.HORIZONTAL);
 			
 			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+			displayParams.weight = 4;
 			
 			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
-			
-			if(spinner.getCount() > 0)
-			{
-				displayParams.weight = 4;
-				buttonParams.weight = 1;
-				
-				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
-				spinnerParams.weight = 1;
-				
-				spinner.setLayoutParams(spinnerParams);
-				layout.addView(spinner);
-			}
-			else
-			{
-				displayParams.weight = 5;
-				buttonParams.weight = 1;
-			}
+			buttonParams.weight = 2;
 			
 			display.setText(builder.toString());
 
 			display.setLayoutParams(displayParams);
-			display.setTextSize(18);
 			
 			editContactButton.setLayoutParams(buttonParams);
 			

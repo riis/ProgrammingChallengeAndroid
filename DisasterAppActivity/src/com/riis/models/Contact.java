@@ -129,7 +129,6 @@ public class Contact extends BasePersistentModel
 		return true;
 	}
 	
-
 	@Override
 	public boolean delete() 
 	{
@@ -162,13 +161,13 @@ public class Contact extends BasePersistentModel
 		return result;
 	}
 	
-
 	public boolean read(long id) 
 	{
 		if (id == -1)
 		{
 			return false;
-		}		
+		}
+		
 		open();
 		Cursor cursor = database.query("contact", null, "_id =" +id, null, null, null, null);		
 		boolean result = readRecordFromCursor(cursor);

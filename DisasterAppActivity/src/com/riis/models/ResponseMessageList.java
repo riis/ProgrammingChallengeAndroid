@@ -45,14 +45,12 @@ public class ResponseMessageList extends BasePersistentModel
 	@Override
 	public boolean create() 
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean delete() 
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 

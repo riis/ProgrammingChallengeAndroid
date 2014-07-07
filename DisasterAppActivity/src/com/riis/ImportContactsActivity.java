@@ -27,7 +27,6 @@ public class ImportContactsActivity  extends Activity
 	@Inject ContactListSelectionItemClickListener item;
 	@Inject ContactImporter importer;
 	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

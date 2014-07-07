@@ -26,9 +26,9 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   @Override
   public void getBindings(BindingsGroup bindings, DisasterAppObjectGraph module) {
     bindings.contributeProvidesBinding("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", new ProvideMessageIndicatorItemClickListenerProvidesAdapter(module));
-    bindings.contributeProvidesBinding("com.riis.models.ResponseMessageList", new ProvideResponseMessageListProvidesAdapter(module));
-    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ListOfContactLists", new ProvideListOfContactListsProvidesAdapter(module));
+    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
+    bindings.contributeProvidesBinding("com.riis.models.ResponseMessageList", new ProvideResponseMessageListProvidesAdapter(module));
   }
 
   /**
@@ -59,29 +59,29 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   }
 
   /**
-   * A {@code Binding<com.riis.models.ResponseMessageList>} implementation which satisfies
+   * A {@code Binding<com.riis.models.ListOfContactLists>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    *
-   * Being a {@code Provider<com.riis.models.ResponseMessageList>} and handling creation and
+   * Being a {@code Provider<com.riis.models.ListOfContactLists>} and handling creation and
    * preparation of object instances.
    */
-  public static final class ProvideResponseMessageListProvidesAdapter extends ProvidesBinding<com.riis.models.ResponseMessageList>
-      implements Provider<com.riis.models.ResponseMessageList> {
+  public static final class ProvideListOfContactListsProvidesAdapter extends ProvidesBinding<com.riis.models.ListOfContactLists>
+      implements Provider<com.riis.models.ListOfContactLists> {
     private final DisasterAppObjectGraph module;
 
-    public ProvideResponseMessageListProvidesAdapter(DisasterAppObjectGraph module) {
-      super("com.riis.models.ResponseMessageList", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideResponseMessageList");
+    public ProvideListOfContactListsProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.models.ListOfContactLists", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideListOfContactLists");
       this.module = module;
       setLibrary(false);
     }
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.models.ResponseMessageList>}.
+     * {@code Provider<com.riis.models.ListOfContactLists>}.
      */
     @Override
-    public com.riis.models.ResponseMessageList get() {
-      return module.provideResponseMessageList();
+    public com.riis.models.ListOfContactLists get() {
+      return module.provideListOfContactLists();
     }
   }
 
@@ -113,29 +113,29 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   }
 
   /**
-   * A {@code Binding<com.riis.models.ListOfContactLists>} implementation which satisfies
+   * A {@code Binding<com.riis.models.ResponseMessageList>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    *
-   * Being a {@code Provider<com.riis.models.ListOfContactLists>} and handling creation and
+   * Being a {@code Provider<com.riis.models.ResponseMessageList>} and handling creation and
    * preparation of object instances.
    */
-  public static final class ProvideListOfContactListsProvidesAdapter extends ProvidesBinding<com.riis.models.ListOfContactLists>
-      implements Provider<com.riis.models.ListOfContactLists> {
+  public static final class ProvideResponseMessageListProvidesAdapter extends ProvidesBinding<com.riis.models.ResponseMessageList>
+      implements Provider<com.riis.models.ResponseMessageList> {
     private final DisasterAppObjectGraph module;
 
-    public ProvideListOfContactListsProvidesAdapter(DisasterAppObjectGraph module) {
-      super("com.riis.models.ListOfContactLists", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideListOfContactLists");
+    public ProvideResponseMessageListProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.models.ResponseMessageList", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideResponseMessageList");
       this.module = module;
       setLibrary(false);
     }
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.models.ListOfContactLists>}.
+     * {@code Provider<com.riis.models.ResponseMessageList>}.
      */
     @Override
-    public com.riis.models.ListOfContactLists get() {
-      return module.provideListOfContactLists();
+    public com.riis.models.ResponseMessageList get() {
+      return module.provideResponseMessageList();
     }
   }
 }

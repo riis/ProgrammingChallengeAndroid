@@ -111,10 +111,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		
 		holder.listLayout.removeAllViews();
 		
-		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
-		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
-		
-		
 		currentContactList = values.get(position);
 		currentContactList.read();
 		
@@ -143,7 +139,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			responseMessageList = new ResponseMessageList(context);
 			responseMessageList.read(currentContactList.getId());
 		}
-		
 		
 		for(ResponseMessage m : responseMessageList.getResponseMessage())
 		{

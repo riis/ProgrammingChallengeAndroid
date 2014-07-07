@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:paddingRight="20sp"
-        android:checked="false"
-         />
+        android:checked="false" />
     
     <LinearLayout
         android:layout_toLeftOf="@id/selectedContactCheckBox"

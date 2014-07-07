@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -112,7 +113,7 @@ public class EditContactListMembersActivity extends Activity
 			}
 		}
 		
-		callAlertDialog();
+		callUpdatedAlertDialog();
 	}
 	
 	public void cancelCreateContactList(View view)
@@ -120,7 +121,40 @@ public class EditContactListMembersActivity extends Activity
 		finish();
 	}
 	
-	private void callAlertDialog()
+	public void removeContactList(View view)
+	{
+		
+		callDeleteAlertDialog();
+	}
+	
+	protected void callDeleteAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Contact List Deleted");
+		alertDialogBuilder.setMessage("Are you sure you want to delete this contact list?")
+				   .setCancelable(true)
+				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							contactList.delete();
+							finish();
+						}
+				   })
+				   .setNegativeButton("No", new DialogInterface.OnClickListener()
+				   {
+						public void onClick(DialogInterface dialog,int id) 
+						{
+							dialog.cancel();
+						}
+				   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+
+	}
+	
+	private void callUpdatedAlertDialog()
 	{
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		dialog.setTitle("Contact List Updated");

@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:onClick="returnToMainScreen"
         android:text="@string/returnToMainScreenButtonLabel"
-        android:background="@drawable/patch_standard_button"/>
+        android:background="@drawable/button_medium"/>
     
 	<ListView
 	    android:id="@+id/responseMessagesListView"

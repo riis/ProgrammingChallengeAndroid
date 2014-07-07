@@ -20,6 +20,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -116,6 +117,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
 		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 		
+		
 		currentContactList = values.get(position);
 		currentContactList.read();
 		
@@ -152,7 +154,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
-			Drawable img = getContext().getResources().getDrawable( R.drawable.patch_standard_button );
+			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
 			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450,
 					150, true));
@@ -162,6 +164,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
+			
 
 			ContactReference ref = new ContactReference(context);
 			ref.setContactListId(currentContactList.getId());
@@ -169,7 +172,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			ref.read();
 			
 			builder = buildNoMessageText(c);
-			
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
 				spinner = new Spinner(context);
@@ -207,7 +209,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					break;
 				}
 			}
-			
 			LinearLayout layout = new LinearLayout(context);
 			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			layout.setOrientation(LinearLayout.HORIZONTAL);
@@ -234,6 +235,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			}
 			
 			display.setText(builder.toString());
+
 			display.setLayoutParams(displayParams);
 			display.setTextSize(18);
 			

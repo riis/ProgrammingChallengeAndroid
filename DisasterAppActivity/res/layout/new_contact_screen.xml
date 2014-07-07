@@ -55,7 +55,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/cancelButtonLabel"
 			android:onClick="cancelCreateContact" 
-			android:background="@drawable/standard_button"
+			android:background="@drawable/button_medium"
 			/>
 		
 		<Button
@@ -65,6 +65,6 @@
 			android:layout_height="wrap_content"
 			android:text="@string/saveButtonLabel" 
 			android:onClick="saveCreateContact"
-			android:background="@drawable/standard_button" />
+			android:background="@drawable/button_medium" />
 	</LinearLayout>
 </LinearLayout>

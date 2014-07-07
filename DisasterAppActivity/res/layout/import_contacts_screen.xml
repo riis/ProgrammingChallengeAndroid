@@ -19,7 +19,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/cancelButtonLabel"
 			android:onClick="returnToMainScreen" 
-			android:background="@drawable/patch_standard_button"/>
+			android:background="@drawable/button_medium"/>
 		
 		<Button
 			android:id="@+id/saveImportedContactsButton"
@@ -28,7 +28,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/importLabel"
 			android:onClick="importContacts" 
-			android:background="@drawable/patch_standard_button"/>
+			android:background="@drawable/button_medium"/>
 		
 	</LinearLayout>
     

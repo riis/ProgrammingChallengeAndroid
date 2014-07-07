@@ -38,7 +38,7 @@
 	         android:id="@+id/cancelCreateContactListButton"
 	         android:layout_weight="1"
 	         android:layout_width="fill_parent"
-	         android:layout_height="wrap_content"
+	         android:layout_height="match_parent"
 	         android:onClick="cancelCreateContactList"
 	         android:text="@string/cancelButtonLabel" 
 	         android:background="@drawable/button_medium"/>
@@ -47,19 +47,29 @@
 	         android:id="@+id/removeContactListButton"
 	         android:layout_weight="1"
 	         android:layout_width="fill_parent"
-	         android:layout_height="wrap_content"
+	         android:layout_height="match_parent"
 	         android:onClick="removeContactList"
-	         android:text="@string/removeButtonLabel" 
+	         android:text="@string/deleteButtonLabel" 
+	         android:background="@drawable/button_medium"/>
+			
+        <Button
+	         android:id="@+id/cloneContactListButton"
+	         android:layout_weight="1"
+	         android:layout_width="fill_parent"
+	         android:layout_height="match_parent"
+	         android:onClick="cloneContactList"
+	         android:text="@string/cloneButtonLabel" 
 	         android:background="@drawable/button_medium"/>
 		
 		<Button
 	         android:id="@+id/saveCreateContactListSaveButton"
 	         android:layout_weight="1"
 	         android:layout_width="fill_parent"
-	         android:layout_height="wrap_content"
+	         android:layout_height="match_parent"
 	         android:onClick="saveContactList"
 	         android:text="@string/saveButtonLabel" 
 	         android:background="@drawable/button_medium"/>
+		
 	</LinearLayout>
 	
         <ListView

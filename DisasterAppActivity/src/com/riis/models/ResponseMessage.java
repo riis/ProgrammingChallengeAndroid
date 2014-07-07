@@ -37,7 +37,20 @@ public class ResponseMessage extends BasePersistentModel
 			date = (cal.get(Calendar.MONTH) + 1) +
 					"-"+ cal.get(Calendar.DAY_OF_MONTH) +
 					"-"+ cal.get(Calendar.YEAR) +
-					" "+cal.getTime().toString().substring(11, 16);
+					" ";
+			
+			int hour = Integer.parseInt(cal.getTime().toString().substring(11, 13));
+			
+			if(hour > 12)
+			{
+				hour -= 12;
+				date += hour + cal.getTime().toString().substring(13, 16) +"PM";
+			}
+			else
+			{
+				date += hour + cal.getTime().toString().substring(13, 16) +"AM";
+			}
+			
 			return date;
 		}
 	}

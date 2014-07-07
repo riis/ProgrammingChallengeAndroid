@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
+import com.riis.CreateContactListsActivity;
 import com.riis.DisasterAppActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
@@ -88,20 +89,19 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		getInstrumentation().removeMonitor(monitor);
 	}
 	
-//	public void testCreateContactListButtonIntent()
-//	{
-//		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
-//		
-//		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-//		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
-//		
-//		monitor.waitForActivityWithTimeout(500);
-//		assertEquals(1, monitor.getHits());
-//		
-//		getInstrumentation().removeMonitor(monitor);
-//	}
+	public void testCreateContactListButtonIntent()
+	{
+		ActivityMonitor monitor = getInstrumentation().addMonitor(CreateContactListsActivity.class.getName(), null, true);
+		
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.createContactListItem, 0);
+		
+		monitor.waitForActivityWithTimeout(500);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 	
-
 	public void testViewMessageResponsesScreenButtonIntent()
 	{
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);

@@ -20,7 +20,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
@@ -145,70 +144,70 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			responseMessageList.read(currentContactList.getId());
 		}
 		
-		for(Contact c : currentContactList.getContacts())
+		
+		for(ResponseMessage m : responseMessageList.getResponseMessage())
 		{
 			StringBuilder builder = new StringBuilder();
 			TextView display = new TextView(context);
-			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
 			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450, 150, true));
+			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450,
+					150, true));
 
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
 
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
-			
 
 			ContactReference ref = new ContactReference(context);
-			ref.setContactListId(currentContactList.getId());
-			ref.setContactId(c.getId());
-			ref.read();
+			ref.read(m.getReferenceId());
+			
+			Contact c = new Contact(context);
+			c.read(ref.getContactId());
 			
 			builder = buildNoMessageText(c);
-			for(ResponseMessage m : responseMessageList.getResponseMessage())
+			
+			if(m.getReferenceId() == ref.getId())
 			{
-				if(m.getReferenceId() == ref.getId())
+				editContact(c);
+				
+				if(m.getTimeStamp() != 0L)
 				{
-					editContact(c);
-					
-					if(m.getTimeStamp() != 0L)
-					{
-						builder = buildRespondedText(m, c);
-						display.setTextColor(Color.GREEN);
-					}
-					else if(currentContactList.getMessageSentTimeStamp() != 0)
-					{
-						builder = buildUnrespondedText(c);
-						display.setTextColor(Color.RED);
-					}
-					else
-					{
-						builder = buildNoMessageText(c);
-					}
-					break;
+					builder = buildRespondedText(m, c);
+					display.setTextColor(Color.GREEN);
+				}
+				else if(currentContactList.getMessageSentTimeStamp() != 0)
+				{
+					builder = buildUnrespondedText(c);
+					display.setTextColor(Color.RED);
+				}
+				else
+				{
+					builder = buildNoMessageText(c);
 				}
 			}
-			RelativeLayout layout = new RelativeLayout(context);
+			
+			LinearLayout layout = new LinearLayout(context);
 			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			layout.setOrientation(LinearLayout.HORIZONTAL);
 			
-			RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			buttonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+			displayParams.weight = 4;
 			
-			editContactButton.setLayoutParams(buttonParams);
-			layout.addView(editContactButton);
+			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+			buttonParams.weight = 2;
 			
-			RelativeLayout.LayoutParams displayParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			displayParams.addRule(RelativeLayout.LEFT_OF, editContactButton.getId());
 			display.setText(builder.toString());
 
 			display.setLayoutParams(displayParams);
-			display.setTextSize(16);
+			
+			editContactButton.setLayoutParams(buttonParams);
 			
 			layout.addView(display);
+			layout.addView(editContactButton);
 			
 			holder.listLayout.addView(layout); 
 		}
@@ -233,7 +232,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append(message.getMessageContents());
-		builder.append("("+ contact.getPingCount() +" pings) - ");
+		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(contact.getFirstName()+" "+ contact.getLastName());
 		builder.append(" - last response: ");
 		builder.append(message.getFormattedMessageSentTimeStamp());

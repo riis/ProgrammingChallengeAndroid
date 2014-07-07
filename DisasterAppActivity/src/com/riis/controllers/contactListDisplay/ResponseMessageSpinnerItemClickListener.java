@@ -30,21 +30,8 @@ public class ResponseMessageSpinnerItemClickListener implements OnItemSelectedLi
 		ContactReference ref = new ContactReference(context);
 		ref.read(message.getReferenceId());
 		
-		switch(pos)
-		{
-		case 1:
-			ref.setNotes("");
-			ref.update();
-			break;
-		case 2:
-			ref.setNotes("Safe");
-			ref.update();
-			break;
-		case 3:
-			ref.setNotes("Not Safe");
-			ref.update();
-			break;
-		}
+		ref.setNotes(pos);
+		ref.update();
 	}
 
 	@Override

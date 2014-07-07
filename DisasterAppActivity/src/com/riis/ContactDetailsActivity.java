@@ -1,10 +1,5 @@
 package com.riis;
 
-import com.riis.controllers.ContactSpinnerItemClickListener;
-import com.riis.models.Contact;
-import com.riis.models.ContactReference;
-import com.riis.models.ResponseMessage;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -16,6 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.riis.controllers.ContactSpinnerItemClickListener;
+import com.riis.models.Contact;
+import com.riis.models.ContactReference;
+import com.riis.models.ResponseMessage;
 
 public class ContactDetailsActivity extends Activity
 

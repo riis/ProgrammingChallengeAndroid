@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,11 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.R;
+import com.riis.controllers.contactListDisplay.ResponseMessageSpinnerItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -29,10 +32,12 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 {
 	private Context context;
 	private ArrayList<ContactList> values;
+	private Spinner spinner;
 	@Inject ContactList currentContactList;
 	@Inject ResponseMessageList responseMessageList;
 	
-	private static class ViewHolder {
+	private static class ViewHolder
+	{
 		TextView nameView;
 		LinearLayout listLayout;
 	}
@@ -88,42 +93,75 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 			holder.listLayout.addView(display);
 		}
 		
-		for(Contact c : currentContactList.getContacts())
+		for(ResponseMessage m : responseMessageList.getResponseMessage())
 		{
+			spinner = new Spinner(context);
+			
 			StringBuilder builder = new StringBuilder();
 			TextView display = new TextView(context);
-			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
 			ContactReference ref = new ContactReference(context);
-			ref.setContactListId(currentContactList.getId());
-			ref.setContactId(c.getId());
-			ref.read();
-
-			for(ResponseMessage m : responseMessageList.getResponseMessage())
+			ref.read(m.getReferenceId());
+			
+			if(ref.getId() == m.getReferenceId())
 			{
-				if(ref.getId() == m.getReferenceId())
+				Contact c = new Contact(context);
+				c.read(ref.getContactId());
+				
+				if(currentContactList.getMessageSentTimeStamp() != 0L && m.getTimeStamp() != 0L)
 				{
-					if(currentContactList.getMessageSentTimeStamp() != 0L
-							&& m.getTimeStamp() != 0L)
-					{
-						builder = buildRespondedText(m, c);
-					}
-					else if(currentContactList.getMessageSentTimeStamp() != 0)
-					{
-						builder = buildUnrespondedText(c);
-					}
-					else
-					{
-						builder = buildNoMessageText(c);
-					}
+					builder = buildRespondedText(m, c);
 					
-					break;
+					spinner.setId((int) ref.getId());
+					spinner.setBackgroundColor(Color.WHITE);
+					
+					ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+			        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
+			        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			        
+			        spinner.setAdapter(adapter);
+			        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
+			        
+			        spinner.setSelection(ref.getNotes());
+				}
+				else if(currentContactList.getMessageSentTimeStamp() != 0)
+				{
+					builder = buildUnrespondedText(c);
+				}
+				else
+				{
+					builder = buildNoMessageText(c);
 				}
 			}
 			
 			display.setText(builder.toString());
-			holder.listLayout.addView(display);
+			
+			LinearLayout layout = new LinearLayout(context);
+			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			layout.setOrientation(LinearLayout.HORIZONTAL);
+			
+			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+			
+			if(spinner.getCount() > 0)
+			{
+				displayParams.weight = 4;
+				
+				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+				spinnerParams.weight = 1;
+				
+				spinner.setLayoutParams(spinnerParams);
+				layout.addView(spinner);
+			}
+			else
+			{
+				displayParams.weight = 5;
+			}
+			
+			display.setLayoutParams(displayParams);
+			layout.addView(display);
+			
+			holder.listLayout.addView(layout);
 		}
 
 		return row;
@@ -133,7 +171,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append(message.getMessageContents());
-		builder.append("("+ contact.getPingCount() +" pings) - ");
+		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(contact.getFirstName()+" "+ contact.getLastName());
 		builder.append(" - last response: ");
 		builder.append(message.getFormattedMessageSentTimeStamp());

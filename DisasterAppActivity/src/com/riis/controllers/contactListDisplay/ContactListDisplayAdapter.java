@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
@@ -41,6 +43,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	private Context context;
 	private ArrayList<ContactList> values;
 	private Button editContactButton;
+	private Spinner spinner;
 	@Inject ContactList currentContactList;
 	@Inject ResponseMessageList responseMessageList;
 
@@ -115,7 +118,6 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		holder.listLabel = (TextView) row.findViewById(R.id.contactListNameValue);
 		holder.listLayout = (LinearLayout) row.findViewById(R.id.contactListMemberLayout);
 		
-		
 		currentContactList = values.get(position);
 		currentContactList.read();
 		
@@ -162,13 +164,13 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
 
-
 			ContactReference ref = new ContactReference(context);
 			ref.setContactListId(currentContactList.getId());
 			ref.setContactId(c.getId());
 			ref.read();
 			
 			builder = buildNoMessageText(c);
+			
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
 				if(m.getReferenceId() == ref.getId())
@@ -179,6 +181,29 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					{
 						builder = buildRespondedText(m, c);
 						display.setTextColor(Color.GREEN);
+						
+						spinner = new Spinner(context);
+						spinner.setBackgroundColor(Color.WHITE);
+						
+						ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+				        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
+				        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				        
+				        spinner.setAdapter(adapter);
+				        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
+				        
+				        if(ref.getNotes().equals(""))
+				        {
+				        	spinner.setSelection(0);
+				        }
+				        else if(ref.getNotes().equals("Safe"))
+				        {
+				        	spinner.setSelection(1);
+				        }
+				        else
+				        {
+				        	spinner.setSelection(2);
+				        }
 					}
 					else if(currentContactList.getMessageSentTimeStamp() != 0)
 					{
@@ -192,23 +217,37 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 					break;
 				}
 			}
-			RelativeLayout layout = new RelativeLayout(context);
-			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			
-			RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			buttonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			LinearLayout layout = new LinearLayout(context);
+			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			layout.setOrientation(LinearLayout.HORIZONTAL);
+			
+			if(spinner != null)
+			{
+				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0,
+						LayoutParams.WRAP_CONTENT);
+				spinnerParams.weight = 1;
+				
+				spinner.setLayoutParams(spinnerParams);
+				layout.addView(spinner);
+			}
+			
+			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0,
+					LayoutParams.MATCH_PARENT);
+			displayParams.weight = 4;
+			
+			display.setText(builder.toString());
+			display.setLayoutParams(displayParams);
+			display.setTextSize(18);
+			
+			layout.addView(display);
+			
+			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0,
+					LayoutParams.WRAP_CONTENT);
+			buttonParams.weight = 1;
 			
 			editContactButton.setLayoutParams(buttonParams);
 			layout.addView(editContactButton);
-			
-			RelativeLayout.LayoutParams displayParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			displayParams.addRule(RelativeLayout.LEFT_OF, editContactButton.getId());
-			display.setText(builder.toString());
-
-			display.setLayoutParams(displayParams);
-			display.setTextSize(16);
-			
-			layout.addView(display);
 			
 			holder.listLayout.addView(layout); 
 		}

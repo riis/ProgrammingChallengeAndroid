@@ -34,7 +34,6 @@ public class ContactDetailsActivity extends Activity
 	protected static final String EMAIL_ADDRESS_ERROR = "Please enter a valid email address!";
 	protected static final String PHONE_NUMBER_ERROR = "Please enter a valid 10 digit phone number!";
 	
-	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
 	private EditText firstFragmentEditField;
@@ -45,20 +44,20 @@ public class ContactDetailsActivity extends Activity
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
 	
-	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-		 Bundle extras = getIntent().getExtras();
-	        if(extras != null)
-	        {
-	        	setContentView(R.layout.edit_contact_screen);
-	        }
-	        else
-	        {
-	        	setContentView(R.layout.new_contact_screen);
-	        }
+		Bundle extras = getIntent().getExtras();
+		
+        if(extras != null)
+        {
+        	setContentView(R.layout.edit_contact_screen);
+        }
+        else
+        {
+        	setContentView(R.layout.new_contact_screen);
+        }
         
         firstNameEditField = (EditText) findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) findViewById(R.id.lastNameEditText);

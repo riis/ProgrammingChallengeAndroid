@@ -16,8 +16,11 @@ public class ResponseMessageItemClickListener implements OnItemClickListener
 		{
 			for(int i = 0; i < parent.getCount(); i++)
 			{
+				if(parent.getChildAt(i)!=null)
+				{
 				View others = parent.getChildAt(i).findViewById(R.id.responseMessagesListLayout);
 				others.setVisibility(View.GONE);
+				}
 			}
 			expand.setVisibility(View.VISIBLE);
 		}

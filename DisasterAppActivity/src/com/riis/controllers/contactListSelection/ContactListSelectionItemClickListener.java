@@ -11,18 +11,19 @@ import com.riis.controllers.DropDownListAnimation;
 public class ContactListSelectionItemClickListener implements OnItemClickListener
 {
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+	{
 		for(int i = 0; i < parent.getCount(); i++)
 		{
-			View expand = parent.getChildAt(i).findViewById(R.id.selectContactListExpandableLayout);
-
-			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) expand.getLayoutParams();
-			
-			if(params.bottomMargin == 0)
+			if(parent.getChildAt(i)!=null)
 			{
-				DropDownListAnimation animation = new DropDownListAnimation(expand, 500);
-				
-				expand.startAnimation(animation);
+				View expand = parent.getChildAt(i).findViewById(R.id.selectContactListExpandableLayout);
+				LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) expand.getLayoutParams();
+				if(params.bottomMargin == 0)
+				{
+					DropDownListAnimation animation = new DropDownListAnimation(expand, 500);
+					expand.startAnimation(animation);
+				}
 			}
 		}
 		

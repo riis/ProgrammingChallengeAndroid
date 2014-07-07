@@ -43,10 +43,10 @@
 			/>
 		
 		<Button
-			android:id="@+id/importCntactsButton"
+			android:id="@+id/viewResponseMessageButton"
 			android:layout_width="70dp"
 			android:layout_height="70dp"
-			android:onClick="importContacts" 
+			android:onClick="viewResponseMessages" 
 			android:layout_weight="1"
 			android:background="@drawable/read_messages_icon"
 			android:layout_margin="8dp"
@@ -54,10 +54,10 @@
 			/>
 		 
 		<Button
-			android:id="@+id/viewResponseMessageButton"
+			android:id="@+id/importCntactsButton"
 			android:layout_width="70dp"
 			android:layout_height="70dp"
-			android:onClick="viewResponseMessages" 
+			android:onClick="importContacts"
 			android:layout_weight="1"
 			android:background="@drawable/import_contacts"
 			android:layout_margin="8dp"

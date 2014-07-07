@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -108,6 +109,7 @@ public class ContactDetailsActivity extends Activity
 	public void deleteContact(View view) 
 	{
         callDeleteAlertDialog(); 
+        
 	}
 	
 	public void saveCreateContact(View view) 
@@ -131,7 +133,13 @@ public class ContactDetailsActivity extends Activity
 				   {
 						public void onClick(DialogInterface dialog,int id) 
 						{
-							existingContact.delete();
+//							ContactReference ref = new ContactReference(this);
+//					        ref.setContactId(existingContact.getId());
+//							ResponseMessage response = new ResponseMessage(this);
+//							response.setReferenceId(ref.getId());
+//							ref.delete();
+//						    response.delete();
+						    existingContact.delete();
 							finish();
 						}
 				   })

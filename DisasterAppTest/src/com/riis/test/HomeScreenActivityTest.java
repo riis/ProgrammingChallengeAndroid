@@ -16,18 +16,18 @@ import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.ViewResponseMessagesActivity;
 import com.riis.dagger.DaggerApplication;
-import com.riis.dagger.DisasterAppTestObjectGraph;
+import com.riis.dagger.HomeScreenTestObjectGraph;
 
 import dagger.ObjectGraph;
 
-public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
+public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<DisasterAppActivity>
 {
 	private DisasterAppActivity disasterAppActivity;
 	
 	private ListView contactListDisplay;
 	private Context context;
 	
-	public DisasterAppActivityTest()
+	public HomeScreenActivityTest()
 	{
 		super(DisasterAppActivity.class);
 	}
@@ -39,7 +39,7 @@ public class DisasterAppActivityTest extends ActivityInstrumentationTestCase2<Di
 		disasterAppActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-		ObjectGraph objectGraph= ObjectGraph.create(new DisasterAppTestObjectGraph(context));
+		ObjectGraph objectGraph= ObjectGraph.create(new HomeScreenTestObjectGraph(context));
 		DaggerApplication myapp = (DaggerApplication) context;
 		myapp.setDisasterAppObjectGraph(objectGraph);
 		

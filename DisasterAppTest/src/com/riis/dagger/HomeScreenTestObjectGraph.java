@@ -16,11 +16,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module (injects={DisasterAppActivity.class, ContactListDisplayAdapter.class})
-public class DisasterAppTestObjectGraph
+public class HomeScreenTestObjectGraph
 {
 	Context context;
 	
-	public DisasterAppTestObjectGraph(Context context)
+	public HomeScreenTestObjectGraph(Context context)
 	{
 		this.context = context;
 	}

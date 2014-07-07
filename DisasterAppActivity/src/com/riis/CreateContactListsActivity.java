@@ -26,6 +26,7 @@ public class CreateContactListsActivity extends Activity
 	private ListView listView;
 	private EditText contactListNameField;
 	private Button removeButton;
+	private Button cloneButton;
 
 	@Inject ContactList contactList;
 	@Inject ContactListSelectionItemClickListener item;
@@ -39,9 +40,11 @@ public class CreateContactListsActivity extends Activity
 
 		setContentView(R.layout.crud_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-        contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-        removeButton = (Button)findViewById(R.id.removeContactListButton);
+		removeButton = (Button)findViewById(R.id.removeContactListButton);
         removeButton.setVisibility(View.GONE);
+        
+        cloneButton = (Button)findViewById(R.id.cloneContactListButton);
+        cloneButton.setVisibility(View.GONE);
         
         contactList.readAllContacts();
         

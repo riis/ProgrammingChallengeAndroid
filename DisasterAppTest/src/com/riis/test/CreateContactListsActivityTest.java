@@ -22,6 +22,8 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 	private CreateContactListsActivity contactListsActivity;
 	private Button saveCreateContactListSaveButton;
 	private Button cancelCreateContactListButton;
+	private Button cloneButton;
+	private Button removeContactListButton;
 	private ListView contactsListView;
 	private EditText listName;
 	private TextView contactListTextView;
@@ -48,6 +50,8 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 		contactsListView = (ListView) contactListsActivity.findViewById(R.id.createContactListsView);
 		saveCreateContactListSaveButton = (Button) contactListsActivity.findViewById(R.id.saveCreateContactListSaveButton);
 		cancelCreateContactListButton = (Button) contactListsActivity.findViewById(R.id.cancelCreateContactListButton);
+		removeContactListButton = (Button) contactListsActivity.findViewById(R.id.removeContactListButton);
+		cloneButton = (Button) contactListsActivity.findViewById(R.id.cloneContactListButton);
 	}
 	
 	protected void tearDown() throws Exception
@@ -119,6 +123,16 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 	public void testCancelButtonExists()
 	{
 		assertNotNull(cancelCreateContactListButton);
+	}
+	
+	public void testRemoveButtonExists()
+	{
+		assertEquals(View.GONE,removeContactListButton.getVisibility());
+	}
+	
+	public void testcloneButtonExists()
+	{
+		assertEquals(View.GONE,cloneButton.getVisibility());
 	}
 	
 //	public void testCreateContactList()

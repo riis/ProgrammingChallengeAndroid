@@ -22,6 +22,8 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 	private EditContactListMembersActivity editContactListMembersActivity;
 	private Button updateContactListButton;
 	private Button cancelCreateContactListButton;
+	private Button cloneButton;
+	private Button removeContactListButton;
 	private ListView contactsListView;
 	private TextView contactListTextView;
 	
@@ -51,6 +53,8 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		contactsListView = (ListView) editContactListMembersActivity.findViewById(R.id.createContactListsView);
 		updateContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.saveCreateContactListSaveButton);
 		cancelCreateContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.cancelCreateContactListButton);
+		removeContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.removeContactListButton);
+		cloneButton = (Button) editContactListMembersActivity.findViewById(R.id.cloneContactListButton);
 		
 	}
 	
@@ -136,5 +140,15 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 	public void testCancelButtonExists()
 	{
 		assertNotNull(cancelCreateContactListButton);
+	}
+	
+	public void testRemoveButtonExists()
+	{
+		assertNotNull(removeContactListButton);
+	}
+	
+	public void testcloneButtonExists()
+	{
+		assertNotNull(cloneButton);
 	}
 }

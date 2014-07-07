@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +29,8 @@ public class EditContactListMembersActivity extends Activity
 	private ListView listView;
 	private Button updateButton;
 	private TextView listName;
+	private EditText contactListNameField;
+	
 	
 	@Inject ContactList contactList;
 	@Inject ContactList list;
@@ -49,8 +52,8 @@ public class EditContactListMembersActivity extends Activity
         listName.setTextSize(18);
         listName.setPadding(0, 0, 0, 5);
         
-        EditText contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-        contactListNameField.setVisibility(View.GONE);
+        contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+        contactListNameField.setText(contactListName);
         
         contactList.setName(contactListName);
         contactList.read();
@@ -61,9 +64,66 @@ public class EditContactListMembersActivity extends Activity
         listView.setAdapter(new ContactListSelectionAdapter(this, list.getContacts(), contactListName, getApplication()));
         listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
         
+
+        contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+        
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);
         updateButton.setText("Update");
     }
+	
+
+	public void cancelCreateContactList(View view)
+	{
+		finish();
+	}
+	
+	public void removeContactList(View view)
+	{
+		callDeleteAlertDialog();
+	}
+	
+	public void cloneContactList(View view)
+	{
+		if(contactListNameField.getText().toString().equals(""))
+		{
+			contactListNameField.setError("Please enter a name for the contact list!");
+		}
+		else if(contactListNameField.getText().toString().equals(contactList.getName()))
+		{
+			contactListNameField.setError("Please choose a different name than your current list!");
+		}
+		else
+		{
+			ContactList list = new ContactList(this);
+			list.setName(contactListNameField.getText().toString());
+			
+			boolean success = list.create();
+			if(!success)
+			{
+				contactListNameField.setError("Please choose a different name!");
+			}
+			else
+			{
+				for(int i = 0; i < contactList.size(); i++)
+				{
+					
+						ContactReference ref = new ContactReference(this);
+						ref.setContactListId(list.getId());
+						ref.setContactId(contactList.getContact(i).getId());
+						ref.create();
+						
+						ResponseMessage response = new ResponseMessage(this);
+						response.setReferenceId(ref.getId());
+				        response.setMessageContents(" Are you OK?");
+				        response.create();
+					
+				}
+				
+				callClonedAlertDialog();
+			}
+		}
+	}
+	
 	
 	public void saveContactList(View view)
 	{
@@ -116,17 +176,6 @@ public class EditContactListMembersActivity extends Activity
 		callUpdatedAlertDialog();
 	}
 	
-	public void cancelCreateContactList(View view)
-	{
-		finish();
-	}
-	
-	public void removeContactList(View view)
-	{
-		
-		callDeleteAlertDialog();
-	}
-	
 	protected void callDeleteAlertDialog()
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -154,11 +203,23 @@ public class EditContactListMembersActivity extends Activity
 
 	}
 	
+	
+	
 	private void callUpdatedAlertDialog()
 	{
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		dialog.setTitle("Contact List Updated");
 		dialog.setMessage("Your contact list has been updated!");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
+	}
+	
+	private void callClonedAlertDialog()
+	{
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Contact List Cloned");
+		dialog.setMessage("Your contact list has been cloned!");
 		dialog.setCancelable(false);
 		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
 		dialog.show();

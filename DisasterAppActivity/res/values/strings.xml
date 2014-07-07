@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="userEmailInputLabel">
-        In order to utilize all of Emergency Messaging\'s features, please enter an email address of yours and that email\'s password.
+    <string name="userEmailInputLabel">In order to utilize all of Emergency Messaging\'s features, please enter an email address and password.
     </string>
     <string name="userEmailPasswordInputLabel">Password:</string>
     <string name="passwordHint">Password</string>
@@ -38,6 +37,7 @@
     <string name="cancelButtonLabel">Cancel</string>
     <string name="removeButtonLabel">Remove List</string>
     <string name="deleteButtonLabel">Delete</string>
+     <string name="cloneButtonLabel">Clone List</string>
     
     <string name="emptyField">Field cannot be blank</string>
     

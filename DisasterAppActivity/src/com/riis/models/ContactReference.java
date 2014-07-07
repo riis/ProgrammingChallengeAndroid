@@ -9,6 +9,7 @@ public class ContactReference extends BasePersistentModel
 	private long id;
 	private long contactListId;
 	private long contactId;
+	private String notes;
 	
 	public ContactReference(Context context)
 	{
@@ -16,6 +17,17 @@ public class ContactReference extends BasePersistentModel
 		this.id = -1;
 		this.contactListId = -1;
 		this.contactId = -1;
+		setNotes("");
+	}
+	
+	public String getNotes()
+	{
+		return notes;
+	}
+
+	public void setNotes(String notes)
+	{
+		this.notes = notes;
 	}
 	
 	public long getContactListId()
@@ -54,6 +66,7 @@ public class ContactReference extends BasePersistentModel
 		ContentValues values = new ContentValues();
 		values.put("contactListId", getContactListId());
 		values.put("contactId", getContactId());
+		values.put("notes", getNotes());
 		
 		id = database.insert("contactListMembers", null, values);
 		close();
@@ -118,6 +131,7 @@ public class ContactReference extends BasePersistentModel
 		ContentValues values = new ContentValues();
 		values.put("contactListId", getContactListId());
 		values.put("contactId", getContactId());
+		values.put("notes", getNotes());
 		long updateId = database.update("contactListMembers", values, "_id = "+ id, null);
 		close();
 			
@@ -136,6 +150,7 @@ public class ContactReference extends BasePersistentModel
 			id = (cursor.getLong(0));
 			setContactListId(cursor.getLong(1));
 			setContactId(cursor.getLong(2));
+			setNotes(cursor.getString(3));
 			return true;
 		}
 		return false;
@@ -167,7 +182,7 @@ public class ContactReference extends BasePersistentModel
 	
 	private boolean isNew()
 	{
-		if(id == -1 && contactListId == -1 && contactId == -1)
+		if(id == -1 && contactListId == -1 && contactId == -1 && notes.equals(""))
 		{
 			return false;
 		}

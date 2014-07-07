@@ -44,5 +44,4 @@ public class ContactSpinnerItemClickListener implements OnItemSelectedListener
 	{
 		return;
 	}
-
 }

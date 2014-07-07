@@ -16,17 +16,18 @@
     <string name="sendEmergencyMessageTitle">Send Message</string>
     <string name="contactListMembersTitle">List Members</string>
     <string name="editContactTitle">Edit Contact</string>
-     <string name="contactDetailsTitle">Contact Details</string>
-    
-    
+    <string name="contactDetailsTitle">Contact Details</string>
+    <string-array name="contactResponseNoteOptions">
+        <item>---</item>
+        <item>Safe</item>
+        <item>Not Safe</item>
+    </string-array>
     
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contactInfo">Contact info</string>
     <string name="editContactListInfo">View List</string>
     <string name="sendMessageToContactList">Send Message</string>
-    
-    
     
     <string name="firstNameLabel">First Name</string>
     <string name="lastNameLabel">Last Name</string>
@@ -48,17 +49,17 @@
         <item>Email Address</item>
         <item>Phone Number</item>
     </string-array>
-     <string name="contactSavedTitle">Contact Saved</string>
-      <string name="contactSavedMessage">Your contact has been saved</string>
+    <string name="contactSavedTitle">Contact Saved</string>
+    <string name="contactSavedMessage">Your contact has been saved</string>
     
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
     <string name="recepiantsLabel">Recepiants:</string>
     
-     <string name="listNameLabel">List Name</string>
-     <string name="contactsLabel">Contacts</string>
-     <string name="importLabel">Import</string>
+    <string name="listNameLabel">List Name</string>
+    <string name="contactsLabel">Contacts</string>
+    <string name="importLabel">Import</string>
      
     <string name="importContactsScreenButtonLabel">Import Contacts</string>
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>

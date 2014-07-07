@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -156,7 +154,8 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			Drawable img = getContext().getResources().getDrawable( R.drawable.patch_standard_button );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450, 150, true));
+			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450,
+					150, true));
 
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
@@ -173,6 +172,8 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
+				spinner = new Spinner(context);
+				
 				if(m.getReferenceId() == ref.getId())
 				{
 					editContact(c);
@@ -182,7 +183,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 						builder = buildRespondedText(m, c);
 						display.setTextColor(Color.GREEN);
 						
-						spinner = new Spinner(context);
+						spinner.setId((int) ref.getId());
 						spinner.setBackgroundColor(Color.WHITE);
 						
 						ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
@@ -192,18 +193,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				        spinner.setAdapter(adapter);
 				        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
 				        
-				        if(ref.getNotes().equals(""))
-				        {
-				        	spinner.setSelection(0);
-				        }
-				        else if(ref.getNotes().equals("Safe"))
-				        {
-				        	spinner.setSelection(1);
-				        }
-				        else
-				        {
-				        	spinner.setSelection(2);
-				        }
+				        spinner.setSelection(ref.getNotes());
 					}
 					else if(currentContactList.getMessageSentTimeStamp() != 0)
 					{
@@ -222,31 +212,34 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			layout.setOrientation(LinearLayout.HORIZONTAL);
 			
-			if(spinner != null)
+			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+			
+			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+			
+			if(spinner.getCount() > 0)
 			{
-				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0,
-						LayoutParams.WRAP_CONTENT);
+				displayParams.weight = 4;
+				buttonParams.weight = 1;
+				
+				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
 				spinnerParams.weight = 1;
 				
 				spinner.setLayoutParams(spinnerParams);
 				layout.addView(spinner);
 			}
-			
-			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0,
-					LayoutParams.MATCH_PARENT);
-			displayParams.weight = 4;
+			else
+			{
+				displayParams.weight = 5;
+				buttonParams.weight = 1;
+			}
 			
 			display.setText(builder.toString());
 			display.setLayoutParams(displayParams);
 			display.setTextSize(18);
 			
-			layout.addView(display);
-			
-			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0,
-					LayoutParams.WRAP_CONTENT);
-			buttonParams.weight = 1;
-			
 			editContactButton.setLayoutParams(buttonParams);
+			
+			layout.addView(display);
 			layout.addView(editContactButton);
 			
 			holder.listLayout.addView(layout); 
@@ -272,7 +265,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append(message.getMessageContents());
-		builder.append("("+ contact.getPingCount() +" pings) - ");
+		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(contact.getFirstName()+" "+ contact.getLastName());
 		builder.append(" - last response: ");
 		builder.append(message.getFormattedMessageSentTimeStamp());

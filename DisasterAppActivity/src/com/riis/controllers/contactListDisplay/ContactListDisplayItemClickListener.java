@@ -1,7 +1,6 @@
 package com.riis.controllers.contactListDisplay;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;

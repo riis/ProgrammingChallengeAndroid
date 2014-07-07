@@ -9,7 +9,7 @@ public class ContactReference extends BasePersistentModel
 	private long id;
 	private long contactListId;
 	private long contactId;
-	private String notes;
+	private int notes;
 	
 	public ContactReference(Context context)
 	{
@@ -17,15 +17,15 @@ public class ContactReference extends BasePersistentModel
 		this.id = -1;
 		this.contactListId = -1;
 		this.contactId = -1;
-		setNotes("");
+		notes = 0;
 	}
 	
-	public String getNotes()
+	public int getNotes()
 	{
 		return notes;
 	}
 
-	public void setNotes(String notes)
+	public void setNotes(int notes)
 	{
 		this.notes = notes;
 	}
@@ -150,7 +150,7 @@ public class ContactReference extends BasePersistentModel
 			id = (cursor.getLong(0));
 			setContactListId(cursor.getLong(1));
 			setContactId(cursor.getLong(2));
-			setNotes(cursor.getString(3));
+			setNotes(cursor.getInt(3));
 			return true;
 		}
 		return false;
@@ -182,7 +182,7 @@ public class ContactReference extends BasePersistentModel
 	
 	private boolean isNew()
 	{
-		if(id == -1 && contactListId == -1 && contactId == -1 && notes.equals(""))
+		if(id == -1 && contactListId == -1 && contactId == -1 && notes == 0)
 		{
 			return false;
 		}

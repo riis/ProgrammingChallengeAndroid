@@ -56,7 +56,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/cancelButtonLabel"
 			android:onClick="cancelCreateContact" 
-			android:background="@drawable/patch_standard_button"/>
+			android:background="@drawable/button_medium"/>
 		
 		<Button
 			android:id="@+id/deleteContactButton"
@@ -65,7 +65,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/deleteButtonLabel" 
 			android:onClick="deleteContact" 
-			android:background="@drawable/patch_standard_button"/>
+			android:background="@drawable/button_medium"/>
 		
 		<Button
 			android:id="@+id/updateContactButton"
@@ -74,6 +74,6 @@
 			android:layout_height="wrap_content"
 			android:text="@string/updateButtonLabel" 
 			android:onClick="updateContact" 
-			android:background="@drawable/patch_standard_button"/>
+			android:background="@drawable/button_medium"/>
 	</LinearLayout>
 </LinearLayout>

@@ -152,7 +152,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			display.setGravity(Gravity.CENTER);
 			
-			Drawable img = getContext().getResources().getDrawable( R.drawable.patch_standard_button );
+			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
 			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450, 150, true));
 
@@ -161,6 +161,8 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
+			if(editContactButton.getF)
+			
 
 
 			ContactReference ref = new ContactReference(context);

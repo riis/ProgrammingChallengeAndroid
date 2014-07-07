@@ -31,7 +31,7 @@
         android:id="@+id/buttonRow"
         android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"    
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
         >
@@ -42,6 +42,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/cancelButtonLabel"
 	        android:onClick="cancelSendEmergencyMessage"
+	        android:background="@drawable/button_medium"
 	         />
         <Button
 	        android:id="@+id/sendEmergencyMessageButton"
@@ -49,7 +50,8 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
 	        android:text="@string/sendEmergencyMessageButtonLabel"
-	        android:onClick="sendEmergencyMessage" 
+	        android:onClick="sendEmergencyMessage"
+	        android:background="@drawable/button_medium" 
 	         />
     </LinearLayout>
     

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ public class CreateContactListsActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
+	private Button removeButton;
 
 	@Inject ContactList contactList;
 	@Inject ContactListSelectionItemClickListener item;
@@ -38,8 +40,11 @@ public class CreateContactListsActivity extends Activity
 		setContentView(R.layout.crud_contact_list_screen);
 		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-       
+        removeButton = (Button)findViewById(R.id.removeContactListButton);
+        removeButton.setVisibility(View.GONE);
+        
         contactList.readAllContacts();
+        
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
         listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));

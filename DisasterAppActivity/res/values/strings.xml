@@ -23,7 +23,7 @@
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contactInfo">Contact info</string>
-    <string name="editContactListInfo">Edit List</string>
+    <string name="editContactListInfo">View List</string>
     <string name="sendMessageToContactList">Send Message</string>
     
     
@@ -35,8 +35,11 @@
     <string name="saveButtonLabel">Save</string>
     <string name="updateButtonLabel">Update</string>
     <string name="cancelButtonLabel">Cancel</string>
+    <string name="removeButtonLabel">Remove List</string>
     <string name="deleteButtonLabel">Delete</string>
+    
     <string name="emptyField">Field cannot be blank</string>
+    
     <string name="firstNameHint">Example: Bob</string>
     <string name="lastNameHint">Example: Smith</string>
     <string name="emailAddressHint">Example: bsmith@disaster.com</string>

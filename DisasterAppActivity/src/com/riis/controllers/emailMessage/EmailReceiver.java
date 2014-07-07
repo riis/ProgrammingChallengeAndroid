@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.util.Log;
 
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
@@ -45,7 +44,6 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 	@Override
 	protected Void doInBackground(Void... params)
 	{
-		Log.i("in background", "background");
 		receiveEmail();
 		return null;
 	}
@@ -110,23 +108,17 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 		
 		ContactList myContactList = new ContactList(context);
 		myContactList.read(id);
+		myContactList.read();
 		
 		for(Message m : test)
 		{
-			Log.i("in for loop", "for");
-			
 			if(m.getSubject().equals("Re: There has been an Emergency!"))
 			{
-				Log.i("in if subject", "subject");
 				Contact contact = new Contact(context);
 				contact.setEmailAddress(getEmailAddressFromMail(m));
 				contact.read();
 
 				ArrayList<Contact> t = myContactList.getContacts();
-				
-				Log.i("contact id", contact.getId()+"");
-				Log.i("contains", myContactList.contains(contact)+"");
-				Log.i("timeStamp", (myContactList.getMessageSentTimeStamp() < m.getSentDate().getTime()) +"");
 				
 				if(t.contains(contact) && myContactList.getMessageSentTimeStamp() < m.getSentDate().getTime())
 				{
@@ -155,8 +147,6 @@ public class EmailReceiver extends AsyncTask<Void, Void, Void>
 
 	private void storeEmailResponse(Message result, Contact contact) throws MessagingException, IOException
 	{
-		Log.i("contains works", "works");
-		
 		String body = getBody(result);
 		body = body.split("\\r?\\n")[0];
 		if(body.length() > 255)

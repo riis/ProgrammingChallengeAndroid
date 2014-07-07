@@ -6,7 +6,6 @@ import java.util.Calendar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 public class ContactList extends BasePersistentModel
 {	
@@ -80,20 +79,6 @@ public class ContactList extends BasePersistentModel
 	public ArrayList<Contact> getContacts() 
 	{
 		return contacts;
-	}
-	
-	public boolean contains(Contact contact)
-	{
-		Log.i("in contains", "contains");
-		for(Contact m : contacts)
-		{
-			Log.i("ids equal in contains", m.getId() +" "+ contact.getId());
-			if(m.getId() == contact.getId())
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	@Override
@@ -232,31 +217,31 @@ public class ContactList extends BasePersistentModel
 		}
 		
 		open();
-			Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
-					null);		
-				try
-				{
-					readContactListFromCursor(cursor);
-				}
-				catch (MemberDatabaseException e1)
-				{
-					close();
-					return false;
-				}
-				finally
-				{
-					cursor.close();
-				}
-				
-			Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
-					null);
-				
-				if(refCursor.moveToFirst())
-				{
-					contacts = readContactListMembersFromCursor(refCursor);
-				}
+		Cursor cursor = database.query("contactList", null, "name = '"+ getName() +"'", null, null, null,
+				null);		
+		try
+		{
+			readContactListFromCursor(cursor);
+		}
+		catch (MemberDatabaseException e1)
+		{
+			close();
+			return false;
+		}
+		finally
+		{
+			cursor.close();
+		}
 			
-			refCursor.close();
+		Cursor refCursor = database.query("contactListMembers", null, "contactListId = "+ getId(), null, null, null,
+				null);
+			
+		if(refCursor.moveToFirst())
+		{
+			contacts = readContactListMembersFromCursor(refCursor);
+		}
+		
+		refCursor.close();
 		close();
 		
 		return true;
@@ -281,6 +266,7 @@ public class ContactList extends BasePersistentModel
 		}
 		catch (MemberDatabaseException e)
 		{
+			e.printStackTrace();
 			return false;
 		}
 		finally
@@ -371,11 +357,11 @@ public class ContactList extends BasePersistentModel
 	
 	private void readContactListFromCursor(Cursor cursor) throws MemberDatabaseException
 	{
-		
 		if (cursor.getCount() == 1)
 		{
 			cursor.moveToFirst();
 			id = cursor.getLong(0);
+			name = cursor.getString(1);
 			messageSentTimeStamp = cursor.getLong(2);
 		}
 		else

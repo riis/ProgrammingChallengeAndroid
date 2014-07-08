@@ -148,15 +148,16 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			
 			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
 			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-			Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450,
-					150, true));
+			Drawable d = new BitmapDrawable(getContext().getResources(), 
+								Bitmap.createScaledBitmap(bitmap, 450,150, true));
 
 			editContactButton = new Button(context);
 			editContactButton.setText("Edit Contact");
 
 			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			editContactButton.setBackground(d);
-
+			//editContactButton.setBackgroundResource(R.drawable.button_medium );
+			
 			ContactReference ref = new ContactReference(context);
 			ref.read(m.getReferenceId());
 			

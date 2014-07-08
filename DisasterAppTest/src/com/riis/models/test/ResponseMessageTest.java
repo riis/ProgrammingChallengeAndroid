@@ -28,9 +28,8 @@ public class ResponseMessageTest extends TestCase{
 		Calendar cal = Calendar.getInstance();
 		String date = (cal.get(Calendar.MONTH) + 1) +
 				"-"+ cal.get(Calendar.DAY_OF_MONTH) +
-				"-"+ cal.get(Calendar.YEAR) +
-				" "+cal.getTime().toString().substring(11, 16);
-		assertEquals(date, responseMessage.getFormattedMessageSentTimeStamp());
+				"-"+ cal.get(Calendar.YEAR);
+		assertTrue(responseMessage.getFormattedMessageSentTimeStamp().contains(date));
 	}
 	
 	public void testNewTextMessageContents()

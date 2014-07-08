@@ -8,13 +8,13 @@
     <string name="submitEmailInfoButton">Submit</string>
     
     <string name="appName">Emergency Messaging</string>
-    <string name="createContactTitle">Create Contact</string>
+    <string name="cloneContactListTitle">Clone Contact List</string>
     <string name="createContactListTitle">Create Contact List</string>
     <string name="importContactsTitle">Import Contacts</string>
     <string name="viewResponseMessagesTitle">View Response Messages</string>
     <string name="sendEmergencyMessageTitle">Send Message</string>
-    <string name="contactListMembersTitle">List Members</string>
-    <string name="editContactTitle">Edit Contact</string>
+    <string name="contactListMembersTitle">Contact List Members</string>
+    <string name="editContactTitle">Contact</string>
     <string name="contactDetailsTitle">Contact Details</string>
     <string-array name="contactResponseNoteOptions">
         <item>---</item>

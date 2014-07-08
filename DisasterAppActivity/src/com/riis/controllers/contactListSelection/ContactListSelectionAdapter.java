@@ -31,7 +31,7 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	{
 		super(context, R.layout.select_contacts_list_item, values);
 		
-		ObjectGraph objectGraph = ((DaggerApplication) app).getEditContactListMembersObjectGraph();
+		ObjectGraph objectGraph = ((DaggerApplication) app).getCRUDContactListObjectGraph();
 		objectGraph.inject(this);
 		
 		this.values = values;

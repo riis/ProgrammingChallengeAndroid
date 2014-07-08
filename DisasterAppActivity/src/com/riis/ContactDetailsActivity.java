@@ -112,7 +112,7 @@ public class ContactDetailsActivity extends Activity
 	
 	public void saveCreateContact(View view) 
 	{
-		if(!checkForInputErrors())
+		if(checkForInputErrors())
 		{
 			Contact newContact = new Contact(this);
 			newContact.setFirstName(firstNameEditField.getText().toString());
@@ -137,7 +137,7 @@ public class ContactDetailsActivity extends Activity
 
 	public void updateContact(View view) 
 	{
-		if(!checkForInputErrors())
+		if(checkForInputErrors())
 		{
 			existingContact.setFirstName(firstNameEditField.getText().toString());
 			existingContact.setLastName(lastNameEditField.getText().toString());

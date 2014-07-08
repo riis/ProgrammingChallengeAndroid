@@ -19,7 +19,7 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 	
 	public ImportedContactsAdapter(Context context, ArrayList<Contact> values)
 	{
-		super(context, R.layout.import_contacts_list_item, values);
+		super(context, R.layout.select_contacts_list_item, values);
 		this.values = values;
 		this.context = context;
 	}
@@ -28,15 +28,15 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.import_contacts_list_item, parent, false);
+		View rowView = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 		
-		TextView nameView = (TextView) rowView.findViewById(R.id.selectedContactListName);
+		TextView nameView = (TextView) rowView.findViewById(R.id.selectContactListName);
 		nameView.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 
-		TextView emailView = (TextView) rowView.findViewById(R.id.selectedContactListEmail);
+		TextView emailView = (TextView) rowView.findViewById(R.id.selectContactListEmail);
 		emailView.setText(values.get(position).getEmailAddress());
 		
-		TextView phoneView = (TextView) rowView.findViewById(R.id.selectedContactListPhoneNumber);
+		TextView phoneView = (TextView) rowView.findViewById(R.id.selectContactListPhoneNumber);
 		phoneView.setText(values.get(position).getPhoneNumber());
 		
 		return rowView;

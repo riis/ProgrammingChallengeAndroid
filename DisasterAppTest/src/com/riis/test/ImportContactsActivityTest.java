@@ -2,7 +2,10 @@ package com.riis.test;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.riis.ImportContactsActivity;
@@ -20,7 +23,6 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 	private Button saveButton;
 	private ListView listView;
 	
-	
 	public ImportContactsActivityTest()
 	{
 		super(ImportContactsActivity.class);
@@ -32,9 +34,7 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
 		ObjectGraph objectGraph= ObjectGraph.create(new ImportContactsTestObjectGraph(context));
-		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().
-				getTargetContext().getApplicationContext();
-		
+		DaggerApplication myapp = (DaggerApplication) context;
 		myapp.setImportContactsObjectGraph(objectGraph);
 		
 		importContactsActivity = getActivity();
@@ -42,7 +42,6 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 		cancelButton = (Button) importContactsActivity.findViewById(R.id.cancelImportContactsButton);
 		saveButton = (Button) importContactsActivity.findViewById(R.id.saveImportedContactsButton);
 		listView = (ListView) importContactsActivity.findViewById(R.id.importedContactsListView);
-		
 	}
 	
 	protected void tearDown() throws Exception
@@ -63,22 +62,46 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 	public void testListViewExists() 
 	{
 		assertNotNull(listView);
-	}	
+	}
+	
+	public void testCheckBoxExists()
+	{
+		CheckBox box = (CheckBox) listView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
+		assertNotNull(box);
+	}
+	
+	public void testCheckBoxIsNotChecked()
+	{
+		CheckBox box = (CheckBox) listView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
+		assertFalse(box.isChecked());
+		box = (CheckBox) listView.getChildAt(1).findViewById(R.id.selectContactCheckBox);
+		assertFalse(box.isChecked());
+	}
 	
 	public void testListViewPopulates()
 	{
-//		ArrayList<Contact> contactList = new ArrayList<Contact>();
-//		Contact newContact = new Contact(context);
-//		newContact.setEmailAddress("ww@yahoo.com");
-//		newContact.setFirstName("Bob");
-//		newContact.setLastName("Laptop");
-//		newContact.setPhoneNumber("5550001010");
-//		
-//		contactList.add(newContact);
-//		 
-//		
-		
+		assertTrue(listView.getCount() > 0);
 	}
 	
+	public void testListItemExpands()
+	{
+		TouchUtils.clickView(this, listView.getChildAt(0));
+		
+		int visiblility = View.VISIBLE;
+		int expandedLayout = listView.getChildAt(0).findViewById(R.id.selectContactListExpandableLayout).getVisibility();
+		
+		assertEquals(expandedLayout, visiblility);
+	}
 	
+	public void testListItemCollapses()
+	{
+		TouchUtils.clickView(this, listView.getChildAt(0));
+		
+		TouchUtils.clickView(this, listView.getChildAt(0));
+		
+		int visiblility = View.INVISIBLE;
+		int expandedLayout = listView.getChildAt(0).findViewById(R.id.selectContactListExpandableLayout).getVisibility();
+		
+		assertEquals(expandedLayout, visiblility);
+	}
 }

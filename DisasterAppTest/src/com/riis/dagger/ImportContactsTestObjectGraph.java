@@ -5,9 +5,7 @@ import android.content.Context;
 import com.riis.ImportContactsActivity;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.mock.MockContactImporter;
-import com.riis.dagger.mock.MockContactList;
 import com.riis.models.ContactImporter;
-import com.riis.models.ContactList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,11 +18,6 @@ public class ImportContactsTestObjectGraph
 	public ImportContactsTestObjectGraph(Context context)
 	{
 		this.context = context;
-	}
-	
-	@Provides ContactList provideContactList()
-	{
-		return new MockContactList(context);
 	}
 	
 	@Provides ContactImporter provideContactImporter()

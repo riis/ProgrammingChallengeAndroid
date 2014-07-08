@@ -80,6 +80,16 @@ public class Contact extends BasePersistentModel
 		return pingCount;
 	}
 	
+	public boolean exists()
+	{
+		if(read())
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -107,7 +117,7 @@ public class Contact extends BasePersistentModel
 	@Override
 	public boolean create() 
 	{
-		if (isFieldEmpty())
+		if (isFieldEmpty() || exists())
 		{
 			return false;
 		}

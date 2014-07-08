@@ -25,36 +25,36 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
    */
   @Override
   public void getBindings(BindingsGroup bindings, DisasterAppObjectGraph module) {
-    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
-    bindings.contributeProvidesBinding("com.riis.models.ListOfContactLists", new ProvideListOfContactListsProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", new ProvideMessageIndicatorItemClickListenerProvidesAdapter(module));
+    bindings.contributeProvidesBinding("com.riis.models.ListOfContactLists", new ProvideListOfContactListsProvidesAdapter(module));
+    bindings.contributeProvidesBinding("com.riis.models.ContactList", new ProvideContactListProvidesAdapter(module));
     bindings.contributeProvidesBinding("com.riis.models.ResponseMessageList", new ProvideResponseMessageListProvidesAdapter(module));
   }
 
   /**
-   * A {@code Binding<com.riis.models.ContactList>} implementation which satisfies
+   * A {@code Binding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    *
-   * Being a {@code Provider<com.riis.models.ContactList>} and handling creation and
+   * Being a {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} and handling creation and
    * preparation of object instances.
    */
-  public static final class ProvideContactListProvidesAdapter extends ProvidesBinding<com.riis.models.ContactList>
-      implements Provider<com.riis.models.ContactList> {
+  public static final class ProvideMessageIndicatorItemClickListenerProvidesAdapter extends ProvidesBinding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>
+      implements Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener> {
     private final DisasterAppObjectGraph module;
 
-    public ProvideContactListProvidesAdapter(DisasterAppObjectGraph module) {
-      super("com.riis.models.ContactList", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideContactList");
+    public ProvideMessageIndicatorItemClickListenerProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideMessageIndicatorItemClickListener");
       this.module = module;
       setLibrary(false);
     }
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.models.ContactList>}.
+     * {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>}.
      */
     @Override
-    public com.riis.models.ContactList get() {
-      return module.provideContactList();
+    public com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener get() {
+      return module.provideMessageIndicatorItemClickListener();
     }
   }
 
@@ -86,29 +86,29 @@ public final class DisasterAppObjectGraph$$ModuleAdapter extends ModuleAdapter<D
   }
 
   /**
-   * A {@code Binding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} implementation which satisfies
+   * A {@code Binding<com.riis.models.ContactList>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    *
-   * Being a {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>} and handling creation and
+   * Being a {@code Provider<com.riis.models.ContactList>} and handling creation and
    * preparation of object instances.
    */
-  public static final class ProvideMessageIndicatorItemClickListenerProvidesAdapter extends ProvidesBinding<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>
-      implements Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener> {
+  public static final class ProvideContactListProvidesAdapter extends ProvidesBinding<com.riis.models.ContactList>
+      implements Provider<com.riis.models.ContactList> {
     private final DisasterAppObjectGraph module;
 
-    public ProvideMessageIndicatorItemClickListenerProvidesAdapter(DisasterAppObjectGraph module) {
-      super("com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideMessageIndicatorItemClickListener");
+    public ProvideContactListProvidesAdapter(DisasterAppObjectGraph module) {
+      super("com.riis.models.ContactList", NOT_SINGLETON, "com.riis.dagger.DisasterAppObjectGraph", "provideContactList");
       this.module = module;
       setLibrary(false);
     }
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener>}.
+     * {@code Provider<com.riis.models.ContactList>}.
      */
     @Override
-    public com.riis.controllers.contactListDisplay.ContactListDisplayItemClickListener get() {
-      return module.provideMessageIndicatorItemClickListener();
+    public com.riis.models.ContactList get() {
+      return module.provideContactList();
     }
   }
 

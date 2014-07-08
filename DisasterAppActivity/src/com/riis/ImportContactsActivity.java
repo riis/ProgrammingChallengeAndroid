@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.riis.controllers.ImportedContactsAdapter;
@@ -15,15 +15,12 @@ import com.riis.controllers.contactListSelection.ContactListSelectionItemClickLi
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactImporter;
-import com.riis.models.ContactList;
 
 import dagger.ObjectGraph;
 
 public class ImportContactsActivity  extends Activity
 {
 	private ListView listView;
-	private ArrayList<Contact> contacts;
-	@Inject ContactList everyoneList;
 	@Inject ContactListSelectionItemClickListener item;
 	@Inject ContactImporter importer;
 	
@@ -34,17 +31,10 @@ public class ImportContactsActivity  extends Activity
 		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getImportContactsObjectGraph();
 		objectGraph.inject(this);
 		
-		contacts = new ArrayList<Contact>();
         setContentView(R.layout.import_contacts_screen);
         
-        ContentResolver contentResolver = getContentResolver();
-        contacts = importer.fetchContacts(contentResolver, contacts);
-        
-        everyoneList.setName("Everyone");
-        everyoneList.read();
-        
 	    listView = (ListView) findViewById(R.id.importedContactsListView);        
-        listView.setAdapter(new ImportedContactsAdapter(this, contacts));
+        listView.setAdapter(new ImportedContactsAdapter(this, importer.fetchContacts()));
         listView.setOnItemClickListener(item);
 	}
 	
@@ -55,8 +45,20 @@ public class ImportContactsActivity  extends Activity
 	
 	public void importContacts(View view)
 	{
-		everyoneList.read();
-		importer.importContacts(contacts, everyoneList, listView);
+		ArrayList<Contact> contacts = importer.fetchContacts();
+		ArrayList<Contact> imports = new ArrayList<Contact>();
+		
+		for(int i = 0; i < listView.getCount(); i++)
+		{
+			CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
+
+			if(checkBox.isChecked())
+			{
+				imports.add(contacts.get(i));
+			}
+		}
+		
+		importer.importContacts(imports);
 		
 		finish();
 	}

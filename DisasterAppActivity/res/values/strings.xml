@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="userEmailInputLabel">In order to utilize all of Emergency Messaging\'s features, please enter an email address and password.
+    <string name="userEmailInputLabel">
+        In order to utilize all of Emergency Messaging\'s features, please enter a Google email address and password.
     </string>
-    <string name="userEmailPasswordInputLabel">Password:</string>
+    <string name="userEmailPasswordInputLabel">Email Password:</string>
     <string name="passwordHint">Password</string>
     <string name="skipToMainButton">Skip</string>
     <string name="submitEmailInfoButton">Submit</string>

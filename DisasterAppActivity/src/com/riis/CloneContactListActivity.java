@@ -21,37 +21,47 @@ import com.riis.models.ResponseMessage;
 
 import dagger.ObjectGraph;
 
-public class CreateContactListsActivity extends Activity
+public class CloneContactListActivity extends Activity
 {
 	private ListView listView;
 	private EditText contactListNameField;
-	private Button removeButton;
-	private Button cloneButton;
-
+	
 	@Inject ContactList contactList;
+	@Inject ContactList everyoneList;
 	@Inject ContactListSelectionItemClickListener item;
-
+	
 	@Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+        setContentView(R.layout.crud_contact_list_screen);
+        
         ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getCRUDContactListObjectGraph();
 		objectGraph.inject(this);
-
-		setContentView(R.layout.crud_contact_list_screen);
-		contactListNameField = (EditText) findViewById(R.id.contactListNameText);
-		removeButton = (Button)findViewById(R.id.removeContactListButton);
-        removeButton.setVisibility(View.GONE);
         
-        cloneButton = (Button)findViewById(R.id.cloneContactListButton);
+        Bundle extras = getIntent().getExtras();
+        String contactListName = extras.getString("CONTACT_LIST_NAME");
+        
+        contactListNameField = (EditText) findViewById(R.id.contactListNameText);
+		Button removeButton = (Button) findViewById(R.id.removeContactListButton);
+        removeButton.setVisibility(View.GONE);
+        Button cloneButton = (Button) findViewById(R.id.cloneContactListButton);
         cloneButton.setVisibility(View.GONE);
         
-        contactList.readAllContacts();
+        contactList.setName(contactListName);
+        contactList.read();
+        
+        everyoneList.readAllContacts();
         
         listView = (ListView) findViewById(R.id.createContactListsView);        
-        listView.setAdapter(new ContactListSelectionAdapter(this, contactList.getContacts(), "", getApplication()));
+        listView.setAdapter(new ContactListSelectionAdapter(this, everyoneList.getContacts(), contactListName, getApplication()));
         listView.setOnItemClickListener(item);
-    }
+	}
+	
+	public void cancelCreateContactList(View view)
+	{
+		finish();
+	}
 	
 	public void saveContactList(View view)
 	{
@@ -78,7 +88,7 @@ public class CreateContactListsActivity extends Activity
 					{
 						ContactReference ref = new ContactReference(this);
 						ref.setContactListId(list.getId());
-						ref.setContactId(contactList.getContact(i).getId());
+						ref.setContactId(everyoneList.getContact(i).getId());
 						ref.create();
 						
 						ResponseMessage response = new ResponseMessage(this);
@@ -91,11 +101,6 @@ public class CreateContactListsActivity extends Activity
 				callAlertDialog();
 			}
 		}
-	}
-	
-	public void cancelCreateContactList(View view)
-	{
-		finish();
 	}
 	
 	private void callAlertDialog()

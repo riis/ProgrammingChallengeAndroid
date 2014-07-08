@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.riis.CreateContactListsActivity;
 import com.riis.R;
-import com.riis.dagger.CreateContactListsTestObjectGraph;
+import com.riis.dagger.CRUDContactListTestObjectGraph;
 import com.riis.dagger.DaggerApplication;
 
 import dagger.ObjectGraph;
@@ -39,9 +39,9 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 		super.setUp();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-		ObjectGraph objectGraph= ObjectGraph.create(new CreateContactListsTestObjectGraph(context));
+		ObjectGraph objectGraph= ObjectGraph.create(new CRUDContactListTestObjectGraph(context));
 		DaggerApplication myapp = (DaggerApplication) context;
-		myapp.setCreateContactListsObjectGraph(objectGraph);
+		myapp.setCRUDContactListObjectGraph(objectGraph);
 
 		contactListsActivity = getActivity();
 		
@@ -57,6 +57,28 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
+	}
+	
+	public void testListNameChangeTextField()
+	{
+		contactListsActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				listName.setText("Test", TextView.BufferType.EDITABLE);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Test", listName.getText().toString());
 	}
 	
 	public void testListViewPopulates() 

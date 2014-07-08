@@ -27,7 +27,7 @@ public class MockContactList extends ContactList
 	
 	public int size()
 	{
-		if(readCall = true)
+		if(readCall)
 		{
 			return shortContactList.size();
 		}

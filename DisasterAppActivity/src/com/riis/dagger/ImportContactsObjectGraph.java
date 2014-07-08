@@ -5,7 +5,6 @@ import android.content.Context;
 import com.riis.ImportContactsActivity;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.models.ContactImporter;
-import com.riis.models.ContactList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,11 +17,6 @@ public class ImportContactsObjectGraph
 	public ImportContactsObjectGraph(Context context)
 	{
 		this.context = context;
-	}
-	
-	@Provides ContactList provideContactList()
-	{
-		return new ContactList(context);
 	}
 	
 	@Provides ContactImporter provideContactImporter()

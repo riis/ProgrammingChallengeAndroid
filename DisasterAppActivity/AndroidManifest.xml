@@ -32,8 +32,8 @@
         <activity android:name="DisasterAppActivity"
             android:label="@string/appName">
         </activity>
-        <activity android:name="NewContactActivity"
-            android:label="@string/createContactTitle"
+        <activity android:name="CloneContactListActivity"
+            android:label="@string/cloneContactListTitle"
             android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity android:name="SendEmergencyMessageActivity"
@@ -53,10 +53,7 @@
             	  android:label="@string/importContactsTitle">
         </activity>
         <activity android:name="ContactDetailsActivity"
-            	  android:label="@string/contactDetailsTitle">
-        </activity>
-        <activity android:name="EditContactActivity"
-            	  android:label="@string/editContactTitle"
+            	  android:label="@string/contactDetailsTitle"
             	  android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <receiver android:name="com.riis.controllers.textMessage.TextMessageReceiver">

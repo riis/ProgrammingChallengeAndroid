@@ -1,10 +1,11 @@
 package com.riis.test;
 
+import javax.inject.Inject;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,30 +13,39 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
-import com.riis.EditContactListMembersActivity;
 import com.riis.R;
+import com.riis.dagger.ContactDetailsTestObjectGraph;
+import com.riis.dagger.DaggerApplication;
+import com.riis.models.Contact;
 
-public class EditContactActivityTest extends ActivityInstrumentationTestCase2<ContactDetailsActivity>
+import dagger.ObjectGraph;
+
+public class EditContactDetailsActivityTest extends ActivityInstrumentationTestCase2<ContactDetailsActivity>
 {
-	private ContactDetailsActivity contactDetailsActivity;
+	private Button cancelButton;
+	private Button deleteButton;
+	private Button updateButton;
+	
+	private Context context;
+	
 	private TextView firstNameText;
 	private TextView lastNameText;
 	private TextView firstFragmentText;
 	private TextView secondFragmentText;
+	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
-	
 	private EditText firstFragmentEditField;
 	private EditText secondFragmentEditField;
 	
 	private Spinner firstFragmentSpinner;
 	private Spinner secondFragmentSpinner;
-	private Button updateButton;
-	private Button cancelButton;
-	private Button deleteButton;
-	private Context context;
 	
-	public EditContactActivityTest()
+	private ContactDetailsActivity contactDetailsActivity;
+	
+	@Inject Contact newContact;
+	
+	public EditContactDetailsActivityTest()
 	{
 		super(ContactDetailsActivity.class);
 	}
@@ -46,10 +56,13 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
 		Intent intent = new Intent(context, ContactDetailsActivity.class);
-		intent.putExtra("CONTACT_LIST_NAME", "Test");
+		intent.putExtra("id", 1);
 		setActivityIntent(intent);
-		
 		contactDetailsActivity = getActivity();
+		
+		ObjectGraph objectGraph= ObjectGraph.create(new ContactDetailsTestObjectGraph(context));
+		DaggerApplication myapp = (DaggerApplication) context;
+		myapp.setContactDetailsObjectGraph(objectGraph);
 		
 		firstNameText = (TextView)contactDetailsActivity.findViewById(R.id.firstNameLabel);
 		lastNameText = (TextView) contactDetailsActivity.findViewById(R.id.lastNameLabel);
@@ -71,8 +84,6 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		cancelButton = (Button) contactDetailsActivity.findViewById(R.id.cancelEditContactButton);
 		deleteButton = (Button) contactDetailsActivity.findViewById(R.id.deleteContactButton);
 		updateButton = (Button) contactDetailsActivity.findViewById(R.id.updateContactButton);
-		
-		
 	}
 	
 	protected void tearDown() throws Exception
@@ -145,14 +156,34 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		assertNotNull(updateButton);
 	}
 	
-	public void testLastNameChangeTextField()
+	public void testInitialFirstNameField()
+	{
+		assertEquals("Bob", firstNameEditField.getText().toString());
+	}
+	
+	public void testInitialLastNameField()
+	{
+		assertEquals("Jones", lastNameEditField.getText().toString());
+	}
+	
+	public void testInitialEmailField()
+	{
+		assertEquals("bjones@example.com", firstFragmentEditField.getText().toString());
+	}
+	
+	public void testInitialPhoneNumber()
+	{
+		assertEquals("1234567890", secondFragmentEditField.getText().toString());
+	}
+	
+	public void testFirstNameChangeTextField()
 	{
 		contactDetailsActivity.runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
-			lastNameEditField.setText("Wszedybyl", TextView.BufferType.EDITABLE);
+				firstNameEditField.setText("Bob", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -164,7 +195,29 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		{
 			e.printStackTrace();
 		}
-		assertEquals("Wszedybyl", lastNameEditField.getText().toString());
+		assertEquals("Bob", firstNameEditField.getText().toString());
+	}
+	
+	public void testLastNameChangeTextField()
+	{
+		contactDetailsActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+			lastNameEditField.setText("Jones", TextView.BufferType.EDITABLE);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Jones", lastNameEditField.getText().toString());
 	}
 	
 	public void testEmailChangeEditTextField()
@@ -174,7 +227,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 			@Override
 			public void run() 
 			{
-				firstFragmentEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
+				firstFragmentEditField.setText("bjones@example.com", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -186,7 +239,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		{
 			e.printStackTrace();
 		}
-		assertEquals("bobby@yahoo.com", firstFragmentEditField.getText().toString());
+		assertEquals("bjones@example.com", firstFragmentEditField.getText().toString());
 	}
 	
 	public void testPhoneChangeEditTextField()
@@ -196,7 +249,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 			@Override
 			public void run() 
 			{
-				secondFragmentEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
+				secondFragmentEditField.setText("1234567890", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -208,7 +261,7 @@ public class EditContactActivityTest extends ActivityInstrumentationTestCase2<Co
 		{
 			e.printStackTrace();
 		}
-		assertEquals("(586)000-1234", secondFragmentEditField.getText().toString());
+		assertEquals("1234567890", secondFragmentEditField.getText().toString());
 	}
 	
 	public void testFirstFragmentSpinnerChange()

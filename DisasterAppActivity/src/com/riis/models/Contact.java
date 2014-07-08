@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 public class Contact extends BasePersistentModel 
 {	
-	protected long id;
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -50,7 +50,7 @@ public class Contact extends BasePersistentModel
 		this.pingCount = pingCount;
 	}
 	
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
@@ -80,6 +80,16 @@ public class Contact extends BasePersistentModel
 		return pingCount;
 	}
 	
+	public boolean exists()
+	{
+		if(read())
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -107,7 +117,7 @@ public class Contact extends BasePersistentModel
 	@Override
 	public boolean create() 
 	{
-		if (isFieldEmpty())
+		if (isFieldEmpty() || exists())
 		{
 			return false;
 		}

@@ -1,5 +1,7 @@
 package com.riis.test;
 
+import javax.inject.Inject;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -12,8 +14,13 @@ import android.widget.TextView;
 
 import com.riis.ContactDetailsActivity;
 import com.riis.R;
+import com.riis.dagger.ContactDetailsTestObjectGraph;
+import com.riis.dagger.DaggerApplication;
+import com.riis.models.Contact;
 
-public class NewContactActivityTest extends ActivityInstrumentationTestCase2<ContactDetailsActivity>
+import dagger.ObjectGraph;
+
+public class NewContactDetailsActivityTest extends ActivityInstrumentationTestCase2<ContactDetailsActivity>
 {
 	private Button cancelButton;
 	private Button saveButton;
@@ -27,7 +34,6 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 	
 	private EditText firstNameEditField;
 	private EditText lastNameEditField;
-	
 	private EditText firstFragmentEditField;
 	private EditText secondFragmentEditField;
 	
@@ -36,7 +42,9 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 	
 	private ContactDetailsActivity contactDetailsActivity;
 	
-	public NewContactActivityTest()
+	@Inject Contact newContact;
+	
+	public NewContactDetailsActivityTest()
 	{
 		super(ContactDetailsActivity.class);
 	}
@@ -46,6 +54,10 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 		super.setUp();
 		contactDetailsActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
+		
+		ObjectGraph objectGraph= ObjectGraph.create(new ContactDetailsTestObjectGraph(context));
+		DaggerApplication myapp = (DaggerApplication) context;
+		myapp.setContactDetailsObjectGraph(objectGraph);
 		
 		cancelButton = (Button) contactDetailsActivity.findViewById(R.id.cancelCreateContactButton);
 		saveButton = (Button) contactDetailsActivity.findViewById(R.id.saveContactButton);
@@ -71,80 +83,6 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 		firstNameEditField = (EditText) contactDetailsActivity.findViewById(R.id.firstNameEditText);
 		lastNameEditField = (EditText) contactDetailsActivity.findViewById(R.id.lastNameEditText);
 	}
-	
-//	public void testCreateContact() 
-//	{
-//		Contact newContact = new Contact(context);
-//		newContact.setFirstName("Bob");
-//		newContact.setLastName("Jones");
-//		newContact.setEmailAddress("bjones@example.com");
-//		newContact.setPhoneNumber("5555555555");
-//		
-//		newContact.create();
-//		
-//		ContactList contactList = new ContactList(context);
-//		contactList.readAllContacts();
-//		Contact output = contactList.getContact(contactList.size() - 1);
-//
-//		newContact.delete();
-//		
-//		assertEquals(output.getFirstName(), newContact.getFirstName());
-//		assertEquals(output.getLastName(), newContact.getLastName());
-//		assertEquals(output.getEmailAddress(), newContact.getEmailAddress());
-//		assertEquals(output.getPhoneNumber(), newContact.getPhoneNumber());
-//	}
-//	
-//	public void testDeleteContact()
-//	{
-//		Contact newContact = new Contact(context);
-//		newContact.setFirstName("Bob");
-//		newContact.setLastName("Jones");
-//		newContact.setEmailAddress("bjones@example.com");
-//		newContact.setPhoneNumber("5555555555");
-//		newContact.create();
-//		assertTrue(newContact.delete());
-//	}
-//	
-//	public void testReadContact()
-//	{
-//		Contact newContact = new Contact(context);
-//		newContact.setFirstName("Bob");
-//		newContact.setLastName("Jones");
-//		newContact.setEmailAddress("bjones@example.com");
-//		newContact.setPhoneNumber("5555555555");
-//		newContact.setPingCount(2);
-//		
-//		newContact.create();
-//		
-//		Contact output = new Contact(context);
-//		output.setEmailAddress("bjones@example.com");
-//		
-//		assertTrue(output.read());
-//		
-//		newContact.delete();
-//	}
-//	
-//	public void testUpdateContact()
-//	{
-//		Contact newContact = new Contact(context);
-//		newContact.setFirstName("Bob");
-//		newContact.setLastName("Jones");
-//		newContact.setEmailAddress("bjones@example.com");
-//		newContact.setPhoneNumber("5555555555");
-//		newContact.setPingCount(2);
-//		newContact.create();
-//		
-//		newContact.setLastName("Smith");
-//		newContact.update();
-//		
-//		Contact output = new Contact(context);
-//		output.setEmailAddress("bjones@example.com");
-//		output.read();
-//		
-//		newContact.delete();
-//		
-//		assertEquals(newContact.getLastName(), output.getLastName());
-//	}
 		
  	public void testCancelButtonExists() 
 	{
@@ -235,7 +173,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 			@Override
 			public void run() 
 			{
-				lastNameEditField.setText("Wszedybyl", TextView.BufferType.EDITABLE);
+				lastNameEditField.setText("Jones", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -247,7 +185,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 		{
 			e.printStackTrace();
 		}
-		assertEquals("Wszedybyl", lastNameEditField.getText().toString());
+		assertEquals("Jones", lastNameEditField.getText().toString());
 	}
 	
 	public void testEmailChangeEditTextField()
@@ -257,7 +195,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 			@Override
 			public void run() 
 			{
-				firstFragmentEditField.setText("bobby@yahoo.com", TextView.BufferType.EDITABLE);
+				firstFragmentEditField.setText("bjones@example.com", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -269,7 +207,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 		{
 			e.printStackTrace();
 		}
-		assertEquals("bobby@yahoo.com", firstFragmentEditField.getText().toString());
+		assertEquals("bjones@example.com", firstFragmentEditField.getText().toString());
 	}
 	
 	public void testPhoneChangeEditTextField()
@@ -279,7 +217,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 			@Override
 			public void run() 
 			{
-				secondFragmentEditField.setText("(586)000-1234", TextView.BufferType.EDITABLE);
+				secondFragmentEditField.setText("1234567890", TextView.BufferType.EDITABLE);
 			}
 		});
 		
@@ -291,7 +229,7 @@ public class NewContactActivityTest extends ActivityInstrumentationTestCase2<Con
 		{
 			e.printStackTrace();
 		}
-		assertEquals("(586)000-1234", secondFragmentEditField.getText().toString());
+		assertEquals("1234567890", secondFragmentEditField.getText().toString());
 	}
 	
 	public void testFirstFragmentSpinnerChange()

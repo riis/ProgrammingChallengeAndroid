@@ -36,7 +36,7 @@ public abstract class BasePersistentModel extends SQLiteOpenHelper
 			+ "contactListMembers(_id integer primary key autoincrement, "
 			+ "contactListId integer not null, "
 			+ "contactId integer not null, "
-			+ "notes text not null);";
+			+ "notes integer not null);";
 
 	public BasePersistentModel(Context context) 
 	{

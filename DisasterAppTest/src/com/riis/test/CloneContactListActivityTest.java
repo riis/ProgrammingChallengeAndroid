@@ -7,9 +7,11 @@ import android.test.TouchUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.riis.CloneContactListActivity;
 import com.riis.EditContactListMembersActivity;
 import com.riis.R;
 import com.riis.dagger.CRUDContactListTestObjectGraph;
@@ -17,21 +19,20 @@ import com.riis.dagger.DaggerApplication;
 
 import dagger.ObjectGraph;
 
-public class EditContactListMembersActivityTest extends ActivityInstrumentationTestCase2<EditContactListMembersActivity>
+public class CloneContactListActivityTest extends ActivityInstrumentationTestCase2<CloneContactListActivity>
 {
-	private EditContactListMembersActivity editContactListMembersActivity;
-	private Button updateContactListButton;
+	private CloneContactListActivity contactListsActivity;
+	private Button saveCreateContactListSaveButton;
 	private Button cancelCreateContactListButton;
 	private Button cloneButton;
-	private Button removeContactListButton;
 	private ListView contactsListView;
+	private EditText listName;
 	private TextView contactListTextView;
-	
 	private Context context;
 	
-	public EditContactListMembersActivityTest()
+	public CloneContactListActivityTest()
 	{
-		super(EditContactListMembersActivity.class);
+		super(CloneContactListActivity.class);
 	}
 	
 	protected void setUp() throws Exception
@@ -40,21 +41,20 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
 		ObjectGraph objectGraph= ObjectGraph.create(new CRUDContactListTestObjectGraph(context));
-		DaggerApplication myapp = (DaggerApplication) this.getInstrumentation().
-				getTargetContext().getApplicationContext();
+		DaggerApplication myapp = (DaggerApplication) context;
 		myapp.setCRUDContactListObjectGraph(objectGraph);
-		
+
 		Intent intent = new Intent(context, EditContactListMembersActivity.class);
 		intent.putExtra("CONTACT_LIST_NAME", "Test");
 		setActivityIntent(intent);
-		editContactListMembersActivity = getActivity();
+		contactListsActivity = getActivity();
 		
-		contactListTextView = (TextView) editContactListMembersActivity.findViewById(R.id.contactListNameLabel);
-		contactsListView = (ListView) editContactListMembersActivity.findViewById(R.id.createContactListsView);
-		updateContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.saveCreateContactListSaveButton);
-		cancelCreateContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.cancelCreateContactListButton);
-		removeContactListButton = (Button) editContactListMembersActivity.findViewById(R.id.removeContactListButton);
-		cloneButton = (Button) editContactListMembersActivity.findViewById(R.id.cloneContactListButton);
+		contactListTextView = (TextView) contactListsActivity.findViewById(R.id.contactListNameLabel);
+		listName = (EditText) contactListsActivity.findViewById(R.id.contactListNameText);
+		contactsListView = (ListView) contactListsActivity.findViewById(R.id.createContactListsView);
+		saveCreateContactListSaveButton = (Button) contactListsActivity.findViewById(R.id.saveCreateContactListSaveButton);
+		cancelCreateContactListButton = (Button) contactListsActivity.findViewById(R.id.cancelCreateContactListButton);
+		cloneButton = (Button) contactListsActivity.findViewById(R.id.cloneContactListButton);
 	}
 	
 	protected void tearDown() throws Exception
@@ -62,18 +62,26 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		super.tearDown();
 	}
 	
-	public void testCheckBoxExists()
+	public void testListNameChangeTextField()
 	{
-		CheckBox box = (CheckBox) contactsListView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
-		assertNotNull(box);
-	}
-	
-	public void testCheckBoxIsChecked()
-	{
-		CheckBox box = (CheckBox) contactsListView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
-		assertTrue(box.isChecked());
-		box = (CheckBox) contactsListView.getChildAt(1).findViewById(R.id.selectContactCheckBox);
-		assertFalse(box.isChecked());
+		contactListsActivity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				listName.setText("Test", TextView.BufferType.EDITABLE);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		assertEquals("Test", listName.getText().toString());
 	}
 	
 	public void testListViewPopulates() 
@@ -103,9 +111,23 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		assertEquals(expandedLayout, visiblility);
 	}
 	
-	public void testUpdateButtonText()
+	public void testCheckBoxExists()
 	{
-		assertEquals("Update", updateContactListButton.getText().toString());
+		CheckBox box = (CheckBox) contactsListView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
+		assertNotNull(box);
+	}
+	
+	public void testCheckBoxIsNotChecked()
+	{
+		CheckBox box = (CheckBox) contactsListView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
+		assertTrue(box.isChecked());
+		box = (CheckBox) contactsListView.getChildAt(1).findViewById(R.id.selectContactCheckBox);
+		assertFalse(box.isChecked());
+	}
+
+	public void testEditTextExists()
+	{
+		assertNotNull(listName);
 	}
 	
 	public void testTextViewExists()
@@ -118,9 +140,9 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		assertNotNull(contactListTextView);
 	}
 	
-	public void testUpdateButtonExists()
+	public void testSaveButtonExists()
 	{
-		assertNotNull(updateContactListButton);
+		assertNotNull(saveCreateContactListSaveButton);
 	}
 	
 	public void testCancelButtonExists()
@@ -128,13 +150,8 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 		assertNotNull(cancelCreateContactListButton);
 	}
 	
-	public void testRemoveButtonExists()
-	{
-		assertNotNull(removeContactListButton);
-	}
-	
 	public void testcloneButtonExists()
 	{
-		assertNotNull(cloneButton);
+		assertEquals(View.GONE,cloneButton.getVisibility());
 	}
 }

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="userEmailInputLabel">In order to utilize all of Emergency Messaging\'s features, please enter an email address and password.
+    <string name="userEmailInputLabel">
+        In order to utilize all of Emergency Messaging\'s features, please enter a Google email address and password.
     </string>
-    <string name="userEmailPasswordInputLabel">Password:</string>
+    <string name="userEmailPasswordInputLabel">Email Password:</string>
     <string name="passwordHint">Password</string>
     <string name="skipToMainButton">Skip</string>
     <string name="submitEmailInfoButton">Submit</string>
     
     <string name="appName">Emergency Messaging</string>
-    <string name="createContactTitle">Create Contact</string>
+    <string name="cloneContactListTitle">Clone Contact List</string>
     <string name="createContactListTitle">Create Contact List</string>
     <string name="importContactsTitle">Import Contacts</string>
     <string name="viewResponseMessagesTitle">View Response Messages</string>
     <string name="sendEmergencyMessageTitle">Send Message</string>
-    <string name="contactListMembersTitle">List Members</string>
-    <string name="editContactTitle">Edit Contact</string>
+    <string name="contactListMembersTitle">Contact List Members</string>
+    <string name="editContactTitle">Contact</string>
     <string name="contactDetailsTitle">Contact Details</string>
     <string-array name="contactResponseNoteOptions">
         <item>---</item>
@@ -32,12 +33,14 @@
     <string name="lastNameLabel">Last Name</string>
     <string name="emailAddressLabel">Email Address</string>
     <string name="phoneNumberLabel">Phone Number</string>
+    
     <string name="saveButtonLabel">Save</string>
     <string name="updateButtonLabel">Update</string>
     <string name="cancelButtonLabel">Cancel</string>
-    <string name="removeButtonLabel">Remove List</string>
     <string name="deleteButtonLabel">Delete</string>
-     <string name="cloneButtonLabel">Clone List</string>
+    
+    <string name="removeButtonLabel">Remove List</string>
+    <string name="cloneButtonLabel">Clone List</string>
     
     <string name="emptyField">Field cannot be blank</string>
     
@@ -55,14 +58,26 @@
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
-    <string name="recepiantsLabel">Recepiants:</string>
+    <string name="recipientsLabel">Recipients:</string>
+    <string name="noEmailInformationLabel">
+        Warning! You do not have a Google email currently setup!
+         If you proceed, you will not send any emails to any contacts!
+    </string>
+    <string name="noEmailButtonLabel">Setup Email</string>
     
     <string name="listNameLabel">List Name</string>
     <string name="contactsLabel">Contacts</string>
+    
     <string name="importLabel">Import</string>
-     
     <string name="importContactsScreenButtonLabel">Import Contacts</string>
+    <string name="noContactsToImportLabel">
+        Sorry! You have no contacts to import! If you believe a contact is not displaying,
+         please make sure the contact has a name, email address, and phone number.
+    </string>
+    
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
+    
     <string name="editContactScreenButtonLabel">Edit Contact</string>
+    
     <string name="returnToMainScreenButtonLabel">Home</string>
 </resources>

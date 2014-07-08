@@ -9,8 +9,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,9 +30,12 @@ import dagger.ObjectGraph;
 
 public class SendEmergencyMessageActivity extends Activity
 {
+	private Button noEmailButton;
 	private TextView characterCountLabel;
+	private TextView noEmailInfoLabel;
 	private EditText emergencyMessageField;
 	private ListView recipientsList;
+	
 	@Inject ContactList contactList;
 	@Inject TextMessageSender textMessageSender;
 	
@@ -48,14 +53,31 @@ public class SendEmergencyMessageActivity extends Activity
         contactList.setName(contactListName);
         contactList.read();
         
+        noEmailButton = (Button) findViewById(R.id.noEmailButton);
 		characterCountLabel = (TextView) findViewById(R.id.characterCountLabel);
-		characterCountLabel.setText(""+ 120);
+		noEmailInfoLabel = (TextView) findViewById(R.id.noEmailInformationLabel);
 		emergencyMessageField = (EditText) findViewById(R.id.emergencyMessageField);
+		
+		characterCountLabel.setText(""+ 120);
 		
 		emergencyMessageField.addTextChangedListener(new EmergencyMessageTextWatcher(characterCountLabel));
 		
 		recipientsList = (ListView) findViewById(R.id.messageRecipientsList);
 		recipientsList.setAdapter(new MessageRecepiantsListAdapter(this, contactList.getContacts()));
+		
+		SharedPreferences prefs = getSharedPreferences("emailData", 1);
+		if(prefs.getString("email", "").equals(""))
+		{
+			noEmailButton.setVisibility(View.VISIBLE);
+			noEmailInfoLabel.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		onCreate(null);
 	}
 	
 	public void cancelSendEmergencyMessage(View view)
@@ -107,6 +129,13 @@ public class SendEmergencyMessageActivity extends Activity
 			
 			finish();
 		}
+	}
+	
+	public void setUpEmail(View view)
+	{
+		Intent i = new Intent(this, EmailInputActivity.class);
+		i.putExtra("setUpEmail", true);
+		startActivity(i);
 	}
 	
 	private boolean isValidEmergencyMessage(String message)

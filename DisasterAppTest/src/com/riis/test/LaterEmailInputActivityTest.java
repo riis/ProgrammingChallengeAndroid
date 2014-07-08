@@ -1,6 +1,7 @@
 package com.riis.test;
 
 import android.content.Context;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,10 +9,11 @@ import android.widget.TextView;
 
 import com.riis.EmailInputActivity;
 import com.riis.R;
+import com.riis.SendEmergencyMessageActivity;
 
-public class EmailInputActivityTest  extends ActivityInstrumentationTestCase2<EmailInputActivity>
+public class LaterEmailInputActivityTest extends ActivityInstrumentationTestCase2<EmailInputActivity>
 {
-	private EmailInputActivity emailInputActivity;
+private EmailInputActivity emailInputActivity;
 	
 	private Context context;
 	private EditText emailAddressInput;
@@ -19,7 +21,7 @@ public class EmailInputActivityTest  extends ActivityInstrumentationTestCase2<Em
 	private Button skipButton;
 	private Button submitEmailInfoButton;
 	
-	public EmailInputActivityTest()
+	public LaterEmailInputActivityTest()
 	{
 		super(EmailInputActivity.class);
 	}
@@ -27,9 +29,13 @@ public class EmailInputActivityTest  extends ActivityInstrumentationTestCase2<Em
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		emailInputActivity = getActivity();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
+		Intent intent = new Intent(context, SendEmergencyMessageActivity.class);
+		intent.putExtra("setUpEmail", true);
+		setActivityIntent(intent);
+		emailInputActivity = getActivity();
+
 		emailAddressInput = (EditText) emailInputActivity.findViewById(R.id.emailAddressInput);
 		passwordInput = (EditText) emailInputActivity.findViewById(R.id.passwordInput);
 		skipButton = (Button) emailInputActivity.findViewById(R.id.skipButton);
@@ -59,6 +65,11 @@ public class EmailInputActivityTest  extends ActivityInstrumentationTestCase2<Em
 	public void testSubmitEmailInfoButtonExists()
 	{
 		assertNotNull(submitEmailInfoButton);
+	}
+	
+	public void testSkipButtonLabel()
+	{
+		assertEquals("Cancel", skipButton.getText().toString());
 	}
 	
 	public void testEmailAddressChangeTextField()

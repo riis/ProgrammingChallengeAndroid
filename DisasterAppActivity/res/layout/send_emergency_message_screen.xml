@@ -3,8 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
+    <TextView
+        android:id="@+id/noEmailInformationLabel"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_light"
+        android:text="@string/noEmailInformationLabel"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
+    
+    <Button
+        android:id="@+id/noEmailButton"
+        android:layout_below="@id/noEmailInformationLabel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_medium"
+        android:text="@string/noEmailButtonLabel"
+        android:onClick="setUpEmail"
+        android:visibility="gone" />
+    
     <EditText
         android:id="@+id/emergencyMessageField"
+        android:layout_below="@id/noEmailButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
@@ -42,8 +64,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/cancelButtonLabel"
 	        android:onClick="cancelSendEmergencyMessage"
-	        android:background="@drawable/button_medium"
-	         />
+	        android:background="@drawable/button_medium" />
         <Button
 	        android:id="@+id/sendEmergencyMessageButton"
 	        android:layout_width="fill_parent"
@@ -51,8 +72,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/sendEmergencyMessageButtonLabel"
 	        android:onClick="sendEmergencyMessage"
-	        android:background="@drawable/button_medium" 
-	         />
+	        android:background="@drawable/button_medium" />
     </LinearLayout>
     
     <ListView

@@ -59,6 +59,11 @@
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
     <string name="recipientsLabel">Recipients:</string>
+    <string name="noEmailInformationLabel">
+        Warning! You do not have a Google email currently setup!
+         If you proceed, you will not send any emails to any contacts!
+    </string>
+    <string name="noEmailButtonLabel">Setup Email</string>
     
     <string name="listNameLabel">List Name</string>
     <string name="contactsLabel">Contacts</string>

@@ -44,14 +44,14 @@
 	<LinearLayout
         android:id="@+id/buttonRow"
 		android:layout_width="match_parent"
-		android:layout_height="40dp"  
+		android:layout_height="wrap_content"  
 		android:layout_gravity="bottom|center_horizontal"
 		android:orientation="horizontal" >
 	
 		<Button
 			android:id="@+id/cancelEditContactButton"
 			android:layout_weight="1"
-			android:layout_width="fill_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/cancelButtonLabel"
 			android:onClick="cancelCreateContact" 
@@ -60,7 +60,7 @@
 		<Button
 			android:id="@+id/deleteContactButton"
 			android:layout_weight="1"
-			android:layout_width="fill_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/deleteButtonLabel" 
 			android:onClick="deleteContact" 
@@ -69,7 +69,7 @@
 		<Button
 			android:id="@+id/updateContactButton"
 			android:layout_weight="1"
-			android:layout_width="fill_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/updateButtonLabel" 
 			android:onClick="updateContact" 

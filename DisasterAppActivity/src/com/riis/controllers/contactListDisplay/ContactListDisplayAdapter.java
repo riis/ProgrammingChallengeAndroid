@@ -7,10 +7,7 @@ import javax.inject.Inject;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,21 +135,16 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		{
 			responseMessageList = new ResponseMessageList(context);
 			responseMessageList.read(currentContactList.getId());
-			
+		
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
 				StringBuilder builder = new StringBuilder();
 				TextView display = new TextView(context);
 				display.setGravity(Gravity.CENTER);
 				
-				Drawable img = getContext().getResources().getDrawable(R.drawable.orange_button_medium );
-				Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-				Drawable d = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmap, 450,
-						150, true));
-	
 				editContactButton = new Button(context);
 				editContactButton.setText("Edit Contact");
-	
+				
 				editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 				editContactButton.setBackgroundResource(R.drawable.button_medium);
 	

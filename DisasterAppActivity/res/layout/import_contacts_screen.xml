@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView
+        android:id="@+id/noContactsToImportLabel"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:text="@string/noContactsToImportLabel"
+        android:visibility="gone" />
+    
     <LinearLayout
         android:id="@+id/buttonRow"
         android:layout_alignParentBottom="true"
@@ -29,12 +39,12 @@
 			android:text="@string/importLabel"
 			android:onClick="importContacts" 
 			android:background="@drawable/button_medium"/>
-		
 	</LinearLayout>
     
     <ListView
         android:id="@+id/importedContactsListView"
         android:layout_above="@id/buttonRow"
+        android:layout_below="@id/noContactsToImportLabel"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         android:layout_centerHorizontal="true"

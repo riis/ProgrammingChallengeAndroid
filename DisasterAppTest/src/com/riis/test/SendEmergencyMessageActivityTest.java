@@ -22,9 +22,9 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	private Button cancelEmergencyMessageButton;
 	private Button sendEmergencyMessageButton;
 	private EditText emergencyMessageField;
-	private ListView recepiantList;
+	private ListView recipientList;
 	private TextView characterCountLabel;
-	private TextView recepiantLabel;
+	private TextView recipientLabel;
 	private Context context;
 	
 	public SendEmergencyMessageActivityTest()
@@ -50,18 +50,18 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		sendEmergencyMessageButton = (Button) sendEmergencyMessageActivity.findViewById(R.id.sendEmergencyMessageButton);
 		emergencyMessageField = (EditText) sendEmergencyMessageActivity.findViewById(R.id.emergencyMessageField);
 		characterCountLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.characterCountLabel);
-		recepiantLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.receipiantsLabel);
-		recepiantList = (ListView) sendEmergencyMessageActivity.findViewById(R.id.messageRecepiantsList);
+		recipientLabel = (TextView) sendEmergencyMessageActivity.findViewById(R.id.recipientsLabel);
+		recipientList = (ListView) sendEmergencyMessageActivity.findViewById(R.id.messageRecipientsList);
 	}
 	
 	public void testRecepiantListExists()
 	{
-		assertNotNull(recepiantList);
+		assertNotNull(recipientList);
 	}
 	
 	public void testRecepiantLabelExists()
 	{
-		assertNotNull(recepiantLabel);
+		assertNotNull(recipientLabel);
 	}
 	
 	public void testCancelEmergencyMessageButtonExists()
@@ -86,7 +86,7 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 	
 	public void testRecepiantListPopulates()
 	{
-		assertTrue(recepiantList.getCount() > 0);
+		assertTrue(recipientList.getCount() > 0);
 	}
 	
 	public void testChangeCharacterCountLabel()

@@ -7,8 +7,10 @@ import javax.inject.Inject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.riis.controllers.ImportedContactsAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
@@ -20,7 +22,10 @@ import dagger.ObjectGraph;
 
 public class ImportContactsActivity  extends Activity
 {
+	private Button cancelButton;
+	private Button importButton;
 	private ListView listView;
+	private TextView noImportsLabel;
 	@Inject ContactListSelectionItemClickListener item;
 	@Inject ContactImporter importer;
 	
@@ -33,9 +38,20 @@ public class ImportContactsActivity  extends Activity
 		
         setContentView(R.layout.import_contacts_screen);
         
+        noImportsLabel = (TextView) findViewById(R.id.noContactsToImportLabel);
+        cancelButton = (Button) findViewById(R.id.cancelImportContactsButton);
+        importButton = (Button) findViewById(R.id.saveImportedContactsButton);
+        
 	    listView = (ListView) findViewById(R.id.importedContactsListView);        
         listView.setAdapter(new ImportedContactsAdapter(this, importer.fetchContacts()));
         listView.setOnItemClickListener(item);
+        
+        if(listView.getCount() == 0)
+        {
+        	noImportsLabel.setVisibility(View.VISIBLE);
+        	importButton.setVisibility(View.GONE);
+        	cancelButton.setText("Back");
+        }
 	}
 	
 	public void returnToMainScreen(View view)

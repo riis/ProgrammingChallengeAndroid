@@ -33,12 +33,14 @@
     <string name="lastNameLabel">Last Name</string>
     <string name="emailAddressLabel">Email Address</string>
     <string name="phoneNumberLabel">Phone Number</string>
+    
     <string name="saveButtonLabel">Save</string>
     <string name="updateButtonLabel">Update</string>
     <string name="cancelButtonLabel">Cancel</string>
-    <string name="removeButtonLabel">Remove List</string>
     <string name="deleteButtonLabel">Delete</string>
-     <string name="cloneButtonLabel">Clone List</string>
+    
+    <string name="removeButtonLabel">Remove List</string>
+    <string name="cloneButtonLabel">Clone List</string>
     
     <string name="emptyField">Field cannot be blank</string>
     
@@ -56,14 +58,21 @@
     <string name="emergencyMessageFieldHint">Enter custom emergency message</string>
     <string name="sendEmergencyMessageButtonLabel">Send Message</string>
     <string name="createEmergencyMessageScreenButtonLabel">Create Emergency Message</string>
-    <string name="recepiantsLabel">Recepiants:</string>
+    <string name="recipientsLabel">Recipients:</string>
     
     <string name="listNameLabel">List Name</string>
     <string name="contactsLabel">Contacts</string>
+    
     <string name="importLabel">Import</string>
-     
     <string name="importContactsScreenButtonLabel">Import Contacts</string>
+    <string name="noContactsToImportLabel">
+        Sorry! You have no contacts to import! If you believe a contact is not displaying,
+         please make sure the contact has a name, email address, and phone number.
+    </string>
+    
     <string name="viewResponseMessagesScreenButtonLabel">View Response Messages</string>
+    
     <string name="editContactScreenButtonLabel">Edit Contact</string>
+    
     <string name="returnToMainScreenButtonLabel">Home</string>
 </resources>

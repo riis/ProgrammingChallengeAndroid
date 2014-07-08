@@ -30,7 +30,7 @@ public class SendEmergencyMessageActivity extends Activity
 {
 	private TextView characterCountLabel;
 	private EditText emergencyMessageField;
-	private ListView recepiantsList;
+	private ListView recipientsList;
 	@Inject ContactList contactList;
 	@Inject TextMessageSender textMessageSender;
 	
@@ -54,8 +54,8 @@ public class SendEmergencyMessageActivity extends Activity
 		
 		emergencyMessageField.addTextChangedListener(new EmergencyMessageTextWatcher(characterCountLabel));
 		
-		recepiantsList = (ListView) findViewById(R.id.messageRecepiantsList);
-		recepiantsList.setAdapter(new MessageRecepiantsListAdapter(this, contactList.getContacts()));
+		recipientsList = (ListView) findViewById(R.id.messageRecipientsList);
+		recipientsList.setAdapter(new MessageRecepiantsListAdapter(this, contactList.getContacts()));
 	}
 	
 	public void cancelSendEmergencyMessage(View view)

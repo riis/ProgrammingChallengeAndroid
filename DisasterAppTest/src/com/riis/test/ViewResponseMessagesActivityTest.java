@@ -71,7 +71,7 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		
 		TouchUtils.clickView(this, responseMessagesListView.getChildAt(0));
 		
-		int visiblility = View.GONE;
+		int visiblility = View.INVISIBLE;
 		int expandedLayout = responseMessagesListView.getChildAt(0).findViewById(R.id.responseMessagesListLayout).getVisibility();
 		
 		assertEquals(expandedLayout, visiblility);

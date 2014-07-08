@@ -1,5 +1,7 @@
 package com.riis;
 
+import javax.inject.Inject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -13,12 +15,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.riis.controllers.ContactSpinnerItemClickListener;
+import com.riis.controllers.DialogSingleButtonClickListener;
+import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 
-public class ContactDetailsActivity extends Activity
+import dagger.ObjectGraph;
 
+public class ContactDetailsActivity extends Activity
 {
 	protected static final String FIRST_NAME_PATTERN =           "[A-Za-z]([a-z]+)";
 	protected static final String LAST_NAME_APOSTROPHE_PATTERN = "^[A-Za-z]+('[A-Za-z]+)";
@@ -38,21 +43,24 @@ public class ContactDetailsActivity extends Activity
 	private EditText lastNameEditField;
 	private EditText firstFragmentEditField;
 	private EditText secondFragmentEditField;
-	private Spinner firstFragmentSpinner;
-	private Spinner secondFragmentSpinner;
-	private Contact existingContact;
 	private EditText emailAddressEditField;
 	private EditText phoneNumberEditField;
+	private Spinner firstFragmentSpinner;
+	private Spinner secondFragmentSpinner;
+	@Inject Contact existingContact;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
+		ObjectGraph objectGraph = ((DaggerApplication) getApplication()).getContactDetailsObjectGraph();
+		objectGraph.inject(this);
 		Bundle extras = getIntent().getExtras();
 		
         if(extras != null)
         {
         	setContentView(R.layout.edit_contact_screen);
+        	existingContact.read(extras.getLong("id"));
         }
         else
         {
@@ -86,18 +94,10 @@ public class ContactDetailsActivity extends Activity
         secondFragmentSpinner.setOnItemSelectedListener(new ContactSpinnerItemClickListener(textView, secondFragmentEditField));
         secondFragmentSpinner.setSelection(1);
         
-        
-        if(extras != null)
-        {
-        	existingContact = new Contact(getApplicationContext());
-        	existingContact.read(extras.getLong("id"));
-	        
-			firstNameEditField.setText(existingContact.getFirstName());
-			lastNameEditField.setText(existingContact.getLastName());
-			firstFragmentEditField.setText(existingContact.getEmailAddress());
-			secondFragmentEditField.setText(existingContact.getPhoneNumber());
-        }
-        
+        firstNameEditField.setText(existingContact.getFirstName());
+		lastNameEditField.setText(existingContact.getLastName());
+		firstFragmentEditField.setText(existingContact.getEmailAddress());
+		secondFragmentEditField.setText(existingContact.getPhoneNumber());
     }
 	
 	public void cancelCreateContact(View view) 
@@ -112,79 +112,42 @@ public class ContactDetailsActivity extends Activity
 	
 	public void saveCreateContact(View view) 
 	{
-		saveOrUpdateContact(1);
+		if(!checkForInputErrors())
+		{
+			Contact newContact = new Contact(this);
+			newContact.setFirstName(firstNameEditField.getText().toString());
+			newContact.setLastName(lastNameEditField.getText().toString());
+			newContact.setEmailAddress(emailAddressEditField.getText().toString());
+			newContact.setPhoneNumber(phoneNumberEditField.getText().toString().replaceAll("[^\\d.]", ""));
+	        newContact.create();
+	        
+	        ContactReference ref = new ContactReference(this);
+	        ref.setContactListId(1L);
+	        ref.setContactId(newContact.getId());
+	        ref.create();
+	        
+	        ResponseMessage response = new ResponseMessage(this);
+	        response.setReferenceId(ref.getId());
+	        response.setMessageContents(" Are you OK?");
+	        response.create();
+
+	        callSavedAlertDialog();
+		}
 	}
 
 	public void updateContact(View view) 
 	{
-		saveOrUpdateContact(0);
+		if(!checkForInputErrors())
+		{
+			existingContact.setFirstName(firstNameEditField.getText().toString());
+			existingContact.setLastName(lastNameEditField.getText().toString());
+			existingContact.setEmailAddress(emailAddressEditField.getText().toString());
+			existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
+			existingContact.update();
+	        
+	        callUpdatedAlertDialog();
+		}
 	}
-	
-	protected void callDeleteAlertDialog()
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Contact Deleted");
-		alertDialogBuilder.setMessage("Are you sure you want to delete this contact?")
-				   .setCancelable(true)
-				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							existingContact.delete();
-							finish();
-						}
-				   })
-				   .setNegativeButton("No", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							dialog.cancel();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
-
-	}
-
-	
-	protected void callSavedAlertDialog()
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Contact Saved");
-		alertDialogBuilder.setMessage("Your contact has been saved")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							finish();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
-	}
-	
-	protected void callUpdatedAlertDialog()
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle("Contact Updated");
-		alertDialogBuilder.setMessage("Your contact has been updated")
-				   .setCancelable(false)
-				   .setPositiveButton("OK", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							finish();
-						}
-				   });
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
-	}
-	
-
 	
 	public boolean isFirstNameValid(String name)
 	{
@@ -217,7 +180,7 @@ public class ContactDetailsActivity extends Activity
 		return false;
     }
 	
-	private void saveOrUpdateContact(int savedOrUpdated) 
+	private boolean checkForInputErrors() 
 	{
 		firstNameEditField.setError(null);
 		lastNameEditField.setError(null);
@@ -239,47 +202,74 @@ public class ContactDetailsActivity extends Activity
 		}
 		
 		if (!isFirstNameValid(firstNameEditField.getText().toString())) 
+		{
 			firstNameEditField.setError(FIRST_NAME_ERROR);
+			return false;
+		}
 		else if (!isLastNameValid(lastNameEditField.getText().toString())) 
+		{
 			lastNameEditField.setError(LAST_NAME_ERROR);
+			return false;
+		}
 		else if (!isEmailValid(emailAddressEditField.getText().toString())) 
+		{
 			firstFragmentEditField.setError(EMAIL_ADDRESS_ERROR);
+			return false;
+		}
 		else if (!isPhoneValid(phoneNumberEditField.getText().toString())) 
+		{
 			secondFragmentEditField.setError(PHONE_NUMBER_ERROR);
-		else 
-		{	 
-			if(savedOrUpdated==1)
-			{
-		        Contact newContact = new Contact(this);
-				newContact.setFirstName(firstNameEditField.getText().toString());
-				newContact.setLastName(lastNameEditField.getText().toString());
-				newContact.setEmailAddress(emailAddressEditField.getText().toString());
-				newContact.setPhoneNumber(phoneNumberEditField.getText().toString().replaceAll("[^\\d.]", ""));
-		        newContact.create();
-		        
-		        ContactReference ref = new ContactReference(this);
-		        ref.setContactListId(1L);
-		        ref.setContactId(newContact.getId());
-		        ref.create();
-		        
-		        ResponseMessage response = new ResponseMessage(this);
-		        response.setReferenceId(ref.getId());
-		        response.setMessageContents(" Are you OK?");
-		        response.create();
-	
-		        callSavedAlertDialog();
-			}
-			else if(savedOrUpdated==0)
-			{
-				existingContact.setFirstName(firstNameEditField.getText().toString());
-				existingContact.setLastName(lastNameEditField.getText().toString());
-				existingContact.setEmailAddress(emailAddressEditField.getText().toString());
-				existingContact.setPhoneNumber(phoneNumberEditField.getText().toString());
-				existingContact.update();
-		        
-		        callUpdatedAlertDialog();
-			}
+			return false;
 		}
 		
+		return true;
+	}
+	
+	private void callDeleteAlertDialog()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle("Contact Deleted");
+		alertDialogBuilder.setMessage("Are you sure you want to delete this contact?");
+		alertDialogBuilder.setCancelable(true);
+		alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+			   {
+					public void onClick(DialogInterface dialog,int id) 
+					{
+						existingContact.delete();
+						finish();
+					}
+			   });
+		alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener()
+			   {
+					public void onClick(DialogInterface dialog,int id) 
+					{
+						dialog.cancel();
+					}
+			   });
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+
+	private void callSavedAlertDialog()
+	{
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+		dialog.setTitle("Contact Saved");
+		dialog.setMessage("Your contact has been saved");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
+	}
+	
+	private void callUpdatedAlertDialog()
+	{
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+		dialog.setTitle("Contact Updated");
+		dialog.setMessage("Your contact has been updated");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this));
+		dialog.show();
 	}
 }

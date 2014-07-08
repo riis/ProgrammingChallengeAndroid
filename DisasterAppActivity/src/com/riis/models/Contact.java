@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 public class Contact extends BasePersistentModel 
 {	
-	protected long id;
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -50,7 +50,7 @@ public class Contact extends BasePersistentModel
 		this.pingCount = pingCount;
 	}
 	
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}

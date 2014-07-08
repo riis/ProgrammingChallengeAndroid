@@ -20,10 +20,10 @@ public class DaggerApplication extends Application
 		super.onCreate();
 		Context context = getApplicationContext();
 		createContactListsObjectGraph = ObjectGraph.create(new CreateContactListsObjectGraph(context));
+		contactDetailsObjectGraph = ObjectGraph.create(new ContactDetailsObjectGraph(context));
 		disasterAppObjectGraph = ObjectGraph.create(new DisasterAppObjectGraph(context));
 		editContactListMembersObjectGraph = ObjectGraph.create(new EditContactListMembersObjectGraph(context));
 		importContactsObjectGraph = ObjectGraph.create(new ImportContactsObjectGraph(context));
-		contactDetailsObjectGraph = ObjectGraph.create(new ContactDetailsObjectGraph(context));
 		sendEmergencyMessageObjectGraph = ObjectGraph.create(new SendEmergencyMessageObjectGraph(context));
 		viewResponseMessagesObjectGraph = ObjectGraph.create(new ViewResponseMessagesObjectGraph(context));
 	}
@@ -36,6 +36,16 @@ public class DaggerApplication extends Application
 	public void setCreateContactListsObjectGraph(ObjectGraph createContactListsObjectGraph)
 	{
 		this.createContactListsObjectGraph = createContactListsObjectGraph;
+	}
+	
+	public ObjectGraph getContactDetailsObjectGraph()
+	{
+		return contactDetailsObjectGraph;
+	}
+	
+	public void setContactDetailsObjectGraph(ObjectGraph contactDetailsObjectGraph)
+	{
+		this.contactDetailsObjectGraph = contactDetailsObjectGraph;
 	}
 	
 	public ObjectGraph getDisasterAppObjectGraph()
@@ -68,16 +78,6 @@ public class DaggerApplication extends Application
 		this.importContactsObjectGraph = importContactsObjectGraph;
 	}
 	
-	public ObjectGraph getContactDetailsObjectGraph()
-	{
-		return contactDetailsObjectGraph;
-	}
-	
-	public void setContactDetailsObjectGraph(ObjectGraph contactDetailsObjectGraph)
-	{
-		this.contactDetailsObjectGraph = contactDetailsObjectGraph;
-	}
-
 	public ObjectGraph getSendEmergencyMessageObjectGraph()
 	{
 		return sendEmergencyMessageObjectGraph;

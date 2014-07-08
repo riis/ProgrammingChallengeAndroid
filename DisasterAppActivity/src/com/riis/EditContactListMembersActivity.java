@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,7 +29,6 @@ public class EditContactListMembersActivity extends Activity
 	private Button updateButton;
 	private TextView listName;
 	private EditText contactListNameField;
-	
 	
 	@Inject ContactList contactList;
 	@Inject ContactList list;
@@ -64,7 +62,6 @@ public class EditContactListMembersActivity extends Activity
         listView.setAdapter(new ContactListSelectionAdapter(this, list.getContacts(), contactListName, getApplication()));
         listView.setOnItemClickListener(new ContactListSelectionItemClickListener());
         
-
         contactListNameField = (EditText) findViewById(R.id.contactListNameText);
         
         updateButton = (Button) findViewById(R.id.saveCreateContactListSaveButton);
@@ -106,17 +103,15 @@ public class EditContactListMembersActivity extends Activity
 			{
 				for(int i = 0; i < contactList.size(); i++)
 				{
+					ContactReference ref = new ContactReference(this);
+					ref.setContactListId(list.getId());
+					ref.setContactId(contactList.getContact(i).getId());
+					ref.create();
 					
-						ContactReference ref = new ContactReference(this);
-						ref.setContactListId(list.getId());
-						ref.setContactId(contactList.getContact(i).getId());
-						ref.create();
-						
-						ResponseMessage response = new ResponseMessage(this);
-						response.setReferenceId(ref.getId());
-				        response.setMessageContents(" Are you OK?");
-				        response.create();
-					
+					ResponseMessage response = new ResponseMessage(this);
+					response.setReferenceId(ref.getId());
+			        response.setMessageContents(" Are you OK?");
+			        response.create();
 				}
 				
 				callClonedAlertDialog();
@@ -181,29 +176,26 @@ public class EditContactListMembersActivity extends Activity
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		alertDialogBuilder.setTitle("Contact List Deleted");
-		alertDialogBuilder.setMessage("Are you sure you want to delete this contact list?")
-				   .setCancelable(true)
-				   .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							contactList.delete();
-							finish();
-						}
-				   })
-				   .setNegativeButton("No", new DialogInterface.OnClickListener()
-				   {
-						public void onClick(DialogInterface dialog,int id) 
-						{
-							dialog.cancel();
-						}
-				   });
+		alertDialogBuilder.setMessage("Are you sure you want to delete this contact list?");
+		alertDialogBuilder.setCancelable(true);
+		alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+			   {
+					public void onClick(DialogInterface dialog,int id) 
+					{
+						contactList.delete();
+						finish();
+					}
+			   });
+		alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener()
+			   {
+					public void onClick(DialogInterface dialog,int id) 
+					{
+						dialog.cancel();
+					}
+			   });
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
-
 	}
-	
-	
 	
 	private void callUpdatedAlertDialog()
 	{

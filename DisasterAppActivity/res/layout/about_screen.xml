@@ -1,100 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
     
-    <LinearLayout
+    <TextView
+        android:id="@+id/iconKeyAboutLabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="vertical" >
-        <LinearLayout
-	        android:id="@+id/addContactRow"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"  
-			android:layout_gravity="bottom"
-			android:orientation="horizontal" >
-			<TextView
-        		android:id="@+id/addContactAboutIcon"
-		        android:layout_width="70dp"
-		        android:layout_height="70dp"
-				android:background="@drawable/add_contact_black_icon"/>
-			<TextView
-		        android:id="@+id/addContactAboutLabel"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/addContactLabel" 
-		        android:layout_gravity="center_vertical"
-				android:textSize="25sp" />
-		</LinearLayout>
-		
-        <LinearLayout
-	        android:id="@+id/addListRow"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"  
-			android:layout_gravity="bottom"
-			android:orientation="horizontal" >
-			<TextView
-		        android:id="@+id/addListAboutIcon"
-		        android:layout_width="70dp"
-		        android:layout_height="70dp"
-				android:background="@drawable/add_contact_list_black_icon"/>
-			<TextView
-		        android:id="@+id/addListAboutLabel"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/addContactListLabel"
-		        android:textSize="25sp" 
-		        android:layout_gravity="center_vertical"/>
-		 </LinearLayout>
-		  
-		 <LinearLayout
-	        android:id="@+id/importContactsRow"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"  
-			android:layout_gravity="bottom"
-			android:orientation="horizontal" > 
-			<TextView
-			    android:id="@+id/importContactsAboutIcon"
-		        android:layout_width="70dp"
-		        android:layout_height="70dp"
-				android:background="@drawable/import_contact_black_icon"/>
-			<TextView
-		        android:id="@+id/importContactsAboutLabel"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/importContactsLabel"
-	 			android:textSize="25sp"
-	 			android:layout_gravity="center_vertical" />
-		</LinearLayout>	   
-		   
+        android:text="@string/iconLegendLabel" />
+    
+	<Button 
+        android:id="@+id/returnToMainScreenButton"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:onClick="returnToMainScreen"
+        android:text="@string/aboutHomeButtonLabel"
+        android:background="@drawable/primary_button_selector"/>
+  
+    <TextView
+        android:id="@+id/detailsAboutLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detailsLabel" 
+        android:layout_above="@id/returnToMainScreenButton"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true" />
+    
+	<ScrollView
+	    android:id="@+id/iconsScrollView"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_above="@id/detailsAboutLabel"
+	    android:layout_below="@id/iconKeyAboutLabel">
+	    
 		<LinearLayout
-			android:id="@+id/readMessagesRow"
+	        android:id="@+id/iconKey"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"  
-			android:layout_gravity="bottom"
-			android:orientation="horizontal" > 
-		    <TextView
-		        android:id="@+id/readMessagesAboutIcon"
-		        android:layout_width="70dp"
-		        android:layout_height="70dp"
-				android:background="@drawable/view_messages_black_icon"/>
-		    <TextView
-		        android:id="@+id/readMessagesAboutLabel"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/readMessagesLabel" 
-		        android:layout_gravity="center_vertical" 
-				android:textSize="25sp" />
-		 </LinearLayout>
-		 
-		<Button
-		    android:id="@+id/aboutCancelButton"
-		    android:background="@drawable/primary_button_selector"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:textSize="25sp"
-		    android:text="@string/aboutHomeButtonLabel"
-		    android:onClick="returnHome"
-		    android:gravity="center_horizontal" />	
-    </LinearLayout>
-</ScrollView>
+			android:orientation="vertical" >    
+			<LinearLayout
+		        android:id="@+id/addContactRow"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"  
+				android:layout_gravity="bottom"
+				android:orientation="horizontal" >
+				<TextView
+	        		android:id="@+id/addContactAboutIcon"
+			        android:layout_width="70dp"
+			        android:layout_height="70dp"
+					android:background="@drawable/add_contact_black_icon"/>
+				<TextView
+			        android:id="@+id/addContactAboutLabel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/addContactLabel" 
+			        android:layout_gravity="center_vertical"
+					android:textSize="25sp" />
+			</LinearLayout>
+			
+	        <LinearLayout
+		        android:id="@+id/addListRow"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"  
+				android:layout_gravity="bottom"
+				android:orientation="horizontal" >
+				<TextView
+			        android:id="@+id/addListAboutIcon"
+			        android:layout_width="70dp"
+			        android:layout_height="70dp"
+					android:background="@drawable/add_contact_list_black_icon"/>
+				<TextView
+			        android:id="@+id/addListAboutLabel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/addContactListLabel"
+			        android:textSize="25sp" 
+			        android:layout_gravity="center_vertical"/>
+			 </LinearLayout>
+			  
+			 <LinearLayout
+		        android:id="@+id/importContactsRow"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"  
+				android:layout_gravity="bottom"
+				android:orientation="horizontal" > 
+				<TextView
+				    android:id="@+id/importContactsAboutIcon"
+			        android:layout_width="70dp"
+			        android:layout_height="70dp"
+					android:background="@drawable/import_contact_black_icon"/>
+				<TextView
+			        android:id="@+id/importContactsAboutLabel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/importContactsLabel"
+		 			android:textSize="25sp"
+		 			android:layout_gravity="center_vertical" />
+			</LinearLayout>	   
+			   
+			<LinearLayout
+				android:id="@+id/readMessagesRow"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"  
+				android:layout_gravity="bottom"
+				android:orientation="horizontal" > 
+			    <TextView
+			        android:id="@+id/readMessagesAboutIcon"
+			        android:layout_width="70dp"
+			        android:layout_height="70dp"
+					android:background="@drawable/view_messages_black_icon"/>
+			    <TextView
+			        android:id="@+id/readMessagesAboutLabel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/readMessagesLabel" 
+			        android:layout_gravity="center_vertical" 
+					android:textSize="25sp" />
+			 </LinearLayout>
+		</LinearLayout>	
+	</ScrollView>
+</RelativeLayout>

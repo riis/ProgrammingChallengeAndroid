@@ -82,9 +82,11 @@
     
     <string name="returnToMainScreenButtonLabel">Home</string>
     
+    <string name="iconLegendLabel">Icon Key:</string>
     <string name="addContactLabel">= Create Contact</string>
     <string name="addContactListLabel">= Create Contact List</string>
     <string name="importContactsLabel">= Import Contacts</string>
     <string name="readMessagesLabel">= Read Messages</string>
     <string name="aboutHomeButtonLabel">Go Home</string>
+    <string name="detailsLabel">RIIS, LLC \n Version 1.0.0  July 2014 \n </string>
 </resources>

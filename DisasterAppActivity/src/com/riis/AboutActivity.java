@@ -14,7 +14,7 @@ public class AboutActivity extends Activity
 		setContentView(R.layout.about_screen);
     }
 	
-	public void returnHome(View view)
+	public void returnToMainScreen(View view)
 	{
 		Intent i = new Intent(this, DisasterAppActivity.class);
 		startActivity(i);

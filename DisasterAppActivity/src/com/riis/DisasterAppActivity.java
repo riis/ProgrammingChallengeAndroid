@@ -71,6 +71,7 @@ public class DisasterAppActivity extends Activity
 	        case R.id.aboutItem:
 	        	i = new Intent(this, AboutActivity.class);
 	        	startActivity(i);
+	        	finish();
 	        	return true;
 	    }
 	    

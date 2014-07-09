@@ -9,6 +9,7 @@
     <string name="submitEmailInfoButton">Submit</string>
     
     <string name="appName">Emergency Messaging</string>
+    <string name="aboutTitle">About</string>
     <string name="cloneContactListTitle">Clone Contact List</string>
     <string name="createContactListTitle">Create Contact List</string>
     <string name="importContactsTitle">Import Contacts</string>
@@ -80,4 +81,9 @@
     <string name="editContactScreenButtonLabel">Edit Contact</string>
     
     <string name="returnToMainScreenButtonLabel">Home</string>
+    
+    <string name="addContactLabel">= Create Contact</string>
+    <string name="addContactListLabel">= Create Contact List</string>
+    <string name="importContactsLabel">= Import Contacts</string>
+    <string name="readMessagesLabel">= Read Messages</string>
 </resources>

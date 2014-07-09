@@ -133,7 +133,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		}
 		else
 		{
-			responseMessageList = new ResponseMessageList(context);
+			
 			responseMessageList.read(currentContactList.getId());
 		
 			for(ResponseMessage m : responseMessageList.getResponseMessage())

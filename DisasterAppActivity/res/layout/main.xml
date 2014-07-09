@@ -10,6 +10,7 @@
         android:layout_height="match_parent" 
         android:layout_centerHorizontal="true"
         android:dividerHeight="2dp" 
+        android:layout_above="@id/buttonRow"
         />
     
     <LinearLayout
@@ -26,9 +27,12 @@
 			android:layout_height="70dp"
 			android:onClick="createContact" 
 			android:layout_weight="1"
-			android:background="@drawable/add_contact_icon"
+			
 			android:layout_margin="8dp"
 			android:gravity="left|center"
+			android:background="@drawable/add_contact_nine"
+			
+			
 			/>
 	
 		<Button
@@ -37,7 +41,7 @@
 			android:layout_height="70dp"
 			android:onClick="createContactList" 
 			android:layout_weight="1"
-			android:background="@drawable/add_list_icon"
+			android:background="@drawable/add_list_nine"
 			android:layout_margin="8dp"
 			android:gravity="center_horizontal|center"
 			/>
@@ -48,7 +52,7 @@
 			android:layout_height="70dp"
 			android:onClick="importContacts"
 			android:layout_weight="1"
-			android:background="@drawable/import_contacts"
+			android:background="@drawable/import_contacts_nine"
 			android:layout_margin="8dp"
 			android:gravity="right|center"
 			/>
@@ -59,7 +63,7 @@
 			android:layout_height="70dp"
 			android:onClick="viewResponseMessages" 
 			android:layout_weight="1"
-			android:background="@drawable/read_messages_icon"
+			android:background="@drawable/read_messages_nine"
 			android:layout_margin="8dp"
 			android:gravity="center_horizontal|center"
 			/>

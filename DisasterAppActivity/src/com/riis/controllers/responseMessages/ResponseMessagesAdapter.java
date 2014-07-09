@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 	@Override
 	public View getView(int position, View row, ViewGroup parent)
 	{
+
 		ViewHolder holder = null;
 		if(row == null)
 		{
@@ -81,7 +83,6 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 		currentContactList.read();
 		
 		holder.nameView.setText(currentContactList.getName());
-		
 		responseMessageList.read(currentContactList.getId());
 		
 		if(currentContactList.size() == 0)
@@ -92,78 +93,81 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 			display.setText("There are no contacts in this list! Please add a contact!");
 			holder.listLayout.addView(display);
 		}
-		
-		for(ResponseMessage m : responseMessageList.getResponseMessage())
+		else
 		{
-			spinner = new Spinner(context);
-			
-			StringBuilder builder = new StringBuilder();
-			TextView display = new TextView(context);
-			display.setGravity(Gravity.CENTER);
-			
-			ContactReference ref = new ContactReference(context);
-			ref.read(m.getReferenceId());
-			
-			if(ref.getId() == m.getReferenceId())
+
+			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
-				Contact c = new Contact(context);
-				c.read(ref.getContactId());
+				spinner = new Spinner(context);
 				
-				if(currentContactList.getMessageSentTimeStamp() != 0L && m.getTimeStamp() != 0L)
+				StringBuilder builder = new StringBuilder();
+				TextView display = new TextView(context);
+				display.setGravity(Gravity.CENTER);
+				
+				ContactReference ref = new ContactReference(context);
+				ref.read(m.getReferenceId());
+				
+				if(m.getReferenceId() == ref.getId())
 				{
-					builder = buildRespondedText(m, c);
+					Contact c = new Contact(context);
+					c.read(ref.getContactId());
 					
-					spinner.setId((int) ref.getId());
-					spinner.setBackgroundColor(Color.WHITE);
-					
-					ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-			        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
-			        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			        
-			        spinner.setAdapter(adapter);
-			        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
-			        
-			        spinner.setSelection(ref.getNotes());
+					if(currentContactList.getMessageSentTimeStamp() != 0L && m.getTimeStamp() != 0L)
+					{
+						builder = buildRespondedText(m, c);
+						
+						spinner.setId((int) ref.getId());
+						spinner.setBackgroundColor(Color.WHITE);
+						
+						ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+				        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
+				        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				        
+				        spinner.setAdapter(adapter);
+				        spinner.setOnItemSelectedListener(new ResponseMessageSpinnerItemClickListener(context, m));
+				        
+				        spinner.setSelection(ref.getNotes());
+					}
+					else if(currentContactList.getMessageSentTimeStamp() != 0)
+					{
+						builder = buildUnrespondedText(c);
+					}
+					else
+					{
+						builder = buildNoMessageText(c);
+					}
 				}
-				else if(currentContactList.getMessageSentTimeStamp() != 0)
+				
+				display.setText(builder.toString());
+				
+				LinearLayout layout = new LinearLayout(context);
+				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				layout.setOrientation(LinearLayout.HORIZONTAL);
+				
+				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+				
+				if(spinner.getCount() > 0)
 				{
-					builder = buildUnrespondedText(c);
+					displayParams.weight = 4;
+					
+					LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+					spinnerParams.weight = 1;
+					
+					spinner.setLayoutParams(spinnerParams);
+					layout.addView(spinner);
 				}
 				else
 				{
-					builder = buildNoMessageText(c);
+					displayParams.weight = 5;
 				}
-			}
-			
-			display.setText(builder.toString());
-			
-			LinearLayout layout = new LinearLayout(context);
-			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			layout.setOrientation(LinearLayout.HORIZONTAL);
-			
-			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
-			
-			if(spinner.getCount() > 0)
-			{
-				displayParams.weight = 4;
 				
-				LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
-				spinnerParams.weight = 1;
+				display.setLayoutParams(displayParams);
 				
-				spinner.setLayoutParams(spinnerParams);
-				layout.addView(spinner);
-			}
-			else
-			{
-				displayParams.weight = 5;
-			}
-			
-			display.setLayoutParams(displayParams);
-			layout.addView(display);
-			
-			holder.listLayout.addView(layout);
+				layout.addView(display);
+				
+				holder.listLayout.addView(layout);
+				}
 		}
-
 		return row;
 	}
 	

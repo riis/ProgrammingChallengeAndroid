@@ -90,6 +90,7 @@ public class ResponseMessageList extends BasePersistentModel
 		
 		Cursor cursor = database.rawQuery(t, null);
 		boolean returnVal = cursor.moveToFirst();
+		responseMessage = new ArrayList<ResponseMessage>();
 		while (!cursor.isAfterLast()) 
 		{
 			ResponseMessage next = new ResponseMessage(context);

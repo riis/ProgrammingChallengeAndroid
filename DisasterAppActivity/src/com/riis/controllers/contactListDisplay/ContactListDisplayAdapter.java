@@ -7,10 +7,7 @@ import javax.inject.Inject;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,73 +136,66 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 			responseMessageList = new ResponseMessageList(context);
 			responseMessageList.read(currentContactList.getId());
 		
-		
-		for(ResponseMessage m : responseMessageList.getResponseMessage())
-		{
-			StringBuilder builder = new StringBuilder();
-			TextView display = new TextView(context);
-			display.setGravity(Gravity.CENTER);
-			
-			Drawable img = getContext().getResources().getDrawable( R.drawable.orange_button_medium );
-			Bitmap bitmap = ((BitmapDrawable) img).getBitmap();
-			Drawable d = new BitmapDrawable(getContext().getResources(), 
-								Bitmap.createScaledBitmap(bitmap, 450,150, true));
-
-			editContactButton = new Button(context);
-			editContactButton.setText("Edit Contact");
-
-			editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			editContactButton.setBackground(d);
-			//editContactButton.setBackgroundResource(R.drawable.button_medium );
-			
-			ContactReference ref = new ContactReference(context);
-			ref.read(m.getReferenceId());
-			
-			Contact c = new Contact(context);
-			c.read(ref.getContactId());
-			
-			builder = buildNoMessageText(c);
-			
-			if(m.getReferenceId() == ref.getId())
+			for(ResponseMessage m : responseMessageList.getResponseMessage())
 			{
-				editContact(c);
+				StringBuilder builder = new StringBuilder();
+				TextView display = new TextView(context);
+				display.setGravity(Gravity.CENTER);
 				
-				if(m.getTimeStamp() != 0L)
+				editContactButton = new Button(context);
+				editContactButton.setText("Edit Contact");
+				
+				editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				editContactButton.setBackgroundResource(R.drawable.button_medium);
+	
+				ContactReference ref = new ContactReference(context);
+				ref.read(m.getReferenceId());
+				
+				Contact c = new Contact(context);
+				c.read(ref.getContactId());
+				
+				builder = buildNoMessageText(c);
+				
+				if(m.getReferenceId() == ref.getId())
 				{
-					builder = buildRespondedText(m, c);
-					display.setTextColor(Color.GREEN);
+					editContact(c);
+					
+					if(m.getTimeStamp() != 0L)
+					{
+						builder = buildRespondedText(m, c);
+						display.setTextColor(Color.GREEN);
+					}
+					else if(currentContactList.getMessageSentTimeStamp() != 0)
+					{
+						builder = buildUnrespondedText(c);
+						display.setTextColor(Color.RED);
+					}
+					else
+					{
+						builder = buildNoMessageText(c);
+					}
 				}
-				else if(currentContactList.getMessageSentTimeStamp() != 0)
-				{
-					builder = buildUnrespondedText(c);
-					display.setTextColor(Color.RED);
-				}
-				else
-				{
-					builder = buildNoMessageText(c);
-				}
-			}
-			
-			LinearLayout layout = new LinearLayout(context);
-			layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			layout.setOrientation(LinearLayout.HORIZONTAL);
-			
-			LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
-			displayParams.weight = 4;
-			
-			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
-			buttonParams.weight = 2;
-			
-			display.setText(builder.toString());
-
-			display.setLayoutParams(displayParams);
-			
-			editContactButton.setLayoutParams(buttonParams);
-			
-			layout.addView(display);
-			layout.addView(editContactButton);
-			
-			holder.listLayout.addView(layout); 
+				
+				LinearLayout layout = new LinearLayout(context);
+				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				layout.setOrientation(LinearLayout.HORIZONTAL);
+				
+				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+				displayParams.weight = 4;
+				
+				LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+				buttonParams.weight = 2;
+				
+				display.setText(builder.toString());
+	
+				display.setLayoutParams(displayParams);
+				
+				editContactButton.setLayoutParams(buttonParams);
+				
+				layout.addView(display);
+				layout.addView(editContactButton);
+				
+				holder.listLayout.addView(layout); 
 			}
 		}
 		return row;

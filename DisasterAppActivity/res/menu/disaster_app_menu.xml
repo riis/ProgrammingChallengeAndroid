@@ -3,22 +3,22 @@
     <item
         android:id="@+id/createContactItem"
         android:title="@string/createContactScreenButtonLabel"
-        android:icon="@drawable/add_contact_nine"
+        android:icon="@drawable/add_contact_icon"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/createContactListItem"
         android:title="@string/createContactListScreenButtonLabel"
-         android:icon="@drawable/add_list_nine"
+         android:icon="@drawable/add_contact_list_icon"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/importContactsItem"
         android:title="@string/importContactsScreenButtonLabel"
-         android:icon="@drawable/import_contacts_nine"
+         android:icon="@drawable/import_contact_icon"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/viewResponseMessagesItem"
         android:title="@string/viewResponseMessagesScreenButtonLabel"
-        android:icon="@drawable/read_messages_nine"
+        android:icon="@drawable/view_messages_icon"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/aboutItem"

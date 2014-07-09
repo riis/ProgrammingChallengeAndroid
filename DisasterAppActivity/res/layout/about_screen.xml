@@ -17,7 +17,7 @@
         		android:id="@+id/addContactAboutIcon"
 		        android:layout_width="70dp"
 		        android:layout_height="70dp"
-				android:background="@drawable/add_contact_nine"/>
+				android:background="@drawable/add_contact_black_icon"/>
 			<TextView
 		        android:id="@+id/addContactAboutLabel"
 		        android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
 		        android:id="@+id/addListAboutIcon"
 		        android:layout_width="70dp"
 		        android:layout_height="70dp"
-				android:background="@drawable/add_list_nine"/>
+				android:background="@drawable/add_contact_list_black_icon"/>
 			<TextView
 		        android:id="@+id/addListAboutLabel"
 		        android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
 			    android:id="@+id/importContactsAboutIcon"
 		        android:layout_width="70dp"
 		        android:layout_height="70dp"
-				android:background="@drawable/import_contacts_nine"/>
+				android:background="@drawable/import_contact_black_icon"/>
 			<TextView
 		        android:id="@+id/importContactsAboutLabel"
 		        android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
 		        android:id="@+id/readMessagesAboutIcon"
 		        android:layout_width="70dp"
 		        android:layout_height="70dp"
-				android:background="@drawable/read_messages_nine"/>
+				android:background="@drawable/view_messages_black_icon"/>
 		    <TextView
 		        android:id="@+id/readMessagesAboutLabel"
 		        android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
 		 
 		<Button
 		    android:id="@+id/aboutCancelButton"
-		    android:background="@drawable/button_medium"
+		    android:background="@drawable/primary_button_selector"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:textSize="25sp"

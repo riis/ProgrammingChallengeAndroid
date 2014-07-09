@@ -146,7 +146,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				editContactButton.setText("Edit Contact");
 				
 				editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
-				editContactButton.setBackgroundResource(R.drawable.button_medium);
+				editContactButton.setBackgroundResource(R.drawable.primary_button_selector);
 	
 				ContactReference ref = new ContactReference(context);
 				ref.read(m.getReferenceId());

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.riis.controllers.DialogSingleButtonClickListener;
+import com.riis.models.ContactList;
 
 public class EmailInputActivity extends Activity
 {
@@ -77,7 +78,16 @@ public class EmailInputActivity extends Activity
 		}
 		else
 		{
-			dialog.setPositiveButton("Yes", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+			ContactList contactList = new ContactList(this);
+			contactList.readAllContacts();
+			if(contactList.size() == 0)
+			{
+				dialog.setPositiveButton("Yes", new DialogSingleButtonClickListener(this, AboutActivity.class));
+			}
+			else
+			{
+				dialog.setPositiveButton("Yes", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+			}
 		}
 		
 		dialog.setNegativeButton("No", new DialogInterface.OnClickListener()
@@ -103,7 +113,16 @@ public class EmailInputActivity extends Activity
 		}
 		else
 		{
-			dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+			ContactList contactList = new ContactList(this);
+			contactList.readAllContacts();
+			if(contactList.size() == 0)
+			{
+				dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this, AboutActivity.class));
+			}
+			else
+			{
+				dialog.setPositiveButton("OK", new DialogSingleButtonClickListener(this, DisasterAppActivity.class));
+			}
 		}
 		
 		dialog.show();

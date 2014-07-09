@@ -10,8 +10,7 @@
         android:layout_height="match_parent" 
         android:layout_centerHorizontal="true"
         android:dividerHeight="2dp" 
-        android:layout_above="@id/buttonRow"
-        />
+        android:layout_above="@id/buttonRow" />
     
     <LinearLayout
         android:id="@+id/buttonRow"
@@ -21,20 +20,16 @@
 		android:layout_centerHorizontal="true"
 		android:orientation="horizontal" >
 
-	<Button
+		<Button
 			android:id="@+id/createContactButton"
 			android:layout_width="70dp"
 			android:layout_height="70dp"
 			android:onClick="createContact" 
 			android:layout_weight="1"
-			
 			android:layout_margin="8dp"
 			android:gravity="left|center"
-			android:background="@drawable/add_contact_icon"
-			
-			
-			/>
-	
+			android:background="@drawable/add_contact_icon"	/>
+		
 		<Button
 			android:id="@+id/createContactListButton"
 			android:layout_width="70dp"
@@ -43,8 +38,7 @@
 			android:layout_weight="1"
 			android:background="@drawable/add_contact_list_icon"
 			android:layout_margin="8dp"
-			android:gravity="center_horizontal|center"
-			/>
+			android:gravity="center_horizontal|center" />
 		
 		<Button
 			android:id="@+id/importCntactsButton"
@@ -54,8 +48,7 @@
 			android:layout_weight="1"
 			android:background="@drawable/import_contact_icon"
 			android:layout_margin="8dp"
-			android:gravity="right|center"
-			/>
+			android:gravity="right|center" />
 		
 		<Button
 			android:id="@+id/viewResponseMessageButton"
@@ -65,12 +58,6 @@
 			android:layout_weight="1"
 			android:background="@drawable/view_messages_icon"
 			android:layout_margin="8dp"
-			android:gravity="center_horizontal|center"
-			/>
-		 
-		
+			android:gravity="center_horizontal|center" />
 	</LinearLayout>
-    
 </RelativeLayout>
-
-    

@@ -86,4 +86,5 @@
     <string name="addContactListLabel">= Create Contact List</string>
     <string name="importContactsLabel">= Import Contacts</string>
     <string name="readMessagesLabel">= Read Messages</string>
+    <string name="aboutHomeButtonLabel">Go Home</string>
 </resources>

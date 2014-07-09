@@ -1,6 +1,7 @@
 package com.riis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,8 @@ public class AboutActivity extends Activity
 	
 	public void returnHome(View view)
 	{
+		Intent i = new Intent(this, DisasterAppActivity.class);
+		startActivity(i);
 		finish();
 	}
 }

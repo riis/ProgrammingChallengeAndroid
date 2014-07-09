@@ -6,21 +6,24 @@ import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
 
-public class TextMessageSenderTest extends TestCase{
-	
+public class TextMessageSenderTest extends TestCase
+{	
 	private TextMessageSender textMessageSender;
 	
-	public TextMessageSenderTest(String name) {
+	public TextMessageSenderTest(String name)
+	{
 		super(name);
 	}
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		super.setUp();
 		
 		textMessageSender = new TextMessageSender();
 	}
 	
-	public void testSendMessage() {
+	public void testSendMessage()
+	{
 		boolean flag = false;
 		
 		String message = "Testing";
@@ -34,10 +37,12 @@ public class TextMessageSenderTest extends TestCase{
 		ContactList contactList = new ContactList(null);
 		contactList.addContact(contact);
 		
-		try {
+		try
+		{
 			textMessageSender.sendMessage(contactList, message);
 			flag = true;
-		} catch(IllegalArgumentException e)
+		}
+		catch(IllegalArgumentException e)
 		{
 			flag = false;
 		}

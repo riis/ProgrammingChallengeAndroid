@@ -117,7 +117,7 @@ public class CloneContactListActivityTest extends ActivityInstrumentationTestCas
 		assertNotNull(box);
 	}
 	
-	public void testCheckBoxIsNotChecked()
+	public void testCheckBoxChecked()
 	{
 		CheckBox box = (CheckBox) contactsListView.getChildAt(0).findViewById(R.id.selectContactCheckBox);
 		assertTrue(box.isChecked());

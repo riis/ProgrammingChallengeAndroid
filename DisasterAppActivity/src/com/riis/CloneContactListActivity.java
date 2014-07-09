@@ -28,6 +28,7 @@ public class CloneContactListActivity extends Activity
 	
 	@Inject ContactList contactList;
 	@Inject ContactList everyoneList;
+	@Inject ContactReference ref;
 	@Inject ContactListSelectionItemClickListener item;
 	
 	@Override
@@ -47,9 +48,6 @@ public class CloneContactListActivity extends Activity
         removeButton.setVisibility(View.GONE);
         Button cloneButton = (Button) findViewById(R.id.cloneContactListButton);
         cloneButton.setVisibility(View.GONE);
-        
-        contactList.setName(contactListName);
-        contactList.read();
         
         everyoneList.readAllContacts();
         
@@ -71,10 +69,9 @@ public class CloneContactListActivity extends Activity
 		}
 		else
 		{
-			ContactList list = new ContactList(this);
-			list.setName(contactListNameField.getText().toString());
+			contactList.setName(contactListNameField.getText().toString());
 			
-			boolean success = list.create();
+			boolean success = contactList.create();
 			if(!success)
 			{
 				contactListNameField.setError("Please choose a different name!");
@@ -86,8 +83,7 @@ public class CloneContactListActivity extends Activity
 					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
 					if(checkBox.isChecked())
 					{
-						ContactReference ref = new ContactReference(this);
-						ref.setContactListId(list.getId());
+						ref.setContactListId(contactList.getId());
 						ref.setContactId(everyoneList.getContact(i).getId());
 						ref.create();
 						

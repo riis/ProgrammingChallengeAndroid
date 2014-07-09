@@ -25,9 +25,9 @@
     
     <string name="createContactScreenButtonLabel">Create Contact</string>
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
-    <string name="contactInfo">Contact info</string>
-    <string name="editContactListInfo">View List</string>
-    <string name="sendMessageToContactList">Send Message</string>
+    <string name="contactInfo">Contact Info</string>
+    <string name="editContactListInfo">Edit</string>
+    <string name="sendMessageToContactList">Message</string>
     
     <string name="firstNameLabel">First Name</string>
     <string name="lastNameLabel">Last Name</string>

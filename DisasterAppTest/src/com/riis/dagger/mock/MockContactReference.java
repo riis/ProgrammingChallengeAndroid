@@ -8,7 +8,6 @@ public class MockContactReference extends ContactReference
 {
 	private long id;
 	private Context context;
-	private ContactReference ref;
 	
 	public MockContactReference(Context context) {
 		super(context);
@@ -28,21 +27,14 @@ public class MockContactReference extends ContactReference
 	}
 	
 	@Override
-	public void setContactListId(long id)
-	{
-		ref.setContactId(id);
-	}
-	
-	@Override
-	public void setContactId(long id)
-	{
-		ref.setContactId(id);
-	}
-	
-	@Override
 	public boolean create()
 	{
-		return false;
+		id = 2;
+		
+		setContactListId(2);
+		setContactId(1);
+		
+		return true;
 	}
 	
 	@Override

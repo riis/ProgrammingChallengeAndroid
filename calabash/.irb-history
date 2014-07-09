@@ -1,6 +1,3 @@
-exit
-query("*")
-exit
 start_test_server_in_background
 reinstall_
 reinstall_apps
@@ -47,4 +44,7 @@ query("Button id:'sendMessageContactListButton'").where("relativeLayout id:'main
 query("relativeLayout id:'main_contact_list_item' TextView text:'Everyone' sibling Button id:'sendMessageContactListButton'")
 query("TextView text:'Everyone' sibling Button id:'sendMessageContactListButton'")
 start_test_server_in_background
+exit
+start_test_server_in_background
+query("* Button")
 exit

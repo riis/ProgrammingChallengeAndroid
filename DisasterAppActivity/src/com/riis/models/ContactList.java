@@ -91,13 +91,14 @@ public class ContactList extends BasePersistentModel
 				
 		ContentValues values = new ContentValues();
 		values.put("name", getName());
-		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		
 		boolean exists = read();
 		if(exists)
 		{
 			return false;
 		}
+		
+		values.put("messageSentTimeStamp", getMessageSentTimeStamp());
 		
 		open();	
 		database.beginTransaction();

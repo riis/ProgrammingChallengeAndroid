@@ -58,16 +58,23 @@ public class ContactReference extends BasePersistentModel
 	@Override
 	public boolean create()
 	{
-		if (!isNew())
+		if (!isNew() || read())
 		{
 			return false;
 		}
-		open();			
+					
 		ContentValues values = new ContentValues();
 		values.put("contactListId", getContactListId());
 		values.put("contactId", getContactId());
+		
+		if(read())
+		{
+			return false;
+		}
+		
 		values.put("notes", getNotes());
 		
+		open();
 		id = database.insert("contactListMembers", null, values);
 		close();
 
@@ -160,14 +167,8 @@ public class ContactReference extends BasePersistentModel
 	{
 		StringBuilder selection = new StringBuilder();
 		String  and = "";
-		if (id != -1)
-		{
-			selection.append("_id=").append(id);
-			and = " AND ";
-		}
 		if (contactListId != -1)
 		{
-			selection.append(and);
 			selection.append("contactListId=").append(contactListId);
 			and = " AND ";
 		}

@@ -8,7 +8,9 @@ import com.riis.EditContactListMembersActivity;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.mock.MockContactList;
+import com.riis.dagger.mock.MockContactReference;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 
 import dagger.Module;
 import dagger.Provides;
@@ -27,6 +29,11 @@ public class CRUDContactListTestObjectGraph
 	@Provides ContactList provideContactList()
 	{
 		return new MockContactList(context);
+	}
+	
+	@Provides ContactReference provideContactReference()
+	{
+		return new MockContactReference(context);
 	}
 	
 	@Provides ContactListSelectionItemClickListener provideContactListSelectionItemClickListener()

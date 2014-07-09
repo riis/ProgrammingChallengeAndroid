@@ -27,8 +27,8 @@
             <td>duration:</td>
           </tr>
           <tr>
-            <td>Thursday July 3, 2014 at 10:19:57</td>
-            <td>0m40.787s</td>
+            <td>Wednesday July 9, 2014 at 09:07:49</td>
+            <td>0m37.570s</td>
           </tr>
         </table>  
           <pre class="description run_stats">Story<br/>In order to properly alert the right people
@@ -53,22 +53,22 @@ I want to create a contact</pre>
         <tr class="summary_row_header">
           <td>Scenarios</td>
           <td>3</td>
-          <td>3 <span class="percentage">(100.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>1 <span class="percentage">(33.3%)</span></td>
+          <td>2 <span class="percentage">(66.7%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0m8.267s</td>
+          <td>0m0.003s</td>
         </tr>
         <tr class="summary_row_header">
           <td>Steps</td>
           <td>9</td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
+          <td>0 <span class="percentage">(0.0%)</span></td>
           <td>9 <span class="percentage">(100.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0m0.662s</td>
+          <td>0m0.001s</td>
         </tr>
 
 
@@ -81,9 +81,33 @@ I want to create a contact</pre>
 	      <h2 class="scenarios">Background: </h2>
 	      <table cellspacing="0" cellpadding="7" border="0" width="100%">
 		<tr>
-		  <td><img src="images/passed.png" alt="passed" title="passed"></td>
+		  <td><img src="images/failed.png" alt="failed" title="failed"></td>
 		  <td>
 		    Given  I am on the Create Contact page
+	<table>
+		<tr class="error">
+			<td class="message">
+				<strong><pre>undefined method `image=&#39; for nil:NilClass (NoMethodError)</pre></strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<pre class="ruby"><strong>./features/support/pages/create_contact_page.rb
+</strong><code><span class="linenum">8</span>
+<span class="linenum">9</span>	<span class="keyword">def </span><span class="method">await</span><span class="punct">(</span><span class="ident">opts</span><span class="punct">={})</span>
+<span class="offending"><span class="linenum">10</span>		<span class="ident">wait_for_elements_exist</span><span class="punct">([</span><span class="ident">trait</span><span class="punct">],</span> <span class="symbol">:timeout</span> <span class="punct">=&gt;</span> <span class="number">5</span><span class="punct">)</span></span>
+<span class="linenum">11</span>		<span class="constant">self</span>
+<span class="linenum">12</span>	<span class="keyword">end</span></code></pre>
+			</td>
+		</tr>
+		<tr >
+			<td class="detail">
+					<pre>./features/support/pages/create_contact_page.rb:10:in `await&#39;
+./features/step_definitions/calabash_steps.rb:126:in `/^I am on the Create Contact page$/&#39;
+features/create_contact.feature:8:in `Given I am on the Create Contact page&#39;</pre>
+			</td>
+		</tr>
+	</table>
 
 		  </td>
 		</tr>
@@ -93,35 +117,35 @@ I want to create a contact</pre>
 	      <br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">Complete Contact screen</th>
+		  <th colspan="2" class="failed">Complete Contact screen</th>
 		</tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I complete the Create Contact form
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I click the save button
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I click the OK button
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  Then  I will go to the main screen
 
@@ -133,27 +157,27 @@ I want to create a contact</pre>
 	        <br /><br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">First Name Error</th>
+		  <th colspan="2" class="skipped">First Name Error</th>
 		</tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I enter an improper first name
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I click the save button
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  Then  I will receive the first name error message
 
@@ -165,19 +189,19 @@ I want to create a contact</pre>
 	        <br /><br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">As a user I want to return to the main screen</th>
+		  <th colspan="2" class="skipped">As a user I want to return to the main screen</th>
 		</tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  When  I click the cancel button
 
 		  </td>
 		  </tr>
 		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
+		  <td class="image_tag"> <img src="images/skipped.png" alt="skipped" title="skipped"></td>
+		  <td class="skipped_step">
    
 		  Then  I will go to the main screen
 

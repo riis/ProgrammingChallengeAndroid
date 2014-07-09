@@ -1,6 +1,5 @@
 package com.riis.controllers;
 
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -25,9 +24,7 @@ public class DropDownListAnimation extends Animation
 		
 		isVisibleAfter = (view.getVisibility() == View.VISIBLE);
 		marginStart = layoutParams.bottomMargin;
-		Log.i("bottom margin", marginStart +"");
 		marginEnd = (marginStart == 0 ? (0 - view.getHeight()) : 0);
-		Log.i("marginEnd", marginEnd+"");
 		
 		view.setVisibility(View.VISIBLE);
 	}

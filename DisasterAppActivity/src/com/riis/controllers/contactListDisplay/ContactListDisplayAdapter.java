@@ -218,10 +218,10 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 	private StringBuilder buildRespondedText(ResponseMessage message, Contact contact)
 	{
 		StringBuilder builder = new StringBuilder();
+		builder.append(contact.getFirstName()+" "+ contact.getLastName());
+		builder.append("\nlast response: ");
 		builder.append(message.getMessageContents());
 		builder.append(" ("+ contact.getPingCount() +" pings)\n");
-		builder.append(contact.getFirstName()+" "+ contact.getLastName());
-		builder.append(" - last response: ");
 		builder.append(message.getFormattedMessageSentTimeStamp());
 		return builder;
 	}

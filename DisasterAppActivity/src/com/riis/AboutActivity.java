@@ -1,11 +1,14 @@
 package com.riis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class AboutActivity extends Activity
 {
+	private TextView iconKey;
 	private TextView addContactText;
 	private TextView addListText;
 	private TextView importContactsText;
@@ -19,6 +22,7 @@ public class AboutActivity extends Activity
     {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_screen);
+		iconKey = (TextView) findViewById(R.id.iconKeyAboutLabel);
 		addContactText = (TextView) findViewById(R.id.addContactAboutLabel);
 		addListText = (TextView) findViewById(R.id.addListAboutLabel);
 		importContactsText = (TextView) findViewById(R.id.importContactsAboutLabel);
@@ -30,4 +34,13 @@ public class AboutActivity extends Activity
 		readMessagesIcon = (TextView) findViewById(R.id.readMessagesAboutIcon);
         
     }
+	
+	public void returnToMainScreen(View view)
+	{
+		Intent i = new Intent();
+		i = new Intent(this, DisasterAppActivity.class);
+    	startActivity(i);
+    	finish();
+		
+	}
 }

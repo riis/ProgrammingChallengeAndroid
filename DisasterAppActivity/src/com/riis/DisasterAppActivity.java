@@ -68,6 +68,10 @@ public class DisasterAppActivity extends Activity
 	        	i = new Intent(this, ViewResponseMessagesActivity.class);
 	        	startActivity(i);
 	        	return true;
+	        case R.id.aboutItem:
+	        	i = new Intent(this, AboutActivity.class);
+	        	startActivity(i);
+	        	return true;
 	    }
 	    
 	    return false;

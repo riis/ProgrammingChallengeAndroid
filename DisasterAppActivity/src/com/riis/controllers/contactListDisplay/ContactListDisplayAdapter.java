@@ -133,7 +133,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		}
 		else
 		{
-			responseMessageList = new ResponseMessageList(context);
+			
 			responseMessageList.read(currentContactList.getId());
 		
 			for(ResponseMessage m : responseMessageList.getResponseMessage())
@@ -145,7 +145,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				editContactButton = new Button(context);
 				editContactButton.setText("Edit Contact");
 				
-				editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				editContactButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 				editContactButton.setBackgroundResource(R.drawable.button_medium);
 	
 				ContactReference ref = new ContactReference(context);
@@ -177,20 +177,18 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 				}
 				
 				LinearLayout layout = new LinearLayout(context);
-				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 				layout.setOrientation(LinearLayout.HORIZONTAL);
 				
-				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
 				displayParams.weight = 4;
+				display.setLayoutParams(displayParams);
+				display.setText(builder.toString());
 				
 				LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
 				buttonParams.weight = 2;
-				
-				display.setText(builder.toString());
-	
-				display.setLayoutParams(displayParams);
-				
 				editContactButton.setLayoutParams(buttonParams);
+				
 				
 				layout.addView(display);
 				layout.addView(editContactButton);
@@ -223,6 +221,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		builder.append(message.getMessageContents());
 		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(message.getFormattedMessageSentTimeStamp());
+		builder.append(" \n ");;
 		return builder;
 	}
 	

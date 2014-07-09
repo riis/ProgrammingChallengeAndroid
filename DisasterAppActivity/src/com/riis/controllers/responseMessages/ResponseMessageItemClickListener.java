@@ -38,7 +38,7 @@ public class ResponseMessageItemClickListener implements OnItemClickListener
 		if(params.bottomMargin < 0)
 		{
 			View listTitle = parent.getChildAt(position).findViewById(R.id.responseMessagesListItem);
-			listTitle.setBackgroundColor(Color.GRAY);
+			listTitle.setBackgroundColor(Color.LTGRAY);
 		}
 		
 		DropDownListAnimation animation = new DropDownListAnimation(expand, 500);

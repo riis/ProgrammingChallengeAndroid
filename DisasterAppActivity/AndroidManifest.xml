@@ -52,10 +52,15 @@
          <activity android:name="ImportContactsActivity"
             	  android:label="@string/importContactsTitle">
         </activity>
+         <activity android:name="AboutActivity"
+            	  android:label="@string/aboutTitle">
+        </activity>
         <activity android:name="ContactDetailsActivity"
             	  android:label="@string/contactDetailsTitle"
             	  android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
+        
+       
         <receiver android:name="com.riis.controllers.textMessage.TextMessageReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

@@ -70,7 +70,7 @@
 		
 	</LinearLayout>
 	
-        <ListView
+    <ListView
 		android:id="@+id/createContactListsView"
 		android:layout_above="@id/buttonRow"
 		android:layout_below="@id/contactsLabel"
@@ -78,6 +78,4 @@
 		android:layout_height="match_parent"
 		android:focusable="false"
 		android:dividerHeight="2dp" />
-    
-	
 </RelativeLayout>

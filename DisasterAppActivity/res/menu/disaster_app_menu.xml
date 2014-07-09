@@ -3,7 +3,7 @@
     <item
         android:id="@+id/createContactItem"
         android:title="@string/createContactScreenButtonLabel"
-         android:icon="@drawable/add_contact_nine"
+        android:icon="@drawable/add_contact_nine"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/createContactListItem"
@@ -23,6 +23,5 @@
     <item
         android:id="@+id/aboutItem"
         android:title="@string/aboutTitle"
-        android:showAsAction="ifRoom" />
-
+        android:showAsAction="never" />
 </menu>

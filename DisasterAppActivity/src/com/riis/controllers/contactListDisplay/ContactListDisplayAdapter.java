@@ -221,7 +221,7 @@ public class ContactListDisplayAdapter extends ArrayAdapter<ContactList>
 		builder.append(message.getMessageContents());
 		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(message.getFormattedMessageSentTimeStamp());
-		builder.append(" \n ");;
+		builder.append("\n");;
 		return builder;
 	}
 	

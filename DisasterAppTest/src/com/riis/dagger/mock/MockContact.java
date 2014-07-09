@@ -6,7 +6,6 @@ import com.riis.models.Contact;
 
 public class MockContact extends Contact
 {
-	Contact contact;
 	private long id;
 	
 	public MockContact(Context context)

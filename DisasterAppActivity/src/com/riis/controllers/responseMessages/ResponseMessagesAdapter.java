@@ -117,7 +117,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 						builder = buildRespondedText(m, c);
 						
 						spinner.setId((int) ref.getId());
-						spinner.setBackgroundColor(Color.WHITE);
+						
 						
 						ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
 				        		R.array.contactResponseNoteOptions, android.R.layout.simple_spinner_item);
@@ -141,17 +141,17 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 				display.setText(builder.toString());
 				
 				LinearLayout layout = new LinearLayout(context);
-				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 				layout.setOrientation(LinearLayout.HORIZONTAL);
 				
-				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT);
+				LinearLayout.LayoutParams displayParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
 				
 				if(spinner.getCount() > 0)
 				{
-					displayParams.weight = 4;
+					displayParams.weight = 8;
 					
 					LinearLayout.LayoutParams spinnerParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
-					spinnerParams.weight = 1;
+					spinnerParams.weight = 3;
 					
 					spinner.setLayoutParams(spinnerParams);
 					layout.addView(spinner);
@@ -174,11 +174,12 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 	private StringBuilder buildRespondedText(ResponseMessage message, Contact contact)
 	{
 		StringBuilder builder = new StringBuilder();
+		builder.append(contact.getFirstName()+" "+ contact.getLastName());
+		builder.append("\nlast response: ");
 		builder.append(message.getMessageContents());
 		builder.append(" ("+ contact.getPingCount() +" pings)\n");
-		builder.append(contact.getFirstName()+" "+ contact.getLastName());
-		builder.append(" - last response: ");
 		builder.append(message.getFormattedMessageSentTimeStamp());
+		builder.append(" \n ");;
 		return builder;
 	}
 	

@@ -21,6 +21,14 @@ class MainLanding < Calabash::ABase
 	@@create_contact_list_page = "TextView text:'Create Contact List'"
 	@@import_contacts_page = "TextView text:'Import Contacts'"
 	@@view_response_message_page = "TextView text:'View Response Messages'"
+	@@everyone_list_row = "TextView text:'Everyone'"
+	@@no_contacts_in_list_label = "TextView text:'There are no contacts in this list! Please add a contact!'"
+	@@single_contact_label = "TextView text:'Bob Jones'"
+	@@send_message_button = "TextView text:'Everyone' sibling Button id:'sendMessageContactListButton'"
+
+	def send_message_button
+		touch(query(@@send_message_button))
+	end
 
 	def menu_options
 		touch(query(@@more_option))
@@ -40,6 +48,18 @@ class MainLanding < Calabash::ABase
 
 	def view_response_message
 		touch(query(@@view_response_message))
+	end
+
+	def expand_everyone_list
+		touch(query(@@everyone_list_row))
+	end
+
+	def assert_empty_list
+		query(@@no_contacts_in_list_label)
+	end
+
+	def assert_single_contact
+		query(@@single_contact_label)
 	end
 
 	def assert_main_page

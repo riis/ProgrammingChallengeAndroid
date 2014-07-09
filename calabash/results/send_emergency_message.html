@@ -17,7 +17,7 @@
         <img src="images/logo.png" width="200" />
       </div>
       <div class="header_description" >
-          <h2 class="results">Feature Results:  EmailInputActivity</h2>
+          <h2 class="results">Feature Results:  SendEmergencyMessageScreen</h2>
 <br />
 
 
@@ -27,13 +27,13 @@
             <td>duration:</td>
           </tr>
           <tr>
-            <td>Wednesday July 9, 2014 at 09:09:06</td>
-            <td>0m32.235s</td>
+            <td>Wednesday July 9, 2014 at 11:38:11</td>
+            <td>0m54.940s</td>
           </tr>
         </table>  
-          <pre class="description run_stats">Story<br/>In order to email messages
+          <pre class="description run_stats">Story<br/>In order to alert contacts of an emergency
 As a user
-I need to connect the app to my email account</pre>
+I want to send an emergency message</pre>
       </div>
     </div>
 
@@ -52,23 +52,23 @@ I need to connect the app to my email account</pre>
 
         <tr class="summary_row_header">
           <td>Scenarios</td>
-          <td>4</td>
-          <td>4 <span class="percentage">(100.0%)</span></td>
+          <td>3</td>
+          <td>3 <span class="percentage">(100.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0m8.059s</td>
+          <td>0m9.660s</td>
         </tr>
         <tr class="summary_row_header">
           <td>Steps</td>
-          <td>17</td>
-          <td>17 <span class="percentage">(100.0%)</span></td>
+          <td>7</td>
+          <td>7 <span class="percentage">(100.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
           <td>0 <span class="percentage">(0.0%)</span></td>
-          <td>0m0.564s</td>
+          <td>0m0.477s</td>
         </tr>
 
 
@@ -77,20 +77,29 @@ I need to connect the app to my email account</pre>
 
     <div class="feature_background">
 	    <div class="scenario_list">
+	      <br />
+	      <h2 class="scenarios">Background: </h2>
 	      <table cellspacing="0" cellpadding="7" border="0" width="100%">
+		<tr>
+		  <td><img src="images/passed.png" alt="passed" title="passed"></td>
+		  <td>
+		    Given  I am on the Send Emergency Message screen
+
+		  </td>
+		</tr>
 	      </table>
 	      <br />
 	      <h2 class="scenarios">Scenarios:</h2>
 	      <br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">As a user I want to skip email setup</th>
+		  <th colspan="2" class="passed">Setup an email address</th>
 		</tr>
 		  <tr class="borderSeparator">
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  Given  I am on the Email Input screen
+		  When  An email address is not setup
 
 		  </td>
 		  </tr>
@@ -98,7 +107,7 @@ I need to connect the app to my email account</pre>
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  When  I click the Skip button
+		  When  I click the Setup Email button
 
 		  </td>
 		  </tr>
@@ -106,15 +115,7 @@ I need to connect the app to my email account</pre>
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  When  I select the Yes option
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  Then  I will go to the main screen
+		  Then  I will go to the Email Input screen
 
 		  </td>
 		  </tr>
@@ -124,13 +125,13 @@ I need to connect the app to my email account</pre>
 	        <br /><br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">As a user I enter an invalid email address</th>
+		  <th colspan="2" class="passed">The character count should change as the message is input</th>
 		</tr>
 		  <tr class="borderSeparator">
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  Given  I am on the Email Input screen
+		  When  I enter a message
 
 		  </td>
 		  </tr>
@@ -138,23 +139,7 @@ I need to connect the app to my email account</pre>
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  When  I enter an invalid email address
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I select the Submit button
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  Then  I will receive the invalid email error message
+		  Then  The character count updates
 
 		  </td>
 		  </tr>
@@ -164,77 +149,13 @@ I need to connect the app to my email account</pre>
 	        <br /><br />
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
 	      <tr >
-		  <th colspan="2" class="passed">As a user I enter an invalid password</th>
+		  <th colspan="2" class="passed">As a user I want to return to the main screen</th>
 		</tr>
 		  <tr class="borderSeparator">
 		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
 		  <td class="">
    
-		  Given  I am on the Email Input screen
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I enter a valid email address
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I select the Submit button
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  Then  I will receive the invalid password message
-
-		  </td>
-		  </tr>
-	      </table>
-	    
-        <div class="img_container">
-	        <br /><br />
-	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
-	      <tr >
-		  <th colspan="2" class="passed">As a user I want to connect to my email account</th>
-		</tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  Given  I am on the Email Input screen
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I enter a valid email and password
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I select the Submit button
-
-		  </td>
-		  </tr>
-		  <tr class="borderSeparator">
-		  <td class="image_tag"> <img src="images/passed.png" alt="passed" title="passed"></td>
-		  <td class="">
-   
-		  When  I select the Submit OK button
+		  When  I click the cancel send message button
 
 		  </td>
 		  </tr>

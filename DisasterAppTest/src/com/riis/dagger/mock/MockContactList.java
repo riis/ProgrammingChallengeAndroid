@@ -57,6 +57,16 @@ public class MockContactList extends ContactList
 		return contact;
 	}
 	
+	public boolean create()
+	{
+		readCall = false;
+		
+		shortContactList = new ContactList(context);
+		shortContactList.setName("Test");
+		
+		return true;
+	}
+	
 	public boolean read()
 	{
 		readCall = true;

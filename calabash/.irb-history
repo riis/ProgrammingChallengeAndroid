@@ -1,42 +1,3 @@
-)
-)
-query("* text:'Your contact'\s first name may only contain characters and spaces'")
-query("* text:'Your contact\'s first name may only contain characters and spaces'")
-query("* text:'Your contact/'s first name may only contain characters and spaces'")
-query("* text:'Your contact'/s first name may only contain characters and spaces'")
-query("* text:'Your contact''s first name may only contain characters and spaces'")
-query("* text:'Your contact\\'s first name may only contain characters and spaces'")
-exit
-start_test_server_in_background
-query("*")
-start_test_server_in_background
-query("*")
-start_test_server_in_background
-exit
-start_test_server_in_background
-query("Button id:'cancelImportContactsButton'")
-query("*")
-query("* Button")
-exit
-start_test_server_in_background
-query("*")
-query("* Button")
-exit
-start_test_server_in_background
-reinstall_apps
-start_test_server_in_background
-query("*")
-query("* Button")
-query("* TextView")
-query("Please enter a valid email address!")
-start_test_server_in_background
-query("* text:'Please enter a valid email address!'")
-query("* text:'Please enter your password!'")
-query("* text:'OK'")
-query("* Button")
-exit
-query("*")
-exit
 start_test_server_in_background
 reinstall_
 reinstall_apps
@@ -47,4 +8,43 @@ start_test_server_in_background
 start_test_server_in_background
 start_test_server_in_background
 start_test_server_in_background
+exit
+start_test_server_in_background
+query("*")
+query("*")
+query("TextView text:'Everyone'")
+start_test_server_in_background
+query("* text:'Bob Jones'")
+query("* linearLayout")
+query("*")
+query("linearLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("linearLayout id:'contactListMemberLayout' TextView text:'Everyone'")
+query("*")
+reinstall_apps
+start_test_server_in_background
+query("*")
+query("EditText id:'emergencyMessageField'")
+query("TextView id:'characterCountLabel' text:'120'")
+query("TextView id:'characterCountLabel' text:'92'")
+start_test_server_in_background
+exit
+reinstall_apps
+start_test_server_in_background
+query("*")
+query("* Button")
+query("*")
+query("relativeLayout id:'main_contact_list_item'")
+query("relativeLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("relativeLayout id:'main_contact_list_item' Button id:'sendMessageContactListButton'")
+query("relativeLayout id:'main_contact_list_item' Button id:'sendMessageContactListButton' WHERE TextView text:'Everyone'")
+query("relativeLayout id:'main_contact_list_item' Button id:'sendMessageContactListButton' WHERE relativeLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("Button id:'sendMessageContactListButton' WHERE relativeLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("Button id:'sendMessageContactListButton'").query("relativeLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("Button id:'sendMessageContactListButton'").where("relativeLayout id:'main_contact_list_item' TextView text:'Everyone'")
+query("relativeLayout id:'main_contact_list_item' TextView text:'Everyone' sibling Button id:'sendMessageContactListButton'")
+query("TextView text:'Everyone' sibling Button id:'sendMessageContactListButton'")
+start_test_server_in_background
+exit
+start_test_server_in_background
+query("* Button")
 exit

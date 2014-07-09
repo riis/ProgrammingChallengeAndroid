@@ -98,12 +98,19 @@ public class ResponseMessage extends BasePersistentModel
 		{
 			return false;
 		}
-		open();			
+				
 		ContentValues values = new ContentValues();
 		values.put("referenceId", getReferenceId());
+		
+		if(read())
+		{
+			return false;
+		}
+		
 		values.put("timeStamp", getTimeStamp());
 		values.put("messageContents", getMessageContents());
 		
+		open();
 		id = database.insert("responseMessage", null, values);
 		close();
 

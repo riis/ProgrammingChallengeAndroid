@@ -51,6 +51,10 @@ Then(/^I select the Submit OK button$/) do
   page(EmailInput).confirm_submit
 end
 
+Then(/^I will go to the Email Input screen$/) do
+  page(EmailInput).assert_email_input_page
+end
+
 ############################################
 ####################                       #
 ####################       Main Screen     #
@@ -105,6 +109,19 @@ Then(/^I will go to the main screen$/) do
   page(MainLanding).assert_main_page
 end
 
+#Lists
+When(/^I click the Everyone list$/) do
+  page(MainLanding).expand_everyone_list
+end
+
+Then(/^I see the Everyone list is empty$/) do
+  page(MainLanding).assert_empty_list
+end
+
+Then(/^I see my created contact$/) do
+  page(MainLanding).assert_single_contact
+end
+
 ############################################
 ####################                       #
 ####################     Create Contact    #
@@ -147,6 +164,62 @@ end
 #Cancel Button Scenario
 When(/^I click the cancel button$/) do
   page(NewContact).cancel_button
+end
+
+#Create Contact
+When(/^I create a contact$/) do
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact
+  page(NewContact).await
+  page(NewContact).input_contact_value
+  page(NewContact).save_button
+  page(NewContact).confirm_create
+end
+
+############################################
+####################                       #
+####################      Send Message     #
+####################                       #
+############################################
+
+#background
+Given(/^I am on the Send Emergency Message screen$/) do
+  page(EmailInput).await
+  page(EmailInput).skip_button
+  page(EmailInput).confirm_skip
+  page(MainLanding).await
+  page(MainLanding).menu_options
+  page(MainLanding).create_contact
+  page(NewContact).await
+  page(NewContact).input_contact_value
+  page(NewContact).save_button
+  page(NewContact).confirm_create
+  page(MainLanding).await
+  page(MainLanding).send_message_button
+  page(SendEmergencyMessage).await
+end
+
+#No email currently setup
+When(/^An email address is not setup$/) do
+  page(SendEmergencyMessage).no_email_button_exists
+end
+
+And(/^I click the Setup Email button$/) do
+  page(SendEmergencyMessage).no_email_button
+end
+
+#Character Count change
+When(/^I enter a message$/) do
+  page(SendEmergencyMessage).assert_character_count
+end
+
+Then(/^The character count updates$/) do
+  page(SendEmergencyMessage).assert_character_count_update
+end
+
+#Cancel button
+When(/^I click the cancel send message button$/) do
+  page(SendEmergencyMessage).cancel_button
 end
 
 ############################################

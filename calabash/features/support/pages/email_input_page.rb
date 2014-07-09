@@ -61,4 +61,9 @@ class EmailInput < Calabash::ABase
 		wait_for_elements_exist([@@confirmation_button], :timeout => 3)
 		touch(query(@@confirmation_button))
 	end
+
+	def assert_email_input_page
+		wait_for_elements_exist([trait], :timeout => 5)
+		query(trait)
+	end
 end

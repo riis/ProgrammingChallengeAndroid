@@ -3,7 +3,7 @@ require 'calabash-android/abase'
 class NewContact < Calabash::ABase
 
 	def trait
-		"TextView text:'Create Contact'"
+		"TextView text:'Contact Details'"
 	end
 
 	def await(opts={})
@@ -29,7 +29,7 @@ class NewContact < Calabash::ABase
 		wait_for_elements_exist([@@first_name_edit_text], :timeout => 3)
 		query(@@first_name_edit_text, {:setText => 'Bob'})
 		query(@@last_name_edit_text, {:setText => 'Jones'})
-		query(@@email_edit_text, {:setText => 'test@test.com'})
+		query(@@email_edit_text, {:setText => 'bj@example.com'})
 		query(@@phone_number_edit_text, {:setText => '1234567890'})
 	end
 

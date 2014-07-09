@@ -115,7 +115,6 @@ public class ContactDetailsActivity extends Activity
 	
 	public void saveCreateContact(View view) 
 	{
-
 		if(checkForInputErrors())
 		{
 			Contact newContact = new Contact(this);

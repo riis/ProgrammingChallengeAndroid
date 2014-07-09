@@ -8,6 +8,7 @@ import com.riis.EditContactListMembersActivity;
 import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,6 +27,11 @@ public class CRUDContactListObjectGraph
 	@Provides ContactList provideContactList() 
 	{
 		return new ContactList(context);
+	}
+	
+	@Provides ContactReference provideContactReference()
+	{
+		return new ContactReference(context);
 	}
 	
 	@Provides ContactListSelectionItemClickListener provideContactListSelectionItemClickListener()

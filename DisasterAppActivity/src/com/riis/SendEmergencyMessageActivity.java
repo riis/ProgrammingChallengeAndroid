@@ -23,6 +23,7 @@ import com.riis.controllers.textMessage.TextMessageSender;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
 import com.riis.models.ContactList;
+import com.riis.models.ContactReference;
 import com.riis.models.ResponseMessage;
 import com.riis.models.ResponseMessageList;
 
@@ -105,13 +106,17 @@ public class SendEmergencyMessageActivity extends Activity
 			responseMessageList.read(contactList.getId());
 			ArrayList<ResponseMessage> responses = responseMessageList.getResponseMessage();
 			
-			for(int i = 0; i < responses.size(); i++) 
+			for(ResponseMessage r : responses) 
 			{
-				ResponseMessage response = responses.get(i);
-				response.read();
-				response.setMessageContents("Are you OK?");
-				response.setTimeStamp(0);
-				response.update();
+				r.read();
+				r.setMessageContents("Are you OK?");
+				r.setTimeStamp(0);
+				r.update();
+				
+				ContactReference ref = new ContactReference(this);
+				ref.read(r.getReferenceId());
+				ref.setNotes(0);
+				ref.update();
 			}
 			
 			Intent i = new Intent(SendEmergencyMessageActivity.this, DisasterAppService.class);

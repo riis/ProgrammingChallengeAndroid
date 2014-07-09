@@ -19,7 +19,7 @@
         android:layout_below="@id/noEmailInformationLabel"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/button_medium"
+        android:background="@drawable/primary_button_selector"
         android:text="@string/noEmailButtonLabel"
         android:onClick="setUpEmail"
         android:visibility="gone" />
@@ -63,7 +63,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/cancelButtonLabel"
 	        android:onClick="cancelSendEmergencyMessage"
-	        android:background="@drawable/button_medium" />
+	        android:background="@drawable/primary_button_selector" />
         <Button
 	        android:id="@+id/sendEmergencyMessageButton"
 	        android:layout_width="fill_parent"
@@ -71,7 +71,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/sendEmergencyMessageButtonLabel"
 	        android:onClick="sendEmergencyMessage"
-	        android:background="@drawable/button_medium" />
+	        android:background="@drawable/primary_button_selector" />
     </LinearLayout>
     
     <ListView

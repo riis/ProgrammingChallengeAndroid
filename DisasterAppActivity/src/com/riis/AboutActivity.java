@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.TextView;
 
 public class AboutActivity extends Activity
@@ -17,6 +18,7 @@ public class AboutActivity extends Activity
 	private TextView addListIcon;
 	private TextView importContactsIcon;
 	private TextView readMessagesIcon;
+
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -44,3 +46,4 @@ public class AboutActivity extends Activity
 		
 	}
 }
+

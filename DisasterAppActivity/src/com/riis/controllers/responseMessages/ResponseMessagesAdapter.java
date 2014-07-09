@@ -6,8 +6,6 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -166,7 +164,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 				layout.addView(display);
 				
 				holder.listLayout.addView(layout);
-				}
+			}
 		}
 		return row;
 	}
@@ -179,7 +177,7 @@ public class ResponseMessagesAdapter extends ArrayAdapter<ContactList>
 		builder.append(message.getMessageContents());
 		builder.append(" ("+ contact.getPingCount() +" pings)\n");
 		builder.append(message.getFormattedMessageSentTimeStamp());
-		builder.append(" \n ");;
+		builder.append("\n");;
 		return builder;
 	}
 	

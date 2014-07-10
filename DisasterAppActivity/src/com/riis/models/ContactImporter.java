@@ -59,7 +59,7 @@ public class ContactImporter
 			phoneCursor.close();
 			
 	        if(!newContact.getFirstName().isEmpty() && !newContact.getLastName().isEmpty()
-	        		&& !newContact.getEmailAddress().isEmpty() && !newContact.getPhoneNumber().isEmpty())
+	        		/*&& !newContact.getEmailAddress().isEmpty()*/ && !newContact.getPhoneNumber().isEmpty())
    			{
 	        	if(!newContact.exists())
 	        	{

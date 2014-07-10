@@ -28,7 +28,7 @@
 			android:layout_weight="1"
 			android:layout_margin="8dp"
 			android:gravity="left|center"
-			android:background="@drawable/add_contact_icon"	/>
+			android:background="@drawable/add_contact_black_icon"	/>
 		
 		<Button
 			android:id="@+id/createContactListButton"
@@ -36,7 +36,7 @@
 			android:layout_height="70dp"
 			android:onClick="createContactList" 
 			android:layout_weight="1"
-			android:background="@drawable/add_contact_list_icon"
+			android:background="@drawable/add_contact_list_black_icon"
 			android:layout_margin="8dp"
 			android:gravity="center_horizontal|center" />
 		
@@ -46,7 +46,7 @@
 			android:layout_height="70dp"
 			android:onClick="importContacts"
 			android:layout_weight="1"
-			android:background="@drawable/import_contact_icon"
+			android:background="@drawable/import_contact_black_icon"
 			android:layout_margin="8dp"
 			android:gravity="right|center" />
 		
@@ -56,7 +56,7 @@
 			android:layout_height="70dp"
 			android:onClick="viewResponseMessages" 
 			android:layout_weight="1"
-			android:background="@drawable/view_messages_icon"
+			android:background="@drawable/view_messages_black_icon"
 			android:layout_margin="8dp"
 			android:gravity="center_horizontal|center" />
 	</LinearLayout>

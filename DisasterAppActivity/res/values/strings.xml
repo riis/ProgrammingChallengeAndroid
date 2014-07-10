@@ -8,7 +8,7 @@
     <string name="skipToMainButton">Skip</string>
     <string name="submitEmailInfoButton">Submit</string>
     
-    <string name="appName">Emergency Messaging</string>
+    <string name="appName">People We Care About</string>
     <string name="aboutTitle">About</string>
     <string name="cloneContactListTitle">Clone Contact List</string>
     <string name="createContactListTitle">Create Contact List</string>
@@ -28,7 +28,7 @@
     <string name="createContactListScreenButtonLabel">Create Contact List</string>
     <string name="contactInfo">Contact Info</string>
     <string name="editContactListInfo">Edit</string>
-    <string name="sendMessageToContactList">Message</string>
+    <string name="sendMessageToContactList">Send Message</string>
     
     <string name="firstNameLabel">First Name</string>
     <string name="lastNameLabel">Last Name</string>
@@ -87,6 +87,6 @@
     <string name="addContactListLabel">= Create Contact List</string>
     <string name="importContactsLabel">= Import Contacts</string>
     <string name="readMessagesLabel">= Read Messages</string>
-    <string name="aboutHomeButtonLabel">Go Home</string>
+    <string name="aboutButtonLabel">OK, got it</string>
     <string name="detailsLabel">RIIS, LLC \n Version 1.0.0  July 2014 \n </string>
 </resources>

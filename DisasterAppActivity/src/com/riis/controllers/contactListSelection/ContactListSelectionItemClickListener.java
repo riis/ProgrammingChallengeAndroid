@@ -37,8 +37,7 @@ public class ContactListSelectionItemClickListener implements OnItemClickListene
 		
 		if(params.bottomMargin < 0)
 		{
-			View listTitle = parent.getChildAt(position);
-			listTitle.setBackgroundColor(Color.GRAY);
+			view.setBackgroundColor(Color.LTGRAY);
 		}
 		
 		DropDownListAnimation animation = new DropDownListAnimation(expand, 500);

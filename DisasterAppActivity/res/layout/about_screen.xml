@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:onClick="returnToMainScreen"
-        android:text="@string/aboutHomeButtonLabel"
+        android:text="@string/aboutButtonLabel"
         android:background="@drawable/primary_button_selector"/>
   
     <TextView

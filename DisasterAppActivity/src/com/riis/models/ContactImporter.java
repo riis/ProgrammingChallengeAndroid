@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 public class ContactImporter 
 {
@@ -51,7 +52,7 @@ public class ContactImporter
 			Cursor phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 					ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?", new String[] {contact_id}, null); 
 			while (phoneCursor.moveToNext()) 
-			{
+			{	
 				phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)).substring(2);
 				newContact.setPhoneNumber(phoneNumber);
 			}
@@ -59,7 +60,7 @@ public class ContactImporter
 			phoneCursor.close();
 			
 	        if(!newContact.getFirstName().isEmpty() && !newContact.getLastName().isEmpty()
-	        		/*&& !newContact.getEmailAddress().isEmpty()*/ && !newContact.getPhoneNumber().isEmpty())
+	        		 && !newContact.getPhoneNumber().isEmpty())
    			{
 	        	if(!newContact.exists())
 	        	{

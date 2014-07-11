@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +22,7 @@ import com.riis.models.ContactList;
 public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 {
 	private Context context;
-	private String name;
+	private int size;
 	private ArrayList<Contact> values;
 	private ArrayList<Boolean> checked = new ArrayList<Boolean>();
 	private ArrayList<LinearLayout.LayoutParams> params = new ArrayList<LinearLayout.LayoutParams>();
@@ -41,7 +42,6 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 	{
 		super(context, R.layout.select_contacts_list_item, values);
 		this.values = values;
-		this.name = name;
 		this.context = context;
 	}
 	
@@ -60,7 +60,7 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 			holder.contactName.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 			
 			holder.parent = (LinearLayout) row.findViewById(R.id.selectContactListExpandableLayout);
-//			params.add((LinearLayout.LayoutParams) holder.parent.getLayoutParams());
+			size = ((LinearLayout.LayoutParams) row.findViewById(R.id.selectContactListExpandableLayout).getLayoutParams()).bottomMargin;
 			
 			holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
 			holder.emailView.setText(values.get(position).getEmailAddress());
@@ -85,7 +85,6 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 				holder.contactName.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
 				
 				holder.parent = (LinearLayout) row.findViewById(R.id.selectContactListExpandableLayout);
-//				params.add((LinearLayout.LayoutParams) holder.parent.getLayoutParams());
 
 				holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
 				holder.emailView.setText(values.get(position).getEmailAddress());
@@ -99,27 +98,24 @@ public class ImportedContactsAdapter extends ArrayAdapter<Contact>
 				holders.add(position, holder);
 				
 				row.setTag(holder);
-//				params.add(row.getLayoutParams());
 			}
 			
 			holder = holders.get(position);
-//			holder.parent.setLayoutParams(params.get(p));
 			holder.checkBox.setChecked(checked.get(p));
 			row.setTag(holder);
+			row.setBackgroundColor(Color.WHITE);
+			row.invalidate();
 			
-			LinearLayout.LayoutParams par = (LinearLayout.LayoutParams) holder.parent.getLayoutParams();
+			LinearLayout.LayoutParams par = (LinearLayout.LayoutParams) row.findViewById(R.id.selectContactListExpandableLayout).getLayoutParams();
 			
 			if(par.bottomMargin == 0)
 			{
 				
-//				Log.i("in if", ""+ par.bottomMargin);
 				par.bottomMargin = -36;
-				((LinearLayout.LayoutParams) holder.parent.getLayoutParams()).setMargins(0, 0, 0, -36);
-				parent.performClick();
-//				Log.i("after in if", ""+ par.bottomMargin);
+				par.setMargins(0, 0, 0, size);
+				row.findViewById(R.id.selectContactListExpandableLayout).setVisibility(View.GONE);
+				row.findViewById(R.id.selectContactListExpandableLayout).setLayoutParams(par);
 			}
-			
-//			row.setLayoutParams(params.get(p));
 		}
 		
 		holder.checkBox.setOnClickListener(new OnClickListener()

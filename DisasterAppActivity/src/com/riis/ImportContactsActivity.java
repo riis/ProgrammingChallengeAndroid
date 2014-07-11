@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.riis.controllers.ImportedContactsAdapter;
+import com.riis.controllers.contactListSelection.ContactListSelectionAdapter;
 import com.riis.controllers.contactListSelection.ContactListSelectionItemClickListener;
 import com.riis.dagger.DaggerApplication;
 import com.riis.models.Contact;
@@ -42,7 +42,7 @@ public class ImportContactsActivity  extends Activity
         importButton = (Button) findViewById(R.id.saveImportedContactsButton);
         
 	    listView = (ListView) findViewById(R.id.importedContactsListView);        
-        listView.setAdapter(new ImportedContactsAdapter(this, importer.fetchContacts()));
+        listView.setAdapter(new ContactListSelectionAdapter(this, importer.fetchContacts(), "", getApplication()));
         listView.setOnItemClickListener(item);
         
         if(listView.getCount() == 0)
@@ -63,9 +63,9 @@ public class ImportContactsActivity  extends Activity
 		ArrayList<Contact> contacts = importer.fetchContacts();
 		ArrayList<Contact> imports = new ArrayList<Contact>();
 		
-		for(int i = 0; i < ((ImportedContactsAdapter) listView.getAdapter()).getChecked().size(); i++)
+		for(int i = 0; i < ((ContactListSelectionAdapter) listView.getAdapter()).getChecked().size(); i++)
 		{
-			if(((ImportedContactsAdapter) listView.getAdapter()).getChecked().get(i))
+			if(((ContactListSelectionAdapter) listView.getAdapter()).getChecked().get(i))
 			{
 				imports.add(contacts.get(i));
 			}

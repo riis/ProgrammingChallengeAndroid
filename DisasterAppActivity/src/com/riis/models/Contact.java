@@ -121,6 +121,7 @@ public class Contact extends BasePersistentModel
 		{
 			return false;
 		}
+		
 		open();			
 		ContentValues values = new ContentValues();
 		values.put("firstName", getFirstName());
@@ -258,7 +259,8 @@ public class Contact extends BasePersistentModel
 	private boolean isFieldEmpty() 
 	{
 		if(firstName.isEmpty() || lastName.isEmpty() 
-				|| emailAddress.isEmpty() || phoneNumber.isEmpty())
+//				|| emailAddress.isEmpty()
+				|| phoneNumber.isEmpty())
 		{
 			return true;
 		}

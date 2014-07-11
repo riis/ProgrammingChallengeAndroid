@@ -6,10 +6,8 @@ import javax.inject.Inject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -65,17 +63,11 @@ public class ImportContactsActivity  extends Activity
 		ArrayList<Contact> contacts = importer.fetchContacts();
 		ArrayList<Contact> imports = new ArrayList<Contact>();
 		
-		for(int i = 0; i < listView.getCount(); i++)
+		for(int i = 0; i < ((ImportedContactsAdapter) listView.getAdapter()).getChecked().size(); i++)
 		{
-			if(listView.getChildAt(i) != null)
+			if(((ImportedContactsAdapter) listView.getAdapter()).getChecked().get(i))
 			{
-				Log.i("in if statement", i+"");
-				CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-
-				if(checkBox.isChecked())
-				{
-					imports.add(contacts.get(i));
-				}
+				imports.add(contacts.get(i));
 			}
 		}
 		

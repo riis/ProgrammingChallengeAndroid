@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -71,10 +70,9 @@ public class CreateContactListsActivity extends Activity
 			}
 			else
 			{
-				for(int i = 0; i < listView.getCount(); i++)
+				for(int i = 0; i < ((ContactListSelectionAdapter) listView.getAdapter()).getChecked().size(); i++)
 				{
-					CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-					if(checkBox.isChecked())
+					if(((ContactListSelectionAdapter) listView.getAdapter()).getChecked().get(i))
 					{
 						ContactReference ref = new ContactReference(this);
 						ref.setContactListId(list.getId());

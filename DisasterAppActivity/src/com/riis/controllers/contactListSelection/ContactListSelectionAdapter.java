@@ -6,14 +6,12 @@ import javax.inject.Inject;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.riis.R;
@@ -27,9 +25,9 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 {
 	private Context context;
 	private String name;
-	private int position;
 	private ArrayList<Contact> values;
 	private ArrayList<Boolean> checked = new ArrayList<Boolean>();
+	private ArrayList<ViewHolder> holders = new ArrayList<ViewHolder>();
 	@Inject ContactList list;
 	
 	private static class ViewHolder
@@ -55,37 +53,69 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 	@Override
 	public View getView(int position, View row, ViewGroup parent)
 	{
-		this.position = position;
-		Log.i("position", position +"");
+		final int p = position;
 		ViewHolder holder = null;
 		if(row == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.select_contacts_list_item, parent, false);
 			holder = new ViewHolder();
+
 			holder.contactName = (TextView) row.findViewById(R.id.selectContactListName);
-			holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
-			holder.phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
-			holder.checkBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
-			
 			holder.contactName.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+			
+			holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
 			holder.emailView.setText(values.get(position).getEmailAddress());
+			
+			holder.phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
 			holder.phoneView.setText(values.get(position).getPhoneNumber());
+			
+			holder.checkBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+			checked.add(false);
+			
+			holders.add(position, holder);
 			
 			row.setTag(holder);
 		}
 		else
 		{
-			holder = (ViewHolder) row.getTag();
-			holder.checkBox.setChecked(true);
+			if(holder == null)
+			{
+				holder = new ViewHolder();
+				
+				holder.contactName = (TextView) row.findViewById(R.id.selectContactListName);
+				holder.contactName.setText(values.get(position).getFirstName() +" "+ values.get(position).getLastName());
+				
+				holder.emailView = (TextView) row.findViewById(R.id.selectContactListEmail);
+				holder.emailView.setText(values.get(position).getEmailAddress());
+				
+				holder.phoneView = (TextView) row.findViewById(R.id.selectContactListPhoneNumber);
+				holder.phoneView.setText(values.get(position).getPhoneNumber());
+				
+				holder.checkBox = (CheckBox) row.findViewById(R.id.selectContactCheckBox);
+				checked.add(false);
+				
+				holders.add(position, holder);
+				
+				row.setTag(holder);
+			}
+			
+			holder = holders.get(position);
+			holder.checkBox.setChecked(checked.get(p));
+			row.setTag(holder);
 		}
 		
-		holder.checkBox.setOnCheckedChangeListener(new ContactListCheckBoxSelectionChangeListener(position, checked));
+		holder.checkBox.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				checked.set(p, !checked.get(p));
+			}
+		});
 		
 		if(!name.equals(""))
 		{
-			holder.checkBox.setChecked(false);
-			
 			list.setName(name);
 			list.read();
 			
@@ -94,6 +124,7 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 				if(values.get(position).getId() == list.getContact(i).getId())
 				{
 					holder.checkBox.setChecked(true);
+					checked.set(p, true);
 				}
 			}
 		}
@@ -101,9 +132,8 @@ public class ContactListSelectionAdapter extends ArrayAdapter<Contact>
 		return row;
 	}
 	
-	public void setToggleList(ArrayList<Boolean> list)
+	public ArrayList<Boolean> getChecked()
 	{
-        this.checked = list;
-        notifyDataSetChanged();
-    }
+		return checked;
+	}
 }

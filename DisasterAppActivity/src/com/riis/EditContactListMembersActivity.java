@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -90,46 +89,47 @@ public class EditContactListMembersActivity extends Activity
 	{
 		for(int i = 0; i < list.size(); i++)
 		{
-			CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.selectContactCheckBox);
-			
 			ContactReference ref = new ContactReference(getApplicationContext());
 			ref.setContactListId(contactList.getId());
 			ref.setContactId(list.getContact(i).getId());
 			boolean exists = ref.read();
 			
-			if(checkBox.isChecked())
+			if(i < ((ContactListSelectionAdapter) listView.getAdapter()).getChecked().size())
 			{
-				if(exists)
+				if(((ContactListSelectionAdapter) listView.getAdapter()).getChecked().get(i))
 				{
-					ref.update();
+					if(exists)
+					{
+						ref.update();
+					}
+					else
+					{
+						ref.create();
+					}
+					
+					ResponseMessage response = new ResponseMessage(getApplicationContext());
+					response.setReferenceId(ref.getId());
+			        response.setMessageContents(" Are you OK?");
+
+			        if(response.read())
+			        {
+			        	response.update();
+			        }
+			        else
+			        {
+			        	response.create();
+			        }
 				}
 				else
 				{
-					ref.create();
-				}
-				
-				ResponseMessage response = new ResponseMessage(getApplicationContext());
-				response.setReferenceId(ref.getId());
-		        response.setMessageContents(" Are you OK?");
-
-		        if(response.read())
-		        {
-		        	response.update();
-		        }
-		        else
-		        {
-		        	response.create();
-		        }
-			}
-			else
-			{
-				if(exists)
-				{
-					ResponseMessage response = new ResponseMessage(getApplicationContext());
-					response.setReferenceId(ref.getId());
-					response.read();
-					response.delete();
-					ref.delete();
+					if(exists)
+					{
+						ResponseMessage response = new ResponseMessage(getApplicationContext());
+						response.setReferenceId(ref.getId());
+						response.read();
+						response.delete();
+						ref.delete();
+					}
 				}
 			}
 		}

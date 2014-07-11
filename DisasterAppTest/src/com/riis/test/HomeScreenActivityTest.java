@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.riis.AboutActivity;
 import com.riis.ContactDetailsActivity;
 import com.riis.CreateContactListsActivity;
 import com.riis.DisasterAppActivity;
@@ -107,6 +108,18 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Dis
 		ActivityMonitor monitor = getInstrumentation().addMonitor(ViewResponseMessagesActivity.class.getName(), null, true);
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
 		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.viewResponseMessagesItem, 0);
+		
+		monitor.waitForActivityWithTimeout(1000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
+	
+	public void testAboutButtonIntent()
+	{
+		ActivityMonitor monitor = getInstrumentation().addMonitor(AboutActivity.class.getName(), null, true);
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		getInstrumentation().invokeMenuActionSync(disasterAppActivity, R.id.aboutItem, 0);
 		
 		monitor.waitForActivityWithTimeout(1000);
 		assertEquals(1, monitor.getHits());

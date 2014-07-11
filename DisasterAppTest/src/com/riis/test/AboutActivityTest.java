@@ -1,8 +1,11 @@
 package com.riis.test;
 
+import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,7 +37,6 @@ public class AboutActivityTest extends ActivityInstrumentationTestCase2<AboutAct
 		super.setUp();
 		context = this.getInstrumentation().getTargetContext().getApplicationContext();
 		
-
 		Intent intent = new Intent(context, DisasterAppActivity.class);
 		setActivityIntent(intent);
 		aboutActivity = getActivity();
@@ -48,8 +50,6 @@ public class AboutActivityTest extends ActivityInstrumentationTestCase2<AboutAct
 		readMessagesAboutIcon = (TextView) aboutActivity.findViewById(R.id.readMessagesAboutIcon);
 		readMessagesAboutLabel = (TextView) aboutActivity.findViewById(R.id.readMessagesAboutLabel);
 		returnToMainScreenButton = (Button) aboutActivity.findViewById(R.id.returnToMainScreenButton);
-		
-		
 	}
 	
 	protected void tearDown() throws Exception
@@ -57,12 +57,12 @@ public class AboutActivityTest extends ActivityInstrumentationTestCase2<AboutAct
 		super.tearDown();
 	}
 	
-	public void testaddContactIconExists()
+	public void testAddContactIconExists()
 	{
 		assertNotNull(addContactAboutIcon);
 	}
 	
-	public void testaddContactLabelExists()
+	public void testAddContactLabelExists()
 	{
 		assertNotNull(addContactAboutLabel);
 	}
@@ -77,31 +77,40 @@ public class AboutActivityTest extends ActivityInstrumentationTestCase2<AboutAct
 		assertNotNull(addListAboutLabel);
 	}
 	
-	public void testimportContactsAboutIconExists()
+	public void testImportContactsAboutIconExists()
 	{
 		assertNotNull(importContactsAboutIcon);
 	}
 	
-	public void testimportContactsAboutLabelExists()
+	public void testImportContactsAboutLabelExists()
 	{
 		assertNotNull(importContactsAboutLabel);
 	}
 	
-	public void testreadMessagesAboutIconExists()
+	public void testReadMessagesAboutIconExists()
 	{
 		assertNotNull(readMessagesAboutIcon);
 	}
 	
-	public void testreadMessagesAboutLabelExists()
+	public void testReadMessagesAboutLabelExists()
 	{
 		assertNotNull(readMessagesAboutLabel);
 	}
 	
-	public void testreturnToMainScreenButtonExists()
+	public void testReturnToMainScreenButtonExists()
 	{
 		assertNotNull(returnToMainScreenButton);
 	}
 	
-	
-
+	public void testGoToHomeScreen()
+	{
+		ActivityMonitor monitor = getInstrumentation().addMonitor(DisasterAppActivity.class.getName(), null, true);
+		
+		TouchUtils.clickView(this, returnToMainScreenButton);
+		
+		monitor.waitForActivityWithTimeout(1000);
+		assertEquals(1, monitor.getHits());
+		
+		getInstrumentation().removeMonitor(monitor);
+	}
 }

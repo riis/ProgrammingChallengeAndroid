@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 public class ContactImporter 
 {
@@ -40,21 +39,30 @@ public class ContactImporter
 			newContact.parseName(name);
 			
 			Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-					ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?", new String[] {contact_id}, null); 
-			while (emailCursor.moveToNext()) 
+					ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?", new String[] {contact_id}, null);
+			emailCursor.moveToFirst();
+			while (!emailCursor.isAfterLast()) 
 			{
 				email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
 				newContact.setEmailAddress(email);
+				emailCursor.moveToNext();
 			}
-
 			emailCursor.close();
-		
+			
 			Cursor phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 					ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?", new String[] {contact_id}, null); 
-			while (phoneCursor.moveToNext()) 
+			
+			phoneCursor.moveToFirst();
+			while (!phoneCursor.isAfterLast()) 
 			{	
-				phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)).substring(2);
-				newContact.setPhoneNumber(phoneNumber);
+				phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER));
+				if(phoneNumber != null)
+				{
+					phoneNumber = phoneNumber.substring(2);
+					newContact.setPhoneNumber(phoneNumber);
+				}
+				
+				phoneCursor.moveToNext();
 			}
 		    
 			phoneCursor.close();

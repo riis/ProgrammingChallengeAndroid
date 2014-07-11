@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -329,6 +330,12 @@ public class EditContactDetailsActivityTest extends ActivityInstrumentationTestC
 			e.printStackTrace();
 		}
 		assertEquals("Email Address", secondFragmentSpinner.getSelectedItem().toString());
+	}
+	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelButton);
+		assertTrue(contactDetailsActivity.isFinishing());
 	}
 	
 	public void testValidFirstName()

@@ -154,4 +154,10 @@ public class CloneContactListActivityTest extends ActivityInstrumentationTestCas
 	{
 		assertEquals(View.GONE,cloneButton.getVisibility());
 	}
+	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelCreateContactListButton);
+		assertTrue(contactListsActivity.isFinishing());
+	}
 }

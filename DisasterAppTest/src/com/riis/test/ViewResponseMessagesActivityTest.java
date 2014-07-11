@@ -99,6 +99,12 @@ public class ViewResponseMessagesActivityTest extends ActivityInstrumentationTes
 		assertNotNull(returnToMainScreenButton);
 	}
 	
+	public void testHomeButtonIntent()
+	{
+		TouchUtils.clickView(this, returnToMainScreenButton);
+		assertTrue(viewResponseMessagesActivity.isFinishing());
+	}
+	
 //	public void testSortingContactByTimeStamp()
 //	{
 //		Contact secondContact = new Contact(context);

@@ -104,4 +104,10 @@ public class ImportContactsActivityTest extends ActivityInstrumentationTestCase2
 		
 		assertEquals(expandedLayout, visiblility);
 	}
+	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelButton);
+		assertTrue(importContactsActivity.isFinishing());
+	}
 }

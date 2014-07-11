@@ -3,6 +3,7 @@ package com.riis.test;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -109,5 +110,11 @@ public class SendEmergencyMessageActivityTest extends ActivityInstrumentationTes
 		}
 		
 		assertEquals(98, Integer.parseInt(characterCountLabel.getText().toString()));
+	}
+	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelEmergencyMessageButton);
+		assertTrue(sendEmergencyMessageActivity.isFinishing());
 	}
 }

@@ -137,4 +137,10 @@ public class EditContactListMembersActivityTest extends ActivityInstrumentationT
 	{
 		assertNotNull(cloneButton);
 	}
+	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelCreateContactListButton);
+		assertTrue(editContactListMembersActivity.isFinishing());
+	}
 }

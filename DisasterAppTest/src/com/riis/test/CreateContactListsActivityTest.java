@@ -157,6 +157,12 @@ public class CreateContactListsActivityTest extends ActivityInstrumentationTestC
 		assertEquals(View.GONE,cloneButton.getVisibility());
 	}
 	
+	public void testCancelButtonIntent()
+	{
+		TouchUtils.clickView(this, cancelCreateContactListButton);
+		assertTrue(contactListsActivity.isFinishing());
+	}
+	
 //	public void testCreateContactList()
 //	{
 //		ContactList list = new ContactList(context);
